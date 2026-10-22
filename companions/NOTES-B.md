@@ -2,7 +2,7 @@
 
 Build: `tectonic -k --keep-logs paper-B.tex`. Result: 23 pages, no LaTeX/package warnings, no undefined
 references, no overfull boxes, `pdftotext paper-B.pdf - | grep -c '??'` = 0. All three aux files
-(`../annals/main.aux`, `paper-A.aux`, `paper-C.aux`) are present, so there is no missing-aux warning.
+(`../main/main.aux`, `paper-A.aux`, `paper-C.aux`) are present, so there is no missing-aux warning.
 
 One `Underfull \vbox (badness 1571)` remains on page 22: the page ends after Question 5.1 and the
 "Statement on the use of AI" heading moves to page 23. It is not caused by these edits (a rebuild with the

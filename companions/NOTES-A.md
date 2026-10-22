@@ -26,7 +26,7 @@ Status (22 Oct 2026): builds cleanly with `tectonic -k --keep-logs paper-A.tex`.
 - **Flagged spot.** The bare reference was in `\cite[Sections~\ref{M-subsec:collision-rate}--\ref{M-subsec:collision-proof}]{Main}`, in the first sentence of the proof of Theorem 4.1. It now reads "We go through the proof of [M, Theorem 9.1], which runs from [M, Section 9.2] to [M, Section 9.5], and bound each constant." This also removed the build's only warning. With xr-hyper and hyperref under xetex, two external `\ref`s inside one `\cite[...]` raise "hyperref Warning: Invalid page number (0) for remote PDF file": `\Hy@MakeRemoteAction` sets `\Hy@href@page` to 0 without a group. **Other agents: avoid two `M-` refs inside one `\cite[...]`.**
 - FIXME: none found. Self-citations (`CompA`): none.
 
-## Notation aligned with [M] (checked against annals/main.tex)
+## Notation aligned with [M] (checked against main/main.tex)
 - Expected number of zeros of q in the upper half-disk: kappa(r) is now \varkappa(r). This covers 7 occurrences in Section 4.2 (proof of Theorem `thm:gap` and the paragraph and display before `eq:Rsmall`) and Section 4.3 (proof of `lem:collision-smallball`(a)).
 - Radius of convergence of q: R is now rho_q. Section 4.1 setting: "(G1)--(G3) with rho_q >= 1" and "zeros of q in {|u|<rho_q}". Step 1: "1 <= rho_q". Proof of `thm:Dtail`: "hold with rho_q = 1".
 - The other renamed symbols do not occur in the text of [A]: varpi (now vartheta), the quadrature nodes xi_i (now x_i), kappa_* (now c_{12}), and the moduli G_{mn} and G(m). G_{mn} occurred only in the deleted commented block. G_j in the proof of `lem:bulk-explicit` is [M]'s transfer matrix, which is unchanged in [M] (line 501).

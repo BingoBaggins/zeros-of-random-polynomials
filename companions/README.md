@@ -1,12 +1,12 @@
-# Companion papers to annals/main.tex — assembled 22 October 2026
+# Companion papers to main/main.tex — assembled 22 October 2026
 
-Three papers holding the material cut from the five drafts in `../paper/` when `../annals/main.tex` ([M]) was formed
-(see `../paper/ANNALS-PLAN.md`, Section 5). Author B. Baggins. Each builds with
+Three papers holding the material cut from earlier drafts when `../main/main.tex` ([M]) was formed. Author
+B. Baggins. Each builds with
 
-    cd companions && tectonic -k --keep-logs paper-X.tex
+    cd companions && tectonic -X compile --keep-logs --keep-intermediates paper-X.tex
 
-Build all three twice: they cite each other and [M] through xr-hyper (`\externaldocument[M-]{../annals/main}`,
-`[A-]{paper-A}`, …), so the aux files must be current. State at assembly: no warnings, no undefined references,
+Build all three twice: they cite each other and [M] through xr-hyper (`\externaldocument[M-]{../main/main}`,
+`[A-]{paper-A}`, …), so the aux files must be current, and `../main/main.aux` must exist: build [M] first. State at assembly: no warnings, no undefined references,
 no `??` in the text; paper B has one harmless underfull box on page 22.
 
 | Paper | File | Pages | Contents (source sections) |
@@ -22,5 +22,5 @@ remaining `TODO(author)` items. Labels keep their original names, so the sources
 Cross-paper labels that must survive edits: [C] and [B] cite [A]'s `thm:quant`, `thm:quant-main`, `thm:rate`,
 `def:condition`, `lem:outer`, `lem:bulk-explicit`, `eq:bulk-explicit`.
 
-Not changed: `../annals/main.tex` still lists [A], [B], [C] as "in preparation"; the companions cite each other
+Not changed: `../main/main.tex` still lists [A], [B], [C] as "in preparation"; the companions cite each other
 and [M] as "preprint (2026)".
