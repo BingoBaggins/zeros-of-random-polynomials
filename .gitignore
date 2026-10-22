@@ -10,4 +10,4 @@ __pycache__/
 # verification logs are results, keep them
 !verification/results/*.log
 # submission package, rebuilt from main/ and verification/
-hexagon-submission.zip
+hexagon-*.zip
