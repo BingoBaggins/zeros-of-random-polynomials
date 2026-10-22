@@ -2,7 +2,7 @@
  "script": "part3b_firstorder",
  "passed": 16,
  "failed": 0,
- "seconds": 146.7,
+ "seconds": 145.7,
  "checks": [
   {
    "label": "(G1)-(G3)",

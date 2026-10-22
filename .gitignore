@@ -9,3 +9,5 @@ __pycache__/
 *.xdv
 # verification logs are results, keep them
 !verification/results/*.log
+# submission package, rebuilt from main/ and verification/
+hexagon-submission.zip

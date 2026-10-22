@@ -11,4 +11,4 @@
 [PASS] rem:bernoulli-general: P has exactly two real roots (Sturm), hence one pair of simple nonreal roots  (exact rational arithmetic)  -- real roots: 2
 [PASS] rem:bernoulli-general: the nonreal roots are 0.08879 +- 0.00176 i as printed  (numerical (floating point))  -- (0.088790337 - 0.0017573251j), (0.088790337 + 0.0017573251j)
 [PASS] rem:bernoulli-general: every Pfaffian used (27) is of an antisymmetric matrix and satisfies Pf^2 = det  (exact rational arithmetic)
-== part4_exact_checks: 13 passed, 0 failed, 129.7 s
+== part4_exact_checks: 13 passed, 0 failed, 99.4 s

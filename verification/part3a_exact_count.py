@@ -18,6 +18,10 @@ QUICK = "--quick" in sys.argv
 R = Report("part3a_exact_count")
 NS = [10, 20, 40, 80, 160, 320, 400] if not QUICK else [10, 40, 160]
 NS_EXTRA = {"S2": [600, 800, 1200] if not QUICK else [], "S3": [600, 800] if not QUICK else []}
+# in --quick mode the degrees stop at 160, below the observed onset for S2 and S3, so the eventual counts are reported,
+# not judged
+judge = R.check if not QUICK else (lambda label, desc, ok, method, detail="":
+                                   R.info(label, desc + " [quick mode: not judged]", detail, method))
 
 
 def rational_series(num, pole, nmax):
@@ -108,7 +112,7 @@ for name, (coeffs, zeros, rad) in symbols.items():
         if all(good[i:]):
             n_obs = rows[i]["n"]
             break
-    R.check("thm:main", f"{name}: the certified number of nonreal zeros of Q_n equals the number ({k_nonreal}) of nonreal "
+    judge("thm:main", f"{name}: the certified number of nonreal zeros of Q_n equals the number ({k_nonreal}) of nonreal "
             f"zeros of a in D for all tested n >= n_obs (observed onset reported; the theorem only asserts some n_0)",
             allok and n_obs is not None and good[-1] and good[-2], INTERVAL,
             f"n_obs = {n_obs}; " + "; ".join(f"n={r_['n']}: {r_['real']}R+{r_['nonreal']}C" for r_ in rows))

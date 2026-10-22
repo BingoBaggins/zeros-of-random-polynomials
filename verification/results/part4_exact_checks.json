@@ -2,7 +2,7 @@
  "script": "part4_exact_checks",
  "passed": 13,
  "failed": 0,
- "seconds": 129.7,
+ "seconds": 99.4,
  "checks": [
   {
    "label": "rem:bernoulli-general",

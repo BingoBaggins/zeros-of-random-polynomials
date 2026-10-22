@@ -33,4 +33,4 @@
 [PASS] thm:main: S3 = q(5w/6), q Gaussian sample (seed 4): the certified number of nonreal zeros of Q_n equals the number (4) of nonreal zeros of a in D for all tested n >= n_obs (observed onset reported; the theorem only asserts some n_0)  (interval arithmetic (Arb))  -- n_obs = 80; n=10: 10R+0C; n=20: 18R+2C; n=40: 38R+2C; n=80: 76R+4C; n=160: 156R+4C; n=320: 316R+4C; n=400: 396R+4C; n=600: 596R+4C; n=800: 796R+4C
 [INFO] thm:main(a),(b): S3 = q(5w/6), q Gaussian sample (seed 4): n x (distance from zeta_i to the nearest zero) and bulk overshoot, n=800  -- [2.832, 2.832, 2.071, 2.071]; overshoot 0.0
 [PASS] thm:main: cross-check: Arb isolation of all roots of the monomial-basis Q_n (n=10,20,40, S1 and S2) gives the same nonreal counts  (interval arithmetic (Arb))  -- S1 n=10: 2; S1 n=20: 2; S1 n=40: 2; S2 n=10: 4; S2 n=20: 10; S2 n=40: 16
-== part3a_exact_count: 5 passed, 0 failed, 15.5 s
+== part3a_exact_count: 5 passed, 0 failed, 15.2 s

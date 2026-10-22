@@ -20,7 +20,7 @@ python3 -m venv .venv
 
 `run_all.py` runs the six scripts below, writes a log and a JSON file per script to `results/`, and writes
 `results/SUMMARY.md`. It exits nonzero if any check fails. A full run takes about 9 minutes on a laptop
-(`--quick` is a smoke test with smaller sizes, about 2 minutes; in it the asymptotic checks of Part 3b are reported but not judged). Tested with Python 3.14, SymPy 1.14, mpmath 1.3,
+(`--quick` is a smoke test with smaller sizes, about 2 minutes; in it the asymptotic checks of Parts 3a and 3b are reported but not judged). Tested with Python 3.14, SymPy 1.14, mpmath 1.3,
 python-flint 0.9 (Arb ball arithmetic), NumPy 2.5 and SciPy 1.18. All random inputs use fixed seeds.
 
 | script | content |

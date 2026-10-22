@@ -61,4 +61,4 @@
 [PASS] lem:secondorder(a): explicit bound at random points (ratio lhs/rhs must be <= 1)  (high-precision random points)  -- max ratio = 1.0
 [PASS] lem:secondorder(b): explicit bound at random points (ratio lhs/rhs must be <= 1)  (high-precision random points)  -- max ratio = 0.09135
 [PASS] lem:secondorder(c): explicit bound at random points (ratio lhs/rhs must be <= 1)  (high-precision random points)  -- max ratio = 0.0002268
-== part1_symbolic: 63 passed, 0 failed, 83.4 s
+== part1_symbolic: 63 passed, 0 failed, 84.3 s

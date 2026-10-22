@@ -2,7 +2,7 @@
  "script": "part3a_exact_count",
  "passed": 5,
  "failed": 0,
- "seconds": 15.5,
+ "seconds": 15.2,
  "checks": [
   {
    "label": "thm:main",

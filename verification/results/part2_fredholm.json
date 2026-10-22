@@ -2,7 +2,7 @@
  "script": "part2_fredholm",
  "passed": 29,
  "failed": 0,
- "seconds": 164.7,
+ "seconds": 163.4,
  "checks": [
   {
    "label": "rem:fredholm-num",

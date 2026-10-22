@@ -2,6 +2,16 @@
 
     python run_all.py            # full run (about 9 minutes on a laptop)
     python run_all.py --quick    # reduced sizes (about 2 minutes)
+
+Requirements (tested versions): Python 3.14, sympy 1.14.0, mpmath 1.3.0, python-flint 0.9.0 (Arb ball arithmetic),
+numpy 2.5.4, scipy 1.18.1.  All random inputs use fixed seeds.  The script exits nonzero if any check fails.
+
+Contents: part1_symbolic.py (symbolic identities), part2_constants.py (the onset n_s and the constants of
+prop:early, in interval arithmetic), part2_fredholm.py with fredholm_lib.py (the Fredholm determinant of
+prop:fredholm), part3a_exact_count.py with certify_lib.py (certified zero counts for thm:main), part3b_firstorder.py
+(Lambda_n against thm:firstorder-intro), part4_exact_checks.py (the exact computations of rem:bernoulli-general).
+Each check is labelled by the \\label of the statement in the paper.  results/ holds the JSON and log output of the
+last full run (140 checks passed, 0 failed).
 """
 import json
 import os

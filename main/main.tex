@@ -40,7 +40,6 @@
 \DeclareMathOperator{\arcosh}{arcosh}
 
 \title[The real-rooting time of heat-evolved random polynomials]{The real-rooting time of heat-evolved random polynomials}
-% TODO(author): address and e-mail.
 \author{B. Baggins}
 \date{Draft, October 2026}
 \subjclass[2020]{Primary 26C10, 60G55; Secondary 30B20, 30C15, 33C45, 35K05, 47B10, 60G15}
@@ -2522,9 +2521,7 @@ let $a_j=\pi b_j|1-z_j^2|$, and for $\delta>0$ let $\mathcal A_\delta$ be the un
 \]
 By \eqref{eq:ms-kernel} the coefficients of $P$ are rational numbers; numerically $P(\tau)=1-38.031\tau+534.81\tau^2-3288.5\tau^3+7440.7\tau^4$. Exact rational arithmetic shows that the discriminant of $P$ is negative, so $P$ has two simple real zeros and a pair of simple nonreal zeros, $\tau\approx0.08879\pm0.00176\,i$. By Hurwitz's theorem $\E s^{N_\delta}$, as a function of $\tau$, has a nonreal zero for all small $\delta$, whereas $\E s^N=\prod_k(1-p_k\tau/\delta^2)$ has only real zeros when $N$ is a sum of independent Bernoulli variables with parameters $p_k$. The argument gives no explicit range of $\delta$; numerically, for this configuration, the nonreal zeros persist up to $\delta=0.0275$ and are absent from $\delta=0.03$ on. As the coefficients of $P$ depend continuously on the $z_j$ and $a_j$, the conclusion also holds for all nearby configurations of four points and weights, symmetric or not.
 
-A similar computation shows that the zeros of $q$ in $\D^+$ do not form a determinantal point process with a Hermitian kernel $K$ (with respect to any reference measure, whose density can be absorbed into $K$). For such a process, $a_{ij}=\rho_1(z_i)\rho_1(z_j)-\rho_2(z_i,z_j)=|K(z_i,z_j)|^2$ and $T=\rho_3(z_1,z_2,z_3)-\rho_1(z_1)\rho_1(z_2)\rho_1(z_3)+\sum\rho_1(z_i)a_{jk}=2\re\bigl(K(z_1,z_2)K(z_2,z_3)K(z_3,z_1)\bigr)$, the sum over $\{i,j,k\}=\{1,2,3\}$, so $T^2\le4a_{12}a_{13}a_{23}$ almost everywhere. But the $\rho_n$ of \eqref{eq:ms-kernel} are continuous, and at $(z_1,z_2,z_3)=(-\frac3{20}+\frac i{20},\frac9{10}+\frac{7i}{50},-\frac{93}{100}+\frac{13i}{100})$ the ratio $T^2/(4a_{12}a_{13}a_{23})$ is a rational number equal to $3.9154\ldots$, so the inequality fails on a neighbourhood of this point. Both computations are computer-assisted, in exact rational arithmetic, by the Python program \texttt{part4\_exact\_checks.py} of the verification suite deposited with the paper (see the Statement on the use of AI).
-% TODO(author): say where the suite is deposited. The program is verification/part4_exact_checks.py, a port of parts A
-% and B of scripts/pv/exact_checks.py in the research folder of idea 106.
+A similar computation shows that the zeros of $q$ in $\D^+$ do not form a determinantal point process with a Hermitian kernel $K$ (with respect to any reference measure, whose density can be absorbed into $K$). For such a process, $a_{ij}=\rho_1(z_i)\rho_1(z_j)-\rho_2(z_i,z_j)=|K(z_i,z_j)|^2$ and $T=\rho_3(z_1,z_2,z_3)-\rho_1(z_1)\rho_1(z_2)\rho_1(z_3)+\sum\rho_1(z_i)a_{jk}=2\re\bigl(K(z_1,z_2)K(z_2,z_3)K(z_3,z_1)\bigr)$, the sum over $\{i,j,k\}=\{1,2,3\}$, so $T^2\le4a_{12}a_{13}a_{23}$ almost everywhere. But the $\rho_n$ of \eqref{eq:ms-kernel} are continuous, and at $(z_1,z_2,z_3)=(-\frac3{20}+\frac i{20},\frac9{10}+\frac{7i}{50},-\frac{93}{100}+\frac{13i}{100})$ the ratio $T^2/(4a_{12}a_{13}a_{23})$ is a rational number equal to $3.9154\ldots$, so the inequality fails on a neighbourhood of this point. Both computations are computer-assisted, in exact rational arithmetic, by the Python program \texttt{part4\_exact\_checks.py} of the verification suite in the ancillary files (see the Statement on the use of AI).
 \end{remark}
 
 
@@ -2554,14 +2551,9 @@ The companion papers leave their own questions: whether the rate $n^{-\alpha}$ i
 
 \raggedbottom
 \section*{Statement on the use of AI}
-% TODO(author): before submission, this statement must describe a line-by-line verification of every proof by the
-% author (see ANNALS-PLAN.md, Section 6, item 9). Its wording below is that of the companion drafts and is not yet true
-% of a verified manuscript.
 The proofs, computations and text of this paper were produced with AI systems from Anthropic, OpenAI and Google, directed by the author. The proofs were checked by independent AI referee rounds; no human expert has yet read them.
 
-Independently of these rounds, the algebraic identities, the explicit constants and several of the quantitative predictions were checked mechanically by a suite of Python programs deposited with the paper. The suite checks the identities of Sections~\ref{sec:prelim}--\ref{sec:transfer} and the window model of Section~\ref{sec:firstorder} symbolically. It encloses the onset $n_s$ and the constants of Proposition~\ref{prop:early}, and the values of $\det(I-X(r))$ reported in Remark~\ref{rem:fredholm-num}, in interval arithmetic. It certifies the zero counts of Theorem~\ref{thm:main} for three admissible symbols, and it carries out the exact computations of Remark~\ref{rem:bernoulli-general}. Finally, it computes $\Lambda_n$ by certified bisection in $t$ and compares $n(\Lambda_n-T_*)$ with Theorem~\ref{thm:firstorder-intro}. All checks pass, and every printed number that the suite recomputes is reproduced to the printed digits. The suite checks identities, constants and predictions, not the proofs themselves.
-% TODO(author): say where the suite is deposited (it is verification/ in the project folder; run_all.py, 140 checks,
-% last run 22 October 2026).
+Independently of these rounds, the algebraic identities, the explicit constants and several of the quantitative predictions were checked mechanically by a suite of Python programs, deposited with the paper as ancillary files (folder \texttt{anc/}; run \texttt{run\_all.py}). The suite checks the identities of Sections~\ref{sec:prelim}--\ref{sec:transfer} and the window model of Section~\ref{sec:firstorder} symbolically. It encloses the onset $n_s$ and the constants of Proposition~\ref{prop:early}, and the values of $\det(I-X(r))$ reported in Remark~\ref{rem:fredholm-num}, in interval arithmetic. It certifies the zero counts of Theorem~\ref{thm:main} for three admissible symbols, and it carries out the exact computations of Remark~\ref{rem:bernoulli-general}. Finally, it computes $\Lambda_n$ by certified bisection in $t$ and compares $n(\Lambda_n-T_*)$ with Theorem~\ref{thm:firstorder-intro}. All checks pass, and every printed number that the suite recomputes is reproduced to the printed digits. The suite checks identities, constants and predictions, not the proofs themselves.
 
 \begin{thebibliography}{99}
 % TODO(author): pinpoints carried over from the companion drafts that were not checked against the sources: the
