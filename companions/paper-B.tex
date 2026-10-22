@@ -1,0 +1,783 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theoremA}{Theorem}
+\renewcommand{\thetheoremA}{A}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\He}{\mathrm{He}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arcosh}{arcosh}
+
+
+\externaldocument[M-]{../annals/main}
+\externaldocument[A-]{paper-A}
+\externaldocument[C-]{paper-C}
+
+\title{Nonreal zeros of heat-evolved Weyl polynomials near the collapse time}
+% TODO(author): address and e-mail.
+\author{B. Baggins}
+\date{Draft, October 2026}
+\subjclass[2020]{Primary 30C15, 33C45, 60G15; Secondary 26C10, 34E20, 35K05, 41A60}
+\keywords{Heat flow, nonreal zeros, Weyl polynomials, random power series, Hermite polynomials, ratio asymptotics, Liouville--Green approximation, Weber's equation}
+
+\begin{document}
+
+\begin{abstract}
+Let $G_{n,t}=\exp(-\frac{t}{2n}\partial_z^2)G_n$ be the real Weyl polynomial of degree $n$ with independent standard Gaussian coefficients, evolved under the backward heat flow. Hall, Ho, Jalowy and Kabluchko showed that its empirical zero distribution collapses onto the real line at $t=1$. In a coupling of the degrees that shares the top coefficients $\eta_0,\eta_1,\dots$, the main paper to which this one is a companion shows that for each fixed $t>1$, almost surely for all large $n$, the nonreal zeros of $G_{n,t}$ correspond one to one to the nonreal zeros of the Gaussian power series $q(w)=\sum_j\eta_jw^j$ in the disk $\{|w|<t^{-1/2}\}$. We let $t_n=1+s_nn^{-1/3}$ tend to $1$. If $s_n/(\log n)^{5/4}\to\infty$, then with probability tending to $1$ the polynomial at time $t_n$ has at least as many nonreal zeros as $q$ has in $\{|w|<t_n^{-1/2}\}$, and the excess is the number of its nonreal zeros in an explicit set: a strip about the bulk of $[-2\sqrt{t_n},2\sqrt{t_n}]$, of height of order $(\log n)/n$ away from the edges, together with two disks of radius of order $s_n^{6/5}n^{-2/3}$ about the edges. Moreover, with probability tending to $1$ the strip carries no nonreal zero, so that the exact count is reduced to the two edge regions. The proof compares the polynomial, in Joukowski coordinates, with $q$ on a contour that approaches the unit circle to within a distance of order $(\log n)/n$ in the bulk. It rests on a bound, of independent interest, for the ratio $h_{m-1}(\sqrt m\,\zeta)/h_m(\sqrt m\,\zeta)$ of consecutive orthonormal Hermite polynomials for $\zeta$ near the cut $[-2,2]$, under a threshold on the distance to the cut that is logarithmic and sharp up to a constant factor; it is proved with Olver's error bounds for the Liouville--Green approximation of Weber's equation. For the strip, each Hermite polynomial is split into its two parts recessive at $\mp i\infty$, and a reflection argument replaces the comparison.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+\subsection{Heat-evolved Weyl polynomials}
+Let $\xi_0,\xi_1,\dots$ be independent standard real Gaussian random variables and let
+\begin{equation}\label{eq:weyl}
+G_n(z)=\sum_{k=0}^{n}\xi_k\frac{(\sqrt n\,z)^k}{\sqrt{k!}}
+\end{equation}
+be the real Weyl polynomial of degree $n$, whose zeros are asymptotically uniformly distributed in the unit disk. Let it evolve under the backward heat flow,
+\begin{equation}\label{eq:heat}
+G_{n,t}=\exp\Bigl(-\frac{t}{2n}\,\partial_z^2\Bigr)G_n=\sum_{i\ge0}\frac1{i!}\Bigl(-\frac{t}{2n}\Bigr)^{i}\partial_z^{2i}G_n,\qquad t\ge0,
+\end{equation}
+a finite sum. Hall, Ho, Jalowy and Kabluchko \cite[Theorem~2.1]{HHJK} proved (for much more general coefficients) that the empirical distribution of the zeros of $G_{n,t}$ converges in probability to the uniform distribution on the ellipse $\{x^2/(1+t)^2+y^2/(1-t)^2\le1\}$ for $0\le t<1$, and to the semicircle law on $[-2\sqrt t,2\sqrt t]$ for $t\ge1$. Macroscopically the zeros thus become real at time $1$. The number of nonreal zeros of $G_{n,t}$ does not increase with $t$, since $\exp(-\alpha\partial_z^2)$, $\alpha\ge0$, does not increase the number of nonreal zeros of a real polynomial, a classical fact going back to Laguerre and P\'olya \cite[Lemma~\ref{M-lem:heat}(b)]{Main}. Weak convergence of empirical measures cannot see a bounded number of nonreal zeros. This paper counts the nonreal zeros of $G_{n,t}$ at times $t$ that tend to $1$ from above as $n\to\infty$.
+
+\subsection{The heat flow in Hermite coordinates}
+Let $\eta_0,\eta_1,\dots$ be independent standard Gaussian variables and
+\begin{equation}\label{eq:kac}
+q(w)=\sum_{j\ge0}\eta_jw^j ,
+\end{equation}
+the \emph{Gaussian power series}, which almost surely has radius of convergence $1$; we write $\D=\{|w|<1\}$. As in \cite{Main}, define the \emph{reversed} Weyl polynomials and their heat evolutions
+\begin{equation}\label{eq:reversed}
+P_n(z)=\sum_{k=0}^{n}\eta_{n-k}\frac{(\sqrt n\,z)^k}{\sqrt{k!}},\qquad P_{n,t}=\exp\Bigl(-\frac{t}{2n}\partial_z^2\Bigr)P_n .
+\end{equation}
+For each $n$ the vector $(\eta_n,\dots,\eta_0)$ has the law of $(\xi_0,\dots,\xi_n)$, so $(P_{n,t})_{t\ge0}$ has the law of $(G_{n,t})_{t\ge0}$; only the coupling between different degrees differs, since the top coefficients $\eta_0,\eta_1,\dots$ are shared by all degrees. Let $\He_k$ be the probabilists' Hermite polynomials and $h_k=\He_k/\sqrt{k!}$ the orthonormal polynomials for the standard Gaussian measure. Since $\exp(-\frac12\partial_x^2)x^k=\He_k(x)$, one finds (\cite[Lemma~\ref{M-lem:heat}(a)]{Main}; see also \cite[\eqref{M-eq:PQ}]{Main}) that for $t>0$
+\begin{equation}\label{eq:PQ}
+P_{n,t}(z)=t^{n/2}\,Q_n^{(t)}\bigl(\sqrt n\,z/\sqrt t\bigr),\qquad Q_n^{(t)}=\sum_{j=0}^{n}\eta_jt^{-j/2}h_{n-j}.
+\end{equation}
+So $Q_n^{(t)}$ is the combination of Hermite polynomials whose coefficients are those of the power series $a^{(t)}(w)=q(w/\sqrt t)$, which has radius of convergence $\sqrt t>1$ when $t>1$. As in \cite[Definition~\ref{M-def:admissible}]{Main}, a power series $a(w)=\sum_{j\ge0}a_jw^j$ is \emph{admissible} if its coefficients are real, its radius of convergence is greater than $1$, $a(0)\neq0$, $a$ has no zeros on the unit circle, and all zeros of $a$ in $\D$ are simple. An admissible $a$ has finitely many zeros $w_1,\dots,w_k$ in $\D$; they are nonzero, and the set is closed under complex conjugation. Let $\zeta_i=w_i+w_i^{-1}$.
+
+\begin{theoremA}[{\cite[Theorem~\ref{M-thm:main}]{Main}}]\label{thm:A}
+Let $a$ be admissible, with zeros $w_1,\dots,w_k$ in $\D$, and let
+\[
+Q_n(x)=\sum_{j=0}^{n}a_j\,h_{n-j}(x).
+\]
+For every sufficiently small $\eps>0$ there is $n_0$ such that for every $n\ge n_0$ all zeros of the polynomial $z\mapsto Q_n(\sqrt n\,z)$ are simple, and they are:
+\begin{enumerate}
+\item[(a)] for each $i$, exactly one zero in the disk $|z-\zeta_i|<\eps$, which is real if $w_i$ is real and nonreal if $w_i$ is nonreal;
+\item[(b)] $n-k$ further zeros, all real and lying in $(-2-\eps,2+\eps)$.
+\end{enumerate}
+In particular, for all large $n$ the number of nonreal zeros of $Q_n$ equals the number of nonreal zeros of $a$ in $\D$.
+\end{theoremA}
+
+For a fixed $t>1$, \cite[Theorem~\ref{M-thm:heat}]{Main} deduces from Theorem~\ref{thm:A}, applied to $a^{(t)}$, that almost surely, for every sufficiently small $\eps>0$ and all sufficiently large $n$, all zeros of $P_{n,t}$ are simple, for each nonreal zero $u$ of $q$ with $|u|<t^{-1/2}$ exactly one zero of $P_{n,t}$ lies within distance $\eps$ of $tu+u^{-1}$, and all other zeros of $P_{n,t}$ are real (for Gaussian coefficients every $t>1$ is allowed there). The same theorem shows that the real-rooting time $\Lambda_n=\inf\{t\ge0:P_{n,t}\text{ has only real zeros}\}$ converges almost surely to $R_*^{-2}$, where $R_*$ is the smallest modulus of a nonreal zero of $q$. Under the standard coupling, in which one sequence $(\xi_k)$ serves for every degree, the real-rooting time of $G_{n,t}$ converges in law to $R_*^{-2}$ \cite[Theorem~\ref{M-cor:weyl}]{Main}; the final collision of zeros at time $\Lambda_n$ and its first-order law are described in \cite[Section~\ref{M-sec:collision}]{Main} and \cite[Section~\ref{M-sec:firstorder}]{Main}.
+
+\subsection{Times close to \texorpdfstring{$1$}{1}}\label{sec:intro-near1}
+The onset degree in this description is not uniform as $t\downarrow1$: the zeros of $a^{(t)}$ accumulate at the circle of radius $\sqrt t$, which approaches the unit circle. We now let $t=t_n$ tend to $1$. Let $N_n(t)$ be the number of nonreal zeros of $P_{n,t}$ and $N_q(r)$ the number of nonreal zeros of $q$ in $\{|u|<r\}$, counted with multiplicity. Numerically, the description above persists as long as $(t_n-1)n^{1/3}\to\infty$ (Question~\ref{q:window}). Heuristically, the scale $n^{-1/3}$ comes from the points $\pm(1-\beta)$ of $\D$: there the comparison of $Q_n^{(t)}/h_n$ with $a^{(t)}$ in Joukowski coordinates has an error whose standard deviation is of order $(n\beta^3)^{-1}$ times that of $a^{(t)}$ (Proposition~\ref{prop:near1-vertex} and Remark~\ref{rem:near1-vertex}), so that it fails for $\beta\lesssim n^{-1/3}$. The next theorem proves the lower half of this picture, for counts, at the scale $n^{-1/3}$ up to a power of $\log n$.
+
+\begin{theorem}[Times close to $1$]\label{thm:window-intro}
+Let $q$ be the Gaussian power series, $t_n=1+s_nn^{-1/3}\le2$, and $\varpi_n=\log n+34$. If $s_n/(\log n)^{5/4}\to\infty$, then with probability tending to $1$
+\[
+N_n(t_n)\ge N_q(t_n^{-1/2});
+\]
+more precisely, $N_n(t_n)-N_q(t_n^{-1/2})$ equals the number of nonreal zeros of $P_{n,t_n}$ in an explicit deterministic set $S_n$, which lies in a strip of height $6\varpi_nn^{-1}(1-x^2/(4t_n))^{-1/2}$ about the points $x$ of the bulk $[-2\sqrt{t_n},2\sqrt{t_n}]$ together with two disks of radius $1600\,n^{-2/3}s_n^{6/5}$ about the edges $\pm2\sqrt{t_n}$.
+\end{theorem}
+
+This is Theorem~\ref{thm:window}, which gives the rate $C[(\log n)^2s_n^{-8/5}+s_n^{-6/5}\log s_n]$ for the failure probability. The proof compares $Q_n(\sqrt n\,\mathcal J)/h_n(\sqrt n\,\mathcal J)$, where $\mathcal J(w)=w+w^{-1}$ and $Q_n$ is as in Theorem~\ref{thm:A} for $a=q(\cdot/\sqrt t)$, with $a$ on a contour that comes within $2\varpi_n/(n\sin^2\theta)$ of the unit circle at the angle $\theta$ in the bulk. It rests on a bound for the ratios $h_{m-1}/h_m$ near the cut with a threshold logarithmic in the distance to the turning points, obtained from Olver's error bounds for the Liouville--Green approximation of Weber's equation; the threshold is sharp up to a constant factor (Theorem~\ref{thm:ratio-intro} below).
+
+\subsection{Hermite ratios near the cut}\label{sec:intro-ratio}
+For $m\ge1$ and $\zeta\in\C\setminus[-2,2]$ let
+\[
+R_m(\zeta)=\frac{h_{m-1}(\sqrt m\,\zeta)}{h_m(\sqrt m\,\zeta)},\qquad\Delta(\zeta)=|\zeta^2-4|^{1/2},
+\]
+and let $r$ be the inverse of the Joukowski map $\mathcal J$ from $\D\setminus\{0\}$ onto $\C\setminus[-2,2]$. As $m\to\infty$, $R_m\to r$ locally uniformly on $\C\setminus[-2,2]$ (see the proof of \cite[Proposition~\ref{M-prop:exterior}]{Main}). The poles of $R_m$, the zeros of $h_m(\sqrt m\,\cdot)$, lie in the cut $(-2,2)$, and near the cut $h_m(\sqrt m\,\zeta)$ is the sum of two exponentials, one of which is recessive. The next theorem says how close to the cut $R_m$ stays within a first-order error of $r$.
+
+\begin{theorem}[Hermite ratios near the cut]\label{thm:ratio-intro}
+Let $m\ge1$ and $\zeta\in\C$ with $y=|\im\zeta|>0$, $|\zeta|\le4$, $|\zeta-2|\ge4y$, $|\zeta+2|\ge4y$ and $m\Delta^3\ge2^{11}$, where $\Delta=\Delta(\zeta)$.
+\begin{enumerate}
+\item[(a)] If $|\re\zeta|<2$, assume moreover that $my\Delta\ge1.05\log(m\Delta^3)$. Then $|R_m(\zeta)-r(\zeta)|\le3/(m\Delta^2)$.
+\item[(b)] Let $0<\eta<1$. Over all such $m$ and $\zeta$ with $\re\zeta=0$ and $my\Delta=(1-\eta)\log(m\Delta^3)/1.0022$, the quantity $|R_m(\zeta)-r(\zeta)|\,m\Delta^2$ is unbounded.
+\end{enumerate}
+\end{theorem}
+
+Part (a) is Theorem~\ref{thm:near1-ratio} and part (b) is Proposition~\ref{prop:near1-sharp}. The bound in (a) is of the order of the first-order term $-r/(m(\zeta^2-4))$ of $R_m-r$. By (b), the threshold $my\Delta\ge1.05\log(m\Delta^3)$ cannot be replaced by $my\Delta\ge c\log(m\Delta^3)$ with $c<0.9978$, nor by a threshold independent of $m$: it is where the recessive exponential, of relative size about $e^{-my\Delta}$, drops below $(m\Delta^3)^{-1}$, so that its contribution to $R_m-r$ falls below the bound in (a). The proof applies Olver's error bounds for the Liouville--Green approximation \cite{Ol,SV} to Weber's equation, uses that $h_m$ is real to show that the two connection coefficients have equal modulus, and estimates derivatives by Cauchy's inequality. No turning-point (Airy) asymptotics enter: the condition $m\Delta^3\ge2^{11}$ keeps $\zeta$ at a distance of order at least $m^{-2/3}$ from $\pm2$. Remark~\ref{rem:near1-ratio}(1) extends (a), with the constant $57$ in place of $3$, to the points with $|\zeta\mp2|<4y$.
+
+\subsection{The bulk strip}
+The set $S_n$ of Theorem~\ref{thm:window-intro} has a part in the strip about the bulk and a part in the two disks about the edges. The comparison behind Theorem~\ref{thm:window-intro} cannot exclude nonreal zeros of $P_{n,t_n}$ in the strip, because the contour can come no closer to the unit circle than the threshold of Theorem~\ref{thm:ratio-intro} allows. A different argument shows that, with high probability, the strip carries none.
+
+\begin{theorem}[The bulk strip and the edges]\label{thm:bulk-intro}
+Let $q$, $t_n$, $s_n$, $\varpi_n$ and $S_n$ be as in Theorem~\ref{thm:window-intro}, and suppose that $s_n/(\log n)^{5/4}\to\infty$. Then $S_n$ is the disjoint union of an explicit set $B_n$, which lies in the strip, and an explicit set $E_n$, which lies in the two disks $\{|z\mp2\sqrt{t_n}|\le1600\,n^{-2/3}s_n^{6/5}\}$, such that, with probability tending to $1$, $P_{n,t_n}$ has no nonreal zero in $B_n$ and
+\[
+N_n(t_n)-N_q(t_n^{-1/2})=N_n^{\rm e}(t_n),
+\]
+the number of nonreal zeros of $P_{n,t_n}$ in $E_n$. In particular, $\PP\bigl(N_n(t_n)=N_q(t_n^{-1/2})\bigr)\to1$ if and only if $\PP\bigl(N_n^{\rm e}(t_n)\ge1\bigr)\to0$.
+\end{theorem}
+
+Here $B_n=\sqrt{t_n}\,\mathcal J(\Omega_b)$ and $E_n=\sqrt{t_n}\,\mathcal J(\Omega_e)$ in the notation of Section~\ref{sec:bulk}, and the theorem combines Theorem~\ref{thm:near1-bulk} and Corollary~\ref{cor:near1-edge}. For $9\varpi_n\le s_n\le2^{-10}n^{5/9}$ they give the failure probabilities $C(\log n)^2s_n^{-11/5}$ for the strip and $C[(\log n)^2s_n^{-8/5}+s_n^{-6/5}\log s_n]$ for the identity; these hypotheses can be met from $n\approx2.0\cdot10^{10}$ on, and $C$ is not computed. The proof splits each $h_k$ into its two parts $h_k^\flat$ and $h_k^\sharp$, recessive at $-i\infty$ and at $+i\infty$ (Lemma~\ref{lem:near1-dominant}), compares only the dominant part with the symbol, which needs no threshold (Lemma~\ref{lem:near1-domratio}), and recovers $Q_n^{(t)}$ by a reflection argument across the unit circle (Lemma~\ref{lem:near1-reflection}). Theorem~\ref{thm:bulk-intro} thus reduces the exact count $N_n(t_n)=N_q(t_n^{-1/2})$ to the edge sets $E_n$, which in the Airy units $n^{2/3}(z/\sqrt{t_n}\mp2)$ have size of order $s_n^{6/5}$. These remain open (Question~\ref{q:window} and Remark~\ref{rem:near1-edge}).
+
+\subsection{Related work}
+For the literature on linear combinations of orthogonal polynomials, on the real-rooting time, on its relation to the de Bruijn--Newman constant \cite{dB,Ne,RT} and on the Pfaffian point process formed by the zeros of $q$ \cite{Fo,MS}, we refer to the main paper \cite{Main}; here only the first intensity of that process enters \cite[Theorem~2.7]{MS}. The macroscopic collapse at $t=1$ is due to Hall, Ho, Jalowy and Kabluchko \cite{HHJK}. Of the two other companions of \cite{Main}, \cite{CompA} makes the onset degree of Theorem~\ref{thm:A} explicit \cite[Theorem~\ref{A-thm:quant-main}]{CompA}, gives a rate of convergence in \cite[Theorem~\ref{M-cor:weyl}]{Main} for $t\ge1+\eps$, with constants that are not uniform as $\eps\downarrow0$ \cite[Theorem~\ref{A-thm:rate}]{CompA}, and bounds the tail of the collision constant; \cite{CompC} treats exact counts for varying weights, real-rooting times for other coefficient profiles, and the Laguerre flow. Theorem~\ref{thm:ratio-intro} is a quantitative form, for complex arguments near the cut, of ratio asymptotics for Hermite polynomials. The classical Plancherel--Rotach asymptotics \cite[Theorem~8.22.9]{Sz} describe $h_m(\sqrt m\,x)$ for real $x$ in the oscillatory region, near the turning points and outside; Theorem~\ref{thm:ratio-intro} needs explicit error bounds for complex $\zeta$ that approach the cut to within a distance of order $\log(m\Delta^3)/(m\Delta)$, and we obtain them from Olver's theory of the Liouville--Green approximation with error bounds \cite[Chapter~6]{Ol}, in the form of Spigler and Vianello \cite{SV}. Uniform expansions of parabolic cylinder functions through the turning points, in terms of Airy functions, are classical \cite[\S12.10]{DLMF}; a complex-variable form of them, with error bounds uniform in the degree, is what the edge sets $E_n$ would need (Remark~\ref{rem:near1-edge}). The Gaussian estimates use the Borell--TIS inequality \cite[Theorem~2.1.1]{AT}.
+% TODO(author): the pinpoint [Sz, Theorem 8.22.9] (Plancherel--Rotach asymptotics of Hermite polynomials) was not
+% checked in the book.
+
+\subsection{Organisation}
+Section~\ref{sec:ratio} is deterministic and proves Theorem~\ref{thm:ratio-intro}. Section~\ref{sec:times-near-1} proves Theorem~\ref{thm:window-intro}, in the form of Theorem~\ref{thm:window} with an explicit rate, and ends with the estimate at the points $\pm(1-\beta)$ (Proposition~\ref{prop:near1-vertex}). Section~\ref{sec:bulk} proves Theorem~\ref{thm:bulk-intro}, and Section~\ref{sec:questions} contains open questions. From \cite{Main} we use the exterior comparison behind Theorem~\ref{thm:A} \cite[Proposition~\ref{M-prop:exterior}]{Main}, elementary facts about Hermite polynomials, the identity \eqref{eq:PQ} and the first intensity of the nonreal zeros of $q$.
+
+\section{Hermite ratios near the cut}\label{sec:ratio}
+This section is deterministic. It proves Theorem~\ref{thm:ratio-intro}: part (a) is Theorem~\ref{thm:near1-ratio} and part (b) is Proposition~\ref{prop:near1-sharp}.
+
+Let $R_m$ and $\Delta$ be as in Section~\ref{sec:intro-ratio}, and let $r(\zeta)=\frac12\bigl(\zeta-\sqrt{\zeta^2-4}\bigr)$, with the branch for which $r(\zeta)\sim1/\zeta$ at infinity; it is the inverse of the Joukowski map $\mathcal J(w)=w+w^{-1}$ from $\D\setminus\{0\}$ onto $\C\setminus[-2,2]$, and $|r|<1$ there (\cite[Section~\ref{M-sec:prelim}]{Main}). Let $x_1,\dots,x_m\in(-2,2)$ be the zeros of $f=h_m(\sqrt m\,\cdot)$ (\cite[Lemma~\ref{M-lem:zeros}]{Main}). By \cite[\eqref{M-eq:recurrence}]{Main}, $f'=mh_{m-1}(\sqrt m\,\cdot)$, and the differential equation $h_m''(x)=xh_m'(x)-mh_m(x)$ gives $f''=m(\zeta f'-mf)$. Hence
+\begin{gather}
+R_m(\zeta)=\frac1m\sum_{k=1}^m\frac1{\zeta-x_k},\qquad R_m'(\zeta)=-\frac1m\sum_{k=1}^m\frac1{(\zeta-x_k)^2},\label{eq:near1-sum}\\
+(R_m-r)(R_m-1/r)=R_m^2-\zeta R_m+1=-R_m'/m,\label{eq:near1-riccati}
+\end{gather}
+as $r=r(\zeta)$ and $1/r$ are the roots of $\omega^2-\zeta\omega+1$. Also $|r-1/r|=\Delta$, $r'=r/(r-1/r)$, so $|r'|\le1/\Delta$, $|\im r|\le\frac12(|\im\zeta|+\Delta)$, and $|R_m'(\zeta)|\le|\im R_m(\zeta)|/|\im\zeta|$ by \eqref{eq:near1-sum}.
+
+
+\begin{lemma}\label{lem:near1-riccati}
+Let $m\ge1$, $\zeta\in\C$ with $y=|\im\zeta|>0$, $\Delta=\Delta(\zeta)$ and $Y=my\Delta$. If $Y\ge4$ and $my\Delta^2>2y+4\Delta$, then $|R_m(\zeta)-r(\zeta)|<\Delta/2$ and $|R_m(\zeta)-r(\zeta)|<2/(my)+2/(m\Delta)$.
+\end{lemma}
+
+\begin{proof}
+Let $e(\zeta)=|R_m(\zeta)-r(\zeta)|$. By \eqref{eq:near1-riccati} and the facts above, $e\,|R_m-1/r|=|R_m'|/m\le(\frac12(y+\Delta)+e)/(my)$, and $|R_m-1/r|\ge\Delta-e$. So $g(e)\le0$, where $g(x)=x(\Delta-x)-(\frac12(y+\Delta)+x)/(my)$, while $g(\Delta/2)=\frac14\Delta^2-(y+2\Delta)/(2my)>0$. Along the vertical ray from $\zeta$ away from $\R$, $y$ and $\Delta=|\zeta-2|^{1/2}|\zeta+2|^{1/2}$ increase, and the hypotheses persist, because the partial derivatives $m\Delta^2-2$ and $2my\Delta-4$ of $my\Delta^2-2y-4\Delta$ are positive and increase with $y$ and $\Delta$. So $e\ne\Delta/2$ on the ray, while $e\to0$ and $\Delta\to\infty$ at infinity ($R_m$ and $r$ are $\zeta^{-1}+O(\zeta^{-2})$); by continuity $e<\Delta/2$ at $\zeta$. Then $e\Delta/2<e(\Delta-e)\le(\frac12(y+\Delta)+e)/(my)$, and $1/(my)\le\Delta/4$ gives $e<2(y+\Delta)/(my\Delta)$.
+\end{proof}
+
+Lemma~\ref{lem:near1-riccati} is useful only where $my\Delta^2\gg1$. Closer to the cut, $h_m$ is the sum of two exponentials, one of which is recessive at the point, and we compute both with the Liouville--Green approximation for Weber's equation.
+
+\emph{The Liouville--Green input.} We use Olver's error bound for the complex Liouville--Green approximation in the following form.
+
+\begin{theorem}[{\cite[Chapter~6, Theorem~11.1]{Ol}, in the form of \cite[Theorem~2]{SV}}]\label{thm:near1-LG}
+Let $U\subset\C$ be an unbounded simply connected domain, $F$ and $G$ analytic on $U$ with $F\ne0$ on $U$, $F^{1/4}$ a continuous branch on $U$, $F^{1/2}=(F^{1/4})^2$, $\Phi$ a primitive of $F^{1/2}$ on $U$, and $\Psi=F^{-1/4}(F^{-1/4})''+F^{-1/2}G$. Let $H\subset U$ have nonempty interior, and for each $z\in H$ let $\ell(z)\subset H$ be a finite chain of regular arcs from $z$ to $\infty$ along which $\im\Phi$ is nondecreasing. Suppose that two of these paths that meet coincide from the meeting point to $\infty$, and that $\mathcal V(z)=\int_{\ell(z)}|\Psi(v)|\,|dv|$ is finite for $z\in H$ and bounded on compact subsets of the interior of $H$. Then $y''+(F+G)y=0$ has a solution $y=F^{-1/4}e^{i\Phi}(1+\chi)$, analytic on $U$, with $|\chi(z)|\le e^{\mathcal V(z)}-1$ for $z\in H$. The same holds with $e^{-i\Phi}$ in place of $e^{i\Phi}$ if $\im\Phi$ is nonincreasing along the paths.
+\end{theorem}
+
+In \cite{SV} the theorem is stated for two families of paths at once, one for each sign, with the bounds $|\chi|,|F^{-1/2}\chi'|\le e^{\mathcal V}-1$; \cite[Theorem~1]{SV} is Olver's theorem, in which the paths coincide with a fixed curve near $\infty$, and \cite[Theorem~2]{SV} replaces that condition by the one above. The proof \cite[pp.~215--216]{SV} treats each family separately: it solves the Volterra equation $\chi(z)=-\frac i2\int_{\ell(z)}[1-e^{-2i(\Phi(z)-\Phi(v))}]\Psi(v)(1+\chi(v))\,dv$ by Picard iteration, and on such paths the kernel $\frac i2[1-e^{-2i(\Phi(z)-\Phi(v))}]$ has modulus at most $1$. We use only the bound on $|\chi|$.
+% TODO(author): the pinpoint [Ol, Chapter 6, Theorem 11.1] is cited as [SV, Theorem 1] attributes it; the book was
+% not consulted. [SV], Theorems 1 and 2 and the proof, were checked in the source.
+
+\emph{Weber's equation.} For $m\ge1$ put $\nu=2m+1$ and $\varkappa=(1+\frac1{2m})^{1/2}$, so that $4\varkappa^2m=2\nu$. If $x=2\varkappa\sqrt m\,\tau$, then $x^2/4=\frac\nu2\tau^2$ and $d^2/d\tau^2=2\nu\,d^2/dx^2$; as $v(x)=e^{-x^2/4}\He_m(x)$ solves $v''=(\frac{x^2}4-m-\frac12)v$, the function $w_m(\tau)=v(x)$ solves
+\begin{equation}\label{eq:near1-weber}
+w''=\nu^2(\tau^2-1)\,w .
+\end{equation}
+Since $h_m'=\sqrt m\,h_{m-1}$, $R_m(\zeta)=m^{-1/2}(\log\He_m)'(\sqrt m\,\zeta)$, and so, with $\tau_0=\zeta/(2\varkappa)$,
+\[
+R_m(\zeta)=\frac\zeta2+\frac1{2\varkappa m}\,\frac{w_m'(\tau_0)}{w_m(\tau_0)}.
+\]
+The turning points of \eqref{eq:near1-weber} are $\tau=\pm1$, that is $\zeta=\pm2\varkappa$.
+
+Let $\mathfrak f(\tau)=(\tau-1)^{1/2}(\tau+1)^{1/2}$ with principal roots, analytic on $\C\setminus[-1,1]$ with $\mathfrak f(\tau)\sim\tau$ at $\infty$, and $\Xi(\tau)=\int_1^\tau\mathfrak f$ on $\C\setminus(-\infty,1]$. Let $\mathfrak g(\tau)=|3\tau^2+2|/(4|\tau^2-1|^{5/2})$; this is $|\phi\phi''|$ for $\phi=(\tau^2-1)^{-1/4}$.
+
+\begin{lemma}\label{lem:near1-branches}
+\begin{enumerate}
+\item[(a)] $\im\mathfrak f>0$ on the upper half-plane and $\im\mathfrak f<0$ on the lower half-plane. For $|x|<1$, $\mathfrak f(x\pm i0)=\pm i(1-x^2)^{1/2}$, so $\re\Xi(x\pm i0)=0$ and $\Xi(x+i0)=-\Xi(x-i0)$.
+\item[(b)] $\frac d{dv}\re\Xi(x+iv)=-\im\mathfrak f(x+iv)$.
+\item[(c)] For $0\le x<1$ and $d=1-x$, $\int_{-\infty}^\infty\mathfrak g(x+iv)\,dv\le4.5\,d^{-3/2}$. For $1<x\le2.5$ and $d=x-1$, $\int_0^\infty\mathfrak g(x+iv)\,dv+\int_x^\infty\mathfrak g(v)\,dv\le2.4\,d^{-3/2}$. Also $\mathfrak g(x+iv)=\mathfrak g(x-iv)=\mathfrak g(-x+iv)$, and $\int_{-\infty}^\infty\mathfrak g(iv)\,dv\le\frac76$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $\im\tau>0$, $\arg(\tau\mp1)\in(0,\pi)$, so $\arg\mathfrak f(\tau)\in(0,\pi)$; and $\mathfrak f(\bar\tau)=\overline{\mathfrak f(\tau)}$. The boundary values follow, and $\Xi(x\pm i0)=\pm i\int_1^x(1-u^2)^{1/2}du$. (b) holds as $\Xi$ is analytic with $\Xi'=\mathfrak f$.
+(c) The symmetries are clear. On $\re\tau=x\ge0$, $|\tau^2-1|^2=(v^2+d^2)(v^2+\tilde D^2)$ with $\tilde D=1+x$, and $|3\tau^2+2|\le3|\tau^2-1|+5$, so $\mathfrak g\le\frac34|\tau^2-1|^{-3/2}+\frac54|\tau^2-1|^{-5/2}$. Now $\int_0^\infty((v^2+d^2)(v^2+\tilde D^2))^{-5/4}dv\le\tilde D^{-5/2}d^{-3/2}B_0$ with $B_0=\int_0^\infty(1+u^2)^{-5/4}du=1.19814\ldots$, and $(v^2+d^2)(v^2+\tilde D^2)\ge(v^2+d\tilde D)^2$ gives $\int_0^\infty((v^2+d^2)(v^2+\tilde D^2))^{-3/4}dv\le(d\tilde D)^{-1}$. Hence $d^{3/2}\int_0^\infty\mathfrak g(x+iv)\,dv\le1.4977\tilde D^{-5/2}+0.75\,d^{1/2}\tilde D^{-1}$, which is at most $2.25$ for $0\le x<1$ and at most $0.725$ for $1<x\le2.5$ (then $\tilde D=2+d\ge2$, $d\le1.5$). For the real ray, $\int_x^\infty(u^2-1)^{-3/2}du=x(x^2-1)^{-1/2}-1$ and $\int_x^\infty(u^2-1)^{-5/2}du\le(2+d)^{-5/2}\frac23d^{-3/2}$, so $d^{3/2}\int_x^\infty\mathfrak g\le0.75\,d(1+d)(2+d)^{-1/2}+0.148\le1.66$, and the two parts together are at most $2.4$. Finally $|3(iv)^2+2|\le3(1+v^2)-1$ and $\int_0^\infty(1+v^2)^{-3/2}dv=1$, $\int_0^\infty(1+v^2)^{-5/2}dv=\frac23$ give $\int_0^\infty\mathfrak g(iv)\,dv\le\frac7{12}$.
+\end{proof}
+
+\begin{lemma}\label{lem:near1-LGsol}
+Let $m\ge1$ and $\nu=2m+1$, let $U_1=\C\setminus\{\pm1-iv:v\ge0\}$, $H_1=\{\im\tau>0\}\cup\{|\re\tau|<1\}$ and $H_2=\{\re\tau>1\}$.
+\begin{enumerate}
+\item[(a)] There are an entire solution $W_+$ of \eqref{eq:near1-weber} and a function $\chi_+$ analytic on $H_1$ such that $W_+=f^{-1/4}e^{\nu\Xi_U}(1+\chi_+)$ on $H_1$, where $f^{-1/4}$ is a continuous branch of $(\tau^2-1)^{-1/4}$ on $U_1$ and $\Xi_U$ is the primitive on $U_1$ of the branch $\mathfrak f_U$ of $(\tau^2-1)^{1/2}$ that equals $\mathfrak f$ on the upper half-plane, normalised by $\Xi_U=\Xi$ there; and $|\chi_+(\tau)|\le\exp(\nu^{-1}\int_0^\infty\mathfrak g(\tau+iv)\,dv)-1$ on $H_1$. On the lower half of the strip $\{|\re\tau|<1\}$, $\mathfrak f_U=-\mathfrak f$ and $\Xi_U=-\Xi$.
+\item[(b)] There are an entire solution $W_\infty$ and a function $\chi_\infty$ analytic on $H_2$ such that $W_\infty=f_2^{-1/4}e^{-\nu\Xi}(1+\chi_\infty)$ on $H_2$, with $f_2^{-1/4}$ a continuous branch of $(\tau^2-1)^{-1/4}$ on $\C\setminus(-\infty,1]$, and $|\chi_\infty(\tau)|\le\exp(\nu^{-1}[\int_0^{|\im\tau|}\mathfrak g(\re\tau+iv)\,dv+\int_{\re\tau}^\infty\mathfrak g(v)\,dv])-1$. Moreover $W_\infty(\tau)\to0$ as $\tau\to+\infty$ in $\R$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Apply Theorem~\ref{thm:near1-LG} on $U=U_1$, which is simply connected (its complement in the Riemann sphere, two rays and $\infty$, is connected), with $F=\nu^2(1-\tau^2)$, $G=0$, $F^{1/2}=-i\nu\mathfrak f_U$, $F^{1/4}$ a continuous square root of $F^{1/2}$, $\Phi=-i\nu\Xi_U$, so that $e^{i\Phi}=e^{\nu\Xi_U}$, and $H=H_1$ with the vertical rays $\ell(\tau)=\{\tau+iv:v\ge0\}\subset H_1$; vertical rays that meet coincide from there on. By Lemma~\ref{lem:near1-branches}(a), the continuation of $\mathfrak f$ across $(-1,1)$ is $-\mathfrak f$ and that of $\Xi$ is $-\Xi$, which gives the last statement of (a). So $\im\mathfrak f_U>0$ on $H_1$: on the upper half-plane by Lemma~\ref{lem:near1-branches}(a), on $(-1,1)$ as $\mathfrak f_U=i(1-x^2)^{1/2}$ there, and on the lower half of the strip as $\mathfrak f_U=-\mathfrak f$. Hence $\frac d{dv}\re\Xi_U(\tau+iv)=-\im\mathfrak f_U<0$ along the rays, and $\im\Phi=-\nu\re\Xi_U$ is nondecreasing. As $F^{-1/4}$ is a constant of modulus $\nu^{-1/2}$ times a branch of $(\tau^2-1)^{-1/4}$, $|\Psi|=\mathfrak g/\nu$, and $\mathcal V(\tau)=\nu^{-1}\int_0^\infty\mathfrak g(\tau+iv)\,dv$ is finite and continuous on the open set $H_1$, since $\mathfrak g(\tau)=O(|\tau|^{-3})$. Theorem~\ref{thm:near1-LG} gives a solution on $U_1$; after a constant factor it is $W_+$, and as \eqref{eq:near1-weber} has entire coefficients, $W_+$ is entire.
+
+(b) Apply Theorem~\ref{thm:near1-LG} on $U=\C\setminus(-\infty,1]$ with $F^{1/2}=-i\nu\mathfrak f$, $\Phi=-i\nu\Xi$, $H=H_2$, and for $\tau\in H_2$ the path $\ell(\tau)$ consisting of the vertical segment from $\tau$ to $\re\tau$ followed by $[\re\tau,\infty)$. By Lemma~\ref{lem:near1-branches}(a),(b), $\re\Xi$ increases along the vertical segment towards $\R$, and $\Xi$ is real and increasing on $(1,\infty)$; so $\im\Phi=-\nu\re\Xi$ is nonincreasing along $\ell(\tau)$, and we use $e^{-i\Phi}=e^{-\nu\Xi}$. Two of these paths that meet do so on a vertical segment or on $\R$, and coincide from there. The variation is the stated integral, which is continuous on $H_2$. Finally $|W_\infty(\tau)|\le|\tau^2-1|^{-1/4}e^{-\nu\Xi(\tau)}e^{\mathcal V(\tau)}\to0$ as $\tau\to+\infty$.
+\end{proof}
+
+\begin{lemma}\label{lem:near1-twoterm}
+Let $m\ge1$, $\nu=2m+1$, let $W_+,\chi_+$ be as in Lemma~\ref{lem:near1-LGsol}(a), and put $W_-(\tau)=\overline{W_+(\bar\tau)}$ and $\chi_-(\tau)=\overline{\chi_+(\bar\tau)}$. Let $\Xi^\flat$ be the restriction of $\Xi_U$ to the strip $\{|\re\tau|<1\}$, that is the continuation of $\Xi$ from the upper half-plane across $(-1,1)$.
+\begin{enumerate}
+\item[(a)] $W_-$ and $W_+$ are linearly independent solutions of \eqref{eq:near1-weber}. Every solution $w\not\equiv0$ that is real on $\R$ is $w=\gamma W_-+\bar\gamma W_+$ for some $\gamma\ne0$.
+\item[(b)] There is a constant $\iota$ with $\iota^4=1$ such that, on the strip $\{|\re\tau|<1\}$,
+\[
+W_-=\iota f^{-1/4}e^{-\nu\Xi^\flat}(1+\chi_-),\qquad W_+=f^{-1/4}e^{\nu\Xi^\flat}(1+\chi_+);
+\]
+so, in (a), $w=\gamma\iota f^{-1/4}[e^{-\nu\Xi^\flat}(1+\chi_-)+\hat\gamma e^{\nu\Xi^\flat}(1+\chi_+)]$ with $\hat\gamma=\bar\gamma/(\iota\gamma)$, $|\hat\gamma|=1$. On the strip, $\chi_\pm$ are analytic and $|\chi_\pm(\tau)|\le\exp(\nu^{-1}\int_{-\infty}^\infty\mathfrak g(\re\tau+iv)\,dv)-1$.
+\item[(c)] If a solution $w$ tends to $0$ as $\tau\to+\infty$ in $\R$, then $w=cW_\infty$ for a constant $c$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $W_-$ is a solution because \eqref{eq:near1-weber} has real coefficients. On $\tau=iv$, $v>0$, $\re\Xi(iv)=-\int_0^v(1+u^2)^{1/2}du\le-v^2/2$ by Lemma~\ref{lem:near1-branches}(b), $|\chi_+(iv)|\to0$ as $v\to\infty$, and $|\chi_-(iv)|\le e^{7/18}-1<\frac12$ by part (b) and Lemma~\ref{lem:near1-branches}(c), as $\nu\ge3$. So $|W_-(iv)/W_+(iv)|=e^{-2\nu\re\Xi(iv)}|1+\chi_-(iv)|/|1+\chi_+(iv)|\to\infty$, and the two are independent. Write $w=AW_-+BW_+$. As $w$ is real on $\R$, $w(\tau)=\overline{w(\bar\tau)}=\bar AW_+(\tau)+\bar BW_-(\tau)$, so $B=\bar A$, and $A\ne0$ as $w\not\equiv0$.
+
+(b) The formula for $W_+$ is Lemma~\ref{lem:near1-LGsol}(a). For $\tau$ in the strip, $\bar\tau$ is in the strip, and $\overline{\Xi_U(\bar\tau)}=-\Xi_U(\tau)$: for $\im\tau>0$ this is $\overline{-\Xi(\bar\tau)}=-\Xi(\tau)$, and both sides are analytic on the strip. The function $\overline{f^{-1/4}(\bar\tau)}$ is analytic on the strip and its fourth power is $(\tau^2-1)^{-1}$, so it is $\iota f^{-1/4}(\tau)$ with a constant $\iota^4=1$. This gives $W_-$, and then $w$. The bound on $\chi_+$ follows from Lemma~\ref{lem:near1-LGsol}(a), as the ray above a point of the strip lies on a full vertical line, and that on $\chi_-$ follows by conjugation.
+
+(c) Real solutions $y\not\equiv0$ on $(1,\infty)$ have $y''=\nu^2(\tau^2-1)y$, so $y$ is convex where positive and concave where negative, and has at most one zero there. If $y\to0$ at $+\infty$, then eventually $\pm y>0$ is convex and tends to $0$, hence $y'\to0$. So the Wronskian of two real solutions tending to $0$, which is constant, is $0$. The real and imaginary parts of $w$ and $W_\infty$ are real solutions tending to $0$ (as the equation is real on $\R$), so the Wronskian of $w$ and $W_\infty$ vanishes, and $w=cW_\infty$.
+\end{proof}
+
+\begin{theorem}[Near-cut ratio bound]\label{thm:near1-ratio}
+Let $m\ge1$ and $\zeta\in\C$ with $y=|\im\zeta|>0$, $|\zeta|\le4$, $|\zeta-2|\ge4y$, $|\zeta+2|\ge4y$ and $m\Delta^3\ge2^{11}$, where $\Delta=\Delta(\zeta)$. If $|\re\zeta|<2$, assume moreover that $Y=my\Delta\ge1.05\log(m\Delta^3)$. Then
+\[
+|R_m(\zeta)-r(\zeta)|\le\frac3{m\Delta^2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Write $\varsigma(\zeta)=(\zeta-2)^{1/2}(\zeta+2)^{1/2}$ and $\varsigma_\varkappa(\zeta)=(\zeta-2\varkappa)^{1/2}(\zeta+2\varkappa)^{1/2}$ with principal roots, so that $r=(\zeta-\varsigma)/2$, $|\varsigma|=\Delta$, $\varsigma^2-\varsigma_\varkappa^2=2/m$, and put $\Delta_\varkappa=|\varsigma_\varkappa|$ and
+\[
+\mathfrak M(\zeta)=\frac1{m(\varsigma+\varsigma_\varkappa)}-\frac\zeta{2m\varsigma_\varkappa^2}=-\frac r{m\varsigma^2}+\frac1{m^2\varsigma(\varsigma+\varsigma_\varkappa)^2}-\frac\zeta{m^2\varsigma^2\varsigma_\varkappa^2};
+\]
+the two expressions agree because $\varsigma-\varsigma_\varkappa=2/(m(\varsigma+\varsigma_\varkappa))$.
+
+\emph{Reductions.} As $h_k(-x)=(-1)^kh_k(x)$ and $h_k$ is real, $R_m(\bar\zeta)=\overline{R_m(\zeta)}$ and $R_m(-\bar\zeta)=-\overline{R_m(\zeta)}$, and $r$ has the same symmetries. So let $x:=\re\zeta\ge0$ and $\im\zeta=y>0$.
+
+\emph{Geometry.} From $|\zeta\mp2|\ge4y$: $|2\mp x|\ge\sqrt{15}\,y$, so $|\zeta\mp2|^2\le\frac{16}{15}(2\mp x)^2$ and $\Delta^2\le\frac{16}{15}|4-x^2|$. As $\Delta\le\sqrt{20}$, $m\Delta^2\ge2^{11}/\sqrt{20}\ge457$ and $m\ge2^{11}/20^{3/2}>22$; hence $2/m\le\Delta^2/228$, $\Delta_\varkappa/\Delta\in[0.9978,1.0022]$ and $\varkappa^{3/2}\le1.0163$. Let $\tau_0=\zeta/(2\varkappa)$.
+\begin{itemize}
+\item[(A)] If $x<2$: $2-x\ge\frac{15}{16}\Delta^2/(2+x)\ge\frac{15}{64}\Delta^2$, so $d:=1-\re\tau_0\ge\frac{15}{128}\Delta^2/\varkappa$, and $\im\tau_0\le d/\sqrt{15}$.
+\item[(B)] If $x>2$: $x-2\ge\frac{15}{96}\Delta^2$ (as $x+2\le6$) and $2\varkappa-2\le\frac1{2m}\le\Delta^2/900$, so $d:=\re\tau_0-1\ge0.0775\,\Delta^2/\varkappa$; also $d\le1$.
+\end{itemize}
+
+\emph{The identity.} Let $w_m$ be as in \eqref{eq:near1-weber}; it is real on $\R$ and tends to $0$ at $+\infty$. In case (B), Lemma~\ref{lem:near1-twoterm}(c) and Lemma~\ref{lem:near1-LGsol}(b) give $w_m'/w_m=-\tau/(2(\tau^2-1))-\nu\mathfrak f(\tau)+\chi_\infty'/(1+\chi_\infty)$ on $H_2$. In case (A), $\tau_0$ lies in the upper half of the strip, where $\Xi^\flat=\Xi$, and Lemma~\ref{lem:near1-twoterm}(a),(b) give the same formula at $\tau_0$ with $\chi_\infty'/(1+\chi_\infty)$ replaced by $\Sigma_1/\Sigma_0$, where
+\[
+\Sigma_0=1+\chi_-+\omega(1+\chi_+),\qquad\Sigma_1=\chi_-'+\omega\bigl(2\nu\mathfrak f(1+\chi_+)+\chi_+'\bigr),\qquad\omega=\hat\gamma\,e^{2\nu\Xi(\tau_0)}.
+\]
+Now $\mathfrak f(\tau_0)=\varsigma_\varkappa(\zeta)/(2\varkappa)$ and $4\varkappa^2m=2\nu$, so $(2\varkappa m)^{-1}\nu\mathfrak f(\tau_0)=\varsigma_\varkappa/2$ and $(2\varkappa m)^{-1}\tau_0/(2(\tau_0^2-1))=\zeta/(2m\varsigma_\varkappa^2)$; and $\frac\zeta2-\frac{\varsigma_\varkappa}2-r=\frac{\varsigma-\varsigma_\varkappa}2=\frac1{m(\varsigma+\varsigma_\varkappa)}$. Hence
+\[
+R_m-r=\mathfrak M+E,\qquad E=\frac1{2\varkappa m}\cdot\frac{\chi_\infty'(\tau_0)}{1+\chi_\infty(\tau_0)}\ \text{(B)},\qquad E=\frac1{2\varkappa m}\cdot\frac{\Sigma_1(\tau_0)}{\Sigma_0(\tau_0)}\ \text{(A)},
+\]
+and $(2\varkappa m)^{-1}\cdot2\nu|\mathfrak f(\tau_0)|=\Delta_\varkappa$.
+
+\emph{The Liouville--Green errors.} In case (A), every point $\tau$ of the disk $B(\tau_0,d/2)$ has $1-|\re\tau|\ge d/2$. By Lemma~\ref{lem:near1-twoterm}(b) and Lemma~\ref{lem:near1-branches}(c), $\bar\chi:=\sup_{B(\tau_0,d/2)}|\chi_\pm|\le\exp(4.5(d/2)^{-3/2}/\nu)-1$. As $(d/2)^{-3/2}\le(256/15)^{3/2}\varkappa^{3/2}\Delta^{-3}$ and $\nu>2m$, the exponent is at most $161.3/(m\Delta^3)\le0.0788$, so $\bar\chi\le0.082$. Cauchy's estimate gives $|\chi_\pm'(\tau_0)|\le2\bar\chi/d$, so $(2\varkappa m)^{-1}|\chi_\pm'(\tau_0)|\le\bar\chi/(\varkappa md)\le\frac{128}{15}\bar\chi/(m\Delta^2)\le0.70/(m\Delta^2)$. In case (B), $B(\tau_0,d/2)\subset\{1+\frac d2\le\re\tau\le2.5\}\subset H_2$, and in the same way Lemma~\ref{lem:near1-LGsol}(b) and Lemma~\ref{lem:near1-branches}(c) give $\sup_{B(\tau_0,d/2)}|\chi_\infty|\le\exp(160/(m\Delta^3))-1\le0.0813$, so $|E|\le0.0813/(0.0775\cdot0.9187\,m\Delta^2)\le1.15/(m\Delta^2)$.
+
+\emph{The oscillating factor} (case (A)). $|\omega|=e^{2\nu\re\Xi(\tau_0)}$, and $\re\Xi(\tau_0)<0$. By Lemma~\ref{lem:near1-branches}(a),(b), $2\nu|\re\Xi(\tau_0)|=2\nu\int_0^{\im\tau_0}\im\mathfrak f(\re\tau_0+iv)\,dv$. With $\tau=z/2$, $z=\zeta/\varkappa=\tilde x+i\tilde y$, we have $\mathfrak f(z/2)=\varsigma(z)/2$ and $\nu/2=m\varkappa^2$, so $2\nu|\re\Xi(\tau_0)|=m\varkappa^2\int_0^{\tilde y}\im\varsigma(\tilde x+iu)\,du$. For $0\le u\le\tilde y$, $u/(2\mp\tilde x)\le y/(2\mp x)\le15^{-1/2}$, so $\arg\varsigma(\tilde x+iu)$ lies within $\frac12\arctan15^{-1/2}$ of $\frac\pi2$ and $\im\varsigma\ge0.99203|\varsigma|$; and $|\varsigma(\tilde x+iu)|\ge(4-\tilde x^2)^{1/2}\ge(4-x^2)^{1/2}/\varkappa\ge\frac{\sqrt{15}}4\Delta/\varkappa$. Conversely $|\varsigma(\tilde x+iu)|\le|\varsigma(z)|=\Delta_\varkappa/\varkappa$, as $|z\mp2|$ increase with $u$. Hence
+\[
+0.9605\,my\Delta\le2\nu|\re\Xi(\tau_0)|\le my\Delta_\varkappa\le1.0022\,my\Delta .
+\]
+
+\emph{Assembly.} In case (A), $(2\varkappa m)^{-1}|\Sigma_1|\le0.70(1+|\omega|)/(m\Delta^2)+|\omega|\Delta_\varkappa(1+\bar\chi)$ and $|\Sigma_0|\ge1-\bar\chi-|\omega|(1+\bar\chi)$, so
+\begin{equation}\label{eq:near1-E}
+|E|\le\frac{0.70(1+|\omega|)/(m\Delta^2)+1.085|\omega|\Delta}{1-0.082-1.082|\omega|}.
+\end{equation}
+Under the threshold, $|\omega|\le(m\Delta^3)^{-0.9605\cdot1.05}$, so $|\omega|\le(m\Delta^3)^{-1.0085}\le4.6\cdot10^{-4}$ and $|\omega|\Delta\le(m\Delta^3)^{-0.0085}/(m\Delta^2)$, which is at most $1/(m\Delta^2)$; hence $|E|\,m\Delta^2\le(0.7004+1.085)/0.9175\le1.946$. For $\mathfrak M$: along the vertical ray from $\zeta$ upwards, $|\varsigma|$ increases, so $|2/(m\varsigma^2)|\le1/228$ there, and $\varsigma_\varkappa/\varsigma=(1-2/(m\varsigma^2))^{1/2}$ with the principal root (both sides tend to $1$ at $\infty$); hence $|\varsigma+\varsigma_\varkappa|\ge1.995\Delta$. As $m\Delta\ge m\Delta^3/20\ge102$ and $m\Delta^2\ge457$, the last two terms of $\mathfrak M$ are at most $0.2513/(m^2\Delta^3)\le0.0025/(m\Delta^2)$ and $4.02/(m^2\Delta^4)\le0.0088/(m\Delta^2)$, so
+\begin{equation}\label{eq:near1-M}
+\Bigl|\mathfrak M+\frac r{m\varsigma^2}\Bigr|\le\frac{0.012}{m\Delta^2},\qquad|\mathfrak M|\le\frac{1.012}{m\Delta^2}.
+\end{equation}
+So $|R_m-r|\le2.96/(m\Delta^2)$ in case (A) and $|R_m-r|\le2.17/(m\Delta^2)$ in case (B).
+\end{proof}
+
+The threshold in Theorem~\ref{thm:near1-ratio} is sharp up to the factor $1.05$: at $Y=\log(m\Delta^3)$ the oscillating term $|\omega|\Delta$ in \eqref{eq:near1-E} is of the order $1/(m\Delta^2)$ of the bound, and below that it dominates.
+
+\begin{proposition}\label{prop:near1-sharp}
+Let $m$ and $\zeta$ be as in Theorem~\ref{thm:near1-ratio} with $0\le\re\zeta<2$ and $my\Delta\ge1$, but without the assumption on $Y$. Then
+\[
+|R_m(\zeta)-r(\zeta)|\,m\Delta^2\ge0.61\,m\Delta^3e^{-1.0022\,my\Delta}-1.66 .
+\]
+In particular, for every $\eta\in(0,1)$, $\sup|R_m(\zeta)-r(\zeta)|\,m\Delta^2=\infty$ over the points with $\re\zeta=0$, $m\Delta^3\ge2^{11}$ and $my\Delta=(1-\eta)\log(m\Delta^3)/1.0022$; so no bound $|R_m-r|\le C/(m\Delta^2)$ holds under a threshold $Y\ge c\log(m\Delta^3)$ with $c<0.9978$, or under a threshold independent of $m$.
+\end{proposition}
+
+\begin{proof}
+In the proof of Theorem~\ref{thm:near1-ratio}, case (A), $(2\varkappa m)^{-1}|\Sigma_1|\ge|\omega|\Delta_\varkappa(1-\bar\chi)-0.70(1+|\omega|)/(m\Delta^2)$ and $|\Sigma_0|\le1+\bar\chi+|\omega|(1+\bar\chi)$. As $my\Delta\ge1$, $|\omega|\le e^{-0.9605}\le0.383$ and $|\Sigma_0|\le1.4965$; with $\Delta_\varkappa\ge0.9978\Delta$ this gives $|E|\,m\Delta^2\ge0.612\,m\Delta^3|\omega|-0.647$. Also $|\omega|\ge e^{-1.0022\,my\Delta}$, and $|\mathfrak M|\,m\Delta^2\le1.012$ by \eqref{eq:near1-M}. On the given points, $m\Delta^3e^{-1.0022\,my\Delta}=(m\Delta^3)^\eta$, and $m\Delta^3\to\infty$ as $m\to\infty$.
+\end{proof}
+
+\begin{remark}\label{rem:near1-ratio}
+(1) If $|\zeta|\le4$, $\im\zeta\ne0$, $m\Delta^3\ge2^{11}$, but $|\zeta-2|<4y$, then $\Delta^2<24y$, $Y>m\Delta^3/24\ge85$ and $my\Delta^2-2y-4\Delta>\Delta(m\Delta^3/24-\Delta-4)>0$ (as $2y\le\Delta^2$), so Lemma~\ref{lem:near1-riccati} gives $|R_m-r|<2/(my)+2/(m\Delta)\le(48+2\sqrt{20})/(m\Delta^2)<57/(m\Delta^2)$; the case $|\zeta+2|<4y$ is symmetric. Hence $|R_m-r|\le57/(m\Delta^2)$ on $\{|\zeta|\le4,\ \im\zeta\ne0,\ m\Delta^3\ge2^{11}\}$, with the assumption $Y\ge1.05\log(m\Delta^3)$ where $|\re\zeta|<2$.
+(2) No turning-point (Airy) asymptotics enter: the Liouville--Green error is of relative size $(m\Delta^3)^{-1}$, and Theorem~\ref{thm:near1-ratio} needs $m\Delta^3\ge2^{11}$, that is $|\zeta\mp2|\gtrsim m^{-2/3}$.
+(3) Numerically (forward recurrence in double and $40$-digit arithmetic, $10^3\le m\le3\cdot10^6$; not reported here), $|R_m-r|\,m\Delta^2$ stays below $2.13$ for $m\Delta^3\ge10$ under the threshold $Y\ge\log(e+m\Delta^3)$ and grows like $(m\Delta^3)^{1-c}$ under $Y\ge c\log(e+m\Delta^3)$ with $c<1$.
+\end{remark}
+
+\section{Times close to \texorpdfstring{$1$}{1}}\label{sec:times-near-1}
+
+The description of \cite[Theorem~\ref{M-thm:heat}]{Main} concerns a fixed time $t>1$, and its onset degree is not uniform as $t\downarrow1$. In this section $t$ may depend on $n$. Throughout, $\eta_0,\eta_1,\dots$ are independent standard Gaussian variables, $q$ is the Gaussian power series, $P_{n,t}$ is defined by \eqref{eq:reversed}, and $N_n(t)$ and $N_q(r)$ are as in Section~\ref{sec:intro-near1}. We write $t=1+\eps$ with $0<\eps\le1$ and $s=\eps n^{1/3}$; $\log$ is the natural logarithm, and
+\[
+\varpi_n=\log n+34 ;
+\]
+the constant $34$ is what Lemma~\ref{lem:near1-weighted} needs in order to apply Theorem~\ref{thm:near1-ratio}.
+
+\begin{theorem}[Times close to $1$]\label{thm:window}
+Let $n\ge2$ and $t=1+\eps$ with $0<\eps\le1$, and suppose that $\varpi_n\le s=\eps n^{1/3}\le2^{-10}n^{5/9}$. There is a deterministic set $S=S_{n,t}\subset\C$, symmetric about $\R$ and contained in
+\[
+\Bigl\{z:\ |\re z|\le2\sqrt t,\ |\im z|\le\frac{6\varpi_n}{n}\Bigl(1-\frac{(\re z)^2}{4t}\Bigr)^{-1/2}\Bigr\}\cup\Bigl\{z:\ |z\mp2\sqrt t|\le\frac{1600\,s^{6/5}}{n^{2/3}}\Bigr\},
+\]
+such that, with probability at least $1-C\bigl[(\log n)^2s^{-8/5}+s^{-6/5}\log s\bigr]$, where $C$ is an absolute constant:
+\begin{enumerate}
+\item[(a)] the number of nonreal zeros of $P_{n,t}$ outside $S$ equals $N_q(t^{-1/2})$;
+\item[(b)] $N_n(t)-N_q(t^{-1/2})$ equals the number of nonreal zeros of $P_{n,t}$ in $S$; in particular $N_n(t)\ge N_q(t^{-1/2})$.
+\end{enumerate}
+Consequently, if $t_n=1+\eps_n$ with $0<\eps_n\le1$ and $s_n=\eps_nn^{1/3}$ satisfies $s_n/(\log n)^{5/4}\to\infty$, then (a) and (b) hold for $t=t_n$ with probability tending to $1$; and $N_n(t_n)=N_q(t_n^{-1/2})$ with probability tending to $1$ if and only if the probability that $P_{n,t_n}$ has a nonreal zero in the part of $S_{n,t_n}$ near $\pm2\sqrt{t_n}$ described in Corollary~\ref{cor:near1-edge} tends to $0$ (by that corollary, which rests on Theorem~\ref{thm:near1-bulk}).
+\end{theorem}
+
+The first part of the last clause holds as $(\log n)^2s_n^{-8/5}\to0$ and $s_n^{-6/5}\log s_n\to0$; moreover $s_n\ge\varpi_n$ for all large $n$, and $s_n\le n^{1/3}\le2^{-10}n^{5/9}$ once $n\ge2^{45}$. The equivalence is Corollary~\ref{cor:near1-edge}. The theorem concerns counts: unlike \cite[Theorem~\ref{M-thm:heat}]{Main}, it does not give each nonreal zero $u$ of $q$ a partner near $tu+u^{-1}$. Its hypotheses can be met only when $\varpi_n\le2^{-10}n^{5/9}$, that is from $n\approx3.4\cdot10^8$ on ($\log n\ge19.645$), and $C$ is not computed, so the theorem is asymptotic. The factor $\varpi_n$ comes from the logarithmic threshold of Theorem~\ref{thm:near1-ratio}, which cannot be lowered by more than a constant factor (Proposition~\ref{prop:near1-sharp}); the factor $(\log n)^2$ in the rate comes from the union bounds over at most $n$ disks and from the nets. No turning-point (Airy) asymptotics are used: near the edges the contour stays at distance $s^{3/5}n^{-1/3}$ from the unit circle.
+
+\subsection{The exterior error}\label{subsec:near1-X}
+Let $\mathcal J(w)=w+w^{-1}$, $a(w)=q(w/\sqrt t)=\sum_ja_jw^j$ with $a_j=\eta_jt^{-j/2}$, $\mu(w)=1-|w|^2/t$, and, with $Q_n^{(t)}$ as in \eqref{eq:PQ},
+\[
+\varphi_n(w)=\frac{Q_n^{(t)}(\sqrt n\,\mathcal J(w))}{h_n(\sqrt n\,\mathcal J(w))},\qquad X=\varphi_n-a\qquad(w\in\D).
+\]
+The rational function $Q_n^{(t)}(\sqrt n\,\cdot)/h_n(\sqrt n\,\cdot)$ is analytic off $(-2,2)$ (\cite[Lemma~\ref{M-lem:resolvent}]{Main}) and tends to $\eta_0$ at infinity, so $\varphi_n$ is analytic in $\D$, $\varphi_n(0)=a(0)$, and $\varphi_n(\bar w)=\overline{\varphi_n(w)}$. Since $\mathcal J$ maps $\D\setminus\{0\}$ conformally onto $\C\setminus[-2,2]$ and $\im\mathcal J(w)=\im w\,(1-|w|^{-2})$, \eqref{eq:PQ} shows that $w\mapsto\sqrt t\,\mathcal J(w)$ maps the nonreal zeros of $\varphi_n$ in $\D$ bijectively, with multiplicities, onto those of $P_{n,t}$. With $Z_f(A)$ the number of nonreal zeros of $f$ in $A$,
+\begin{equation}\label{eq:near1-counts}
+N_n(t)=Z_{\varphi_n}(\D),\qquad N_q(t^{-1/2})=Z_a(\D).
+\end{equation}
+By the proof of \cite[Proposition~\ref{M-prop:exterior}]{Main}, for $0<|w|<1$,
+\begin{equation}\label{eq:near1-X}
+X(w)=\sum_{j\ge1}a_j\bigl(u_{j-1}(w)-w^j\bigr),\qquad u_{j-1}(w)=\frac{h_{n-j}(\sqrt n\,\mathcal J(w))}{h_n(\sqrt n\,\mathcal J(w))}\ (j\le n),\quad u_{j-1}=0\ (j>n).
+\end{equation}
+So $X$ is a centred Gaussian analytic function on $\D$, $X(0)=0$, and $\E|X(w)|^2=\sum_jt^{-j}|u_{j-1}(w)-w^j|^2$. Also $\E|a(w)|^2=\mu(w)^{-1}$, $\E a(w)^2=(1-w^2/t)^{-1}$, and with $x=|w|^2/t$,
+\begin{equation}\label{eq:near1-a}
+\E|a'(w)|^2=\frac{1+x}{t(1-x)^3}\le\frac2{\mu(w)^3},\qquad\E|a''(w)|^2=\frac{4(1+4x+x^2)}{t^2(1-x)^5}\le\frac{24}{\mu(w)^5}.
+\end{equation}
+For $|w|\le1$, $\mu(w)\ge\eps/t\ge\eps/2$; for real $x$, $(a(x),a'(x))$ has covariance determinant $t^{-1}\mu(x)^{-4}$.
+
+\subsection{A counting criterion}
+
+\begin{lemma}\label{lem:near1-count}
+Let $\Omega$ be a Jordan domain with piecewise $C^1$ boundary and $\overline\Omega\subset\D$, symmetric under $w\mapsto\bar w$, with $0\in\Omega$ and $\Omega\cap\R$ an open interval. Suppose that
+\begin{enumerate}
+\item[(C1)] $|X(w)|<|a(w)|$ for every $w\in\partial\Omega$;
+\item[(C2)] for every $x\in\Omega\cap\R$, $|X(x)|<|a(x)|$ or $|X'(x)|<|a'(x)|$.
+\end{enumerate}
+Then neither $\varphi_n$ nor $a$ vanishes on $\partial\Omega$, $Z_{\varphi_n}(\Omega)=Z_a(\Omega)$, and $N_n(t)-N_q(t^{-1/2})=Z_{\varphi_n}(\D\setminus\Omega)-Z_a(\D\setminus\Omega)$.
+\end{lemma}
+
+\begin{proof}
+For $\alpha\in[0,1]$ let $f_\alpha=a+\alpha X$; it is analytic in $\D$, $f_\alpha(\bar w)=\overline{f_\alpha(w)}$, $f_0=a$, $f_1=\varphi_n$. By (C1), $|f_\alpha|\ge|a|-|X|>0$ on $\partial\Omega$, so the number of zeros of $f_\alpha$ in $\Omega$ does not depend on $\alpha$. By (C2), every zero $x\in I=\Omega\cap\R$ of $f_\alpha$ is simple: $f_\alpha(x)=f_\alpha'(x)=0$ would give $|a(x)|\le|X(x)|$ and $|a'(x)|\le|X'(x)|$. The number of zeros in $I$ is locally constant in $\alpha$, as in \cite[Lemma~\ref{M-lem:constancy}]{Main}: for fixed $\alpha_0$, $f_{\alpha_0}$ has finitely many zeros in $I$, since the endpoints of $I$ lie on $\partial\Omega$; around each, Rouch\'e's theorem on a small disk symmetric about $\R$ gives exactly one zero of $f_\alpha$ for $\alpha$ near $\alpha_0$, which is real by symmetry; and $f_\alpha$ has no zero on the rest of $\overline I$. So the number of nonreal zeros of $f_\alpha$ in $\Omega$ is constant. The last identity follows from \eqref{eq:near1-counts}.
+\end{proof}
+
+\subsection{The size of \texorpdfstring{$X$}{X}}
+
+\begin{lemma}\label{lem:near1-var}
+Let $0<|w|=\rho<1$, $\beta=1-\rho$ and $\sigma=|\sin\arg w|$. Then $\E|X(w)|^2\le\sum_{j\ge1}|u_{j-1}(w)-w^j|^2\le8n^{-2}\beta^{-7}$, and if $\rho\ge\frac12$, then $\E|X(w)|^2\le4n^{-2}\beta^{-5}(\sigma+\beta)^{-2}$.
+\end{lemma}
+
+\begin{proof}
+In the proof of \cite[Proposition~\ref{M-prop:exterior}]{Main} take $K=\{z\}$, $z=\mathcal J(w)$, so that $r(z)=w$, $u=(z-T_n)^{-1}e_0$ and $y=(z-T_\infty)^{-1}e_0$ has $y_i=w^{i+1}$. There $\|u-y\|\le2n^{-1}d^{-1}S^{1/2}$, with $d=\dist(z,[-2,2])$ and $S=\sum_{m\ge1}m^2\rho^{2m}=\rho^2(1+\rho^2)(1-\rho^2)^{-3}$; and $\E|X(w)|^2\le\|u-y\|^2$ by \eqref{eq:near1-X}, as $t^{-j}\le1$. By \cite[\eqref{M-eq:joukowski-dist}]{Main}, $d\ge\beta^2/\rho$, so $\|u-y\|^2\le4n^{-2}\rho^4(1+\rho^2)\beta^{-4}(1-\rho^2)^{-3}\le8n^{-2}\beta^{-7}$. If $\rho\ge\frac12$, then $S\le\frac14\beta^{-3}$, since $\rho^2(1+\rho^2)(1+\rho)^{-3}$ increases on $[0,1]$ to $\frac14$; and $d\ge|\im z|=(\rho^{-1}-\rho)\sigma\ge2\beta\sigma$ and $d\ge\beta^2$ give $d\ge\frac12\beta(\sigma+\beta)$.
+\end{proof}
+
+We use two facts. (S) If $H$ is analytic near a closed disk $B(w,r)$, then, by subharmonicity, $|H(w)|^2$ is at most the mean of $|H|^2$ over $B(w,r)$. (BT) If $H$ is a centred Gaussian analytic function near a compact set $K$ and $\E\sup_K|H|^2\le S^2$, then $\PP(\sup_K|H|>(1+u)S)\le e^{-u^2/2}$ for $u\ge0$. Indeed, $\sup_K|H|$ is the supremum over $K\times[0,2\pi]$ of the continuous centred Gaussian process $\re(e^{i\vartheta}H(w))$, whose variances are at most $S^2$ and whose supremum has mean at most $S$; apply the Borell--TIS inequality \cite[Theorem~2.1.1]{AT}.
+% TODO(author): the pinpoint [AT, Theorem 2.1.1] for the Borell--TIS inequality was not checked in the book.
+
+\begin{lemma}\label{lem:near1-net}
+Let $1\le t\le2$ and $\delta\in(0,1)$, let $\Gamma\subset\{\frac34\le|w|<1\}$ be a finite union of $C^1$ arcs, and let $B_k=B(c_k,r_k)$, $1\le k\le N$, be closed disks covering $\Gamma$ with $r_k\le(1-|c_k|)/8$. Let $V_k\ge\sup_{B(c_k,2r_k)}\E|X|^2$, $\mu_k=\mu(c_k)$, $\lambda=1+(2\log(2N/\delta))^{1/2}$, $\tau_k=2\lambda V_k^{1/2}$ and $L_k=8\lambda\mu_k^{-3/2}$; for $w\in\Gamma$ let $\tau(w)=\min\{\tau_k:w\in B_k\}$ and $L(w)=\min\{L_k:w\in B_k\}$.
+\begin{enumerate}
+\item[(a)] With probability at least $1-\delta$, $|X|\le\tau$ and $|a'|\le L$ on $\Gamma$.
+\item[(b)] Let $F\subset\Gamma$ be finite, and for $v\in F$ let $\Gamma_v\subset\Gamma$ be an arc containing $v$, of length at most $T_v/L_v$, where $T_v\ge\sup_{\Gamma_v}\tau$ and $L_v\ge\sup_{\Gamma_v}L$, such that the arcs $\Gamma_v$ cover $\Gamma$. Then
+\[
+\PP\bigl(|X(w)|\ge|a(w)|\text{ for some }w\in\Gamma\bigr)\le\delta+\sum_{v\in F}\PP\bigl(|a(v)|\le2T_v\bigr).
+\]
+\item[(c)] If $v=\rho e^{i\theta}$, $\frac34\le\rho<1$, and $m>0$, then $\PP(|a(v)|\le m)\le\mu(v)m^2(1+\mu(v)/|\sin\theta|)$, and if $v$ is real, $\PP(|a(v)|\le m)\le0.8\,m\mu(v)^{1/2}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $w\in B_k$, $B(w,r_k)\subset B(c_k,2r_k)\subset\D$, so (S) gives $\E\sup_{B_k}|X|^2\le4V_k$. For $v\in B(c_k,2r_k)$, $|\mu(v)-\mu_k|\le(|v|+|c_k|)|v-c_k|\le4r_k\le\frac12(1-|c_k|)\le\frac12\mu_k$, as $\mu_k\ge1-|c_k|^2$; so \eqref{eq:near1-a} and (S) give $\E\sup_{B_k}|a'|^2\le4\cdot16\mu_k^{-3}$. By (BT) with $u=\lambda-1$, each of the events $\sup_{B_k}|X|>\tau_k$ and $\sup_{B_k}|a'|>L_k$ has probability at most $\delta/(2N)$. Outside them, $|X(w)|\le\tau_k$ and $|a'(w)|\le L_k$ whenever $w\in B_k$.
+(b) On the event of (a), if $|a(v)|>2T_v$, then for $w\in\Gamma_v$, $|a(w)|\ge|a(v)|-L_v\,\mathrm{length}(\Gamma_v)>T_v\ge\tau(w)\ge|X(w)|$.
+(c) Let $x=\rho^2/t\ge\frac9{32}$. The vector $(\re a(v),\im a(v))$ has covariance determinant $\frac14(K^2-\kappa^2)$, where $K=(1-x)^{-1}$ and $\kappa=|1-xe^{2i\theta}|^{-1}$, and $K^2-\kappa^2=4x\sin^2\theta(1-x)^{-2}\bigl((1-x)^2+4x\sin^2\theta\bigr)^{-1}$. So $\PP(|a(v)|\le m)\le m^2(K^2-\kappa^2)^{-1/2}\le m^2(1-x)\bigl(1+(1-x)/(2x^{1/2}|\sin\theta|)\bigr)$, with $2x^{1/2}\ge1$ and $1-x=\mu(v)$. If $v$ is real, $a(v)$ is $N(0,\mu(v)^{-1})$.
+\end{proof}
+
+\begin{lemma}\label{lem:near1-real}
+Let $1\le t\le2$, $\eps=t-1$, $0<\beta\le\frac18$, $\mu_0=\eps+\beta$, $\delta\in(0,1)$, $\lambda=1+(2\log(1/\delta))^{1/2}$ and $\gamma=n^{-1}\beta^{-5/2}\mu_0^{-1/2}(1+\mu_0/\beta)^2$. If $\gamma\le1$, then with probability at least $1-4(\log_2(1/\beta)+2)\delta-1.2\cdot10^{10}\lambda^2\gamma$, every $x\in(-1+\beta,1-\beta)$ satisfies $|X(x)|<|a(x)|$ or $|X'(x)|<|a'(x)|$.
+\end{lemma}
+
+\begin{proof}
+We treat $[0,1-\beta)$; the negative half is the same, since all bounds below depend on $|x|$ only. For dyadic $\ell=2^{-k}\ge\beta$ let $J=\{x\in[0,1-\beta):\ell/2\le1-x\le\ell\}$; these at most $\log_2(1/\beta)+1$ pieces cover $[0,1-\beta)$. Fix one, and let $\nu=\eps+\ell$, $U=J+B(0,\ell/4)$, $U'=J+B(0,\ell/8)$. Then $\mathrm{area}(U)\le0.45\ell^2$; on $U$, $1-|w|\ge\ell/4$, so $\E|X|^2\le8\cdot4^7n^{-2}\ell^{-7}$ (Lemma~\ref{lem:near1-var}), and $\mu(w)\ge\frac12(\eps+1-|w|)\ge\nu/8$, so $\E|a''|^2\le24\cdot8^5\nu^{-5}$. By (S) on disks of radius $\ell/8$ centred in $U'$, resp.\ $\ell/4$ centred in $J$, $\E\sup_{U'}|X|^2\le1.21\cdot10^6n^{-2}\ell^{-7}$ and $\E\sup_J|a''|^2\le1.81\cdot10^6\nu^{-5}$, and $\sup_J|X'|\le(8/\ell)\sup_{U'}|X|$ by Cauchy's estimate. By (BT), with probability at least $1-2\delta$,
+\[
+\sup_J|X|\le\Lambda_0:=\frac{1100\lambda}{n\ell^{7/2}},\qquad\sup_J|X'|\le\Lambda_1:=\frac{8800\lambda}{n\ell^{9/2}},\qquad\sup_J|a''|\le L_2:=\frac{1345\lambda}{\nu^{5/2}}.
+\]
+On this event, a point $x\in J$ where the condition fails has $|a(x)|\le\Lambda_0$ and $|a'(x)|\le\Lambda_1$. Take at most $\ell L_2/(4\Lambda_1)+1$ points $g\in J$ such that each $x\in J$ is within $\Lambda_1/L_2$ of one of them; for that $g$, $|a'(g)|\le2\Lambda_1$ and $|a(g)|\le\Lambda_0+\frac32\Lambda_1^2/L_2$. As $\mu(g)\le\eps+2(1-g)\le2\nu$, $(a(g),a'(g))$ has density at most $(2\pi)^{-1}t^{1/2}\mu(g)^2\le0.901\nu^2$. So some $g$ has these properties with probability at most
+\[
+\Bigl(\frac{\ell L_2}{4\Lambda_1}+1\Bigr)3.61\nu^2\cdot2\Lambda_1\Bigl(\Lambda_0+\frac{3\Lambda_1^2}{2L_2}\Bigr)
+=3.61\nu^2\Bigl[\frac{\ell L_2\Lambda_0}2+\frac{3\ell\Lambda_1^2}4+2\Lambda_1\Lambda_0+\frac{3\Lambda_1^3}{L_2}\Bigr].
+\]
+The four terms are at most $\lambda^2$ times $2.68\cdot10^6n^{-1}\nu^{-1/2}\ell^{-5/2}$, $2.1\cdot10^8n^{-2}\nu^2\ell^{-8}$, $7\cdot10^7n^{-2}\nu^2\ell^{-8}$ and $5.49\cdot10^9n^{-3}\nu^{9/2}\ell^{-27/2}$. Sum over the pieces with $\mu_0\le\nu\le\mu_0\ell/\beta$ and $\sum_{\ell\ge\beta}\ell^{-p}\le\beta^{-p}/(1-2^{-p})$, and double for the negative half. With $b=n^{-1}\beta^{-9/2}\mu_0^{3/2}$, the total is at most
+\[
+\lambda^2\bigl(6.6\cdot10^6n^{-1}\beta^{-5/2}\mu_0^{-1/2}+5.8\cdot10^8(n^{-1}\beta^{-4}\mu_0)^2+1.1\cdot10^{10}b^3\bigr)\le1.2\cdot10^{10}\lambda^2\gamma,
+\]
+since $n^{-1}\beta^{-5/2}\mu_0^{-1/2}\le\gamma$ and $n^{-1}\beta^{-4}\mu_0=b(\beta/\mu_0)^{1/2}\le b\le\gamma\le1$. The events of (BT) cost $2\delta$ per piece.
+\end{proof}
+
+\subsection{The variance in the bulk}
+Near the unit circle, in the bulk, we bound $\E|X|^2$ through the ratios of Section~\ref{sec:ratio}.
+
+\begin{lemma}\label{lem:near1-weighted}
+Let $n\ge16$, $1<t\le2$, $w=\rho e^{i\theta}$ with $0<\theta<\pi$, $\sigma=\sin\theta$, $\beta=1-\rho$, and $M=\lceil4\log n/\log t\rceil$. Suppose
+(W1) $\beta\le\sigma/24$; (W2) $31M\le n\sigma^2$, $M^2\le n\sigma$ and $M\le n/2$; (W3) $n\beta\sigma^2\ge\varpi_n$.
+Then $\E|X(w)|^2\le21\,n^{-2}\sigma^{-2}\mu(w)^{-5}+1100\,n^{-2}\sigma^{-4}\mu(w)^{-3}$.
+\end{lemma}
+
+\begin{proof}
+Let $\hat z=\mathcal J(w)$ and $\zeta_m=\hat z(n/m)^{1/2}$, so $\sqrt n\,\hat z=\sqrt m\,\zeta_m$. Telescoping gives
+\begin{equation}\label{eq:near1-product}
+u_{j-1}(w)=\prod_{m=n-j+1}^{n}R_m(\zeta_m)\qquad(1\le j\le n),
+\end{equation}
+while $w^j=r(\hat z)^j$. Replacing $w$ by $-\bar w$ multiplies $u_{j-1}$ and $w^j$ by $(-1)^j$ and conjugates them, since $h_k(-x)=(-1)^kh_k(x)$; so let $\theta\le\pi/2$. Put $\Delta_0=\Delta(\hat z)=|w^{-1}-w|\ge2\sigma$.
+
+\emph{Geometry.} Let $1\le\kappa\le(n/(n-M))^{1/2}$ and $\zeta=\kappa\hat z$. By (W2), $\kappa^2-1\le2M/n\le2\sigma^2/31$, so $|\zeta^2-4|\ge\Delta_0^2-4(\kappa^2-1)\ge\frac34\Delta_0^2$ and $\Delta(\zeta)\ge0.86\Delta_0$. Also $|\zeta|\le3$, $2\beta\sigma\le|\im\zeta|\le3\beta\sigma$, $|\zeta+2|\ge2\ge4|\im\zeta|$ (as $\re\zeta\ge0$), and $|\zeta-2|=\Delta(\zeta)^2/|\zeta+2|\ge0.6\sigma^2\ge12\beta\sigma\ge4|\im\zeta|$ by (W1).
+
+\emph{Ratios.} For $n-M<m\le n$, $m\ge n/2$. By the Geometry paragraph applied to $\kappa=(n/m)^{1/2}$, $\zeta_m$ has $|\zeta_m|\le3$, $|\zeta_m\mp2|\ge4|\im\zeta_m|$, $|\im\zeta_m|\ge2\beta\sigma$ and $\Delta(\zeta_m)\ge0.86\Delta_0\ge1.72\sigma$, and $\Delta(\zeta_m)^2\le13$. So, by (W1) and (W3), $m\Delta(\zeta_m)^3\ge\frac n2(1.72\sigma)^3\ge61\,n\beta\sigma^2\ge61\varpi_n\ge2^{11}$ and $m|\im\zeta_m|\Delta(\zeta_m)\ge1.72\,n\beta\sigma^2\ge1.72\varpi_n\ge1.05(\log n+3.85)\ge1.05\log(m\Delta(\zeta_m)^3)$, as $m\Delta(\zeta_m)^3\le13^{3/2}n\le e^{3.85}n$. Theorem~\ref{thm:near1-ratio} gives $|R_m(\zeta_m)-r(\zeta_m)|\le3/(m\Delta(\zeta_m)^2)\le8/(n\Delta_0^2)\le13.4/(n\Delta_0^2)$.
+
+\emph{Free factors.} $|(\log r)'|=|r-1/r|^{-1}=1/\Delta$, so $|\log r(\kappa\hat z)-\log r(\hat z)|\le(\kappa-1)|\hat z|/(0.86\Delta_0)\le2.34(\kappa-1)/\Delta_0$ (the logarithm continued along the segment). The level sets of $|r|$ are the ellipses $\mathcal J(\{|w'|=\rho'\})$, convex and containing $0$, so $|r(\kappa\hat z)|\le|r(\hat z)|$. As $(n/m)^{1/2}-1\le(n-m)/n$ for $m\ge n/2$, $A_j=\sum_{m>n-j}\log(r(\zeta_m)/r(\hat z))$ has $\re A_j\le0$ and $|A_j|\le1.17j^2/(n\Delta_0)$; and $|r(\zeta_m)|\ge\rho e^{-2.34M/(n\Delta_0)}\ge\rho e^{-1.17}\ge0.27$, since $M\le M^2\le n\sigma$.
+
+\emph{Assembly.} Let $e_m=R_m(\zeta_m)/r(\zeta_m)-1$. Then $|e_m|\le13.4/(0.27n\Delta_0^2)\le50/(n\Delta_0^2)$, and $\sum_{m>n-M}|e_m|\le50M/(4n\sigma^2)\le\frac12$ by (W2). Since $u_{j-1}/w^j=e^{A_j}\prod_{m>n-j}(1+e_m)$, $|e^A-1|\le|A|$ for $\re A\le0$ and $e^x-1\le1.3x$ on $[0,\frac12]$,
+\[
+|u_{j-1}-w^j|\le\rho^j\bigl(1.17j^2/(n\Delta_0)+65j/(n\Delta_0^2)\bigr)\qquad(1\le j\le M).
+\]
+With $x=\rho^2/t=1-\mu(w)$, $\sum_jj^4x^j\le24\mu^{-5}$ and $\sum_jj^2x^j\le2\mu^{-3}$, so $\sum_{j\le M}t^{-j}|u_{j-1}-w^j|^2\le66n^{-2}\Delta_0^{-2}\mu^{-5}+16900n^{-2}\Delta_0^{-4}\mu^{-3}$. For $j>M$, $t^{-j}\le n^{-4}$; by \cite[Lemma~\ref{M-lem:resolvent}]{Main} $\sum_{i<n}|u_i|^2\le(2\beta\sigma)^{-2}$, and $\sum_j\rho^{2j}\le\beta^{-1}$. So these terms contribute at most $2n^{-4}((2\beta\sigma)^{-2}+\beta^{-1})\le n^{-2}\sigma^{-2}\mu^{-5}$, as $\beta\ge1/(n\sigma^2)$ by (W3). Finally use $\Delta_0\ge2\sigma$.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:window}}
+Let $n,t$ be as in the theorem, $\beta_e=s^{3/5}n^{-1/3}$, $\theta_e=32\beta_e$, and $\beta_b(\theta)=2\varpi_n/(n\sin^2\theta)$ for $\theta_e\le\theta\le\pi-\theta_e$.
+
+\emph{Consequences of the hypothesis.} As $s\le2^{-10}n^{5/9}$, $\beta_e=s^{3/5}n^{-1/3}\le\frac1{64}$; hence $\theta_e\le\frac12$ and $\sin\theta_e\ge30\beta_e$. As $s\ge\varpi_n\ge34$, $\beta_e\le\eps$, $s^{9/5}\ge s\ge\varpi_n$, $s^{11/5}\ge s\ge\log n$ and $s^{13/5}\ge34^{3/5}\varpi_n^2\ge3\log^2n$. By the first, $n\sin^3\theta\ge n(30\beta_e)^3\ge80\varpi_n$, that is $\beta_b(\theta)\le\sin\theta/40$, for $\theta_e\le\theta\le\pi-\theta_e$, and $\beta_b(\theta_e)\le\beta_e/400$. Also $n\ge s^3\ge34^3$, as $\eps\le1$.
+
+\emph{The domain.} For $-\pi<\theta\le\pi$ let $b(\theta)=\beta_e$ if $|\sin\theta|\le\sin\theta_e$ and $b(\theta)=\beta_b(|\theta|)$ otherwise, and $\Omega=\{\rho e^{i\theta}:0\le\rho<1-b(\theta)\}$. Its boundary consists of four arcs of $\{|w|=1-\beta_e\}$, four radial segments at the angles $\pm\theta_e$, $\pm(\pi-\theta_e)$, and the bulk arcs $\{(1-\beta_b(\theta))e^{\pm i\theta}\}$. So $\Omega$ satisfies the assumptions of Lemma~\ref{lem:near1-count}, and $\Omega\cap\R=(-1+\beta_e,1-\beta_e)$. Let $S=\sqrt t\,\mathcal J(\D\setminus\Omega)$.
+
+\emph{Containment.} Let $w=\rho e^{i\theta}\in\D\setminus\Omega$, $\beta=1-\rho$, $z=\sqrt t\,\mathcal J(w)$. If $|\sin\theta|>\sin\theta_e$, then $\beta\le|\sin\theta|/40$; so $|\re\mathcal J(w)|=(2+\beta^2/\rho)|\cos\theta|\le2$, because $(\beta^2/\rho)|\cos\theta|\le\sin^2\theta\le2(1-|\cos\theta|)$; $1-(\re z)^2/(4t)\le\sin^2\theta$; and $|\im z|=\sqrt t(\rho^{-1}-\rho)|\sin\theta|\le\sqrt2\cdot2.03\,\beta_b(|\theta|)|\sin\theta|\le5.8\varpi_n/(n|\sin\theta|)$. Otherwise $\beta\le\beta_e$ and $\theta$ is within $\theta_e$ of $0$, say, or of $\pi$; then $|w-1|\le\beta_e+\theta_e=33\beta_e$, and $|z-2\sqrt t|=\sqrt t|w-1|^2/|w|\le\sqrt2\cdot1089\cdot\frac{64}{63}\beta_e^2\le1600s^{6/5}n^{-2/3}$.
+
+\emph{Reduction.} Let $G$ be the event that (C1) and (C2) of Lemma~\ref{lem:near1-count} hold for $\Omega$. As $0\in\Omega$, the nonreal zeros of $P_{n,t}$ in $S$, and outside $S$, correspond to those of $\varphi_n$ in $\D\setminus\Omega$, and in $\Omega$. By Lemma~\ref{lem:near1-count}, (a) and (b) hold on $G\cap\{Z_a(\D\setminus\Omega)=0\}$, so it suffices to show
+\begin{equation}\label{eq:near1-goal}
+\PP(G^c)+\E Z_a(\D\setminus\Omega)\le C\bigl[(\log n)^2s^{-8/5}+s^{-6/5}\log s\bigr].
+\end{equation}
+Below, $C$ is an absolute constant that may change from line to line, and we assume $s\ge C_0$ for a suitable absolute $C_0$ (otherwise \eqref{eq:near1-goal} is trivial). All bounds depend on $\theta$ through $|\sin\theta|$ only, so it suffices to treat the neighbourhood of $\theta=0$.
+
+\emph{Missing zeros.} By \cite[Theorem~2.7]{MS} (see \cite[Lemma~\ref{M-lem:pairs}]{Main}) and conjugation symmetry, the nonreal zeros of $q$ have intensity $\rho_c(u)=|u-\bar u|/(\pi|1-u^2|(1-|u|^2)^2)$ on $\D\setminus\R$, so those of $a$ have intensity $t^{-1}\rho_c(w/\sqrt t)$. For $u=w/\sqrt t$, $|w|<1$: $1-|u|^2\ge\eps/2$, and $|1-u^2|\ge|u-\bar u|$, because $|1-u^2|^2-|u-\bar u|^2=(1-|u|^2)^2$. Where $|\sin\theta|>\sin\theta_e$ the intensity is thus at most $4/(\pi\eps^2)$, on a set of area at most $2\int_{\theta_e}^{\pi-\theta_e}\beta_b\,d\theta\le8\varpi_n/(n\theta_e)$. Where $|\theta|\le\theta_e$: $|u-\bar u|\le2|\theta|$, $|1+u|\ge1$ and $|1-u|\ge1-t^{-1/2}\ge\eps/3.5$, so the intensity is at most $9|\theta|\eps^{-3}$, and $\int|\theta|\,dA\le\beta_e\theta_e^2$. Hence
+\[
+\E Z_a(\D\setminus\Omega)\le\frac{32\varpi_n}{\pi n\eps^2\theta_e}+\frac{18\cdot1024\,\beta_e^3}{\eps^3}=\frac{\varpi_n}{\pi s^{13/5}}+\frac{18432}{s^{6/5}}.
+\]
+
+\emph{The real segment.} Apply Lemma~\ref{lem:near1-real} with $\beta=\beta_e$ and $\delta=s^{-2}$. As $\eps\le\mu_0\le2\eps$ and $\beta_e\le\eps$, $\gamma\le9n^{-1}\beta_e^{-9/2}\eps^{3/2}=9s^{-6/5}\le1$. So (C2) fails with probability at most $4(\log_2n+2)s^{-2}+Cs^{-6/5}\log s$.
+
+\emph{The circle condition: disks.} By conjugation symmetry it suffices to prove (C1) on $\Gamma=\partial\Omega\cap\{\im w\ge0\}$. Write $\beta(w)=1-|w|$, $\sigma(w)=|\sin\arg w|$, $\psi(w)=\sigma(w)+\beta_e$. Let $\Gamma_1$ consist of the two arcs at radius $1-\beta_e$ and the points of the radial segments with $\beta\ge\beta_e/2$, and $\Gamma_2$ of the rest of $\Gamma$. Cover each $C^1$ arc of $\Gamma_1$ and of $\Gamma_2$ by disks $B(c_k,r_k)$, $r_k=\beta(c_k)/8$, with centres on that arc, each at arc-length distance $r_k$ from the next. This takes at most $2\cdot257$ disks on the arcs at radius $1-\beta_e$, at most $C\log n$ on each radial segment (on which $\beta$ changes by the factor $\frac98$ from one centre to the next, and $\beta_e/\beta_b(\theta_e)\le n$), and at most $1.01\pi\cdot4n/\varpi_n+1$ on the bulk arc, whose arc-length element is at most $1.01\,d\theta$, as $|\beta_b'|=2\beta_b|\cot\theta|\le\frac1{20}$. So $N\le515+2(9\log n+2)+0.38\,n\le n$, as $\varpi_n\ge34$ and $n\ge34^3$; and with $\delta=s^{-2}\ge n^{-2/3}$ in Lemma~\ref{lem:near1-net}, $\lambda^2\le C\log n$. For $v\in B(c,2r)$, $\frac34\beta(c)\le\beta(v)\le\frac54\beta(c)$ and $|\sigma(v)-\sigma(c)|\le0.26\beta(c)$. On $\Gamma$, $\eps/2\le\mu\le\eps+2\beta_e\le3\eps$, so $L\le\bar L:=8\lambda(\eps/2)^{-3/2}$.
+
+If $c\in\Gamma_1$, then $\beta(v)\ge\frac38\beta_e$ and $\sigma(v)+\beta(v)\ge\frac25\psi(c)$ (if $\beta(c)=\beta_e$ the left side is at least $\sigma(c)+0.49\beta_e$; otherwise $\sigma(c)=\sin\theta_e\ge30\beta_e$). So Lemma~\ref{lem:near1-var} gives $V\le Cn^{-2}\beta_e^{-5}\psi(c)^{-2}$, and as $\psi\le1.13\psi(c)$ on $B(c,r)$,
+\[
+\tau\le\tau_1:=C_1\lambda n^{-1}\beta_e^{-5/2}\psi^{-1}\qquad\text{on }\Gamma_1.
+\]
+If $c\in\Gamma_2$, then $\beta(c)\le\sigma(c)/40$ and $n\beta(c)\sigma(c)^2\ge2\varpi_n$. So $\sigma(v)\ge0.99\sigma(c)$, (W1) and (W3) hold at $v$, and so does (W2), by the bounds on $s^{11/5}$ and $s^{13/5}$, since $\sigma(v)\ge0.99\sin\theta_e\ge29\beta_e$ and $M\le9\log n/\eps$. Lemma~\ref{lem:near1-weighted} gives $V\le Cn^{-2}(\sigma(c)^{-2}\eps^{-5}+\sigma(c)^{-4}\eps^{-3})$, and as $\sigma\le1.01\sigma(c)$ on $B(c,r)$,
+\[
+\tau\le\tau_2:=C_2\lambda n^{-1}\bigl(\sigma^{-1}\eps^{-5/2}+\sigma^{-2}\eps^{-3/2}\bigr)\qquad\text{on }\Gamma_2.
+\]
+
+\emph{The circle condition: nets.} We use Lemma~\ref{lem:near1-net}(b) and (c) with $\mu\le3\eps$, and write $\sigma=\sin\theta$, $\sigma_e=\sin\theta_e$.
+
+(i) On the arc $\{(1-\beta_e)e^{i\theta}:0\le\theta\le\theta_e\}$, $\tau\le\bar\tau(\theta):=C_1\lambda n^{-1}\beta_e^{-5/2}(\sigma+\beta_e)^{-1}$. Take $v=1-\beta_e$ with the arc $\{0\le\theta\le\theta_0\}$, $\theta_0=\bar\tau(0)/\bar L$, and $T_v=\bar\tau(0)$; then points $\theta_1=\theta_0<\theta_2<\dots$ with $\theta_{i+1}-\theta_i=\min(\bar\tau(\theta_i)/(2\bar L),(\sigma(\theta_i)+\beta_e)/4)$, the arcs $[\theta_i,\theta_{i+1}]$ (the last cut at $\theta_e$), and $T=2\bar\tau(\theta_i)$, which bounds $\bar\tau$ on the arc. The real point contributes at most $1.6\bar\tau(0)(3\eps)^{1/2}\le C\lambda n^{-1}\beta_e^{-7/2}\eps^{1/2}$. The contribution of $\theta_i$ is at most $f(\theta_i)$, where $f=48\eps\bar\tau^2(1+3\eps/\sigma)$ decreases. For $i\ge2$, $\theta_i-\theta_{i-1}\ge(2\bar L/\bar\tau(\theta)+5/(\sigma+\beta_e))^{-1}$ for $\theta\in[\theta_{i-1},\theta_i]$, so the points $\theta_i$, $i\ge1$, contribute at most
+\[
+f(\theta_0)+\int_{\theta_0}^{\theta_e}f\Bigl(\frac{2\bar L}{\bar\tau}+\frac5{\sigma+\beta_e}\Bigr)d\theta\le C\lambda^2\bigl(n^{-1}\beta_e^{-7/2}\eps^{1/2}+n^{-2}\beta_e^{-8}\eps^2\bigr)\log n,
+\]
+by $\sigma\ge2\theta/\pi$, $\beta_e\le\eps$, $\int_{\theta_0}^{\theta_e}\theta^{-1}(\theta+\beta_e)^{-k}d\theta\le\beta_e^{-k}(1+\log^+(\beta_e/\theta_0))$ for $k=1,3$, and $\beta_e/\theta_0\le Cn\beta_e^3\le Cn$ (as $\theta_0\ge cn^{-1}\beta_e^{-7/2}\eps^{3/2}$).
+
+(ii) On the part of a radial segment with $\beta\ge\beta_e/2$, of length $\beta_e/2$, $\tau\le\bar\tau_r:=C\lambda n^{-1}\beta_e^{-7/2}$. Equally spaced points with arcs of length $\bar\tau_r/\bar L$ and $T=\bar\tau_r$ contribute at most $(\beta_e\bar L/\bar\tau_r+1)12\eps\bar\tau_r^2(1+3\eps/\sigma_e)\le C\lambda^2(n^{-1}\beta_e^{-7/2}\eps^{1/2}+n^{-2}\beta_e^{-8}\eps^2)$. On the rest of the segment, of length at most $\theta_e$, $\tau\le\bar\tau_b(\theta_e)$ (see (iii)); there equally spaced points contribute at most $C(\theta_e\eps\bar L\bar\tau_b(\theta_e)+\eps\bar\tau_b(\theta_e)^2)(1+3\eps/\sigma_e)$, which is $C\theta_e$ times the integrands of (iii) at $\theta_e$, hence at most the bound of (iii).
+
+(iii) On the bulk arc, $\theta_e\le\theta\le\pi/2$, $\tau\le\bar\tau_b(\theta):=\tau_2$. Take points $\theta_1=\theta_e<\theta_2<\dots$ with $\theta_{i+1}-\theta_i=\min(\bar\tau_b(\theta_i)/(4\bar L),\sigma(\theta_i)/4)$ (the last arc cut at $\pi/2$) and $T=2\bar\tau_b(\theta_i)$, which bounds $\bar\tau_b$ on the arc as $\sigma\ge\frac34\sigma(\theta_i)$ there; the arcs have length at most $1.01(\theta_{i+1}-\theta_i)\le T/\bar L$. As in (i), with $f_b=48\eps\bar\tau_b^2(1+3\eps/\sigma)$, the contribution is at most
+\[
+f_b(\theta_e)+\int_{\theta_e}^{\pi/2}f_b\Bigl(\frac{4\bar L}{\bar\tau_b}+\frac5\sigma\Bigr)d\theta
+\le C\lambda^2\Bigl[\frac{\log n}{n\eps^3}+\frac1{n\eps^2\theta_e}+\frac1{n\eps\theta_e^2}+\sum_{k=2}^{5}\frac1{n^2\eps^{6-k}\theta_e^{k}}\Bigr].
+\]
+Indeed, the two integrands are at most $C\lambda^2n^{-1}\sum_{k=1}^3\sigma^{-k}\eps^{k-4}$ and $C\lambda^2n^{-2}\sum_{k=3}^6\sigma^{-k}\eps^{k-7}$, and $f_b(\theta_e)$ is at most $\theta_e$ times the second at $\theta_e$.
+
+\emph{Conclusion.} With $\beta_e=s^{3/5}n^{-1/3}$ and $\eps=sn^{-1/3}$: $n^{-1}\beta_e^{-7/2}\eps^{1/2}=s^{-8/5}$, $n^{-2}\beta_e^{-8}\eps^2=s^{-14/5}$, $n^{-1}\eps^{-3}=s^{-3}$, $n^{-1}\eps^{-2}\theta_e^{-1}\le s^{-13/5}$, $n^{-1}\eps^{-1}\theta_e^{-2}\le s^{-11/5}$, and $n^{-2}\eps^{k-6}\theta_e^{-k}\le s^{2k/5-6}\le s^{-4}$ for $k\le5$. With $\lambda^2\le C\log n$, (i)--(iii) and Lemma~\ref{lem:near1-net}(b) give
+\[
+\PP\bigl(\text{(C1) fails}\bigr)\le s^{-2}+C(\log n)^2\bigl(s^{-8/5}+s^{-3}\bigr)+C(\log n)s^{-11/5}\le C(\log n)^2s^{-8/5}.
+\]
+The real segment costs at most $C(\log n)s^{-2}+Cs^{-6/5}\log s$, and the missing zeros $\varpi_ns^{-13/5}/\pi+18432s^{-6/5}\le s^{-8/5}+Cs^{-6/5}\log s$, as $s\ge\varpi_n$ and $s\ge34$. This proves \eqref{eq:near1-goal}. \qed
+
+\subsection{The vertex}
+
+\begin{proposition}\label{prop:near1-vertex}
+Let $0<\beta\le\frac1{10}$, $\rho=1-\beta$, $1\le t\le1+\beta$ (here $t=1$ is allowed) and $n\beta^3\ge64$. Then $2.5\cdot10^{-6}n^{-2}\beta^{-7}\le\E X(\rho)^2\le4n^{-2}\beta^{-7}$.
+\end{proposition}
+
+\begin{proof}
+The upper bound is Lemma~\ref{lem:near1-var} with $\sigma=0$. For real $\zeta>2$, $0<R_m(\zeta)<r(\zeta)$: $R_m>0$ by \eqref{eq:near1-sum}, and $(R_m-r)(R_m-1/r)=m^{-2}\sum_k(\zeta-x_k)^{-2}>0$ by \eqref{eq:near1-riccati}, so $R_m\notin[r,1/r]$; as $R_m-1/r$ is continuous, nonzero on $(2,\infty)$ and negative at infinity, $R_m<1/r$, hence $R_m<r$. Let $z=\mathcal J(\rho)$. By \eqref{eq:near1-product}, with $\zeta_m=z(n/m)^{1/2}>2$, and as $(\log r)'=-(\zeta^2-4)^{-1/2}$ on $(2,\infty)$,
+\[
+0<u_{j-1}\le\prod_{m>n-j}r(\zeta_m)=\rho^je^{-G_j},\qquad G_j\ge\sum_{m>n-j}(\zeta_m-z)(\zeta_m^2-4)^{-1/2}.
+\]
+For $j\le n\beta^2$ and $n-j<m\le n$: $\zeta_m-z\ge(n-m)/n$ and $\zeta_m^2-4=(z^2-4)+z^2(n-m)/m\le4.5\beta^2+4.1\beta^2<9\beta^2$, so $G_j\ge j(j-1)/(6n\beta)$. Let $J=\lceil1/\beta\rceil$, so $2J\le2.2/\beta\le n\beta^2$. For $J\le j\le2J$, $j(j-1)\ge0.9\beta^{-2}$, so $G_j\ge0.15/(n\beta^3)$, a number at most $1$, and $\rho^j-u_{j-1}\ge\rho^j(1-e^{-G_j})\ge0.094\rho^j/(n\beta^3)$, as $1-e^{-g}\ge0.63g$ for $0\le g\le1$. Everything is real, so $\E X(\rho)^2=\sum_jt^{-j}(\rho^j-u_{j-1})^2\ge\sum_{j=J}^{2J}(\rho^2/t)^j(0.094)^2n^{-2}\beta^{-6}$, where $(\rho^2/t)^j\ge e^{-3.11\beta j}\ge e^{-6.9}$ and there are at least $1/\beta$ terms.
+\end{proof}
+
+\begin{remark}\label{rem:near1-vertex}
+For $n\beta^3\ge64$ and $1\le t\le1+\beta$, Proposition~\ref{prop:near1-vertex} gives $\operatorname{Var}X(1-\beta)\asymp n^{-2}\beta^{-7}$, so Lemma~\ref{lem:near1-var} is sharp at the vertex, and, as $\E a(1-\beta)^2=t/(t-(1-\beta)^2)\asymp\beta^{-1}$, $\operatorname{Var}X/\operatorname{Var}a\asymp(n\beta^3)^{-2}$ there. Extrapolated to $n\beta^3\asymp1$, this makes $X$ and $a$ comparable. Numerically (exact Gaussian computation for $n=2000$, $8000$, $32000$; not reported here), the circle condition $|X|<|a|$ fails at the vertex $w=1-\beta$ with probability about $0.1$ when $n\beta^3=1$ and $t=1$, independently of $n$. Heuristically, therefore, no argument that compares $\varphi_n$ with $a$ on a contour through $\pm(1-\beta)$ can work for $\beta\lesssim n^{-1/3}$.
+\end{remark}
+
+\section{The bulk strip}\label{sec:bulk}\label{subsec:near1-bulk}
+By Theorem~\ref{thm:window}(b), with high probability $N_n(t)-N_q(t^{-1/2})$ is the number of nonreal zeros of $P_{n,t}$ in $S=\sqrt t\,\mathcal J(\D\setminus\Omega)$. With the notation of the proof of Theorem~\ref{thm:window}, $\D\setminus\Omega$ is the disjoint union of the \emph{bulk strip} and the \emph{edge boxes},
+\begin{gather*}
+\Omega_b=\{\rho e^{i\theta}:\ |\sin\theta|>\sin\theta_e,\ 1-\beta_b(|\theta|)\le\rho<1\},\\
+\Omega_e=\{\rho e^{i\theta}:\ |\sin\theta|\le\sin\theta_e,\ 1-\beta_e\le\rho<1\}.
+\end{gather*}
+Here we show that, with high probability, $P_{n,t}$ has no nonreal zero in $\sqrt t\,\mathcal J(\Omega_b)$. The exterior comparison of $\varphi_n$ with $a$ cannot see this: near the cut, $h_k$ is the sum of two exponentials of equal size, one of which is recessive at a point near the cut; it is the recessive one that forces the threshold in Theorem~\ref{thm:near1-ratio}. We split each $h_k$ into its two parts, compare only the dominant part with $a$, which needs no threshold, and recover $Q_n^{(t)}$ by a reflection argument.
+
+\subsection{Dominant parts of Hermite polynomials}
+
+\begin{lemma}[Dominant parts]\label{lem:near1-dominant}
+For $k\ge0$ and $x\in\C$ let
+\[
+h_k^\flat(x)=\frac{i^k\,e^{x^2/2}}{\sqrt{2\pi\,k!}}\int_0^\infty t^ke^{-ixt-t^2/2}\,dt,\qquad h_k^\sharp(x)=\overline{h_k^\flat(\bar x)}.
+\]
+\begin{enumerate}
+\item[(a)] $h_k^\flat$ and $h_k^\sharp$ are entire, $h_k=h_k^\flat+h_k^\sharp$, $|h_k^\flat(x)|=|h_k^\sharp(x)|$ for real $x$, and $e^{-x^2/4}h_k^\flat(x)\to0$ as $x=-iY$, $Y\to+\infty$.
+\item[(b)] $\sqrt{k+1}\,h_{k+1}^\flat=xh_k^\flat-\sqrt k\,h_{k-1}^\flat$ and $(h_k^\flat)'=\sqrt k\,h_{k-1}^\flat$ for $k\ge1$; so $h_k^\flat$ solves $y''=xy'-ky$, and $e^{-x^2/4}h_k^\flat$ solves $U''=(\frac{x^2}4-k-\frac12)U$. The same holds for $h_k^\sharp$.
+\item[(c)] Let $k\ge1$, $\nu=2k+1$, $\varkappa=(1+\frac1{2k})^{1/2}$, $x=2\varkappa\sqrt k\,\tau$, and let $W_\pm,\chi_\pm,\Xi^\flat,\iota$ be as in Lemma~\ref{lem:near1-twoterm} for $m=k$. There is $\gamma_k\ne0$ with $e^{-x^2/4}h_k^\flat(x)=\gamma_kW_-(\tau)$ and $e^{-x^2/4}h_k^\sharp(x)=\bar\gamma_kW_+(\tau)$. On the strip $\{|\re\tau|<1\}$, with $\hat\gamma_k=\bar\gamma_k/(\iota\gamma_k)$,
+\[
+h_k^\flat(x)=\gamma_k\iota\,e^{x^2/4}f^{-1/4}(\tau)e^{-\nu\Xi^\flat(\tau)}\bigl(1+\chi_-(\tau)\bigr),\qquad\frac{h_k^\sharp(x)}{h_k^\flat(x)}=\hat\gamma_k\,e^{2\nu\Xi^\flat(\tau)}\,\frac{1+\chi_+(\tau)}{1+\chi_-(\tau)} .
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The integral converges locally uniformly in $x\in\C$, so $h_k^\flat$ is entire. Differentiating $\sqrt{2\pi}\,e^{-x^2/2}=\int_\R e^{ixt-t^2/2}dt$ $k$ times and using $(\frac d{dx})^ke^{-x^2/2}=(-1)^k\He_k(x)e^{-x^2/2}$ and $t\mapsto-t$ gives $\He_k(x)=i^k(2\pi)^{-1/2}e^{x^2/2}\int_\R t^ke^{-ixt-t^2/2}dt$. The part over $(0,\infty)$ gives $\sqrt{k!}\,h_k^\flat$, and the part over $(-\infty,0)$, after $t\mapsto-t$, gives $\sqrt{k!}\,h_k^\sharp$. For real $x$, $h_k^\sharp(x)=\overline{h_k^\flat(x)}$. For $x=-iY$, $|e^{-x^2/4}h_k^\flat(x)|\le(2\pi k!)^{-1/2}e^{-Y^2/4}\int_0^\infty t^ke^{-Yt}dt\to0$.
+(b) Write $h_k^\flat=\alpha_ke^{x^2/2}I_k$ with $I_k(x)=\int_0^\infty t^ke^{-ixt-t^2/2}dt$ and $\alpha_k=i^k(2\pi k!)^{-1/2}$. Differentiating under the integral, $(e^{x^2/2}I_k)'=e^{x^2/2}\int_0^\infty(x-it)t^ke^{-ixt-t^2/2}dt$, which is $xe^{x^2/2}I_k-ie^{x^2/2}I_{k+1}$, and, as $x-it=i\,\partial_t(-ixt-t^2/2)$, by parts it is $-ike^{x^2/2}I_{k-1}$ for $k\ge1$. As $\alpha_k/\alpha_{k+1}=-i\sqrt{k+1}$ and $\alpha_k/\alpha_{k-1}=i/\sqrt k$, these read $(h_k^\flat)'=xh_k^\flat-\sqrt{k+1}\,h_{k+1}^\flat$ and $(h_k^\flat)'=\sqrt k\,h_{k-1}^\flat$. Then $(h_k^\flat)''=\sqrt k\,(h_{k-1}^\flat)'=\sqrt k\,(xh_{k-1}^\flat-\sqrt k\,h_k^\flat)=x(h_k^\flat)'-kh_k^\flat$, and the equation for $e^{-x^2/4}h_k^\flat$ follows. For $h_k^\sharp$ take conjugates.
+(c) By (b) and the computation before \eqref{eq:near1-weber}, $w(\tau)=e^{-x^2/4}h_k^\flat(x)$ solves \eqref{eq:near1-weber}, and by (a) it tends to $0$ along $\tau=-iv$, $v\to+\infty$. By Lemma~\ref{lem:near1-twoterm}(b) and the proof of (a) there, $|W_-(iv)|\ge\frac12(1+v^2)^{-1/4}e^{\nu v^2/2}\to\infty$ and $|W_+(iv)|\le\frac32(1+v^2)^{-1/4}e^{-\nu v^2/2}\to0$; as $W_+(-iv)=\overline{W_-(iv)}$ and $W_-(-iv)=\overline{W_+(iv)}$, a combination $c_1W_-+c_2W_+$ that tends to $0$ along $-iv$ has $c_2=0$. So $w=\gamma_kW_-$, and then $e^{-x^2/4}h_k^\sharp(x)=\overline{w(\bar\tau)}=\bar\gamma_kW_+(\tau)$. As $e^{-x^2/4}h_k\not\equiv0$, $\gamma_k\ne0$. The formulas on the strip are Lemma~\ref{lem:near1-twoterm}(b).
+\end{proof}
+
+In terms of the parabolic cylinder function, $h_k^\flat(x)=i^k(k!/2\pi)^{1/2}e^{x^2/4}U(k+\frac12,ix)$ \cite[12.5.1]{DLMF}; we do not use this.
+
+For $m\ge1$ and $\zeta\in\C$ with $h_m^\flat(\sqrt m\,\zeta)\ne0$ let $R_m^\flat(\zeta)=h_{m-1}^\flat(\sqrt m\,\zeta)/h_m^\flat(\sqrt m\,\zeta)$. Let $r^\flat$, $\varsigma^\flat$, $\varsigma_\varkappa^\flat$ and $\mathfrak M^\flat$ be the functions $r$, $\varsigma$, $\varsigma_\varkappa$ and $\mathfrak M$ (proof of Theorem~\ref{thm:near1-ratio}) on the closed upper half-plane, continued analytically across $(-2,2)$ into the lower half-plane; there $\varsigma^\flat=-\varsigma$, $\varsigma_\varkappa^\flat=-\varsigma_\varkappa$ and $r^\flat=(\zeta+\varsigma)/2=1/r$.
+
+\begin{lemma}[Dominant ratio bound]\label{lem:near1-domratio}
+Let $m\ge1$ and $\zeta\in\C$ (either sign of $\im\zeta$, or $\zeta$ real) with $|\re\zeta|<2$, $|\zeta|\le4$, $|\zeta\mp2|\ge4|\im\zeta|$ and $m\Delta^3\ge2^{11}$. Then $h_m^\flat(\sqrt m\,\zeta)\ne0$ and
+\[
+|R_m^\flat(\zeta)-r^\flat(\zeta)-\mathfrak M^\flat(\zeta)|\le\frac{0.77}{m\Delta^2},\qquad|\mathfrak M^\flat(\zeta)|\le\frac{|r^\flat(\zeta)|+0.012}{m\Delta^2}.
+\]
+No assumption on $m|\im\zeta|\Delta$ is needed.
+\end{lemma}
+
+\begin{proof}
+As $h_k^\flat(-\bar x)=(-1)^k\overline{h_k^\flat(x)}$ (from the integral), $R_m^\flat(-\bar\zeta)=-\overline{R_m^\flat(\zeta)}$, and $r^\flat,\mathfrak M^\flat$ have the same symmetry; so let $\re\zeta\ge0$. By Lemma~\ref{lem:near1-dominant}(b), $R_m^\flat(\zeta)=\frac1m\frac d{d\zeta}\log h_m^\flat(\sqrt m\,\zeta)$. Let $\tau_0=\zeta/(2\varkappa)$; it lies in the strip. By Lemma~\ref{lem:near1-dominant}(c), $h_m^\flat(\sqrt m\,\zeta)\ne0$ once $|\chi_-(\tau_0)|<1$, and the computation of the proof of Theorem~\ref{thm:near1-ratio}, with the single term $e^{-\nu\Xi^\flat}(1+\chi_-)$ and with $(\Xi^\flat)'=\mathfrak f^\flat$ the continuation of $\mathfrak f$, gives $R_m^\flat-r^\flat-\mathfrak M^\flat=(2\varkappa m)^{-1}\chi_-'(\tau_0)/(1+\chi_-(\tau_0))$. The Geometry and the Liouville--Green steps of case (A) there use only $|\im\zeta|$ and $|\re\zeta|<2$, so they hold on either side of $\R$ and on $\R$ (the disk $B(\tau_0,d/2)$ may cross $\R$, as $\chi_-$ is analytic on the whole strip): $\bar\chi\le0.082$ and $(2\varkappa m)^{-1}|\chi_-'(\tau_0)|/(1-\bar\chi)\le0.70/(0.918\,m\Delta^2)\le0.77/(m\Delta^2)$. The bound on $\mathfrak M^\flat$ is \eqref{eq:near1-M} with $r,\varsigma,\varsigma_\varkappa$ replaced by $r^\flat,\varsigma^\flat,\varsigma_\varkappa^\flat$, which have the same moduli as $r$ or $1/r$, $\varsigma$, $\varsigma_\varkappa$.
+\end{proof}
+
+\subsection{A reflection criterion}
+For an entire function $f$ write $f^\sharp(x)=\overline{f(\bar x)}$.
+
+\begin{lemma}[Reflection criterion]\label{lem:near1-reflection}
+Let $I\subset(0,\pi)$ be a closed interval, $b_1:I\to(0,\frac12)$ continuous, and $\mathcal A=\{\rho e^{-i\theta}:\theta\in I,\ |\log\rho|\le b_1(\theta)\}$; it is invariant under $w\mapsto1/\bar w$. Let $\mathcal D$ and $D$ be entire functions and $Q=\mathcal D+\mathcal D^\sharp$. For $w\in\mathcal A$ let $\hat z=\mathcal J(w)$ and suppose that $D(\sqrt n\,\hat z)\ne0$ and $\mathcal D(\sqrt n\,\hat z)\ne0$; put $\Theta(w)=D^\sharp(\sqrt n\,\hat z)/D(\sqrt n\,\hat z)$ and $\varphi(w)=\mathcal D(\sqrt n\,\hat z)/D(\sqrt n\,\hat z)$, analytic near $\mathcal A$. Suppose that for some function $\gamma:I\to(0,\infty)$,
+\begin{enumerate}
+\item[(i)] $\partial_{\log\rho}\log|\Theta(\rho e^{-i\theta})|\ge\gamma(\theta)$ on $\mathcal A$, and
+\item[(ii)] $|w\varphi'(w)/\varphi(w)|<\gamma(\theta)/2$ for $w=\rho e^{-i\theta}\in\mathcal A$.
+\end{enumerate}
+Then $Q(\sqrt n\,\hat z)\ne0$ for every $w\in\mathcal A$ with $|w|\ne1$; that is, $Q(\sqrt n\,\cdot)$ has no nonreal zero in $\mathcal J(\mathcal A)$.
+\end{lemma}
+
+\begin{proof}
+As $\overline{\hat z}=\mathcal J(\bar w)=\mathcal J(1/\bar w)$ and $1/\bar w\in\mathcal A$, $\mathcal D^\sharp(\sqrt n\,\hat z)=\overline{\varphi(1/\bar w)}\,D^\sharp(\sqrt n\,\hat z)$, so
+\[
+\frac{Q(\sqrt n\,\hat z)}{D(\sqrt n\,\hat z)}=\varphi(w)\bigl(1+\mathcal H(w)\bigr),\qquad\mathcal H(w)=\frac{\Theta(w)\,\overline{\varphi(1/\bar w)}}{\varphi(w)}.
+\]
+On $|w|=1$, $\hat z$ is real, so $|\Theta(w)|=1$, and $1/\bar w=w$, so $|\mathcal H(w)|=1$. Along each radial segment of $\mathcal A$, as $\partial_{\log\rho}\log|\psi(\rho e^{-i\theta})|=\re(w\psi'(w)/\psi(w))$ for analytic $\psi$ and $1/\bar w$ has modulus $1/\rho$,
+\[
+\partial_{\log\rho}\log|\mathcal H|=\partial_{\log\rho}\log|\Theta|-\re\frac{w'\varphi'(w')}{\varphi(w')}\Big|_{w'=1/\bar w}-\re\frac{w\varphi'(w)}{\varphi(w)}>\gamma-\frac\gamma2-\frac\gamma2=0 .
+\]
+So $|\mathcal H|<1$ inside the unit circle and $|\mathcal H|>1$ outside, and $\mathcal H\ne-1$ off the circle; as $\varphi\ne0$, $Q(\sqrt n\,\hat z)\ne0$ there. Finally $\mathcal J$ is injective on $\mathcal A$, since $1/w$ has argument in $I$, not in $-I$, and it maps $\mathcal A\setminus\{|w|=1\}$ into $\C\setminus\R$.
+\end{proof}
+
+\subsection{The setting}\label{subsec:near1-setting}
+From now on let $n,t,\eps,s,\beta_e,\theta_e,\beta_b,\Omega$ be as in Theorem~\ref{thm:window} and its proof, and assume moreover that $s\ge9\varpi_n$. For $0<\theta<\pi$ write $\sigma=\sin\theta$ and let
+\[
+b_1(\theta)=\frac{2.2\,\varpi_n}{n\sin^2\theta},\quad I=[\theta_e,\pi-\theta_e],\quad I'=[\theta_e-9b_1(\theta_e),\pi-\theta_e+9b_1(\theta_e)],
+\]
+$\mathcal A=\{\rho e^{-i\theta}:\theta\in I,\ |\log\rho|\le b_1(\theta)\}$ and $\mathcal A'=\{\rho e^{-i\theta}:\theta\in I',\ |\log\rho|\le9b_1(\theta)\}$. By the consequences of the hypothesis in the proof of Theorem~\ref{thm:window}, $\sin\theta_e\ge30\beta_e$ and $\beta_b(\theta_e)\le\beta_e/400$, so $9b_1(\theta_e)\le10^{-3}\theta_e$ and $\sigma\ge0.99\sin\theta_e\ge29.7\beta_e$ on $I'$; hence $n\sigma^3\ge26000\,s^{9/5}\ge26000\,s$ and $n\sigma^2\ge880\,s^{6/5}n^{1/3}$ on $I'$. Consequently, on $I'$,
+\[
+\frac{b_1}\sigma=\frac{2.2\varpi_n}{n\sigma^3}\le10^{-5},\qquad\frac{9b_1}\eps\le\frac{20\varpi_n}{880\,s^{11/5}}\le10^{-5},
+\]
+using $s\ge9\varpi_n$; in particular $\eps/3\le\mu(w)\le3\eps$ on $\mathcal A'$. Also $\{\rho e^{-i\theta}:\theta_e<\theta<\pi-\theta_e,\ 1-\beta_b(\theta)\le\rho<1\}\subset\mathcal A$, as $-\log(1-\beta_b)\le1.03\beta_b\le b_1$.
+
+We use the split of Lemma~\ref{lem:near1-dominant} with $D=h_n^\flat$, so that, for $w\in\mathcal A'$ and $\hat z=\mathcal J(w)$,
+\[
+\Theta(w)=\frac{h_n^\sharp(\sqrt n\,\hat z)}{h_n^\flat(\sqrt n\,\hat z)} .
+\]
+
+\begin{lemma}[Growth of $|\Theta|$]\label{lem:near1-growth}
+$\Theta$ is analytic on a neighbourhood of $\mathcal A'$, $|\Theta|=1$ on $\{|w|=1\}$, and $3.8\,n\sigma^2\le\partial_{\log\rho}\log|\Theta(\rho e^{-i\theta})|\le4.3\,n\sigma^2$ on $\mathcal A'$. Hence $e^{-4.3n\sigma^2|\log\rho|}\le|\Theta(\rho e^{-i\theta})|\le e^{-3.8n\sigma^2|\log\rho|}$ for $\rho e^{-i\theta}\in\mathcal A'$ with $\rho\le1$.
+\end{lemma}
+
+\begin{proof}
+Let $\nu=2n+1$, $\varkappa=(1+\frac1{2n})^{1/2}$ and $\tau_0=\hat z/(2\varkappa)$. For $w\in\mathcal A'$, $\re\hat z=(\rho+\rho^{-1})\cos\theta$ and $|\log\rho|\le9b_1\le10^{-4}\sigma$, so $d:=1-|\re\tau_0|\ge0.49\sigma^2$; thus $\tau_0$ lies in the strip, and by Lemma~\ref{lem:near1-twoterm}(b) and Lemma~\ref{lem:near1-branches}(c), $\sup_{B(\tau_0,d/2)}|\chi_\pm|\le\bar\chi:=\exp(4.5(0.245\sigma^2)^{-3/2}/(2n))-1\le e^{18.6/(n\sigma^3)}-1$, which is less than $10^{-5}$. By Lemma~\ref{lem:near1-dominant}(c), $h_n^\flat(\sqrt n\,\hat z)\ne0$ and
+\[
+\log|\Theta(w)|=2\nu\re\Xi^\flat(\tau_0)+\log|1+\chi_+(\tau_0)|-\log|1+\chi_-(\tau_0)| .
+\]
+On $|w|=1$, $\tau_0$ is real, $\re\Xi^\flat(\tau_0)=0$ by Lemma~\ref{lem:near1-branches}(a) and $\chi_-(\tau_0)=\overline{\chi_+(\tau_0)}$, so $|\Theta|=1$.
+
+For $F$ analytic, $\partial_{\log\rho}\re F(\tau_0(\rho e^{-i\theta}))=\re\bigl(F'(\tau_0)(w-1/w)/(2\varkappa)\bigr)$, as $w\mathcal J'(w)=w-1/w$. For $F=2\nu\Xi^\flat$, $F'=2\nu\mathfrak f^\flat(\tau_0)$, and $(2\varkappa\mathfrak f^\flat(\tau_0))^2=\hat z^2-4\varkappa^2=(w-1/w)^2-2/n$; as $2\nu/(4\varkappa^2)=n$, the main term is $n\re\Pi(w)$ with $\Pi(w)=(w-1/w)\bigl((w-1/w)^2-\frac2n\bigr)^{1/2}$, the branch being that of $2\varkappa\mathfrak f^\flat$. On $|w|=1$, $w-1/w=-2i\sigma$ and $2\varkappa\mathfrak f^\flat(\tau_0)=i(4\varkappa^2-\hat z^2)^{1/2}=i(4\sigma^2+2/n)^{1/2}$ by Lemma~\ref{lem:near1-branches}(a), so $\Pi=2\sigma(4\sigma^2+2/n)^{1/2}\in[4\sigma^2,4.01\sigma^2]$. On $\mathcal A'$, $|w-e^{-i\theta}|\le9.1b_1\le10^{-4}\sigma$ and $|\Pi'|\le8.4\sigma$ on $\mathcal A'$ (with $g=w-1/w$: $|\Pi'|\le|g'|\,|g^2-2/n|^{1/2}+|g|^2|g'|/|g^2-2/n|^{1/2}\le8.01\sigma+2/(n\sigma)$, as $|g'|=|1+w^{-2}|\le2.001$, $2\sigma\le|g|\le2.001\sigma$ and $|g|^2\le|g^2-2/n|\le|g|^2+2/n$ there), so $\re\Pi\in[3.99\sigma^2,4.02\sigma^2]$. The other two terms: by Cauchy's estimate $|\chi_\pm'(\tau_0)|\le2\bar\chi/d$, and $|w-1/w|/(2\varkappa)\le1.01\sigma$, so the $\partial_{\log\rho}$ of each is at most $1.01\sigma\cdot2\bar\chi/(0.49\sigma^2(1-\bar\chi))\le78/(n\sigma^4)$, which is at most $10^{-9}n\sigma^2$ as $n\sigma^3\ge26000\cdot9\cdot34$. The last statement follows by integrating along the radius from $|w|=1$.
+\end{proof}
+
+\subsection{The tail cut and the dominant exterior estimate}
+Let
+\[
+M'=\Bigl\lceil\frac{171\varpi_n+5\log n+8}{\log t}\Bigr\rceil,\qquad T=\sum_{M'<j\le n}a_jh_{n-j},\qquad Q^\flat=\sum_{j\le M'}a_jh_{n-j}^\flat+\tfrac12T .
+\]
+As the $a_j$ are real and $T$ has real coefficients, $Q_n^{(t)}=Q^\flat+(Q^\flat)^\sharp$. Since $\log t\ge\eps\log2$ and $5\log n+8\le5\varpi_n$, $M'\le254\,\varpi_n/\eps+1\le255\,\varpi_n/\eps$. On $I'$, with $\sigma\ge29.7\beta_e$, this gives
+\begin{equation}\label{eq:near1-W2bulk}
+31M'\le n\sigma^2,\qquad M'^2\le n\sigma,\qquad M'\le n/2:
+\end{equation}
+the first needs $s^{11/5}\ge9\varpi_n$, the second $s^{13/5}\ge2189\varpi_n^2$, and both hold for $s\ge9\varpi_n$, as $9^{13/5}34^{3/5}\ge2500$; the third holds as $n\ge s^3$. For $w\in\mathcal A'$ let $\hat z=\mathcal J(w)$, $u_{j-1}^\flat(w)=h_{n-j}^\flat(\sqrt n\,\hat z)/h_n^\flat(\sqrt n\,\hat z)$ for $j\le n$, and $\varphi^\flat(w)=Q^\flat(\sqrt n\,\hat z)/h_n^\flat(\sqrt n\,\hat z)=a(w)+X^\flat(w)$, so that
+\begin{equation}\label{eq:near1-Xflat}
+X^\flat(w)=\sum_{1\le j\le M'}a_j\bigl(u_{j-1}^\flat(w)-w^j\bigr)-\sum_{j>M'}a_jw^j+\frac{T(\sqrt n\,\hat z)}{2h_n^\flat(\sqrt n\,\hat z)} .
+\end{equation}
+Telescoping as in \eqref{eq:near1-product}, $u_{j-1}^\flat(w)=\prod_{m=n-j+1}^nR_m^\flat(\zeta_m)$ with $\zeta_m=\hat z(n/m)^{1/2}$.
+
+\begin{lemma}[Dominant exterior estimate]\label{lem:near1-domext}
+Let $n\ge16$, $1<t\le2$, $1\le M\le n/2$, $w=\rho e^{-i\theta}$ with $0<\theta\le\pi/2$, $\sigma=\sin\theta$, $\beta=1-\rho$ of either sign and $\mu=1-\rho^2/t>0$. Suppose (W1$'$) $|\beta|\le\sigma/24$, (W2) $31M\le n\sigma^2$ and $M^2\le n\sigma$, and (W3$'$) $n\sigma^3\ge806$. Then for $1\le j\le M$, $u_{j-1}^\flat(w)$ is defined, $|u_{j-1}^\flat(w)-w^j|\le\rho^j\bigl(1.23j^2/(n\sigma)+5.08j/(n\sigma^2)\bigr)$, and
+\[
+\sum_{j\le M}t^{-j}|u_{j-1}^\flat(w)-w^j|^2\le n^{-2}\bigl(74\sigma^{-2}\mu^{-5}+104\sigma^{-4}\mu^{-3}\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+We follow the proof of Lemma~\ref{lem:near1-weighted}, with Lemma~\ref{lem:near1-domratio} in place of Theorem~\ref{thm:near1-ratio}. Let $\hat z=\mathcal J(w)$ and $\Delta_0=|w^{-1}-w|\ge2\sigma$.
+
+\emph{Geometry.} For $\rho<1$, $\im\hat z=(\rho^{-1}-\rho)\sigma\in[2\beta\sigma,3\beta\sigma]$; for $\rho>1$, $\hat z$ lies in the lower half-plane and $|\im\hat z|=(\rho-\rho^{-1})\sigma\in[1.9|\beta|\sigma,2|\beta|\sigma]$. With these bounds, the Geometry paragraph of Lemma~\ref{lem:near1-weighted} applies with $|\beta|$ in place of $\beta$: for $1\le\kappa\le(n/(n-M))^{1/2}$ and $\zeta=\kappa\hat z$, $\Delta(\zeta)\ge0.86\Delta_0$, $|\zeta|\le3$ and $|\zeta\mp2|\ge4|\im\zeta|$. Moreover $|\re\zeta|<2$: by (W2), $\kappa\le1+\sigma^2/31$, and $\re\hat z=(\rho+\rho^{-1})\cos\theta\le(2+1.05\beta^2)(1-\sigma^2/2)$ with $\beta^2\le\sigma^2/576$, so $\re\zeta\le2(1+\sigma^2/31)(1+\sigma^2/1000)(1-\sigma^2/2)<2$.
+
+\emph{Ratios.} For $n-M<m\le n$, $m\ge n/2$, so $m\Delta(\zeta_m)^3\ge\frac n2(1.72\sigma)^3\ge2.544\cdot806\ge2^{11}$ by (W3$'$), and Lemma~\ref{lem:near1-domratio} applies at $\zeta_m$, on either side of $\R$.
+
+\emph{Free factors.} $r^\flat(\hat z)=w$ on both sides of the circle (for $\rho>1$, $r(\hat z)=1/w$). As $|(\log r^\flat)'|=1/\Delta$, $|\log r^\flat(\kappa\hat z)-\log r^\flat(\hat z)|\le(\kappa-1)|\hat z|/(0.86\Delta_0)\le2.34(\kappa-1)/\Delta_0$, and $(n/m)^{1/2}-1\le(n-m)/n$. So $A_j=\sum_{m>n-j}\log(r^\flat(\zeta_m)/r^\flat(\hat z))$ has $|A_j|\le1.17j^2/(n\Delta_0)\le0.585$ by $M^2\le n\sigma$, and $|\log(|r^\flat(\zeta_m)|/\rho)|\le1.17M/(n\sigma)\le\sigma/31$ by $31M\le n\sigma^2$; hence $0.27\le|r^\flat(\zeta_m)|\le1.1$.
+
+\emph{Assembly.} By Lemma~\ref{lem:near1-domratio}, $|R_m^\flat(\zeta_m)-r^\flat(\zeta_m)|\le(1.1+0.782)/(m\Delta(\zeta_m)^2)\le5.07/(n\Delta_0^2)$, as $\Delta(\zeta_m)^2\ge\frac34\Delta_0^2$. So $e_m=R_m^\flat(\zeta_m)/r^\flat(\zeta_m)-1$ has $|e_m|\le18.8/(n\Delta_0^2)$, and $\sum_{m>n-M}|e_m|\le18.8M/(4n\sigma^2)\le0.152$. Since $u_{j-1}^\flat/w^j=e^{A_j}\prod_{m>n-j}(1+e_m)$, $|e^A-1|\le|A|e^{|A|}\le1.8|A|$ for $|A|\le0.585$, and $|\prod(1+e_m)-1|\le e^{\sum|e_m|}-1\le1.08\sum|e_m|$,
+\[
+|u_{j-1}^\flat-w^j|\le\rho^j\Bigl(1.8e^{0.152}\cdot\frac{1.17j^2}{n\Delta_0}+1.08\cdot\frac{18.8j}{n\Delta_0^2}\Bigr)\le\rho^j\Bigl(\frac{1.23j^2}{n\sigma}+\frac{5.08j}{n\sigma^2}\Bigr).
+\]
+With $x=\rho^2/t=1-\mu$, $\sum_jj^4x^j\le24\mu^{-5}$ and $\sum_jj^2x^j\le2\mu^{-3}$ give the sum.
+\end{proof}
+
+\begin{lemma}[The kernel at complex points]\label{lem:near1-kernel}
+For $z\in\C$ let $K_n(z)=\sum_{k<n}|h_k(z)|^2$. If $\im z\ne0$, then $K_n(z)=\sqrt n\,\im\bigl(h_n(z)\overline{h_{n-1}(z)}\bigr)/\im z$. If $|\im z|<n^{-1/2}$ and $|\re z|\le2\sqrt n$, then $K_n(z)\le2e^2n\bigl(h_n(x)^2+h_{n-1}(x)^2\bigr)$ with $x=\re z$. For $M<n$, $\E|T_M(z)|^2\le t^{-M-1}K_n(z)$, where $T_M=\sum_{M<j\le n}a_jh_{n-j}$.
+\end{lemma}
+
+\begin{proof}
+By \cite[\eqref{M-eq:recurrence}]{Main}, $uh_k(u)=\sqrt{k+1}\,h_{k+1}(u)+\sqrt k\,h_{k-1}(u)$; so, with $\alpha_k=\sqrt k\,(h_k(u)h_{k-1}(v)-h_{k-1}(u)h_k(v))$, $(u-v)h_k(u)h_k(v)=\alpha_{k+1}-\alpha_k$, and summing, $(u-v)\sum_{k<n}h_k(u)h_k(v)=\alpha_n$; this is the Christoffel--Darboux formula \cite[Theorem~3.2.2]{Sz}.
+% TODO(author): the pinpoint [Sz, Theorem 3.2.2] was not checked in the source; the proof above does not depend on it.
+ Take $u=z$, $v=\bar z$, and use $h_k(\bar z)=\overline{h_k(z)}$. For the second bound, $h_k(x+iy)=\sum_\ell(iy)^\ell h_k^{(\ell)}(x)/\ell!$ with $h_k^{(\ell)}=(k!/(k-\ell)!)^{1/2}h_{k-\ell}$, and $k!/(k-\ell)!\le n^\ell$ for $k<n$, so Minkowski's inequality gives $K_n(z)^{1/2}\le\sum_\ell(|y|\sqrt n)^\ell/\ell!\cdot K_n(x)^{1/2}\le e\,K_n(x)^{1/2}$; and $K_n(x)\le2n(h_n(x)^2+h_{n-1}(x)^2)$ by \cite[Lemma~\ref{M-lem:cd}]{Main} with $L=2$. Finally $\E|T_M(z)|^2=\sum_{M<j\le n}t^{-j}|h_{n-j}(z)|^2$.
+\end{proof}
+
+\subsection{The bulk strip carries no nonreal zero}
+
+\begin{theorem}[The bulk strip]\label{thm:near1-bulk}
+Let $n$, $t=1+\eps$ and $s=\eps n^{1/3}$ satisfy the hypotheses of Theorem~\ref{thm:window}, and suppose moreover that $s\ge9\varpi_n$. Then, with probability at least $1-C(\log n)^2s^{-11/5}$, where $C$ is an absolute constant, $P_{n,t}$ has no nonreal zero in $\sqrt t\,\mathcal J(\Omega_b)$.
+\end{theorem}
+
+\begin{proof}
+By \eqref{eq:PQ}, the nonreal zeros of $P_{n,t}$ in $\sqrt t\,\mathcal J(\Omega_b)$ are $\sqrt t$ times those of $Q:=Q_n^{(t)}(\sqrt n\,\cdot)$ in $\mathcal J(\Omega_b)$. As $Q$ is real and $\Omega_b$ is symmetric under conjugation, it suffices to treat $\mathcal J(\Omega_b\cap\{\im w<0\})\subset\mathcal J(\mathcal A)$ (Section~\ref{subsec:near1-setting}). We apply Lemma~\ref{lem:near1-reflection} with $D=h_n^\flat$, $\mathcal D=Q^\flat$ and $\gamma(\theta)=3.8\,n\sin^2\theta$; then $\varphi=\varphi^\flat$, and (i) is Lemma~\ref{lem:near1-growth}. What remains is to show that, with the stated probability, $\varphi^\flat\ne0$ and $|w\varphi^{\flat\prime}(w)/\varphi^\flat(w)|<1.9\,n\sigma^2$ on $\mathcal A$. All bounds below depend on $\theta$ through $\sin\theta$ only, and the deterministic quantities below are invariant under $w\mapsto-\bar w$ up to conjugation and signs $(-1)^j$, because $h_k^\flat(-\bar x)=(-1)^k\overline{h_k^\flat(x)}$ (from the integral); so we treat $\theta\le\pi/2$, and the same argument covers $\theta\in[\pi/2,\pi-\theta_e]$.
+
+\emph{The tail on $\mathcal A'$.} Let $w=\rho e^{-i\theta}\in\mathcal A'$, $\hat z=\mathcal J(w)$ and $z=\sqrt n\,\hat z$. First let $\rho\le1$, so $\im\hat z\ge0$ and $|\Theta(w)|\le1$. By Lemma~\ref{lem:near1-domratio} at $\hat z$ and $\overline{\hat z}$ (where $|r^\flat|$ is $\rho$ and $1/\rho$), $|R_n^\flat|\le1.01$ there, and also on the segment $[\re\hat z,\hat z]$. As $h_{n-1}^\sharp(z)=\overline{R_n^\flat(\overline{\hat z})}\,h_n^\sharp(z)$, $|h_n(z)|\le2|h_n^\flat(z)|$ and $|h_{n-1}(z)|\le2.02|h_n^\flat(z)|$. If $|\im z|\ge n^{-1/2}$, Lemma~\ref{lem:near1-kernel} gives $K_n(z)\le n|h_n(z)||h_{n-1}(z)|\le4.1\,n|h_n^\flat(z)|^2$. Otherwise, with $x=\re z$, the same bounds hold at $x$ (where $|\Theta|=1$), and $|h_n^\flat(x)|\le e^{1.1}|h_n^\flat(z)|$, since $\frac d{d\zeta}\log h_n^\flat(\sqrt n\,\zeta)=nR_n^\flat(\zeta)$ and $|\im\hat z|<1/n$; so $K_n(z)\le2e^2n(4+4.1)e^{2.2}|h_n^\flat(z)|^2\le1200\,n|h_n^\flat(z)|^2$. Now let $\rho>1$. Then $\bar z=\sqrt n\,\mathcal J(1/\bar w)$ with $1/\bar w\in\mathcal A'$ inside the circle, $K_n(z)=K_n(\bar z)$, and $|h_n^\flat(z)|=|\Theta(1/\bar w)|\,|h_n^\flat(\bar z)|\ge e^{-4.3n\sigma^2\cdot9b_1}|h_n^\flat(\bar z)|=e^{-85.14\varpi_n}|h_n^\flat(\bar z)|$ by Lemma~\ref{lem:near1-growth}. In both cases $K_n(z)\le1200\,n\,e^{170.3\varpi_n}|h_n^\flat(z)|^2$, and by Lemma~\ref{lem:near1-kernel} and the choice of $M'$,
+\[
+\E\Bigl|\frac{T(z)}{2h_n^\flat(z)}\Bigr|^2\le t^{-M'-1}\cdot300\,n\,e^{170.3\varpi_n}\le300e^{-8}n^{-4}\le n^{-4}.
+\]
+Also $\E|\sum_{j>M'}a_jw^j|^2=(\rho^2/t)^{M'+1}/\mu\le e^{18b_1(M'+1)}t^{-M'-1}\cdot3/\eps\le n^{-4}$, as $18b_1(M'+1)\le0.05$ by \eqref{eq:near1-W2bulk} and Section~\ref{subsec:near1-setting}, and $1/\eps\le n^{1/3}$.
+
+\emph{Variance.} At every $w\in\mathcal A'$ with $\theta\le\pi/2$ the hypotheses of Lemma~\ref{lem:near1-domext} hold with $M=M'$: (W1$'$) as $|\beta|\le1.01\cdot9b_1\le\sigma/24$, (W2) by \eqref{eq:near1-W2bulk}, and (W3$'$) as $n\sigma^3\ge26000s$. With the tail bounds and $\eps/3\le\mu\le3\eps$, $X^\flat$ is a centred Gaussian analytic function near $\mathcal A'$ with
+\[
+\E|X^\flat(w)|^2\le V(\theta):=2\cdot10^4\,n^{-2}\bigl(\sigma^{-2}\eps^{-5}+\sigma^{-4}\eps^{-3}\bigr)\qquad(w=\rho e^{-i\theta}\in\mathcal A').
+\]
+
+\emph{Suprema.} Let $\theta_e=\vartheta_1<\vartheta_2<\dots$ with $\vartheta_{k+1}-\vartheta_k=4b_1(\vartheta_k)$, up to $\pi/2$; put $c_k=e^{-i\vartheta_k}$, $r_k=4b_1(\vartheta_k)$, $B_k=B(c_k,r_k)$, $\sigma_k=\sin\vartheta_k$. The disks $B_k$ cover $\{\rho e^{-i\theta}:\theta_e\le\theta\le\pi/2,\ |\log\rho|\le1.1b_1(\theta)\}$, the disks $B(c_k,2r_k)$ lie in $\mathcal A'$, $\sigma$ and $V$ change by a factor at most $1+10^{-3}$ on each $B(c_k,2r_k)$, and there are $N\le n$ of them. Let $\delta=s^{-3}$ and $\lambda=1+(2\log(2N/\delta))^{1/2}$, so $\lambda^2\le C\log n$. By (S) on disks of radius $r_k/2$, $\E\sup_{B(c_k,1.5r_k)}|X^\flat|^2\le16.02\,V(\vartheta_k)$ and, by \eqref{eq:near1-a}, $\E\sup_{B(c_k,1.5r_k)}|a'|^2\le32(\eps/3)^{-3}$. By (BT), as in Lemma~\ref{lem:near1-net}(a), with probability at least $1-\delta$, for every $k$,
+\[
+\sup_{B(c_k,1.5r_k)}|X^\flat|\le\tau_k:=4.01\lambda V(\vartheta_k)^{1/2},\qquad\sup_{B(c_k,1.5r_k)}|a'|\le L:=8\lambda(\eps/3)^{-3/2},
+\]
+and then, by Cauchy's estimate on disks of radius $r_k/2$, $|X^{\flat\prime}|\le2\tau_k/r_k$ on $B_k$.
+
+\emph{Reduction to small values of $a$.} On this event, let $w\in\mathcal A\cap B_k$. Then $|\varphi^\flat(w)|\ge|a(w)|-\tau_k$ and $|w\varphi^{\flat\prime}(w)|\le1.01(L+2\tau_k/r_k)$. As $r_kn\sigma_k^2=8.8\varpi_n$ and $\sigma(w)\ge0.999\sigma_k$, both $\varphi^\flat(w)\ne0$ and $|w\varphi^{\flat\prime}/\varphi^\flat|<1.9\,n\sigma(w)^2$ follow from
+\[
+|a(w)|>\hat\kappa_k:=2\tau_k+0.6L/(n\sigma_k^2):
+\]
+indeed $1.9\cdot0.998\,n\sigma_k^2(\tau_k+0.6L/(n\sigma_k^2))\ge1.01L+2.02\tau_k/r_k$.
+
+\emph{Net.} For $\theta\in[\theta_e,\pi/2]$ let $\hat\kappa(\theta)=8.03\lambda V(\theta)^{1/2}+0.61L/(n\sin^2\theta)$, which is at least $\hat\kappa_k$ for every $k$ with $\rho e^{-i\theta}\in B_k$, and $h(\theta)=\hat\kappa(\theta)/L$. Then $h(\theta)\le10^{-3}\sigma$, since $8.03\lambda V^{1/2}/L\le27.4\,n^{-1}\sigma^{-2}(1+\sigma^2/\eps^2)^{1/2}$, $n\sigma^3\ge26000\,s$ and $n\sigma^2\eps\ge880\,s^{11/5}$. Take angles $\theta_e=\phi_0<\phi_1<\dots$ with $\phi_{i+1}-\phi_i=h(\phi_i)$, up to $\pi/2$, and let $\Gamma'$ consist of the points $\rho e^{-i\phi_i}$ with $\log\rho\in h(\phi_i)\Z\cap[-b_1(\phi_i),b_1(\phi_i)]$. Every $w\in\mathcal A$ with $\theta\le\pi/2$ lies within $1.5h$ of a point $v\in\Gamma'$, by a segment in $\{|\log\rho|\le1.1b_1\}\subset\bigcup_kB(c_k,1.5r_k)$; so $|a(w)|\le\hat\kappa$ forces $|a(v)|\le\hat\kappa+1.5Lh\le2.6\,\hat\kappa(\phi_i)$. By Lemma~\ref{lem:near1-net}(c), whose proof applies to every $v$ with $\frac34\le|v|$ and $|v|^2<t$, $\PP(|a(v)|\le2.6\hat\kappa)\le6.8\,\mu\hat\kappa^2(1+\mu/\sigma)$. There are at most $2b_1/h+1$ points of $\Gamma'$ at each angle $\phi_i$, so, with $\mu\le3\eps$, the probability that (ii) fails or $\varphi^\flat$ vanishes somewhere on $\mathcal A\cap\{\theta\le\pi/2\}$, on the event of the suprema, is at most
+\[
+C\int_{\theta_e}^{\pi/2}\bigl(2b_1L^2+L\hat\kappa\bigr)\,\eps\Bigl(1+\frac\eps\sigma\Bigr)d\theta ,
+\]
+where the term $i=0$ is absorbed, since the integrand changes by a bounded factor on $[\theta_e,2\theta_e]$ and $h(\theta_e)\le\theta_e$. With $\int_{\theta_e}^{\pi/2}\sigma^{-1}d\theta\le C\log n$, $\int\sigma^{-2}\le C\theta_e^{-1}$, $\int\sigma^{-3}\le C\theta_e^{-2}$ and the identities in the Conclusion of the proof of Theorem~\ref{thm:window}, the two parts are at most
+\begin{align*}
+&C\lambda^2\varpi_n\int\frac{1}{n\sigma^2\eps^2}\Bigl(1+\frac\eps\sigma\Bigr)d\theta\le C\lambda^2\varpi_n\Bigl(\frac1{n\eps^2\theta_e}+\frac1{n\eps\theta_e^2}\Bigr)\le C\lambda^2\varpi_ns^{-11/5},\\
+&C\lambda^2\int\Bigl[\frac{V^{1/2}}{\eps^{1/2}}+\frac1{n\eps^2\sigma^2}\Bigr]\Bigl(1+\frac\eps\sigma\Bigr)d\theta\le\frac{C\lambda^2}n\Bigl(\frac{\log n}{\eps^3}+\frac1{\eps^2\theta_e}+\frac1{\eps\theta_e^2}\Bigr)\le C\lambda^2\Bigl(\frac{\log n}{s^3}+\frac1{s^{11/5}}\Bigr).
+\end{align*}
+With $\delta=s^{-3}$, $\lambda^2\le C\log n$ and $\varpi_n\le35\log n$, the total failure probability is at most $C(\log n)^2s^{-11/5}$. Outside it, Lemma~\ref{lem:near1-reflection} applies, and $Q$ has no nonreal zero in $\mathcal J(\mathcal A)$.
+\end{proof}
+
+\subsection{Reduction to the edges}
+
+\begin{corollary}[Reduction to the edges]\label{cor:near1-edge}
+Let $n,t,s$ be as in Theorem~\ref{thm:window} with $9\varpi_n\le s\le2^{-10}n^{5/9}$, and let $N_n^{\rm e}(t)$ be the number of nonreal zeros of $P_{n,t}$ in $\sqrt t\,\mathcal J(\Omega_e)$, a set contained in $\{|z\mp2\sqrt t|\le1600\,s^{6/5}n^{-2/3}\}$. With probability at least $1-C\bigl[(\log n)^2s^{-8/5}+s^{-6/5}\log s\bigr]$,
+\[
+N_n(t)-N_q(t^{-1/2})=N_n^{\rm e}(t).
+\]
+Consequently, if $t_n=1+\eps_n$ with $0<\eps_n\le1$ and $s_n=\eps_nn^{1/3}$ satisfies $s_n/(\log n)^{5/4}\to\infty$, then $\PP\bigl(N_n(t_n)=N_q(t_n^{-1/2})\bigr)\to1$ if and only if $\PP\bigl(N_n^{\rm e}(t_n)\ge1\bigr)\to0$.
+\end{corollary}
+
+\begin{proof}
+$\D\setminus\Omega$ is the disjoint union of $\Omega_b$ and $\Omega_e$, and $w\mapsto\sqrt t\,\mathcal J(w)$ is injective on $\D\setminus\{0\}$. So on the intersection of the events of Theorem~\ref{thm:window}(b) and Theorem~\ref{thm:near1-bulk}, $N_n(t)-N_q(t^{-1/2})=N_n^{\rm e}(t)$; the failure probabilities add, and $(\log n)^2s^{-11/5}\le(\log n)^2s^{-8/5}$. The containment is the second case of the paragraph ``Containment'' in the proof of Theorem~\ref{thm:window}. If $s_n/(\log n)^{5/4}\to\infty$, then $s_n\ge9\varpi_n$ for all large $n$, $s_n\le n^{1/3}\le2^{-10}n^{5/9}$ once $n\ge2^{45}$, and the bound tends to $0$.
+\end{proof}
+
+\begin{remark}\label{rem:near1-edge}
+The hypotheses of Corollary~\ref{cor:near1-edge} can be met from $n\approx2.0\cdot10^{10}$ on (from $\log n=23.73$, $9\varpi_n\le2^{-10}n^{5/9}$); $C$ is not computed. So the exact count $N_n(t_n)=N_q(t_n^{-1/2})$, for $s_n/(\log n)^{5/4}\to\infty$, is reduced to the edge boxes $\Omega_e$, which in Airy units $n^{2/3}(\hat z\mp2)$ have size of order $s_n^{6/5}$. The estimates above need $m\Delta^3\gg1$ and $|\log\rho|\le\sigma/24$ at depth $\varpi_n/(n\sigma^2)$, and both fail within $C(\log n)^{2/3}$ Airy units of $\pm2$. We expect the proof of Theorem~\ref{thm:near1-bulk} to extend to angles down to $C(\varpi_n/n)^{1/3}$ once the contour $\Omega$ is redrawn there; this has not been checked. Closing the edges would need Airy-type asymptotics for $h_{n-j}^\flat$ near the turning point, uniform in $j\le M'$ and in the complex variable, together with a limit theorem for the edge process of Question~\ref{q:window}(ii). Numerically (Monte Carlo, $n=1000$, $300$ samples per $s\in\{1,2,4,8\}$; not reported here), every nonreal zero of $P_{n,t}$ in the bulk strip lies within a few multiples of $1/(n\sin^2\theta)$ of a zero of $a$, as the proof suggests, although these sizes are far below its hypotheses.
+\end{remark}
+
+\section{Remarks and questions}\label{sec:questions}
+
+For Gaussian coefficients and $t_n=1+s_nn^{-1/3}$, our numerical experiments (Monte Carlo for $n\le2000$, not reported here) suggest that the description of \cite[Theorem~\ref{M-thm:heat}]{Main}, one nonreal zero near $tu+u^{-1}$ for each nonreal zero $u$ of $q$ with $|u|<t^{-1/2}$ and all other zeros real, persists as long as $s_n\to\infty$, up to logarithmic factors, and that where it fails, the discrepancies lie near the edges $\pm2\sqrt t$ of the bulk. This remains an expectation, of which Theorem~\ref{thm:window} proves the lower half, for counts, when $s_n/(\log n)^{5/4}\to\infty$; in this range Corollary~\ref{cor:near1-edge} reduces the upper half to the edges. We use the notation of Section~\ref{sec:times-near-1} and put $D_n=N_n(t_n)-N_q(t_n^{-1/2})$.
+
+\begin{question}\label{q:window}
+Let the coefficients be standard Gaussian and $t_n=1+s_nn^{-1/3}$.
+\begin{enumerate}
+\item[(i)] Does $D_n=0$ hold with probability tending to $1$ whenever $s_n\to\infty$? If $s_n/(\log n)^{5/4}\to\infty$, then $\PP(D_n<0)\to0$ by Theorem~\ref{thm:window}, and, with probability tending to $1$, $D_n$ is the number of nonreal zeros of $P_{n,t_n}$ in the set $\sqrt{t_n}\,\mathcal J(\Omega_e)$ of Corollary~\ref{cor:near1-edge}, which lies in the two disks $\{|z\mp2\sqrt{t_n}|\le1600\,s_n^{6/5}n^{-2/3}\}$; the question is then whether this number tends to $0$ in probability. If $s_n\to\infty$ more slowly, both $\PP(D_n<0)\to0$ and $\PP(D_n>0)\to0$ are open.
+\item[(ii)] For fixed $s>0$ and $s_n=s$, does $D_n$ converge in law to a nondegenerate limit $D(s)$? Is $D(s)$ the sum of two independent edge defects described by an Airy-type random function such as $\xi\mapsto\int_0^\infty e^{-sy/2}\operatorname{Ai}(\xi+y)\,dW(y)$, with $W$ a Brownian motion? Numerically (Monte Carlo with $500$ to $4000$ samples for $125\le n\le2000$, not reported here), $s^2\PP(D_n\ne0)$ lies between $0.24$ and $0.44$ for $1.5\le s\le5$, and $\PP(D_n<0)$ is somewhat larger than $\PP(D_n>0)$.
+\item[(iii)] Does $\E N_n(1+sn^{-1/3})-\E N_q((1+sn^{-1/3})^{-1/2})$ converge, for fixed $s>0$, to a function $\Phi(s)$ with $\Phi(s)\to0$ as $s\to\infty$ and $\Phi(s)\sim c\,s^{-3/2}$ as $s\downarrow0$? Exact Kac--Rice values of this difference for $250\le n\le16000$ (not reported here) collapse onto a function of $s$ and are negative at every computed point; numerically, $c\approx-0.112$.
+\end{enumerate}
+\end{question}
+
+
+\section*{Statement on the use of AI}
+% TODO(author): before submission, this statement must describe a line-by-line verification of every proof by the
+% author. Its wording is that of the main paper and is not yet true of a verified manuscript.
+The proofs, computations and text of this paper were produced with AI systems from Anthropic, OpenAI and Google, directed by the author. The proofs were checked by independent AI referee rounds; no human expert has yet read them.
+
+\begin{thebibliography}{99}
+\bibitem[M]{Main} B. Baggins, \emph{The real-rooting time of heat-evolved random polynomials}, preprint (2026).
+\bibitem[A]{CompA} B. Baggins, \emph{Explicit onsets, rates and the tail of the collision constant for heat-evolved Weyl polynomials}, preprint (2026).
+\bibitem[C]{CompC} B. Baggins, \emph{Exact counts of nonreal zeros beyond the Weyl weight: varying weights, coefficient profiles and the Laguerre flow}, preprint (2026).
+\bibitem{AT} R. J. Adler, J. E. Taylor, \emph{Random Fields and Geometry}, Springer Monographs in Mathematics, Springer, New York, 2007.
+
+\bibitem{dB} N. G. de Bruijn, \emph{The roots of trigonometric integrals}, Duke Math. J. \textbf{17} (1950), 197--226.
+
+\bibitem{DLMF} \emph{NIST Digital Library of Mathematical Functions}, https://dlmf.nist.gov/, F. W. J. Olver, A. B. Olde Daalhuis, D. W. Lozier, B. I. Schneider, R. F. Boisvert, C. W. Clark, B. R. Miller, B. V. Saunders, H. S. Cohl, M. A. McClain, eds.
+% TODO(author): release number and access date. Equation 12.5.1 and Section 12.10 were checked online.
+
+\bibitem{Fo} P. J. Forrester, \emph{The limiting Kac random polynomial and truncated random orthogonal matrices}, J. Stat. Mech. Theory Exp. (2010), P12018; doi:10.1088/1742-5468/2010/12/P12018; arXiv:1009.3066.
+
+\bibitem{HHJK} B. C. Hall, C.-W. Ho, J. Jalowy, Z. Kabluchko, \emph{Zeros of random polynomials undergoing the heat flow}, Electron. J. Probab. \textbf{30} (2025), paper no.~159; doi:10.1214/25-EJP1421; arXiv:2308.11685.
+
+\bibitem{MS} S. Matsumoto, T. Shirai, \emph{Correlation functions for zeros of a Gaussian power series and Pfaffians}, Electron. J. Probab. \textbf{18} (2013), no.~49, 1--18; doi:10.1214/EJP.v18-2545; arXiv:1212.6108.
+
+\bibitem{Ne} C. M. Newman, \emph{Fourier transforms with only real zeros}, Proc. Amer. Math. Soc. \textbf{61} (1976), 245--251.
+
+\bibitem{Ol} F. W. J. Olver, \emph{Asymptotics and Special Functions}, Academic Press, New York, 1974; reprinted, AKP Classics, A K Peters, Wellesley, MA, 1997.
+% TODO(author): Chapter 6, Theorem 11.1 is cited through [SV, Theorem 1], which restates it; the book was not consulted.
+
+\bibitem{RT} B. Rodgers, T. Tao, \emph{The de Bruijn--Newman constant is non-negative}, Forum Math. Pi \textbf{8} (2020), e6; doi:10.1017/fmp.2020.6; arXiv:1801.05914.
+
+\bibitem{SV} R. Spigler, M. Vianello, \emph{A variant of the complex Liouville--Green approximation theorem}, Arch. Math. (Brno) \textbf{36} (2000), 213--218.
+
+\bibitem{Sz} G. Szeg\H{o}, \emph{Orthogonal Polynomials}, 4th ed., Amer. Math. Soc. Colloq. Publ. \textbf{23}, Amer. Math. Soc., Providence, RI, 1975.
+
+\end{thebibliography}
+\end{document}

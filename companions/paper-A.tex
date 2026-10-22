@@ -1,0 +1,872 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theoremA}{Theorem}
+\renewcommand{\thetheoremA}{A}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\He}{\mathrm{He}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arcosh}{arcosh}
+
+
+\externaldocument[M-]{../annals/main}
+\externaldocument[B-]{paper-B}
+\externaldocument[C-]{paper-C}
+
+\title[Explicit onsets, rates and the tail of the collision constant]{Explicit onsets, rates and the tail of the collision constant for heat-evolved Weyl polynomials}
+% TODO(author): address and e-mail.
+\author{B. Baggins}
+\date{Draft, October 2026}
+\subjclass[2020]{Primary 26C10, 60G55; Secondary 30C15, 33C45, 35K05, 60G15}
+\keywords{Hermite polynomials, linear combinations of orthogonal polynomials, nonreal zeros, explicit onset, heat flow, Weyl polynomials, random power series, rate of convergence, collision of zeros, correlation functions of zeros}
+
+\begin{document}
+
+\begin{abstract}
+Let $h_k$ be the orthonormal Hermite polynomials for the standard Gaussian weight, and let $a(w)=\sum_{j\ge0}a_jw^j$ be a real power series with radius of convergence greater than $1$, $a(0)\ne0$, no zeros on the unit circle and only simple zeros in the unit disk. For all large $n$ the polynomial $\sum_{j=0}^{n}a_jh_{n-j}$ has exactly as many nonreal zeros as $a$ has in the disk, but the known proof gives the onset by compactness. We make it explicit: if $a$ has no zeros in $\{1-d\le|w|\le1\}$, with $d$ below an explicit threshold, the count is exact as soon as $n$ exceeds a polynomial in $1/d$ and in the inverses of $|a(0)|$, $\min_{|w|=1}|a|$, $\min_{|w|=1-d}|a|$ and $\min_{[-1+d,1-d]}\max(|a|,|a'|)$; no separation of the nonreal zeros of $a$ is needed. By an exact identity this applies to the random Weyl polynomials $G_n$ with independent standard Gaussian coefficients under the backward heat flow $G_{n,t}=\exp(-\frac t{2n}\partial_z^2)G_n$, whose real-rooting time converges in distribution to $T_*=R_*^{-2}$, where $R_*$ is the smallest modulus of a nonreal zero of the Gaussian power series $q(w)=\sum_j\eta_jw^j$. We show that the convergence holds with the rate $n^{-\alpha}$ on $[1+\eps,\infty)$ for every $\alpha<\frac3{50}$, an exponent that does not depend on $\eps$; the dependence on $\eps$ is removed by a super-exponential tail for the number of zeros of $q$ in a disk. Under a coupling of the degrees that shares the top coefficients, the real-rooting time $\Lambda_n$ satisfies $|\Lambda_n-T_*|\le K/n$ for $n\ge n_0$, with $K$ and $n_0$ depending on $q$. We bound $K$ and $n_0$ by polynomials in condition parameters of $q$, with absolute degrees and, when $T_*\ge1+\eps$, coefficients polynomial in $1/\eps$. For the Gaussian power series this gives, on the event $\{T_*\ge1+\eps\}$, a power tail with exponent $1/900$ for the largest scaled displacement $D$ of the final collision of zeros, and without restriction the tail bound $\exp(-c(\log x/\log\log x)^{1/2})$; the inputs include closed forms of the two-point correlation functions of the zeros of $q$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+\subsection{Setting}
+This paper makes quantitative three results of the main paper \cite{Main}, to which we refer for background and notation. Let $\xi_0,\xi_1,\dots$ be independent standard real Gaussian variables, let $G_n(z)=\sum_{k=0}^{n}\xi_k(\sqrt n\,z)^k/\sqrt{k!}$ be the real Weyl polynomial of degree $n$, and let $G_{n,t}=\exp(-\frac t{2n}\partial_z^2)G_n$, $t\ge0$, be its evolution under the backward heat flow. The set of times at which $G_{n,t}$ has only real zeros is an interval $[\Lambda_n^{\rm std},\infty)$, and $\Lambda_n^{\rm std}$ is the \emph{real-rooting time}. Let $\eta_0,\eta_1,\dots$ be independent standard real Gaussian variables, let $q(w)=\sum_{j\ge0}\eta_jw^j$ be the \emph{Gaussian power series}, let $R_*$ be the smallest modulus of a nonreal zero of $q$ in $\D=\{|w|<1\}$, and $T_*=R_*^{-2}$. By \cite[Theorem~\ref{M-cor:weyl}]{Main}, $\Lambda_n^{\rm std}\to T_*$ in distribution; moreover, for every $t>1$, the number of nonreal zeros of $G_{n,t}$ converges in distribution to the number of nonreal zeros of $q$ in $\{|w|<t^{-1/2}\}$, and $\PP(G_{n,t}\text{ has only real zeros})\to\PP(T_*\le t)$. (In \cite{Main} these statements are proved for more general coefficients; here the coefficients are standard Gaussian whenever they are random.) The proof goes through the reversed polynomials $P_{n,t}$ of \cite[\eqref{M-eq:reversed}]{Main}, which are built from the coefficients of $q$ and share them across all degrees; for each $n$, $(P_{n,t})_{t\ge0}$ has the law of $(G_{n,t})_{t\ge0}$, and the real-rooting time $\Lambda_n$ of $P_{n,t}$ converges to $T_*$ almost surely \cite[Theorem~\ref{M-thm:heat}]{Main}.
+
+The deterministic input is an exact count of nonreal zeros \cite[Theorem~\ref{M-thm:main}]{Main}. Let $h_k=\He_k/\sqrt{k!}$ be the orthonormal polynomials for the standard Gaussian weight, and let $a(w)=\sum_{j\ge0}a_jw^j$ be a real power series with radius of convergence greater than $1$, $a(0)\ne0$, no zeros on the unit circle and only simple zeros $w_1,\dots,w_k$ in $\D$. Then for every small $\eps>0$ there is $n_0$ such that for $n\ge n_0$ all zeros of $z\mapsto Q_n(\sqrt n\,z)$, where $Q_n=\sum_{j=0}^{n}a_jh_{n-j}$, are simple; exactly one of them lies within $\eps$ of each point $w_i+w_i^{-1}$, and it is real if and only if $w_i$ is real; and the other $n-k$ are real and lie in $(-2-\eps,2+\eps)$. In particular $Q_n$ has exactly as many nonreal zeros as $a$ has in $\D$. By the identity \cite[\eqref{M-eq:heat-hermite}]{Main}, $P_{n,t}(z)$ is, up to the factor $t^{n/2}$ and the dilation $z\mapsto z/\sqrt t$, the polynomial $Q_n(\sqrt n\,\cdot)$ for the symbol $a^{(t)}(w)=q(w/\sqrt t)$, which has radius of convergence $\sqrt t>1$ when $t>1$.
+
+Both $n_0$ in \cite[Theorem~\ref{M-thm:main}]{Main} and the constants of the theorem on the final collision \cite[Theorem~\ref{M-thm:collision}]{Main} are obtained by compactness. We bound them explicitly, and we draw two consequences for the Gaussian case: a rate of convergence in \cite[Theorem~\ref{M-cor:weyl}]{Main}, and a tail bound for the constant of the final collision.
+
+\subsection{An explicit onset}
+\begin{theorem}[An explicit onset]\label{thm:quant-intro}
+Let $a(w)=\sum_{j\ge0}a_jw^j$ be a real power series with $|a_j|\le C_0R_0^{-j}$ for all $j\ge0$, where $R_0>1$, such that $a(0)\ne0$ and $a$ has no zeros on the unit circle. Let $0<d\le\frac12$ be such that $a$ has no zero in $\{1-d\le|w|\le1\}$ and the minimum $\nu_d$ of $\max(|a(x)|,|a'(x)|)$ over $x\in[-1+d,1-d]$ is positive. If $d$ and $n$ satisfy the explicit conditions (i)--(iv) of Theorem~\ref{thm:quant}, which hold for all large $n$ once $d$ is small enough, then the number of nonreal zeros of $Q_n=\sum_{j=0}^{n}a_jh_{n-j}$ equals the number of nonreal zeros of $a$ in $\D$, both counted with multiplicity, and all real zeros of $Q_n$ are simple.
+\end{theorem}
+
+This is Theorem~\ref{thm:quant}. Condition (i) is $d\le\kappa/\sqrt2$, where $\kappa$ depends only on $C_0$, $R_0$, $\min_{|w|=1}|a|$ and the number of zeros of $a$ in $\D$. By Jensen's formula (Lemma~\ref{lem:outer}(b)), (ii)--(iv) hold as soon as $n$ exceeds a polynomial in $1/d$ and in the inverses of $|a(0)|$, $\min_{|w|=1}|a|$, $\min_{|w|=1-d}|a|$ and $\nu_d$, with exponents depending only on $R_0$. No separation of the nonreal zeros of $a$ is needed, and they need not be simple. Theorem~\ref{thm:quant-main} adds the localisation of \cite[Theorem~\ref{M-thm:main}]{Main}, with an onset that depends also on the minimum of $|a|$ away from its zeros (Remark~\ref{rem:depth}). An explicit onset is needed when the symbol depends on $n$, as in \cite{CompC}, or is random, as in Theorems~\ref{thm:rate-intro} and~\ref{thm:explicit-intro} below.
+
+\subsection{A rate of convergence}
+\begin{theorem}[A rate of convergence]\label{thm:rate-intro}
+Let the coefficients be standard Gaussian. For every $\eps\in(0,1]$ and every $\alpha\in(0,\frac3{50})$ there is a constant $C_{\eps,\alpha}<\infty$ such that for all $n\ge2$
+\[
+\sup_{t\ge1+\eps}\bigl|\PP(\Lambda_n^{\rm std}\le t)-\PP(T_*\le t)\bigr|\le C_{\eps,\alpha}\,n^{-\alpha}.
+\]
+\end{theorem}
+
+Theorem~\ref{thm:rate-intro} is part of Theorem~\ref{thm:rate}, which also gives a rate $n^{-\theta}$, $\theta<\frac1{10}$, at each fixed $t>1$, for the probability that $G_{n,t}$ has only real zeros and for the law of the number of its nonreal zeros. It rests on Theorem~\ref{thm:quant-intro} and on a bound for the number of zeros of $q$ in a disk (Lemma~\ref{lem:overcrowd}), which makes the exponent independent of $\eps$. The exponent is far from optimal (Remark~\ref{rem:rate}), and we have no rate uniform in $t>1$.
+
+\subsection{Explicit constants and the tail of the collision constant}
+Let $q(w)=\sum_j\eta_jw^j$ now be a deterministic real power series that satisfies the conditions (G1)--(G3) of \cite[Section~\ref{M-sec:collision}]{Main}: $q(0)\ne0$, the nonreal zeros of $q$ of minimal modulus $R_*$ inside its disk of convergence are one simple conjugate pair $u_*=R_*e^{i\theta_*}$, $\bar u_*$, with $0<\theta_*<\pi$, $q$ has no real zero of modulus $R_*$, and its real zeros of smaller modulus are simple. Let $T_*=R_*^{-2}$, and let $P_{n,t}$ and $\Lambda_n$ be built from the coefficients of $q$ as above. By \cite[Theorem~\ref{M-thm:collision}]{Main} there are $\delta>0$, $K<\infty$ and $n_0$ such that for $n\ge n_0$: $|\Lambda_n-T_*|\le K/n$; all zeros of $P_{n,\Lambda_n}$ are real, and exactly one of them, $z_n$, is multiple, with $|z_n-2R_*^{-1}\cos\theta_*|\le K/n$; for $T_*-\delta\le t<\Lambda_n$ the polynomial $P_{n,t}$ has exactly two nonreal zeros; and $\Lambda_n$ is the only $t\ge T_*-\delta$ at which $P_{n,t}$ has a multiple zero. For the Gaussian power series (G1)--(G3) hold almost surely \cite[Corollary~\ref{M-cor:collision-gauss}]{Main}, so that the largest scaled displacement of the collision,
+\[
+D=\sup_{n\ge1}n\bigl(|\Lambda_n-T_*|+|z_n-2R_*^{-1}\cos\theta_*|\bigr),
+\]
+where for $n<n_0$ the point $z_n$ is chosen by the fixed rule of \cite[Section~\ref{M-subsec:collision-generic}]{Main}, is finite almost surely. Through the coupling of the proof of \cite[Corollary~\ref{M-cor:collision-weyl}]{Main}, the tail of $D$ controls the tightness of $n(\Lambda_n^{\rm std}-\tilde T_{*,n})$ for the Weyl polynomials, where $\tilde T_{*,n}$ has the law of $T_*$.
+
+\begin{theorem}[Explicit constants and the tail of $D$]\label{thm:explicit-intro}
+\begin{enumerate}
+\item[(a)] Let $0<\eps\le1$, and let $q$ satisfy (G1)--(G3), with radius of convergence at least $1$, $T_*\ge1+\eps$, $\sup_j|\eta_j|(1+\eps/2)^{-j/4}<\infty$, and no multiple zero in $[-r_c,r_c]$, $r_c=(1+\eps/2)^{-1/2}$. Then the conclusions of \cite[Theorem~\ref{M-thm:collision}]{Main} hold with $\delta$, $K$ and $n_0$ such that
+\[
+\delta^{-1}\le6\eps^{-1}\,\Pi,\qquad K\le c_\eps\,\Pi^{5/2},\qquad n_0\le c_\eps\,\Pi^{10},
+\]
+where $c_\eps\le c\,\eps^{-c}$ with an absolute constant $c$, and $\Pi$ is the product of nine factors, each at least $1$, built from condition parameters of $q$: the maxima of $1$ and the inverses of $|u_*q'(u_*)|$, of $\sin\theta_*$, of the distance $g$ from $R_*$ to the moduli of the other zeros of $q$, of the minimum of $|q|$ on an annulus about the circle $\{|u|=R_*\}$ away from $u_*$ and $\bar u_*$, of the minimum of $\max(|q|,|q'|)$ on $[-r_c,r_c]$ and of $|q(0)|$; the maximum of $1$ and the coefficient bound $\sup_j|\eta_j|(1+\eps/2)^{-j/4}$; $T_*$; and a factor that is exponential in the number of zeros of $q$ in $\{|u|\le r_c\}$. The precise definition of $\Pi$ is given in Section~\ref{subsec:collision-explicit}.
+\item[(b)] Let $q$ be the Gaussian power series. There is an absolute constant $c$ such that for all $0<\eps\le1$ and $x\ge1$
+\[
+\PP(D>x,\ T_*\ge1+\eps)\le c\,\eps^{-c}x^{-\beta_\eps}\quad\text{with}\quad\beta_\eps\ge\frac{\eps}{35640\log(40/\eps)},
+\]
+and $\PP(D>x,\ T_*\ge1+\eps)\le C_\eps\,x^{-1/900}$, where $\log C_\eps\le c\,\eps^{-c}$.
+\item[(c)] There are absolute constants $c>0$ and $C$ such that for the Gaussian power series and all $x\ge e^e$
+\[
+\PP(D>x)\le C\exp\Bigl(-c\Bigl(\frac{\log x}{\log\log x}\Bigr)^{1/2}\Bigr).
+\]
+\end{enumerate}
+\end{theorem}
+
+Part~(a) is Theorem~\ref{thm:collision-explicit}, part~(b) is Theorem~\ref{thm:Dtail}, and part~(c) is Corollary~\ref{cor:Dtail}. In (a) the exponents are absolute; the factor exponential in the number of zeros is kept as a parameter because for random $q$ it can be bounded either by Jensen's formula, which gives the exponent $\beta_\eps$ of order $\eps/\log(1/\eps)$ in (b), or through the number of zeros of $q$ in a disk, which gives the exponent $1/900$, independent of $\eps$, but a constant $C_\eps$ that is not polynomial in $1/\eps$. The proof of (b) uses closed forms of the two-point correlation functions of the zeros of $q$ (Proposition~\ref{prop:twopoint}), which give a small-ball bound for the gap $g$ between $R_*$ and the other moduli of zeros (Theorem~\ref{thm:gap}). Part~(c) combines the first bound of (b) with the bound for $\PP(T_*<1+\eps)$ that follows from \cite[Theorem~\ref{M-thm:sharp}]{Main}. Whether $\PP(D>x)$ decays like a power of $x$ is open (Question~\ref{q:Dtail}); a small-ball lower bound for $\im u_*$, which we expect but have not proved, would exclude exponents above $1$ (Remark~\ref{rem:Dtail}(3)).
+
+\subsection{Ideas of the proofs}
+\emph{The explicit onset (Section~\ref{subsec:onset}).} The proof of \cite[Theorem~\ref{M-thm:main}]{Main} deforms $a$, through $a_s(w)=p_{\rm in}(w)\,p_{\rm out}(sw)$, $s\in[0,1]$, into the polynomial $p_{\rm in}$ with the same zeros in $\D$, and excludes real double zeros along the way by a bulk estimate: in the bulk, $(Q_n,Q_n'/\sqrt n)$ is a $2\times2$ matrix, built from $O(\log n)$ steps of the backward three-term recurrence, applied to $(h_n,h_{n-1})$, plus a tail controlled by a Christoffel--Darboux bound. Each step of that estimate has explicit constants once the coefficient bound of $a_s$ and the minimum of $|a_s|$ on the unit circle are controlled uniformly in $s$. Lemma~\ref{lem:outer} controls both: the coefficients of $a_s$ are bounded by a constant times $\Upsilon^k$, and $|a_s|\ge\mathfrak d(a)\,|a|$ on the closed unit disk, where the distortion $\mathfrak d(a)$ of the outer factor $p_{\rm out}$ is at least $\min_{|w|=1}|a|$ times $\Upsilon^{-k}$ divided by a coefficient bound; here $\Upsilon$ depends only on $R_0$, and Jensen's formula bounds the number $k$ of zeros of $a$ in $\D$. In the exterior we compare $Q_n(\sqrt n\,\cdot)/h_n(\sqrt n\,\cdot)$, as a function of $w$ with $z=w+w^{-1}$, with $a$ on the single circle $\{|w|=1-d\}$, and inside it we pass from $a$ to this function by a linear homotopy, along which real double zeros are excluded by $\nu_d$; this is why no separation of the zeros of $a$ enters.
+
+\emph{The rate (Section~\ref{subsec:rate}).} For the random symbol $a^{(t)}=q(\cdot/\sqrt t)$, each parameter in the conditions of Theorem~\ref{thm:quant-intro} has a polynomial small-ball bound, uniformly in $t\ge1+\eps$: the coefficient bound, the minimum of $|q|$ on a circle, the near-double real zeros and the zeros near the circle (Lemmas~\ref{lem:coeff}--\ref{lem:annulus}). The factor exponential in the number of zeros of $a^{(t)}$ in $\D$ would cost, through Jensen's formula, an exponent of order $\eps/\log(1/\eps)$; instead we use that the number of zeros of $q$ in a disk has super-exponential tails (Lemma~\ref{lem:overcrowd}). Large times are handled by the tail of $T_*$.
+
+\emph{Explicit constants and the tail of $D$ (Section~\ref{sec:explicit}).} Each compactness step of the proof of \cite[Theorem~\ref{M-thm:collision}]{Main} can be made explicit, and Theorem~\ref{thm:quant} replaces \cite[Theorem~\ref{M-thm:main}]{Main} at the two times $T_*\pm\delta$. This bounds $\delta^{-1}$, $K$ and $n_0$ by powers of $\Pi$, times powers of $1/\eps$. For the Gaussian power series each factor of $\Pi$ has a power tail on $\{T_*\ge1+\eps\}$. For the modulus gap $g$ this is a first-moment bound over pairs of zeros: the two-point correlation functions, which we write in closed form through the Gaussian regression on the zeros, are at most the products of the one-point intensities. The factor exponential in the number of zeros is bounded through the super-exponential tail of that number, as in the proof of Theorem~\ref{thm:rate-intro}.
+
+\subsection{Related work}
+For the literature on zeros of linear combinations of orthogonal polynomials, on the heat flow of random polynomials and on the de Bruijn--Newman constant we refer to the introduction of \cite{Main}. Times $t=t_n$ that tend to $1$ are the subject of \cite{CompB}, and symbols that depend on $n$, varying weights and the Laguerre flow that of \cite{CompC}. The one-point intensities of the zeros of the Gaussian power series go back to Kac \cite{Ka} for the real zeros, and the correlation functions are Pfaffians, by Matsumoto and Shirai \cite{MS} and, for the mixed correlations of real and nonreal zeros, by Forrester \cite{Fo}. We need only the two-point functions, which we write in closed form (Proposition~\ref{prop:twopoint}), and the Rice formulas of Aza\"is and Wschebor \cite{AW}.
+
+\subsection{Organisation}
+Section~\ref{subsec:onset} proves Theorem~\ref{thm:quant-intro} (Theorem~\ref{thm:quant}) and its form with localisation (Theorem~\ref{thm:quant-main}). Section~\ref{subsec:rate} proves Theorem~\ref{thm:rate-intro} (Theorem~\ref{thm:rate}) and bounds the distortion of the outer factor for the random symbol (Proposition~\ref{prop:distortion}). Section~\ref{sec:explicit} proves Theorem~\ref{thm:explicit-intro}: the explicit constants in Section~\ref{subsec:collision-explicit}, the two-point functions and the modulus gap in Section~\ref{subsec:pairs}, small-ball bounds at the collision in Section~\ref{subsec:smallballs}, and the tail of $D$ in Section~\ref{subsec:Dtail}. Section~\ref{sec:remarks} contains remarks and open questions.
+
+\section{An explicit onset for the exact count}\label{subsec:onset}
+
+The proof of \cite[Theorem~\ref{M-thm:main}]{Main} in \cite[Section~\ref{M-sec:proof}]{Main} obtains $n_0$ by compactness. To make it explicit, we control the deformation $a_s(w)=p_{\rm in}(w)\,p_{\rm out}(sw)$ of that proof through the zeros of $a$ in $\D$ (Lemma~\ref{lem:outer}), and we treat the exterior with one circle and one real segment instead of the disks about the points $\zeta_i=w_i+w_i^{-1}$ used there, so that the count needs no separation of the zeros.
+
+\begin{definition}[Condition parameters]\label{def:condition}
+For $C_0<\infty$ and $R_0>1$ let $\mathcal S(C_0,R_0)$ be the set of real power series $a(w)=\sum_{j\ge0}a_jw^j$ with $|a_j|\le C_0R_0^{-j}$ for all $j\ge0$, and put $Q_n[a]=\sum_{j=0}^{n}a_jh_{n-j}$. For $a\in\mathcal S(C_0,R_0)$ and $0<d\le\frac12$ let
+\[
+\alpha=|a(0)|,\quad\mu=\min_{|w|=1}|a(w)|,\quad\mu_d=\min_{|w|=1-d}|a(w)|,\quad\nu_d=\min_{x\in[-1+d,1-d]}\max\bigl(|a(x)|,|a'(x)|\bigr),
+\]
+and let $w_1,\dots,w_k$ be the zeros of $a$ in $\D$, repeated according to multiplicity. Finally let
+\[
+R_1=R_0^{1/2},\qquad\overline M=\frac{C_0}{1-R_0^{-1/2}},\qquad\Upsilon=\frac{R_1+1}{R_1-1},\qquad E=\frac{\log\Upsilon}{\log R_1}.
+\]
+\end{definition}
+
+Thus $|a|\le\overline M$ on $\{|w|=R_1\}$, and $\Upsilon$ and $E$ depend only on $R_0$.
+
+\begin{lemma}[Structure of a symbol]\label{lem:outer}
+Let $a\in\mathcal S(C_0,R_0)$ with $\alpha>0$ and $\mu>0$. Let $p_{\rm in}(w)=a(0)\prod_{i=1}^{k}(1-w/w_i)$, $p_{\rm out}=a/p_{\rm in}$ and $G=\alpha/\prod_i|w_i|$.
+\begin{enumerate}
+\item[(a)] $|w_i|\ge r_a:=\alpha/(2C_0)$ and $1-|w_i|\ge d_a:=\mu R_0(1-R_0^{-1})^2/C_0$ for every $i$.
+\item[(b)] $k\log R_1\le\log(\overline M/\alpha)$; hence $\Upsilon^k\le(\overline M/\alpha)^E$.
+\item[(c)] $p_{\rm out}$ is analytic in $\{|w|<R_0\}$ and has no zeros in $\overline\D$, and
+\[
+\mathfrak d(a):=\frac{\min_{\overline\D}|p_{\rm out}|}{\max_{\overline\D}|p_{\rm out}|}\ \ge\ \frac{\mu}{\overline M}\Bigl(\frac{R_1-1}2\Bigr)^k\ \ge\ \mathfrak d_0:=\frac{\mu}{\overline M}\,\Upsilon^{-k}.
+\]
+\item[(d)] For $s\in[0,1]$ let $a_s(w)=p_{\rm in}(w)\,p_{\rm out}(sw)$. Then $a_s\in\mathcal S(\overline M\Upsilon^k,R_1)$, the coefficients of $a_s$ are polynomials in $s$, $a_s(0)=a(0)$, $a_1=a$, and for $s=0$ the series $a_s$ is the real polynomial $p_{\rm in}$ of degree $k$. The zeros of $a_s$ in $\overline\D$ are $w_1,\dots,w_k$, and $|a_s(w)|\ge\mathfrak d(a)\,|a(w)|$ for $|w|\le1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) If $a(w_i)=0$, then $\alpha\le\sum_{j\ge1}C_0x^j=C_0x/(1-x)$ with $x=|w_i|/R_0$, so $|w_i|\ge R_0\alpha/(C_0+\alpha)\ge\alpha/(2C_0)$, as $\alpha\le C_0$. With $u=w_i/|w_i|$ we have $\mu\le|a(u)-a(w_i)|\le(1-|w_i|)\max_{\overline\D}|a'|$, and $\max_{\overline\D}|a'|\le\sum_jjC_0R_0^{-j}=C_0R_0^{-1}(1-R_0^{-1})^{-2}$.
+
+(b) By Jensen's formula, $\sum\log(R_1/|z|)\le\log(\overline M/\alpha)$, the sum over the zeros $z$ of $a$ in $\{|w|<R_1\}$, and each $w_i$ contributes at least $\log R_1$. Since $\overline M\ge\alpha$, $\Upsilon^k\le(\overline M/\alpha)^E$.
+
+(c) The singularities of $p_{\rm out}$ at the $w_i$ are removable. On $|w|=1$, $|p_{\rm in}(w)|=G\prod_i|w-w_i|\le G2^k$, so $|p_{\rm out}|\ge\mu/(G2^k)$ there, and on $\overline\D$ by the minimum modulus principle. On $|u|=R_1$, $|p_{\rm in}(u)|\ge G(R_1-1)^k$ and $|a(u)|\le\overline M$, so $\max_{\overline\D}|p_{\rm out}|\le\max_{|u|\le R_1}|p_{\rm out}|\le\overline M/(G(R_1-1)^k)$ by the maximum principle. Dividing, $G$ cancels; and $(R_1-1)/2\ge(R_1-1)/(R_1+1)=\Upsilon^{-1}$.
+
+(d) On $|w|=R_1$, $|p_{\rm in}(w)|\le G(1+R_1)^k$ and $|p_{\rm out}(sw)|\le\overline M/(G(R_1-1)^k)$, so $|a_s(w)|\le\overline M\Upsilon^k$; use Cauchy's estimates. For $|w|\le1$, $p_{\rm out}(sw)\ne0$ and $a_s(w)=a(w)\,p_{\rm out}(sw)/p_{\rm out}(w)$.
+\end{proof}
+
+The next three lemmas are quantitative forms of \cite[Proposition~\ref{M-prop:bulk}]{Main}, of \cite[Proposition~\ref{M-prop:exterior}]{Main} on a disk, and of \cite[Lemma~\ref{M-lem:constancy}]{Main}.
+
+\begin{lemma}[Explicit bulk estimate]\label{lem:bulk-explicit}
+Let $R>1$, $\mu_S>0$, and let $(a_s)_{s\in S}$ be a family in $\mathcal S(C,R)$ such that $|a_s(w)|\ge\mu_S$ for all $s\in S$ and $|w|=1$. Put $\vartheta=R^{-1/2}$ and
+\begin{gather*}
+\kappa=\min\Bigl\{1,\ \tfrac12\log R,\ \frac{\mu_SR(1-\vartheta)^2}{6C}\Bigr\},\qquad\Gamma=\frac{8CR^{1/2}}{(1-\vartheta)^2},\\
+M_n=\Bigl\lceil\frac{2\log n}{\log R}\Bigr\rceil,\qquad D_H=\frac{C(198/\kappa+4M_n+8)}{(1-\vartheta)^4}.
+\end{gather*}
+If $n\ge2$ satisfies
+\begin{equation}\label{eq:bulk-explicit}
+\begin{gathered}
+n\ge\frac{(M_n+2)^2}{\kappa},\qquad n\ge D_H,\qquad n\ge\frac{8(2\Gamma+1)D_H}{\mu_S^2},\\
+n^{3/2}\ge\frac{37(\Gamma+1)C}{(1-R^{-2})^{1/2}\mu_S^2},
+\end{gathered}
+\end{equation}
+then for all $s\in S$ and all real $x$ with $|x|\le2\sqrt n\cosh\kappa$,
+\[
+Q_n[a_s](x)^2+\frac{Q_n[a_s]'(x)^2}n\ \ge\ c^2\bigl(h_n(x)^2+h_{n-1}(x)^2\bigr),\qquad c=\frac{\mu_S^2}{16(\Gamma+1)} .
+\]
+\end{lemma}
+
+\begin{proof}
+We follow the proof of \cite[Proposition~\ref{M-prop:bulk}]{Main}, with $L=2\cosh\kappa$ and $\kappa_0=\frac12\log R$, so that $e^{\kappa_0}/R=\vartheta$ and $\kappa\le\kappa_0$.
+
+\emph{The limit matrix.} By \cite[Lemma~\ref{M-lem:limit}]{Main} with $\kappa_0$, $\det H_{a_s}(z)\ge\mu_S^2$ for $|z|\le2$, and $\det H_{a_s}(z)=a_s(w)a_s(w^{-1})$ for $2<|z|\le L$, $z=w+w^{-1}$, $w$ real, $e^{-\kappa}\le|w|<1$. Since $\max_{|u|\le e^{\kappa_0}}|a_s'(u)|\le C\sum_jjR^{-j}e^{(j-1)\kappa_0}=CR^{-1}(1-\vartheta)^{-2}$, for real $v$ with $e^{-\kappa}\le|v|\le e^\kappa$ and $\varsigma=\operatorname{sign}v$,
+\[
+|a_s(v)-a_s(\varsigma)|\le(e^\kappa-1)\,CR^{-1}(1-\vartheta)^{-2}\le e\kappa\,CR^{-1}(1-\vartheta)^{-2}\le\tfrac e6\,\mu_S<\tfrac12\mu_S .
+\]
+As $a_s(\varsigma)$ is real with $|a_s(\varsigma)|\ge\mu_S$, the real numbers $a_s(w)$ and $a_s(w^{-1})$ have the sign of $a_s(\varsigma)$ and modulus at least $\mu_S/2$. So $\det H_{a_s}\ge\mu_S^2/4$ on $[-L,L]$. By \cite[Lemma~\ref{M-lem:transfer}]{Main}, $\|G_j(z)\|\le4(j+2)e^{(j+1)\kappa}$, so $\|H_{a_s}(z)\|\le4Ce^\kappa\sum_j(j+2)\vartheta^j\le\Gamma$ for $|z|\le L$.
+
+\emph{The head.} The first condition gives $(M_n+2)^2\le\kappa n$ with $\kappa\le1$. So for $j\le M_n$ \cite[Lemma~\ref{M-lem:head-rate}]{Main}, with $c_1=15/\kappa$, bounds the sum of the absolute values of the entries of the first row of $G_{n,j}-G_j$ by $c_1(j+1)^3e^{j\kappa}/n$ (part (a)) and that of the second row by $(c_1+3)(j+1)^3e^{j\kappa}/n$ (part (b)). Bounding the operator norm by the sum of the absolute values of the entries, $\|G_{n,j}(z)-G_j(z)\|\le(2c_1+3)(j+1)^3e^{j\kappa}/n\le(33/\kappa)(j+1)^3e^{j\kappa}/n$. For $j\ge2$, \cite[Lemma~\ref{M-lem:chebyshev}]{Main} gives $|A_j|\le(j-1)e^{(j-2)\kappa}$, $|B_j|,|A_{j+1}|\le je^{(j-1)\kappa}$ and $|B_{j+1}|\le(j+1)e^{j\kappa}$, so $\|G_j(z)\|\le4(j+1)e^{j\kappa}$. With $e^\kappa/R\le\vartheta$, $\vartheta^{M_n}\le1/n$, $\sum_j(j+1)^3\vartheta^j\le6(1-\vartheta)^{-4}$ and $\sum_{j>M}(j+1)\vartheta^j\le(M+2)\vartheta^{M+1}(1-\vartheta)^{-2}$,
+\[
+\|H_{n,M_n}[a_s](z)-H_{a_s}(z)\|\le\frac{33C}{\kappa n}\sum_{j\ge0}(j+1)^3\vartheta^j+4C\sum_{j>M_n}(j+1)\vartheta^j\le\frac{D_H}n=:\delta_n
+\]
+for $|z|\le L$. The second and third conditions give $\delta_n\le1$ and $\delta_n(2\Gamma+1)\le\mu_S^2/8$. As in the proof of \cite[Proposition~\ref{M-prop:bulk}]{Main}, $\det H_{n,M_n}[a_s](z)\ge\mu_S^2/8$, $\|H_{n,M_n}[a_s](z)\|\le\Gamma+1$, and hence $s_{\min}(H_{n,M_n}[a_s](z))\ge2c$.
+
+\emph{The tail.} The tail estimate in the proof of \cite[Proposition~\ref{M-prop:bulk}]{Main} holds with
+\[
+\eps_n=\sqrt2\,C(1-R^{-2})^{-1/2}R^{-M_n}\sqrt{n(1+L/2)}\le2.3\,C(1-R^{-2})^{-1/2}n^{-3/2},
+\]
+since $R^{-M_n}=\vartheta^{2M_n}\le n^{-2}$ and $1+L/2\le1+\cosh1<2.55$. So $\eps_n\le c$ by the last condition, and by \cite[\eqref{M-eq:head}]{Main} the norm of the vector with entries $Q_n[a_s](x)$ and $Q_n[a_s]'(x)/\sqrt n$ is at least $(2c-\eps_n)\|v_n(x)\|\ge c\|v_n(x)\|$.
+\end{proof}
+
+\begin{lemma}[Exterior error on a disk]\label{lem:ext-disk}
+Let $a\in\mathcal S(C,R)$ with $R>1$. For $0<|w|<1$ let $\varphi_n(w)=F_n(\mathcal J(w))$, where $\mathcal J(w)=w+w^{-1}$ and $F_n=Q_n[a](\sqrt n\,\cdot)/h_n(\sqrt n\,\cdot)$. Then $\varphi_n$ extends analytically to $\D$, with $\varphi_n(0)=a(0)$ and $\varphi_n(\bar w)=\overline{\varphi_n(w)}$. For $0<d<1$ the function $X_n=\varphi_n-a$ satisfies
+\[
+\sup_{|w|\le1-d}|X_n(w)|\le\frac{2\sqrt2\,C}{(1-R^{-2})^{1/2}d^{7/2}n},\qquad\sup_{|x|\le1-d}|X_n'(x)|\le\frac{64\,C}{(1-R^{-2})^{1/2}d^{9/2}n},
+\]
+the second supremum over real $x$.
+\end{lemma}
+
+\begin{proof}
+The polynomials $Q_n[a](\sqrt n\,\cdot)$ and $h_n(\sqrt n\,\cdot)$ have degree $n$, their leading coefficients have ratio $a(0)$, and the zeros of the second lie in $(-2,2)$ (\cite[Lemma~\ref{M-lem:resolvent}]{Main}). So $\varphi_n$ is analytic on $\D\setminus\{0\}$ and tends to $a(0)$ at $0$; real coefficients give the symmetry. Let $\rho=1-d$ and apply the last display of the proof of \cite[Proposition~\ref{M-prop:exterior}]{Main} on the curve $\mathcal J(\{|w|=\rho\})$, which has distance at least $(1-\rho)^2/\rho$ from $[-2,2]$ by \cite[\eqref{M-eq:joukowski-dist}]{Main} and on which $|r|=\rho$. Since $\sum_{m\ge1}m^2\rho^{2m}=\rho^2(1+\rho^2)(1-\rho^2)^{-3}\le2\rho^2d^{-3}$, this gives $|X_n|\le2C(1-R^{-2})^{-1/2}\rho d^{-2}\cdot\sqrt2\,\rho d^{-3/2}n^{-1}$ on $|w|=\rho$, and the maximum principle extends the bound to $|w|\le\rho$. For real $|x|\le1-d$ the disk of radius $d/2$ about $x$ lies in $\{|w|\le1-d/2\}$, and Cauchy's estimate gives the second bound, as $2\cdot2\sqrt2\cdot2^{7/2}=64$.
+\end{proof}
+
+\begin{lemma}[Constancy in a symmetric domain]\label{lem:constancy-region}
+Let $\Omega$ be a bounded Jordan domain, symmetric about $\R$, such that $\Omega\cap\R$ is an open interval $I$, and let $U$ be a neighbourhood of $\overline\Omega$, symmetric about $\R$. For $s\in[0,1]$ let $f_s$ be analytic on $U$ with $f_s(\bar w)=\overline{f_s(w)}$, such that $(s,w)\mapsto f_s(w)$ is continuous on $[0,1]\times U$. If, for every $s$, $f_s$ has no zero on $\partial\Omega$ and every real zero of $f_s$ in $I$ is simple, then the number of nonreal zeros of $f_s$ in $\Omega$, counted with multiplicity, does not depend on $s$.
+\end{lemma}
+
+\begin{proof}
+The number of zeros in $\Omega$ is constant by the argument principle. The number of real zeros in $I$ is locally constant by the proof of \cite[Lemma~\ref{M-lem:constancy}]{Main}, with $[-\varrho,\varrho]$ replaced by $\overline I$, whose endpoints lie on $\partial\Omega$, where $f_{s_0}\ne0$.
+\end{proof}
+
+\begin{theorem}[An explicit onset for the nonreal count]\label{thm:quant}
+Let $a\in\mathcal S(C_0,R_0)$ with $\alpha>0$ and $\mu>0$, and let $0<d\le\frac12$ be such that $a$ has no zero in $\{1-d\le|w|\le1\}$, $\mu_d>0$ and $\nu_d>0$. Put $C_0'=\overline M\,\Upsilon^k$ and $\mu'=\mathfrak d_0\,\mu$, and let $\kappa$, $\Gamma$, $M_n$ and $D_H$ be the constants of Lemma~\ref{lem:bulk-explicit} for $C=C_0'$, $R=R_1$ and $\mu_S=\mu'$; thus $\kappa=\min\{1,\frac14\log R_0,\mu'R_0^{1/2}(1-\vartheta_0)^2/(6C_0')\}$ with $\vartheta_0=R_0^{-1/4}$. Suppose that {\rm(i)} $d\le\kappa/\sqrt2$, and that $n\ge2$ satisfies
+\begin{enumerate}
+\item[(ii)] $n\ge k$, and \eqref{eq:bulk-explicit} holds for these constants;
+\item[(iii)] $n>2\sqrt2\,C_0'(1-R_0^{-1})^{-1/2}d^{-7/2}/(\mathfrak d_0\mu_d)$;
+\item[(iv)] $n>64\,C_0(1-R_0^{-2})^{-1/2}d^{-9/2}/\nu_d$.
+\end{enumerate}
+Then the number of nonreal zeros of $Q_n[a]$ equals the number of nonreal zeros of $a$ in $\D$, both counted with multiplicity, and all real zeros of $Q_n[a]$ are simple. Every zero $z$ of $Q_n[a](\sqrt n\,\cdot)$ that is not of the form $\mathcal J(w)$ with $|w|<1-d$ is real and lies in $(-2-2d^2,2+2d^2)$.
+\end{theorem}
+
+\emph{Size of the onset.} By Lemma~\ref{lem:outer}(b), $\Upsilon^k\le(\overline M/\alpha)^E$, so all conditions are polynomial in $1/\mu$, $1/\alpha$, $1/\mu_d$, $1/\nu_d$ and $1/d$, with exponents depending on $R_0$ only through $E$. For instance, normalising $C_0=1$ (the conclusion is invariant under $a\mapsto\lambda a$) and taking $d$ of order $\mu^2\Upsilon^{-2k}$, the largest value allowed by (i), conditions (iii) and (iv) read $n>C\Upsilon^{9k}\mu^{-8}\mu_d^{-1}$ and $n>C\Upsilon^{9k}\mu^{-9}\nu_d^{-1}$, with $C$ depending only on $R_0$. Neither the separation of the nonreal zeros of $a$ nor $|a'|$ at its zeros enters. Real zeros enter through $\nu_d$: if $x_1<x_2$ are real zeros of $a$ in $[-1+d,1-d]$, then $\nu_d\le\frac12(x_2-x_1)^2\max_{[x_1,x_2]}|a''|$ by Rolle's theorem. For the symbols $a=q(\cdot/\sqrt t)$ of \cite[\eqref{M-eq:heat-hermite}]{Main} with independent standard Gaussian coefficients $\eta_j$, $\nu_d$ has a polynomial small-ball bound (Lemma~\ref{lem:nu-small}).
+
+\begin{proof}[Proof of Theorem~\ref{thm:quant}]
+Let $\rho_0=1-d$, let $\Omega_{\rm in}$ be the interior of the ellipse $\mathcal J(\{|w|=\rho_0\})$, and $\Omega_{\rm out}=\C\setminus\overline{\Omega_{\rm in}}=\mathcal J(\{0<|w|<\rho_0\})$; then $\Omega_{\rm in}\cap\R=(-b,b)$ with $b=\rho_0+\rho_0^{-1}\le2+2d^2$. Let $a_s$ be as in Lemma~\ref{lem:outer}(d), $\widehat Q_{n,s}=Q_n[a_s](\sqrt n\,\cdot)$, and $\varphi_{n,s}$, $X_{n,s}=\varphi_{n,s}-a_s$ as in Lemma~\ref{lem:ext-disk} for $a_s$.
+
+\emph{Step 1: the exterior count along the deformation.} The zeros of $a$ in $\D$ lie in $\{|w|<\rho_0\}$, so by Lemma~\ref{lem:outer}(d) $a_s$ has exactly $k$ zeros there, and $|a_s|\ge\mathfrak d_0\mu_d$ on $|w|=\rho_0$. Lemma~\ref{lem:ext-disk} for $a_s\in\mathcal S(C_0',R_1)$, where $1-R_1^{-2}=1-R_0^{-1}$, and (iii) give $|X_{n,s}|<|a_s|$ on $|w|=\rho_0$. By Rouch\'e's theorem $\varphi_{n,s}$ has exactly $k$ zeros in $\{|w|<\rho_0\}$ and none on its boundary. As $\varphi_{n,s}(0)\ne0$, $\mathcal J$ maps $\{0<|w|<\rho_0\}$ conformally onto $\Omega_{\rm out}$ and $h_n(\sqrt n\,\cdot)$ has no zeros off $[-2,2]$, $\widehat Q_{n,s}$ has no zero on $\partial\Omega_{\rm in}$, $k$ zeros in $\Omega_{\rm out}$ and $n-k$ in $\Omega_{\rm in}$.
+
+\emph{Step 2: the bulk.} By Lemma~\ref{lem:outer}(d), $\min_{|w|=1}|a_s|\ge\mathfrak d_0\mu=\mu'$. Lemma~\ref{lem:bulk-explicit} with $C=C_0'$, $R=R_1$ and $\mu_S=\mu'$, whose conditions are (ii), shows that $\widehat Q_{n,s}$ has no real multiple zero in $[-L,L]$, $L=2\cosh\kappa$. By (i), $b-2\le2d^2\le\kappa^2\le L-2$, so $(-b,b)\subset[-L,L]$.
+
+\emph{Step 3: the interior.} By Steps 1--2 and Lemma~\ref{lem:constancy-region} with $\Omega=\Omega_{\rm in}$, the number of nonreal zeros of $\widehat Q_{n,s}$ in $\Omega_{\rm in}$ does not depend on $s$. For $s=0$, $a_s=p_{\rm in}$ has degree $k\le n$ and $p_{\rm in}(0)\ne0$, so by \cite[Lemma~\ref{M-lem:quasi}]{Main} $\widehat Q_{n,0}$ has at least $n-k$ distinct real zeros in $(-2,2)\subset\Omega_{\rm in}$; by Step 1 these are all its zeros in $\Omega_{\rm in}$. Hence all zeros of $\widehat Q_{n,1}=Q_n[a](\sqrt n\,\cdot)$ in $\Omega_{\rm in}$ are real, and they are simple by Step 2.
+
+\emph{Step 4: the exterior.} Let $X=X_{n,1}$. Lemma~\ref{lem:ext-disk} for $a\in\mathcal S(C_0,R_0)$ and (iv) give $|X(x)|<\nu_d$ and $|X'(x)|<\nu_d$ for real $|x|\le\rho_0$; and, as $C_0\le C_0'$, $\mathfrak d_0\le1$ and $1-R_0^{-2}\ge1-R_0^{-1}$, (iii) gives $|X|<\mu_d\le|a|$ on $|w|=\rho_0$. Let $f_\lambda=a+\lambda X$, $\lambda\in[0,1]$; it satisfies $f_\lambda(\bar w)=\overline{f_\lambda(w)}$ and has no zero on $|w|=\rho_0$. If $f_\lambda(x)=f_\lambda'(x)=0$ for some real $|x|<\rho_0$, then $|a(x)|=\lambda|X(x)|<\nu_d$ and $|a'(x)|<\nu_d$, contrary to the definition of $\nu_d$. So by Lemma~\ref{lem:constancy-region} on $\{|w|<\rho_0\}$ the number of nonreal zeros of $f_\lambda$ there does not depend on $\lambda$. For $\lambda=0$ it is the number of nonreal zeros of $a$ in $\D$. For $\lambda=1$, $f_1=\varphi_n$, and it is the number of nonreal zeros of $Q_n[a](\sqrt n\,\cdot)$ in $\Omega_{\rm out}$, because $\mathcal J$ maps the nonreal points of $\{0<|w|<\rho_0\}$ onto those of $\Omega_{\rm out}$, as $\im\mathcal J(w)=\im w\,(1-|w|^{-2})$. The real zeros of $\varphi_n$ in $(-\rho_0,\rho_0)$ are simple, and hence so are the real zeros of $Q_n[a](\sqrt n\,\cdot)$ in $\Omega_{\rm out}$. With Steps 1 and 3 this proves the theorem.
+\end{proof}
+
+\begin{theorem}[{The exact count with an explicit onset}]\label{thm:quant-main}
+Let $a\in\mathcal S(C_0,R_0)$ be admissible, with the notation of Lemma~\ref{lem:outer} and Theorem~\ref{thm:quant}. Let $\sigma$ be the smallest distance between distinct zeros of $a$ in $\D$ ($\sigma=1$ if $k\le1$), and for $\rho>0$ let $m(\rho)$ be the minimum of $|a(w)|$ over the $w$ with $|w|\le1$ and $|w-w_i|\ge\rho$ for all $i$. Put $\delta_0'=d_a\min(d_a,\sigma/2)$ and $\beta=1+16C_0^2/\alpha^2$. Let $0<\eps\le\delta_0'/3$, and let
+\[
+\rho=\min\Bigl\{\frac\sigma3,\ \frac{d_a}3,\ \frac{r_a}2,\ \frac\eps\beta\Bigr\},\qquad d=\min\Bigl\{\frac12,\ \frac{d_a}3,\ \frac\kappa{\sqrt2},\ \sqrt{\eps/2}\Bigr\}.
+\]
+If $n$ satisfies (ii) of Theorem~\ref{thm:quant} and
+\[
+n>\frac{2\sqrt2\,C_0'}{(1-R_0^{-1})^{1/2}\,d^{7/2}\,\mathfrak d_0\,m(\rho)},
+\]
+then all zeros of $Q_n(\sqrt n\,\cdot)$ are simple, and the conclusions (a) and (b) of \cite[Theorem~\ref{M-thm:main}]{Main} hold for this $\eps$.
+\end{theorem}
+
+Since $m(\rho)\ge\mu2^{-k}\rho(\sigma/2)^{k-1}$ (Remark~\ref{rem:depth}), the onset is also polynomial in $1/\eps$.
+
+\begin{proof}
+By Lemma~\ref{lem:outer}(a), $|w_i|\le1-d_a<1-d$, and the points of $\{|w|=1-d\}$ have distance at least $d_a-d\ge\rho$ from the zeros. So $\mu_d\ge m(\rho)$, the displayed condition implies (iii), and Steps 1--3 of the proof of Theorem~\ref{thm:quant} apply: $Q_n(\sqrt n\,\cdot)$ has $k$ zeros in $\Omega_{\rm out}$, and its other $n-k$ zeros are real, simple and lie in $(-b,b)\subset(-2-\eps,2+\eps)$, as $2d^2\le\eps$. The disks $B_i=\{|w-w_i|\le\rho\}$ are disjoint, as $\rho\le\sigma/3$; they lie in $\{|w|<1-d\}$, as $|w_i|+\rho\le1-\frac23d_a$; they do not meet $\R$ if $w_i\notin\R$, as $|\im w_i|\ge\sigma/2$, and are symmetric about $\R$ if $w_i\in\R$. Since $|a|\ge m(\rho)>|\varphi_n-a|$ on $\{|w|\le1-d\}\setminus\bigcup_i\operatorname{int}B_i$ (Lemma~\ref{lem:ext-disk}), Rouch\'e's theorem gives exactly one zero of $\varphi_n$ in each $\operatorname{int}B_i$, real if and only if $w_i$ is real, and no other zero in $\{|w|<1-d\}$. On $B_i$, $|w|\ge r_a/2$, so $|\mathcal J'(w)|=|1-w^{-2}|\le\beta$ and $\mathcal J(\operatorname{int}B_i)\subset\{|z-\zeta_i|<\beta\rho\le\eps\}$. Finally, by \cite[\eqref{M-eq:joukowski-dist}]{Main}, $\dist(\zeta_i,[-2,2])\ge d_a^2$, and for $i\ne i'$ and nonreal $\zeta_i$
+\[
+|\zeta_i-\zeta_{i'}|=|w_i-w_{i'}|\,\frac{|1-w_iw_{i'}|}{|w_iw_{i'}|}\ge\sigma d_a,\qquad|\im\zeta_i|=|\im w_i|\,\frac{1-|w_i|^2}{|w_i|^2}\ge\frac{\sigma d_a}2 .
+\]
+These are all at least $\delta_0'\ge3\eps$, so the disks $\{|z-\zeta_i|<\eps\}$ are disjoint from each other and from $(-2-\eps,2+\eps)$, and from $\R$ when $\zeta_i\notin\R$. This gives (a) and (b) of \cite[Theorem~\ref{M-thm:main}]{Main}.
+\end{proof}
+
+\begin{remark}[The depth $m(\rho)$]\label{rem:depth}
+If $\rho\le\sigma/2$, at most one $w_i$ lies within $\sigma/2$ of a point $w$ that enters $m(\rho)$, so $|p_{\rm in}(w)|\ge G\rho(\sigma/2)^{k-1}$, and the proof of Lemma~\ref{lem:outer}(c) gives $m(\rho)\ge\mu2^{-k}\rho(\sigma/2)^{k-1}$. There is no lower bound polynomial in $\mu$, $\alpha$, $\sigma$, $\rho$: for $k\ge2$ and $0<r\le\frac14$, $a(w)=C_0(\frac2{3R_0})^k\bigl((w-\frac12)^k-r^k\bigr)$ lies in $\mathcal S(C_0,R_0)$, since $\binom kj2^{j-k}\le(\frac32)^k$; $\alpha$ and $\mu$ lie in $[\frac12,2]\cdot C_0(3R_0)^{-k}$ for every $r$; and $\sigma=2r\sin(\pi/k)\in[4r/k,2\pi r/k]$. With $\rho=r/k$, the point $\frac12+r+\rho$ gives $m(\rho)\le4ek\,\alpha\rho\,(k\sigma/2)^{k-1}=O(\sigma^k)$ as $r\downarrow0$, for every fixed $k$. So an onset obtained by comparing $|\varphi_n-a|$ with $|a|$ near the zeros depends on $m(\rho)$, not only on $\mu$, $\alpha$, $\sigma$. Whether the true onset is that large is not known; it would need a lower bound for $|X_n|$ near the cluster.
+\end{remark}
+
+\section{A rate of convergence}\label{subsec:rate}
+
+For Gaussian coefficients Theorem~\ref{thm:quant} gives a rate of convergence in \cite[Theorem~\ref{M-cor:weyl}]{Main} for $t\ge1+\eps$, once the condition parameters of the symbol $a^{(t)}=q(\cdot/\sqrt t)$ of \cite[\eqref{M-eq:heat-hermite}]{Main} have small-ball bounds uniform in $t$. As in \cite{Main}, we work with the polynomials $P_{n,t}$ of \cite[\eqref{M-eq:reversed}]{Main}, built from the coefficients of $q$, and with their real-rooting time $\Lambda_n$ (\cite[Theorem~\ref{M-thm:heat}]{Main}). We use the notation of Section~\ref{subsec:onset}: the class $\mathcal S(C_0,R_0)$, the parameters $\alpha,\mu,\mu_d,\nu_d$ and the constants $R_1,\overline M,\Upsilon,E$ of Definition~\ref{def:condition}, the number $k$ of zeros of the symbol in $\D$, the bound $\mathfrak d_0$ of Lemma~\ref{lem:outer}, and the quantities $C_0',\mu',\kappa,\vartheta_0,M_n$ and conditions (i)--(iv) of Theorem~\ref{thm:quant}. In this section $q$ is the Gaussian power series \cite[\eqref{M-eq:kac}]{Main}, $0<\eps\le1$, $r_1=(1+\eps)^{-1/2}$ and $r_2=\frac12(1+r_1)$. By concavity, $1-r_1\ge(1-2^{-1/2})\eps\ge\eps/4$, so $1-r_2\ge\eps/8$. For $t\ge1+\eps$ the zeros of $a^{(t)}$ in $\overline\D$ are $\sqrt t$ times the zeros of $q$ in $\{|u|\le t^{-1/2}\}\subset\{|u|\le r_1\}$. Put $\ell_\delta=\log(1/\delta)$ and
+\[
+Y_i=\sup_{|u|\le r_2}|q^{(i)}(u)|\ \le\ S_i:=\sum_{j\ge i}\frac{j!}{(j-i)!}\,|\eta_j|\,r_2^{j-i}\qquad(i=1,2).
+\]
+If $S=\sum_jc_j|\eta_j|$ with $c_j\ge0$, then $\PP(S>\E S+y)\le\exp(-y^2/(2\sum_jc_j^2))$ for $y\ge0$: indeed $\E e^{\lambda|\eta_j|}=2e^{\lambda^2/2}\Phi(\lambda)\le e^{\lambda\E|\eta_j|+\lambda^2/2}$ for $\lambda\ge0$, by the concavity of $\log\Phi$, where $\Phi$ is the standard normal distribution function. Here $\E S_1=\sqrt{2/\pi}\,(1-r_2)^{-2}\le52\eps^{-2}$, $\sum_jj^2r_2^{2j-2}=(1+r_2^2)(1-r_2^2)^{-3}\le2(1-r_2)^{-3}$, $\E S_2=2\sqrt{2/\pi}\,(1-r_2)^{-3}\le818\eps^{-3}$ and $\sum_jj^2(j-1)^2r_2^{2j-4}=4(1+4r_2^2+r_2^4)(1-r_2^2)^{-5}\le24(1-r_2)^{-5}$. Hence, for $0<\delta\le e^{-1}$,
+\begin{equation}\label{eq:Ytail}
+\PP\bigl(Y_i>y_i(\delta)\bigr)\le\delta,\qquad y_1(\delta)=\frac{52+46\,\ell_\delta^{1/2}}{\eps^2},\qquad y_2(\delta)=\frac{818+1255\,\ell_\delta^{1/2}}{\eps^3}.
+\end{equation}
+
+\begin{lemma}[Coefficients]\label{lem:coeff}
+Let $\lambda_\eps=(1+\eps)^{1/4}$ and $C_q=\sup_j|\eta_j|\lambda_\eps^{-j}$. Then $a^{(t)}\in\mathcal S(C_q,\lambda_\eps)$ for every $t\ge1+\eps$, $\PP(C_q>x)\le(7/\eps)e^{-x^2/2}$ for $x\ge1$, and $\PP(|\eta_0|<\delta)\le\delta$ for $\delta>0$.
+\end{lemma}
+
+\begin{proof}
+For $t\ge1+\eps$, $|\eta_j|t^{-j/2}\le|\eta_j|\lambda_\eps^{-2j}\le C_q\lambda_\eps^{-j}$. For $x\ge1$, $\PP(|\eta_j|>x\lambda_\eps^j)\le e^{-x^2\lambda_\eps^{2j}/2}\le e^{-x^2/2}\lambda_\eps^{-j}$, since $\lambda_\eps^{2j}-1\ge2j\log\lambda_\eps$. Summing over $j$ gives $e^{-x^2/2}/(1-\lambda_\eps^{-1})$, and $1-\lambda_\eps^{-1}\ge(1-2^{-1/4})\eps\ge\eps/7$ by concavity in $\eps$.
+\end{proof}
+
+\begin{lemma}[Small values on a circle]\label{lem:circle-small}
+For $0<r\le r_1$ and $0<\delta\le e^{-1}$,
+\[
+\PP\Bigl(\min_{|u|=r}|q(u)|<\delta\Bigr)\le\frac{7000}{\eps^2r}\,\delta\,\ell_\delta^{3/2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $y=y_1(\delta)$, $N=\lceil2\pi y/\delta\rceil$ and $\theta_k=2\pi k/N$. On $\{Y_1\le y\}$, $|\frac{d}{d\theta}q(re^{i\theta})|\le y$, so if $|q|<\delta$ somewhere on the circle, then $|q(re^{i\theta_k})|<2\delta$ for some $k$. Let $u=re^{i\theta}$. From $\E|q(u)|^2=(1-r^2)^{-1}$ and $\E q(u)^2=(1-u^2)^{-1}$ we get $\operatorname{Var}\re q(u)=\frac12\bigl((1-r^2)^{-1}+\re(1-u^2)^{-1}\bigr)\ge\frac12$, as $\re(1-u^2)>0$, and
+\[
+\det\operatorname{Cov}\bigl(\re q(u),\im q(u)\bigr)=\frac14\Bigl(\frac1{(1-r^2)^2}-\frac1{|1-u^2|^2}\Bigr)=\frac{r^2\sin^2\theta}{(1-r^2)^2|1-u^2|^2}.
+\]
+So $\PP(|q(u)|<2\delta)$ is at most $4\delta/\sqrt\pi$, and also at most $4\pi\delta^2(1-r^2)|1-u^2|/(2\pi r|\sin\theta|)\le4\delta^2/(r|\sin\theta|)$. We use the first bound at the at most $N\delta+4$ points $\theta_k$ with $|\sin\theta_k|<\delta$, and the second at the others, for which $\sum_k|\sin\theta_k|^{-1}\le4/\delta+(2N/\pi)\log(2/\delta)$. With $N\delta\le2\pi y+1$ and $r\le1$,
+\[
+\PP\Bigl(\min_{|u|=r}|q|<\delta\Bigr)\le\delta+\frac{4\delta(2\pi y+5)}{\sqrt\pi}+\frac{16\delta}r+\frac{8\delta(2\pi y+1)}{\pi r}\log\frac2\delta\le\delta\Bigl[1+\frac{(2\pi y+5)(6+3\log\frac2\delta)}r\Bigr],
+\]
+and $2\pi y+5\le621\,\ell_\delta^{1/2}\eps^{-2}$ and $6+3\log(2/\delta)\le11.1\,\ell_\delta$ by \eqref{eq:Ytail} and $\ell_\delta\ge1$.
+\end{proof}
+
+\begin{lemma}[Near-double real zeros]\label{lem:nu-small}
+Let $t\ge1+\eps$ and $0<d\le\frac12$, and let $\nu_d(t)$ be the parameter $\nu_d$ of Definition~\ref{def:condition} for $a^{(t)}$. For $0<\delta\le e^{-1}$,
+\[
+\PP\bigl(\nu_d(t)<\delta\bigr)\le\bigl(4000\,\eps^{-3}\ell_\delta^{1/2}+4t\bigr)\delta .
+\]
+\end{lemma}
+
+\begin{proof}
+We may assume $\delta t<\frac14$, since otherwise the bound exceeds $1$. If $\nu_d(t)<\delta$, there is a real $u$ with $|u|\le r_1$, $|q(u)|<\delta$ and $|q'(u)|<\delta':=\delta\sqrt t$. Let $y=y_2(\delta)$ and take a grid in $[-r_1,r_1]$ of spacing $\delta'/y$, with at most $2y/\delta'+1$ points. On $\{Y_2\le y\}$ the grid point $g$ nearest to $u$ has $|q'(g)|<\frac32\delta'$ and $|q(g)|<\delta+\delta'^2/y$. The real vector $(q(g),q'(g))$ has covariance determinant $(1-g^2)^{-4}\ge1$, so its density is at most $1/(2\pi)$. Hence
+\[
+\PP\bigl(\nu_d(t)<\delta\bigr)\le\delta+\Bigl(\frac{2y}{\delta'}+1\Bigr)\frac2\pi\cdot\frac{3\delta'}2\Bigl(\delta+\frac{\delta'^2}y\Bigr)=\delta+\frac3\pi(2y+\delta')\Bigl(\delta+\frac{\delta'^2}y\Bigr)\le\delta\Bigl(1+\frac{6y}\pi+2t\Bigr),
+\]
+where we used $\delta t<\frac14$. Then \eqref{eq:Ytail} gives the claim.
+\end{proof}
+
+\begin{lemma}[Zeros near the unit circle]\label{lem:annulus}
+For $t\ge1+\eps$ and $0<d\le\frac12$, the probability that $a^{(t)}$ has a zero in $\{1-d\le|w|\le1\}$ is at most $5d(1+\eps)^3\eps^{-3}$.
+\end{lemma}
+
+\begin{proof}
+This is the event that $q$ has a zero in $\{(1-d)r\le|u|\le r\}$, where $r=t^{-1/2}\le r_1$. By \cite[Theorem~2.7]{MS}, as in the proof of \cite[Lemma~\ref{M-lem:pairs}]{Main}, the nonreal zeros of $q$ have the first intensity $2|\im u|/(\pi|1-u^2|(1-|u|^2)^2)\le2/(\pi(1-r_1^2)^3)$ on $\{|u|\le r_1\}$. The real zeros have the intensity $1/(\pi(1-x^2))$ on $(-1,1)$ \cite{Ka}; this is the Rice formula \cite[Theorem~6.2]{AW} in dimension one, since $q(x)$ has variance $(1-x^2)^{-1}$ and $q'(x)$ has conditional variance $(1-x^2)^{-3}$ given $q(x)$.
+% TODO(author): page-check that [AW, Theorem 6.2] covers dimension one (it is believed to treat fields from an open
+% subset of R^d to R^d for every d >= 1; no referee of idea 106 has seen the book), or cite the one-dimensional Rice
+% formula where [AW] states it; and give the page in [Ka] for the density 1/(pi(1-x^2)), or replace the clause by
+% "this is Kac's formula [Ka, p. ...]". Then delete this comment.
+So the expected number of zeros in the annulus is at most $\frac{2}{\pi(1-r_1^2)^3}\cdot2\pi d+\frac{2d}{\pi(1-r_1^2)}\le\frac{5d}{(1-r_1^2)^3}$, and $1-r_1^2=\eps/(1+\eps)$.
+\end{proof}
+
+The bound $\Upsilon^k\le(\overline M/\alpha)^E$ of Lemma~\ref{lem:outer}(b) for the factor $\Upsilon^k$ in Theorem~\ref{thm:quant} is attained only by symbols with many zeros forced by a small $\alpha$. For the random symbol the number of zeros in a disk has super-exponential tails. For $0<r<1$ let $\mathcal Z_r$ be the number of zeros of $q$ in $\{|u|\le r\}$, counted with multiplicity.
+
+\begin{lemma}[Overcrowding]\label{lem:overcrowd}
+Let $0<r<1$, $L_r=\log\frac{1+r}{1-r}$ and $A_r=2r^3/(1-r^2)^3$, and for $m\ge1$ put $a=\lceil m/2\rceil$ and $b=\lceil m/4\rceil$. Then
+\[
+\PP(\mathcal Z_r\ge m)\le\Bigl(\frac{eL_r}{\sqrt{2\pi a}}\Bigr)^a+\Bigl(\frac{\sqrt2\,eA_r}{\sqrt b}\Bigr)^b .
+\]
+Consequently, for $\Upsilon>1$ and $\beta>0$, with $m_0=4+\max\bigl(e^2L_r^2\Upsilon^{4\beta}/\pi,\ 8e^2A_r^2\Upsilon^{8\beta}\bigr)$,
+\[
+\PP(\mathcal Z_r\ge m)\le2\,\Upsilon^{-\beta m}\quad(m\ge m_0),\qquad\PP\bigl(\Upsilon^{\mathcal Z_r}>s\bigr)\le C(r,\Upsilon,\beta)\,s^{-\beta}\quad(s\ge1),
+\]
+with $C(r,\Upsilon,\beta)=\max(2,\Upsilon^{\beta m_0})$.
+\end{lemma}
+
+\begin{proof}
+Almost surely the zeros of $q$ in $\D\setminus\{0\}$ are simple (\cite[Lemma~\ref{M-lem:resample}]{Main}), $q(0)\ne0$, and $q$ has no zero on $\{|u|=r\}$ (\cite[Lemma~\ref{M-lem:circle}]{Main}(a)). So $\mathcal Z_r=N_\R+2k_r$, where $N_\R$ is the number of real zeros in $[-r,r]$ and $k_r$ the number of zeros in $\D_r^+$; and $\mathcal Z_r\ge m$ implies $N_\R\ge a$ or $k_r\ge b$. We use $\PP(N\ge j)\le\E\binom Nj$ and $j!\ge(j/e)^j$.
+
+\emph{Nonreal zeros.} Step~1 of the proof of \cite[Proposition~\ref{M-prop:fredholm}]{Main} gives $\E\binom{k_r}b\le(\pi r^2C_r)^b(2b)^{b/2}/b!$ with $C_r=2r/(\pi(1-r^2)^3)$, and $\pi r^2C_r=A_r$. So $\PP(k_r\ge b)\le(\sqrt2\,eA_r/\sqrt b)^b$.
+
+\emph{Real zeros.} By \cite[Section~6.1, proof of Theorem~2.1]{MS}, the $a$-point correlation function of the real zeros of $q$ is
+\[
+\rho_a(x_1,\dots,x_a)=(2\pi)^{-a/2}(\det\Sigma)^{1/2}\,\E\bigl|q(x_1)\cdots q(x_a)\bigr|,\qquad\Sigma=\Bigl(\frac1{1-x_ix_j}\Bigr)_{i,j\le a},
+\]
+and by Cauchy's determinant formula $\det\Sigma=\prod_i(1-x_i^2)^{-1}\prod_{i<j}\bigl((x_i-x_j)/(1-x_ix_j)\bigr)^2\le\prod_i(1-x_i^2)^{-1}$. By H\"older's inequality, $\E|q(x_1)\cdots q(x_a)|\le\prod_i(\E|q(x_i)|^a)^{1/a}=\E|\xi|^a\prod_i(1-x_i^2)^{-1/2}$ with $\xi$ standard Gaussian, and $\E|\xi|^a\le((2a-1)!!)^{1/2}\le a^{a/2}$ by the inequality of arithmetic and geometric means. As $\int_{-r}^r(1-x^2)^{-1}dx=L_r$,
+\[
+\E\binom{N_\R}a=\frac1{a!}\int_{[-r,r]^a}\rho_a\le\frac{a^{a/2}L_r^a}{a!\,(2\pi)^{a/2}}\le\Bigl(\frac{eL_r}{\sqrt{2\pi a}}\Bigr)^a .
+\]
+\emph{The consequences.} Let $m\ge m_0$. Then $a\ge m/2\ge e^2L_r^2\Upsilon^{4\beta}/(2\pi)$ and $b\ge m/4\ge2e^2A_r^2\Upsilon^{8\beta}$, so the two terms are at most $\Upsilon^{-2\beta a}$ and $\Upsilon^{-4\beta b}$, both at most $\Upsilon^{-\beta m}$. For $s\ge\Upsilon^{m_0}$ let $m=\lfloor\log s/\log\Upsilon\rfloor+1\ge m_0$; then $\PP(\Upsilon^{\mathcal Z_r}>s)\le\PP(\mathcal Z_r\ge m)\le2\Upsilon^{-\beta m}\le2s^{-\beta}$. For $1\le s<\Upsilon^{m_0}$ the bound $C(r,\Upsilon,\beta)s^{-\beta}\ge1$ is trivial.
+\end{proof}
+
+So $\mathcal Z_r$, whose mean is of order $(1-r)^{-1}$, exceeds $m$ with probability decaying like $m^{-cm}$, and $\Upsilon^{\mathcal Z_r}$ has finite moments of every order. The constants are crude: for $r=0.8$ the first bound is below $1$ only for $m$ of order $3\cdot10^4$, while numerically $\PP(\mathcal Z_{0.8}\ge m)$ falls from $0.32$ at $m=3$ to $5.5\cdot10^{-4}$ at $m=8$.
+
+\begin{theorem}[A rate of convergence]\label{thm:rate}
+Let $q$ be the Gaussian power series and $0<\eps\le1$. For every $\alpha\in(0,\frac3{50})$ there is $C_{\eps,\alpha}<\infty$ such that for all $n\ge2$
+\[
+\sup_{t\ge1+\eps}\bigl|\PP(\Lambda_n^{\rm std}\le t)-\PP(T_*\le t)\bigr|\le C_{\eps,\alpha}\,n^{-\alpha}.
+\]
+For every $\theta\in(0,\frac1{10})$ there is $C_{\eps,\theta}<\infty$ such that for every $t\ge1+\eps$ and $n\ge2$ both $\bigl|\PP(G_{n,t}\text{ has only real zeros})-\PP(T_*\le t)\bigr|$ and the total variation distance between the laws of the number of nonreal zeros of $G_{n,t}$ and of the number of nonreal zeros of $q$ in $\{|w|<t^{-1/2}\}$ are at most $C_{\eps,\theta}\,t\,n^{-\theta}$.
+\end{theorem}
+
+\begin{proof}
+Since $\Lambda_n^{\rm std}$ has the law of $\Lambda_n$ and $G_{n,t}$ that of $P_{n,t}$ (proof of \cite[Theorem~\ref{M-cor:weyl}]{Main}), we may work with $P_{n,t}$ and $\Lambda_n$. By Lemma~\ref{lem:coeff}, Theorem~\ref{thm:quant} applies to $a^{(t)}$ with $(C_0,R_0)=(C_q,\lambda_\eps)$ for every $t\ge1+\eps$; then $R_1=R_\eps:=(1+\eps)^{1/8}$, $\Upsilon=\Upsilon_\eps:=(R_\eps+1)/(R_\eps-1)$ and $\vartheta_0=\lambda_\eps^{-1/4}$. Fix $\theta\in(0,\frac1{10})$ and put $\theta'=(1-10\theta)/20>0$. Let $C$ and $n_{\eps,\theta}$ denote constants depending only on $\eps$ and $\theta$. For $n\ge3$ put
+\begin{gather*}
+\delta=n^{-\theta},\qquad x_n=\max\bigl(1,\sqrt{2\theta\log n}\bigr),\qquad Z=\frac{x_n}{\delta(1-\lambda_\eps^{-1/2})},\\
+W=Zn^{\theta'},\qquad c_1=\frac{\lambda_\eps^{1/2}(1-\vartheta_0)^2}6,\qquad\bar d_n=\frac{c_1W^{-2}}{\sqrt2},
+\end{gather*}
+and $k_n=\lfloor\theta'\log n/\log\Upsilon_\eps\rfloor$. Let $\mathcal G_n(t)$ be the event that $C_q\le x_n$, $|\eta_0|\ge\delta$, the parameters of Definition~\ref{def:condition} for $a^{(t)}$ satisfy $\mu,\mu_{\bar d_n},\nu_{\bar d_n}\ge\delta$, $a^{(t)}$ has no zero in $\{1-\bar d_n\le|w|\le1\}$, and $\mathcal Z_{r_1}\le k_n$.
+
+\emph{On $\mathcal G_n(t)$ the count is exact.} The number $k$ of zeros of $a^{(t)}$ in $\D$ is the number of zeros of $q$ in $\{|u|<t^{-1/2}\}\subset\{|u|\le r_1\}$, so on $\mathcal G_n(t)$, $\Upsilon_\eps^k\le\Upsilon_\eps^{k_n}\le n^{\theta'}$. This replaces the bound of Lemma~\ref{lem:outer}(b). Moreover $\overline M\le x_n/(1-\lambda_\eps^{-1/2})=\delta Z$ and $\mu\ge\delta$, so $\mathfrak d_0=\mu/(\overline M\Upsilon_\eps^k)\ge W^{-1}$, $\mu'\ge\delta W^{-1}$ and $C_0'\le\delta W$. So the third entry in the definition of $\kappa$ in Theorem~\ref{thm:quant} is at least $c_1W^{-2}$, and for $n\ge n_{\eps,\theta}$ so are the other two; hence (i) holds with $d=\bar d_n$. In (ii), the constants of Lemma~\ref{lem:bulk-explicit} for $C=C_0'$, $R=R_\eps$ and $\mu_S=\mu'$ satisfy $\kappa\ge c_1W^{-2}$, $M_n\le C\log n$, $\Gamma\le C\delta W$ and $D_H\le C\delta W(W^2+\log n)$; as $\delta W\ge1$ and $\mu'^{-1}\le W/\delta$, the four conditions \eqref{eq:bulk-explicit} follow from $n\ge CW^2\log^2n$, $n\ge CW^3\log n$, $n\ge CW^6\log n$ and $n\ge CW^{8/3}$. Condition (iii) follows from $n\ge CW^9$, as $C_0'/(\mathfrak d_0\mu_{\bar d_n})\le W^2$ and $\bar d_n^{-7/2}\le CW^7$; condition (iv) from $n\ge CZW^9$, as $C_q/\nu_{\bar d_n}\le x_n/\delta\le Z$ and $\bar d_n^{-9/2}\le CW^9$; and $n\ge k$ from $k\le k_n\le\log n$. Since $Z\le Cn^\theta(\log n)^{1/2}$, we have $ZW^9\le Cn^{10\theta+9\theta'}(\log n)^5=Cn^{1-11\theta'}(\log n)^5$ and $W^6\le Cn^{6(\theta+\theta')}(\log n)^3$ with $6(\theta+\theta')<1$; so all these hold for $n\ge n_{\eps,\theta}$, uniformly in $t\ge1+\eps$. Then Theorem~\ref{thm:quant} and \cite[\eqref{M-eq:PQ}]{Main} show that on $\mathcal G_n(t)$ the number $N_n(t)$ of nonreal zeros of $P_{n,t}$ equals the number $N_t$ of nonreal zeros of $q$ in $\{|w|<t^{-1/2}\}$. Since $\{\Lambda_n\le t\}=\{N_n(t)=0\}$ when $\eta_0\ne0$ (\cite[Lemma~\ref{M-lem:heat}]{Main}(c)) and $\{N_t=0\}=\{T_*\le t\}$, the quantities $|\PP(\Lambda_n\le t)-\PP(T_*\le t)|$ and $\PP(N_n(t)\ne N_t)$ are at most $\PP(\mathcal G_n(t)^c)$ for $n\ge n_{\eps,\theta}$.
+
+\emph{The bad event.} Let $1+\eps\le t\le T$ and $n\ge n_{\eps,\theta}$, so that $\delta\le e^{-1}$ and $\ell_\delta=\theta\log n$. As $e^{-x_n^2/2}\le\delta$, Lemma~\ref{lem:coeff} gives $\PP(C_q>x_n)+\PP(|\eta_0|<\delta)\le(7/\eps+1)\delta$. The parameters $\mu$ and $\mu_{\bar d_n}$ are minima of $|q|$ on circles with radii in $[T^{-1/2}/2,r_1]$, so Lemma~\ref{lem:circle-small} bounds their contribution by $21000\,\eps^{-2}T^{1/2}\delta\ell_\delta^{3/2}$; Lemma~\ref{lem:nu-small} bounds that of $\nu_{\bar d_n}$ by $(4000\eps^{-3}\ell_\delta^{1/2}+4T)\delta$, and Lemma~\ref{lem:annulus} that of the annulus by $5(1+\eps)^3\eps^{-3}\bar d_n\le C\delta^2$, as $\bar d_n\le CW^{-2}\le CZ^{-2}\le C\delta^2$. Finally, Lemma~\ref{lem:overcrowd} with $r=r_1$, $\Upsilon=\Upsilon_\eps$ and $\beta=\theta/\theta'$ gives $\PP(\mathcal Z_{r_1}\ge m)\le2\Upsilon_\eps^{-\beta m}$ for $m\ge m_0(r_1,\Upsilon_\eps,\beta)$; with $m=k_n+1>\theta'\log n/\log\Upsilon_\eps$ this gives $\PP(\mathcal Z_{r_1}>k_n)\le2n^{-\theta}$ as soon as $k_n+1\ge m_0$, that is, for $\log n\ge m_0\log\Upsilon_\eps/\theta'$. Enlarging $C$ to cover smaller $n$, we get for all $n\ge2$
+\begin{equation}\label{eq:rate-T}
+\sup_{1+\eps\le t\le T}\Bigl(\bigl|\PP(\Lambda_n\le t)-\PP(T_*\le t)\bigr|+\PP\bigl(N_n(t)\ne N_t\bigr)\Bigr)\le C\,T\,n^{-\theta}(\log n)^{3/2}.
+\end{equation}
+
+\emph{Large times.} By the proof of \cite[Lemma~\ref{M-lem:pairs}]{Main}, with $r=T^{-1/2}$ and $\arctan\varrho\le\varrho$, $\PP(T_*>T)\le2T^{-3/2}$ for $T\ge2$. For $t\ge T$, by monotonicity, $|\PP(\Lambda_n\le t)-\PP(T_*\le t)|\le|\PP(\Lambda_n\le T)-\PP(T_*\le T)|+2\PP(T_*>T)$. With $T=\max(2,n^{2\theta/5})$ and \eqref{eq:rate-T} the supremum over $t\ge1+\eps$ is at most $Cn^{-3\theta/5}(\log n)^{3/2}$. Given $\alpha<\frac3{50}$, choose $\theta\in(\frac53\alpha,\frac1{10})$; then $n^{-3\theta/5}(\log n)^{3/2}\le Cn^{-\alpha}$. The claims at a fixed $t$ are \eqref{eq:rate-T} with $T=t$, applied with a slightly larger $\theta<\frac1{10}$ to absorb the logarithm, since $P_{n,t}$ has only real zeros exactly when $N_n(t)=0$, and the total variation distance between the laws of $N_n(t)$ and $N_t$ is at most $\PP(N_n(t)\ne N_t)$.
+\end{proof}
+
+\begin{remark}[The exponent]\label{rem:rate}
+The exponents do not depend on $\eps$: the only place where the argument could lose a factor depending on $\eps$ is the factor $\Upsilon^k$, and its bound $\Upsilon^k\le(\overline M/\alpha)^E$ of Lemma~\ref{lem:outer}(b), with $E\asymp\eps^{-1}\log(1/\eps)$, would give an exponent of order $\eps/\log(1/\eps)$; Lemma~\ref{lem:overcrowd} replaces it. The constants are not explicit and not polynomial in $1/\eps$: the proof needs $\log n\ge m_0\log\Upsilon_\eps/\theta'$, so $\log C_{\eps,\alpha}=\eps^{-O(1/(3/50-\alpha))}$. The limits $\frac1{10}$ and $\frac3{50}$ come from the degree, about $9$ in $1/\mu$, of the explicit onset (Theorem~\ref{thm:quant} and the paragraph after it). Since $\PP(\mu<x)$ is of order $x$ for the random symbol, the sufficient condition of that theorem fails with probability of order at least $n^{-1/9}$, so this argument cannot give a fixed-$t$ exponent above $\frac19$; a better exponent needs a sharper deterministic onset, in particular near the edges $\pm2$ of the bulk. The theorem gives no rate uniform in $t>1$. In a Monte Carlo simulation (not reported here; $n\le1024$, $t\in\{1.25,1.5,2,3\}$, $24\,000$ to $48\,000$ samples for each pair $(n,t)$), the probability that exactly one of the events $\{P_{n,t}\text{ has only real zeros}\}$ and $\{T_*\le t\}$ occurs decays with fitted exponents $0.68$ to $0.82$, and $\PP(\Lambda_n\le t)-\PP(T_*\le t)$ is positive at every computed point and decays with fitted exponents $0.4$ to $0.7$.
+\end{remark}
+
+The distortion $\mathfrak d(a^{(t)})$ of the outer factor (Lemma~\ref{lem:outer}(c)) also has a small-ball bound whose exponent does not depend on $\eps$. We need the circle minimum uniformly in the radius.
+
+\begin{lemma}[Small values on a circle, uniformly in the radius]\label{lem:circle-uniform}
+For $t\ge1+\eps$ and $0<x\le e^{-1}$,
+\[
+\PP\Bigl(\min_{|u|=t^{-1/2}}|q(u)|<x\Bigr)\le\frac{7000}{\eps^2}\,\ell_x^{3/2}\,x^{1/2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $r=t^{-1/2}\le r_1$. If $r\ge x^{1/2}$, Lemma~\ref{lem:circle-small} gives at most $7000\eps^{-2}x\ell_x^{3/2}/r$, which is at most $7000\eps^{-2}\ell_x^{3/2}x^{1/2}$. If $r<x^{1/2}$, then $|q(u)-\eta_0|\le rY_1\le x^{1/2}Y_1$ on $|u|=r$, so the event implies $|\eta_0|<x+x^{1/2}Y_1$. By \eqref{eq:Ytail}, $\PP(Y_1>y_1(x))\le x$, and $\PP(|\eta_0|<v)\le v$; so the probability is at most $2x+x^{1/2}(52+46\ell_x^{1/2})\eps^{-2}$, which is at most $100\,\eps^{-2}\ell_x^{1/2}x^{1/2}$.
+\end{proof}
+
+\begin{proposition}[The distortion]\label{prop:distortion}
+Let $0<\eps\le1$, and let $\mathfrak d(a^{(t)})$ be the distortion of the symbol $a^{(t)}$, defined in Lemma~\ref{lem:outer}(c) with $(C_0,R_0)=(C_q,\lambda_\eps)$.
+\begin{enumerate}
+\item[(a)] For $T\ge1+\eps$ and $0<\beta<1$ there is $C_{\eps,\beta}$ such that $\PP(\mathfrak d(a^{(t)})<\delta)\le C_{\eps,\beta}T^{1/2}\delta^\beta$ for all $t\in[1+\eps,T]$ and $\delta\in(0,1]$.
+\item[(b)] For $0<\beta<\frac12$ there is $C_{\eps,\beta}$ such that $\PP(\mathfrak d(a^{(t)})<\delta)\le C_{\eps,\beta}\delta^\beta$ for all $t\ge1+\eps$ and $\delta\in(0,1]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:outer}(c), $\mathfrak d(a^{(t)})\ge(\mu/\overline M)((R_\eps-1)/2)^k$, and $k\le\mathcal Z_{r_1}$. Let $0<\eta<1$ and $\Upsilon'=2/(R_\eps-1)$. On the complement of
+\[
+\{\overline M>\delta^{-\eta/4}\}\cup\{\mu<\delta^{1-3\eta/4}\}\cup\{(\Upsilon')^{\mathcal Z_{r_1}}>\delta^{-\eta/2}\}
+\]
+we have $\mathfrak d\ge\delta^{1-3\eta/4}\delta^{\eta/4}\delta^{\eta/2}=\delta$. The first event has probability at most $C_\eps\exp(-c_\eps\delta^{-\eta/2})\le C_{\eps,\eta}\delta$ by Lemma~\ref{lem:coeff}, as $\overline M=C_q/(1-\lambda_\eps^{-1/2})$. The third has probability at most $C_{\eps,\eta}\delta$ by Lemma~\ref{lem:overcrowd} with $\Upsilon=\Upsilon'$ and exponent $2/\eta$. For the second, $\mu=\min_{|u|=t^{-1/2}}|q(u)|$: for (a), Lemma~\ref{lem:circle-small} with $r=t^{-1/2}\ge T^{-1/2}$ gives at most $C_\eps T^{1/2}\delta^{1-3\eta/4}\log^{3/2}(1/\delta)$; for (b), Lemma~\ref{lem:circle-uniform} gives at most $C_\eps\delta^{(1-3\eta/4)/2}\log^{3/2}(1/\delta)$. Take $\eta$ small.
+\end{proof}
+
+The exponent in (b) is limited by small radii, where $q(u)\approx\eta_0+\eta_1u$ on $|u|=r$ and the circle minimum is a small-ball problem for $|\eta_0|-r|\eta_1|$; we expect exponents up to $1$ uniformly in $t$, but have not proved it.
+
+\begin{remark}[Another deformation]\label{rem:homotopy}
+Let $a\in\mathcal S(C_0,R_0)$ with $\alpha,\mu>0$, let $p_{\rm in},p_{\rm out}$ be as in Lemma~\ref{lem:outer}, let $\rho_{\rm out}$ be the smallest modulus of a zero of $a$ outside $\overline\D$ (or $R_0$ if it is smaller), and let $a_s^{\rm h}=p_{\rm in}\,p_{\rm out}^s=p_{\rm in}e^{s\log p_{\rm out}}$, with the branch of $\log p_{\rm out}$ that vanishes at $0$; it is analytic in $\{|w|<\rho_{\rm out}\}$ and has real coefficients. On $|w|=1$, $|a_s^{\rm h}|=|p_{\rm in}|^{1-s}|a|^s$, so $\min_{s\in[0,1],|w|=1}|a_s^{\rm h}|=\min(\mu,m_{\rm in})$ with $m_{\rm in}=\min_{|w|=1}|p_{\rm in}|$. Any continuous family from $p_{\rm in}$ to $a$ has circle minimum at most $\min(\mu,m_{\rm in})$ (look at its end points), so this family is optimal in that respect; and $m_{\rm in}\ge\mathfrak d(a)\mu$, since $|p_{\rm out}(0)|=1$. But $m_{\rm in}$ is a product over the zeros of $a$ in $\D$, and its lower bounds cost a factor exponential in $k$; and if a zero $w'$ of $a$ with $|w'|=\rho_{\rm out}<R_0$ has a multiplicity $j$ with $js\notin\Z$ (for instance if the zeros on $|w|=\rho_{\rm out}$ are simple and $0<s<1$), then $a_s^{\rm h}$ is not analytic at $w'$, so its coefficients $a_l(s)$ satisfy $\limsup_l|a_l(s)|^{1/l}=1/\rho_{\rm out}$, and $\rho_{\rm out}-1$ has no lower bound depending only on $\eps$. So this deformation does not remove the dependence on $k$ either; in Theorem~\ref{thm:rate} it is removed by Lemma~\ref{lem:overcrowd} instead.
+\end{remark}
+
+\section{Explicit constants and the tail of \texorpdfstring{$D$}{D}}\label{sec:explicit}
+
+In this section we bound the constants of \cite[Theorem~\ref{M-thm:collision}]{Main} explicitly (Section~\ref{subsec:collision-explicit}) and, for the Gaussian power series, bound the tail of the largest scaled displacement $D$ of the collision, the variable of the proof of \cite[Corollary~\ref{M-cor:collision-weyl}]{Main} (Sections~\ref{subsec:pairs}--\ref{subsec:Dtail}). The notation is that of \cite[Section~\ref{M-sec:collision}]{Main}: $q(w)=\sum_j\eta_jw^j$ is a real power series, the polynomials $P_{n,t}$ and their real-rooting time $\Lambda_n$ are built from its coefficients, and $u_*=R_*e^{i\theta_*}$, $0<\theta_*<\pi$, is its nonreal zero of minimal modulus.
+
+\subsection{Explicit constants}\label{subsec:collision-explicit}
+The proof of \cite[Theorem~\ref{M-thm:collision}]{Main} obtains $\delta$, $K$ and $n_0$ by compactness. We now bound them explicitly, by polynomials in condition parameters of $q$ whose degrees are absolute. Throughout this subsection $0<\eps\le1$, and $q$ satisfies the conditions (G1)--(G3) of \cite[Section~\ref{M-sec:collision}]{Main}, with radius of convergence $\rho_q\ge1$ and $T_*\ge1+\eps$. Put
+\[
+\lambda_{\eps/2}=(1+\eps/2)^{1/4},\qquad r_c=\lambda_{\eps/2}^{-2},\qquad C_q=\sup_{j\ge0}|\eta_j|\lambda_{\eps/2}^{-j},
+\]
+as in Lemma~\ref{lem:coeff} with $\eps/2$ in place of $\eps$, and assume $C_q<\infty$. Let $\overline M_c=C_q/(1-\lambda_{\eps/2}^{-1/2})$, $\Upsilon_c=(\lambda_{\eps/2}^{1/2}+1)/(\lambda_{\eps/2}^{1/2}-1)$ and $E_c=\log\Upsilon_c/\log\lambda_{\eps/2}^{1/2}$; these are $\overline M$, $\Upsilon$ and $E$ of Definition~\ref{def:condition} for $(C_0,R_0)=(C_q,\lambda_{\eps/2})$. Let $s_*=\sin\theta_*$ and $m_*=\min(\theta_*,\pi-\theta_*)$, so that $m_*\ge s_*$, and recall $\gamma_*=u_*q'(u_*)$ from \cite[Section~\ref{M-subsec:collision-limit}]{Main}. The \emph{modulus gap} $g\in(0,1]$ is the minimum of $1$ and the distance from $R_*$ to the moduli of the zeros of $q$ in $\{|u|<\rho_q\}$ other than $u_*,\bar u_*$, real zeros included; and
+\[
+\nu^{\rm glob}=\min\bigl\{\max(|q(x)|,|q'(x)|):\ x\in\R,\ |x|\le r_c\bigr\}.
+\]
+We assume also $\nu^{\rm glob}>0$, that is, $q$ has no multiple zero in $[-r_c,r_c]$; (G3) gives this only in $(-R_*,R_*)$. Let $\delta_1=\min\{\eps/4,\ gT_*^{3/2}/6\}$, let $\mathfrak A$ be the closed annulus $\{(T_*+2\delta_1)^{-1/2}\le|u|\le(T_*-2\delta_1)^{-1/2}\}$, as in \cite[Section~\ref{M-subsec:collision-limit}]{Main} with this $\delta_1$, and for $\rho>0$ let $m_{\mathfrak A}(\rho)$ be the minimum of $|q|$ over the points of $\mathfrak A$ at distance at least $\rho$ from $u_*$ and $\bar u_*$. Put
+\[
+c_F=\frac{|\gamma_*|}{8T_*},\qquad\overline B_2=\frac{4000\max(1,C_q)}{\eps^3},\qquad r_1=\min\Bigl\{\frac{c_F}{\overline B_2},\ \delta_1,\ \frac{m_*}2\Bigr\},\qquad\rho_V=\frac{r_1s_*}{6T_*^{3/2}} .
+\]
+Finally let $k_-$ be the number of zeros of $q$ in $\{|u|<(T_*-\delta_1)^{-1/2}\}$, $\mathcal U=\Upsilon_c^{k_-}$, and
+\[
+\begin{aligned}
+\Pi={}&\max(1,|\gamma_*|^{-1})\cdot s_*^{-1}\cdot g^{-1}\cdot\max\bigl(1,m_{\mathfrak A}(\rho_V)^{-1}\bigr)\\
+&\cdot\max\bigl(1,(\nu^{\rm glob})^{-1}\bigr)\cdot\max(1,|\eta_0|^{-1})\cdot\max(1,C_q)\cdot T_*\cdot\mathcal U .
+\end{aligned}
+\]
+Each of the nine factors of $\Pi$ is at least $1$; we call them $P_\gamma,P_s,P_g,P_{\mathfrak A},P_\nu,P_\alpha,P_C,T_*,\mathcal U$, in this order. Below, $c$ denotes absolute constants and $c_\eps$ numbers with $c_\eps\le c\,\eps^{-c}$, not the same at each occurrence.
+
+\begin{theorem}[Explicit constants]\label{thm:collision-explicit}
+In this setting the conclusions (a)--(d) of \cite[Theorem~\ref{M-thm:collision}]{Main} hold with $\delta=\delta_1$ and with $K$, $n_0$ such that
+\[
+\delta^{-1}\le6\eps^{-1}\,\Pi,\qquad K\le c_\eps\,\Pi^{5/2},\qquad n_0\le c_\eps\,\Pi^{10}.
+\]
+Moreover $\mathcal U\le(\overline M_c/|\eta_0|)^{E_c}$, and $\mathcal U\le\Upsilon_c^{\mathcal Z}$, where $\mathcal Z$ is the number of zeros of $q$ in $\{|u|\le r_c\}$, counted with multiplicity.
+\end{theorem}
+
+The factor $\mathcal U=\Upsilon^{k}$ of Theorem~\ref{thm:quant} is kept as a parameter, because for random $q$ it can be bounded either by Jensen's formula or through the number of zeros in a disk (Theorem~\ref{thm:Dtail}).
+
+\begin{lemma}\label{lem:logs}
+\begin{enumerate}
+\item[(a)] If $X\ge1$ and $n\ge16X(1+\log X)^2$, then $n\ge X(1+\log n)^2$. In particular this holds for $n\ge64X^2$.
+\item[(b)] If $P_1,\dots,P_k$ are distinct factors of $\Pi$ and $a_1,\dots,a_k\ge0$, then $\prod_iP_i^{a_i}\le\Pi^{\max_ia_i}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The function $n\mapsto n/(1+\log n)^2$ is increasing for $n\ge e$. At $n_1=16X(1+\log X)^2\ge16$, using $\log(1+y)\le y$, we have $1+\log n_1\le1+\log16+3\log X\le4(1+\log X)$, so $n_1/(1+\log n_1)^2\ge X$. Moreover $(1+\log X)^2\le4X$ for $X\ge1$. (b) Each $P_i\ge1$, so $P_i^{a_i}\le P_i^{\max a}$, and a product of distinct factors of $\Pi$ is at most $\Pi$.
+\end{proof}
+
+By Lemma~\ref{lem:logs}(b), a bound by $c_\eps$ times a monomial in the factors of $\Pi$ is a bound by $c_\eps\Pi^e$, where $e$ is the largest exponent of a single factor.
+
+\begin{proof}[Proof of Theorem~\ref{thm:collision-explicit}]
+We go through the proof of \cite[Theorem~\ref{M-thm:collision}]{Main}, which runs from \cite[Section~\ref{M-subsec:collision-rate}]{Main} to \cite[Section~\ref{M-subsec:collision-proof}]{Main}, and bound each constant. The elementary numerical inequalities used below were also checked on grids by computer.
+
+\emph{Step 1: $\delta_1$ and the annulus.} As $g\le1\le T_*$ and $\eps\le1$, $\delta_1\ge\min(\eps/4,g/6)\ge\eps g/6$, so $\delta_1^{-1}\le6\eps^{-1}P_g$. Also $\delta_1\le\eps/4<T_*/4$ and $T_*-2\delta_1\ge1+\eps/2$. By the mean value theorem,
+\[
+(T_*-2\delta_1)^{-1/2}-R_*\le\delta_1(T_*/2)^{-3/2}=2^{3/2}\delta_1T_*^{-3/2}\le0.48\,g,\quad R_*-(T_*+2\delta_1)^{-1/2}\le\delta_1T_*^{-3/2}\le\frac g6 .
+\]
+So every point of $\mathfrak A$ has modulus within $g/2$ of $R_*$, and by the definition of $g$ the only zeros of $q$ in $\mathfrak A$ are $u_*$ and $\bar u_*$; this is condition (C2) of \cite[Section~\ref{M-subsec:collision-limit}]{Main}. Condition (C1) there holds because $(T_*-2\delta_1)^{-1/2}\le r_c<1\le\rho_q$. For $t\in I_1=[T_*-\delta_1,T_*+\delta_1]\subset[1+3\eps/4,\infty)$ we have $|\eta_j|t^{-j/2}\le C_q\lambda_{\eps/2}^j\lambda_{\eps/2}^{-2j}=C_q\lambda_{\eps/2}^{-j}$, which is \cite[\eqref{M-eq:collision-H1}]{Main} with $(C_0,R_0)=(C_q,\lambda_{\eps/2})$.
+
+\emph{Step 2: $\kappa$.} Take $\kappa=\kappa_c:=\delta_1/(5T_*)\le\eps/20$. Since $\log(1+x)\ge x/(1+x)$, we have $\log\frac{T_*+2\delta_1}{T_*+\delta_1}\ge\frac{\delta_1}{T_*+2\delta_1}\ge2\kappa_c$ and $\log\frac{T_*-\delta_1}{T_*-2\delta_1}\ge\frac{\delta_1}{T_*-\delta_1}\ge2\kappa_c$, which is \cite[\eqref{M-eq:collision-kappa}]{Main}. As $\log\lambda_{\eps/2}\ge\eps/10$, the number $\vartheta=e^{\kappa_c}/\lambda_{\eps/2}$ satisfies $\log(1/\vartheta)\ge\eps/20$, hence $1-\vartheta\ge\eps/21$; and $\ell=40/\eps$ satisfies $\ell\log(1/\vartheta)\ge2$. Moreover $\kappa_c^{-1}\le30\eps^{-1}T_*P_g$.
+
+\emph{Step 3: \cite[Proposition~\ref{M-prop:bulkrate}]{Main}.} Let $X_3=(\ell+3)^2/\kappa_c$ and $n_3=\lceil64X_3^2\rceil$. For $n\ge n_3$, $M_n+2\le\ell\log n+3\le(\ell+3)(1+\log n)$, and Lemma~\ref{lem:logs}(a) gives $(M_n+2)^2\le\kappa_cn$; so $n_3$ may serve as the $n_3$ of \cite[Proposition~\ref{M-prop:bulkrate}]{Main}, and $n_3\le c_\eps T_*^2P_g^2\le c_\eps\Pi^2$. For $n\ge n_3$ we have $(M_n+2)/n\le\kappa_c/(M_n+2)\le1$, so the paragraph after the proof of \cite[Proposition~\ref{M-prop:bulkrate}]{Main} gives $C_H\le C_q(1-\vartheta)^{-4}(198/\kappa_c+4)\le202(21/\eps)^4C_q\kappa_c^{-1}$. In the proof of \cite[Proposition~\ref{M-prop:bulkrate}]{Main}(b), $R_0^{-M_n}\le n^{-2}$, so $\eps_n\le C'/n$ with $C'=\sqrt2(1+\cosh\kappa_c)^{1/2}C_q(1-\lambda_{\eps/2}^{-2})^{-1/2}\le5.7\eps^{-1/2}C_q$, using $1-\lambda_{\eps/2}^{-2}\ge\eps/6$. Hence $C_W=C_H+C'\le c_\eps P_CT_*P_g\le c_\eps\Pi$.
+
+\emph{Step 4: \cite[Lemma~\ref{M-lem:degenerate}]{Main}(b).} \emph{The local part.} The $c_F$ of the proof of \cite[Lemma~\ref{M-lem:degenerate}]{Main} satisfies $2c_F=\frac12|\gamma_*|\min(1,\frac1{2T_*})=|\gamma_*|/(4T_*)$, which is the $c_F$ defined above. With $u=t^{-1/2}e^{i\theta}$, the function $F(t,\theta)=q(u)$ has
+\[
+F_{\theta\theta}=-(uq'+u^2q''),\qquad F_{t\theta}=-\frac{i(uq'+u^2q'')}{2t},\qquad F_{tt}=\frac{uq'+u^2q''}{4t^2}+\frac{uq'}{2t^2},
+\]
+with $q'$, $q''$ evaluated at $u$. For $t\in I_1$ we have $t\ge1$ and $|u|<r_c$, so each second derivative is at most
+\[
+\sup_{|u|\le r_c}\bigl(|q'(u)|+|q''(u)|\bigr)\le C_qr_c^{-2}\sum_{j\ge1}j^2(\lambda_{\eps/2}r_c)^j\le\frac{3C_q}{(1-\lambda_{\eps/2}r_c)^3}\le\overline B_2,
+\]
+by $\sum_jj^2x^j\le2(1-x)^{-3}$, $r_c^{-2}\le\frac32$ and $1-\lambda_{\eps/2}r_c\ge\eps/11$. Taylor's formula with integral remainder gives $|F(T_*+\alpha,\theta_*+\beta)-F_t\alpha-F_\theta\beta|\le\frac12\overline B_2(|\alpha|+|\beta|)^2$, the first derivatives being taken at $(T_*,\theta_*)$. Hence $|F|\ge c_F(|\alpha|+|\beta|)$ for $|\alpha|,|\beta|\le r_1$, as $2r_1\le2c_F/\overline B_2$. So $r_1$ may serve as the $r_1$ of the proof of \cite[Lemma~\ref{M-lem:degenerate}]{Main}: it is at most $\delta_1$ and at most $\frac12\min(\theta_*,\pi-\theta_*)$, and $s_0=\sin(m_*/2)\ge s_*/\pi$. The computation of that proof gives
+\[
+s_{\min}\bigl(H_{a^{(t)}}(2\cos\theta)\bigr)\ge\tfrac1{16}s_0c_F\bigl(|t-T_*|+|y-y_*|\bigr)\qquad(|t-T_*|\le r_1,\ |\theta-\theta_*|\le r_1).
+\]
+\emph{The neighbourhood $V$.} Let $r_2=0.6\,s_*r_1$ and $V=\{(t,y):|t-T_*|<r_1,\ |y-y_*|<r_2\}$. If $\theta\in[0,\pi]$ and $|\theta-\theta_*|\ge r_1$, then, since $\cos$ is decreasing on $[0,\pi]$ and $\theta_*\pm r_1\in[0,\pi]$, and $\sin x\ge\frac2\pi\min(x,\pi-x)$ on $[0,\pi]$,
+\[
+|\cos\theta-\cos\theta_*|\ge2\sin\frac{r_1}2\,\min_\pm\sin\Bigl(\theta_*\pm\frac{r_1}2\Bigr)\ge2\cdot\frac{r_1}\pi\cdot\frac2\pi\cdot\frac{3m_*}4\ge0.3\,s_*r_1 .
+\]
+So $y=2\cos\theta\in[-2,2]$ and $|y-y_*|<r_2$ force $|\theta-\theta_*|<r_1$. Moreover $r_2\le0.6m_*\cdot m_*/2<4m_*^2/\pi^2\le2-|y_*|$, so $V\subset I_1\times(-2,2)$, and the local bound holds on $V$.
+
+\emph{The global part.} By \cite[Lemma~\ref{M-lem:transfer}]{Main}, $\|G_j(y)\|\le4(j+2)e^{(j+1)\kappa_c}$ for $|y|\le L=2\cosh\kappa_c$, so for $t\in I_1$
+\[
+\|H_{a^{(t)}}(y)\|\le4C_qe^{\kappa_c}\sum_{j\ge0}(j+2)\vartheta^j\le\Gamma_c:=\frac{8C_qe^{\kappa_c}}{(1-\vartheta)^2}\le\frac{3720\,C_q}{\eps^2}.
+\]
+Let $(t,y)\in(I_1\times[-L,L])\setminus V$ and $m=m_{\mathfrak A}(\rho_V)$. If $|y|\le2$, write $y=2\cos\theta$ with $\theta\in[0,\pi]$ and $u=t^{-1/2}e^{i\theta}\in\mathfrak A$. If $|t-T_*|\ge r_1$, then $\bigl||u|-R_*\bigr|\ge\frac12r_1(T_*+\delta_1)^{-3/2}\ge0.35\,r_1T_*^{-3/2}$. Otherwise $|y-y_*|\ge r_2$, so $|\theta-\theta_*|\ge r_2/2$, and as $|u|\ge(1.25T_*)^{-1/2}$,
+\[
+|u-u_*|\ge2(|u|R_*)^{1/2}\sin\frac{|\theta-\theta_*|}2\ge\frac2\pi\cdot0.94R_*\cdot0.3\,s_*r_1\ge0.17\,R_*s_*r_1 .
+\]
+Since also $|u-\bar u_*|\ge\im u+\im u_*\ge R_*s_*$ and $R_*\ge T_*^{-3/2}$, in both cases $u$ has distance at least $\rho_V$ from $u_*$ and $\bar u_*$, and $\det H_{a^{(t)}}(y)=|q(u)|^2\ge m^2$. If $2<|y|\le L$, then $\det H_{a^{(t)}}(y)=q(w/\sqrt t)\,q(1/(w\sqrt t))$ with $w=r(y)$ real; both points are real, lie in $\mathfrak A$ by \cite[\eqref{M-eq:collision-kappa}]{Main}, and have distance at least $\im u_*=R_*s_*\ge\rho_V$ from $u_*,\bar u_*$, and $\det H_{a^{(t)}}(y)\ge0$ by \cite[Lemma~\ref{M-lem:degenerate}]{Main}(a); so again $\det H_{a^{(t)}}(y)\ge m^2$. In both cases $s_{\min}(H_{a^{(t)}}(y))=\det H/\|H\|\ge c_3:=m^2/\Gamma_c$. As $\delta_1+2L\le4.3$, the constant $c_*=\min\{s_0c_F/16,\ c_3/4.3\}$ satisfies \cite[Lemma~\ref{M-lem:degenerate}]{Main}(b), and $c_*^{-1}\le c_\eps\max(P_sT_*P_\gamma,\ P_CP_{\mathfrak A}^2)\le c_\eps\Pi^2$.
+
+\emph{Step 5: \cite[Proposition~\ref{M-prop:localise}]{Main}.} Part (a) holds for $n\ge n_3$ with $K_1=C_W/c_*\le c_\eps\Pi^2$, the monomials being $P_CT_*^2P_gP_sP_\gamma$ and $P_C^2T_*P_gP_{\mathfrak A}^2$. In part (b), $\varrho_0=2+|\eta_0|^{-1}C_q(1-\lambda_{\eps/2}^{-2})^{-1/2}\le c_\eps P_\alpha P_C$. We replace the compactness argument of (b) by an explicit one. Let $t\in I_1$, $y\in J=[-\varrho_0,-L]\cup[L,\varrho_0]$ and $w=r(y)$. Then $w$ is real, $\varrho_0^{-1}<|w|\le e^{-\kappa_c}\le1-\kappa_c/2$, and $|r'(y)|=w^2/(1-w^2)\le(1-e^{-2\kappa_c})^{-1}\le\kappa_c^{-1}$. In the notation of that proof, $\Phi_n(t,y)-\Phi(t,y)=X_n(w)$ and $\partial_y(\Phi_n-\Phi)(t,y)=X_n'(w)\,r'(y)$, where $X_n$ is the function of Lemma~\ref{lem:ext-disk} for $a^{(t)}\in\mathcal S(C_q,\lambda_{\eps/2})$. That lemma with $d=\kappa_c/2$ gives
+\[
+|\Phi_n-\Phi|+|\partial_y\Phi_n-\partial_y\Phi|\le\frac{E'}n,\qquad E'=\frac{1481\,C_q}{(1-\lambda_{\eps/2}^{-2})^{1/2}\kappa_c^{11/2}},
+\]
+as $2\sqrt2\cdot2^{7/2}+64\cdot2^{9/2}\le1481$. On the other hand, with $u=w/\sqrt t$, which is real with $|u|<r_c$, and $|r'(y)|\ge w^2$,
+\[
+\begin{aligned}
+|\Phi(t,y)|+|\partial_y\Phi(t,y)|&=|q(u)|+t^{-1/2}|q'(u)|\,|r'(y)|\\
+&\ge w^2t^{-1/2}\bigl(|q(u)|+|q'(u)|\bigr)\ge m_1:=\frac{\nu^{\rm glob}}{\varrho_0^2(T_*+\delta_1)^{1/2}} .
+\end{aligned}
+\]
+So for $n\ge n_b:=\lfloor E'/m_1\rfloor+1$ the functions $\Phi_n(t,\cdot)$ and $\partial_y\Phi_n(t,\cdot)$ have no common zero on $J$, and the rest of the proof of (b) applies. Here $n_b\le c_\eps P_C(T_*P_g)^{11/2}(P_\alpha P_C)^2T_*^{1/2}P_\nu\le c_\eps\Pi^6$. Part (c) holds for $n\ge n_5:=\max(n_3,n_b)$.
+
+\emph{Step 6: the anchor times $t_\pm=T_*\pm\delta_1$.} We apply Theorem~\ref{thm:quant} to $a^{(t_\pm)}\in\mathcal S(C_q,\lambda_{\eps/2})$, whose zeros in $\D$ are $\sqrt{t_\pm}$ times the zeros of $q$ in $\{|u|<t_\pm^{-1/2}\}$; their number $k_\pm$ is at most $k_-$, so $\Upsilon_c^{k_\pm}\le\mathcal U$. Let $\kappa_\pm$ be the $\kappa$ of that theorem for $a^{(t_\pm)}$ and $d_\pm=\min\{\kappa_\pm/\sqrt2,\ \delta_1/(8T_*)\}$. For $\varrho\in[1-d_\pm,1]$ the circle $\{|u|=\varrho\,t_\pm^{-1/2}\}$ lies in $\mathfrak A$, and its radius differs from $R_*$ by at least $0.35\,\delta_1T_*^{-3/2}\ge\rho_V$. Indeed, for $t_+$, $T_*^{-1/2}-(T_*+\delta_1)^{-1/2}\ge\frac12\delta_1(1.25T_*)^{-3/2}$ and $(1-d_+)(T_*+\delta_1)^{-1/2}\ge(T_*+2\delta_1)^{-1/2}$; for $t_-$, $(T_*-\delta_1)^{-1/2}-T_*^{-1/2}\ge\frac12\delta_1T_*^{-3/2}$, while $d_-(T_*-\delta_1)^{-1/2}\le1.16\,d_-T_*^{-1/2}\le0.15\,\delta_1T_*^{-3/2}$. Hence $a^{(t_\pm)}$ has no zero in $\{1-d_\pm\le|w|\le1\}$, by (C2), and its parameters of Definition~\ref{def:condition} satisfy $\mu,\mu_{d_\pm}\ge m$ and $\nu_{d_\pm}\ge(T_*+\delta_1)^{-1/2}\nu^{\rm glob}$; also $\alpha=|\eta_0|$. Since $m\le\mu\le\overline M_c$, the quantities of Lemma~\ref{lem:outer} and Theorem~\ref{thm:quant} satisfy
+\[
+\mathfrak d_0\ge\frac m{\overline M_c\,\mathcal U},\qquad C_0'\le\overline M_c\,\mathcal U,\qquad\mu'\ge\frac{m^2}{\overline M_c\,\mathcal U},\qquad\kappa_\pm\ge c_1'\,\frac{m^2}{\overline M_c^2\,\mathcal U^2},
+\]
+with $c_1'=\min\{\frac14\log\lambda_{\eps/2},\ \lambda_{\eps/2}^{1/2}(1-\lambda_{\eps/2}^{-1/4})^2/6\}\ge\eps^2/9600$. As $\overline M_c\le21\eps^{-1}C_q$, we get $\kappa_\pm^{-1}\le c_\eps P_C^2\mathcal U^2P_{\mathfrak A}^2$ and $d_\pm^{-1}\le c_\eps\max(P_C^2\mathcal U^2P_{\mathfrak A}^2,\ T_*P_g)\le c_\eps\Pi^2$. So (i) of Theorem~\ref{thm:quant} holds. In (ii), the constants of Lemma~\ref{lem:bulk-explicit} for $C=C_0'$, $R=\lambda_{\eps/2}^{1/2}$, $\mu_S=\mu'$ satisfy $M_n+2\le(40/\eps+3)(1+\log n)$, $D_H\le c_\eps C_0'(\kappa_\pm^{-1}+1+\log n)$ and $\Gamma\le c_\eps C_0'$. With Lemma~\ref{lem:logs}, the conditions of (ii)--(iv) hold as soon as $n$ exceeds each of the following bounds, at both anchors:
+\begin{itemize}
+\item $n\ge k_\pm$: for $n\ge\mathcal U$, as $k_\pm\le\log\mathcal U/\log\Upsilon_c$ and $\log\Upsilon_c\ge1$;
+\item $n\ge(M_n+2)^2/\kappa_\pm$: for $n\ge c_\eps\kappa_\pm^{-2}$, at most $c_\eps\Pi^4$;
+\item $n\ge D_H$: for $n\ge c_\eps C_0'\kappa_\pm^{-1}$ and $n\ge c_\eps\max(1,C_0')^2$, at most $c_\eps\Pi^3$;
+\item $n\ge8(2\Gamma+1)D_H/\mu'^2$: the right side is at most $c_\eps\bigl(P_C^6\mathcal U^6P_{\mathfrak A}^6+P_C^4\mathcal U^4P_{\mathfrak A}^4(1+\log n)\bigr)$, so $n\ge c_\eps\Pi^8$ suffices;
+\item $n^{3/2}\ge37(\Gamma+1)C_0'(1-\lambda_{\eps/2}^{-1})^{-1/2}\mu'^{-2}$: the right side is at most $c_\eps P_C^4\mathcal U^4P_{\mathfrak A}^4$, so $n\ge c_\eps\Pi^{8/3}$ suffices;
+\item (iii): we have $C_0'/(\mathfrak d_0\mu_{d_\pm})\le c_\eps P_C^2\mathcal U^2P_{\mathfrak A}^2$, so with the factor $d_\pm^{-7/2}$ the bound is at most $c_\eps\max(P_C^9\mathcal U^9P_{\mathfrak A}^9,\allowbreak\ P_C^2\mathcal U^2P_{\mathfrak A}^2T_*^{7/2}P_g^{7/2})\le c_\eps\Pi^9$;
+\item (iv): $64C_q(1-\lambda_{\eps/2}^{-2})^{-1/2}d_\pm^{-9/2}/\nu_{d_\pm}\le c_\eps\max(P_C^{10}\mathcal U^9P_{\mathfrak A}^9T_*^{1/2}P_\nu,\allowbreak\ P_CT_*^5P_g^{9/2}P_\nu)\le c_\eps\Pi^{10}$.
+\end{itemize}
+Let $n_7$ be the least integer such that every $n\ge n_7$ satisfies all of them; then $n_7\le c_\eps\Pi^{10}$. For $n\ge n_7$, Theorem~\ref{thm:quant} and \cite[\eqref{M-eq:collision-S1}]{Main} give \cite[\eqref{M-eq:collision-anchor}]{Main}: the nonreal zeros of $a^{(t_-)}$ in $\D$ are $\sqrt{t_-}\,u_*$ and $\sqrt{t_-}\,\bar u_*$, as in \cite[Section~\ref{M-subsec:collision-proof}]{Main}, and $a^{(t_+)}$ has none; so $N_n(t_-)=2$ and $N_n(t_+)=0$, the real zeros of $P_{n,t_-}$ are simple, and its two nonreal zeros are simple, being a conjugate pair.
+
+\emph{Step 7: conclusion.} With $n_0=\max(n_5,n_7)\le c_\eps\Pi^{10}$, the proof in \cite[Section~\ref{M-subsec:collision-proof}]{Main} applies without change and gives (a)--(d) with $K=K_1\bigl(1+\sqrt{T_*+\delta_1}+(T_*-\delta_1)^{-1/2}\bigr)\le3.2\,K_1T_*^{1/2}\le c_\eps\Pi^{5/2}$.
+
+\emph{The bounds for $\mathcal U$.} Lemma~\ref{lem:outer}(b) for $a^{(t_-)}$, which has $\alpha=|\eta_0|>0$ and no zero on the unit circle, gives $\mathcal U=\Upsilon_c^{k_-}\le(\overline M_c/|\eta_0|)^{E_c}$. And $(T_*-\delta_1)^{-1/2}<r_c$, so $k_-\le\mathcal Z$.
+\end{proof}
+
+\begin{remark}\label{rem:collision-explicit}
+(1) The exponent $10$ comes from condition (iv) at the anchor times, through $d_\pm\asymp\kappa_\pm\asymp(\overline M_c\mathcal U/m)^{-2}$, as in the paragraph on the size of the onset after Theorem~\ref{thm:quant}. The exponents are crude: Lemma~\ref{lem:logs}(b) does not distinguish the factors of $\Pi$. (2) Theorem~\ref{thm:collision-explicit} needs no lower bound for $|q|$ near clustered zeros other than $m_{\mathfrak A}$, no separation of the zeros inside the disk of radius $R_*$, and no lower bound for $|q'|$ at the real zeros: real zeros enter only through $\nu^{\rm glob}$. (3) Without the factor $\mathcal U$, that is, with $\mathcal U\le(\overline M_c/|\eta_0|)^{E_c}$, the bounds are polynomial with degrees of order $E_c\asymp\eps^{-1}\log(1/\eps)$.
+\end{remark}
+
+\subsection{Pairs of zeros of the Gaussian power series}\label{subsec:pairs}
+In this subsection and the next two, $q$ is the Gaussian power series \cite[\eqref{M-eq:kac}]{Main}. We write $\D_r=\{|w|<r\}$, $\D^+=\D\cap\{\im w>0\}$ and $\D_r^+=\D_r\cap\D^+$. The zeros of $q$ have the one-point intensities
+\[
+\rho_r(x)=\frac1{\pi(1-x^2)}\quad(x\in(-1,1)),\qquad\rho_c(z)=\frac{2\im z}{\pi\,|1-z^2|\,(1-|z|^2)^2}=\frac{b_z}{\pi(1-|z|^2)}\quad(z\in\D^+),
+\]
+for the real zeros and for the zeros in $\D^+$, with respect to Lebesgue measure \cite[Theorems~2.1 and~2.7]{MS}, \cite[Lemma~\ref{M-lem:pairs}]{Main}, where $b_z=2\im z/((1-|z|^2)|1-z^2|)$. Let $\psi(a,b)=|a-b|/|1-a\bar b|$ be the pseudo-hyperbolic distance on $\D$. For $a\in\D$ let $B_a(w)=(w-a)/(1-aw)$ if $a$ is real, and $B_a(w)=(w-a)(w-\bar a)/((1-\bar aw)(1-aw))$ if $a$ is not real. These are Blaschke products with real Taylor coefficients, and $|B_x(y)|=\psi(x,y)$, $|B_z(x)|=\psi(x,z)^2$, $|B_z(w)|=\psi(z,w)\psi(z,\bar w)$ and $|B_z'(z)|=b_z$. Rice formulas are used in the form of \cite[Theorem~6.2]{AW}% TODO(author): check the pinpoints Theorems 6.2 and 6.4 of [AW] in the book; only the restatement [LPR, Appendix A.1, Theorem 1] of Theorem 6.4 was read, and its hypotheses match the use in Lemma lem:collision-smallball(a).
+, for Gaussian fields $Z:U\to\R^d$ on open sets $U\subset\R^d$ with analytic paths, a nondegenerate law of $Z(t)$ for each $t\in U$, and almost surely no zero $t$ with $\det Z'(t)=0$; the last condition holds below because the zeros of $q$ in $\D\setminus\{0\}$ are simple \cite[Lemma~\ref{M-lem:resample}]{Main}.
+
+\begin{lemma}[Regression]\label{lem:regression}
+Let $a_1,\dots,a_m\in\D$ be distinct points whose set is closed under complex conjugation, and let $\mathfrak B$ be the product of the factors $B_x$ over the real points $x$ and $B_z$ over the pairs $\{z,\bar z\}$. Then the conditional law of $q$ given $q(a_1)=\dots=q(a_m)=0$ (the Gaussian regression) is the law of $\mathfrak B\check q$, where $\check q$ has the law of $q$. In particular, conditionally on these values, $(q'(a_i))_{i\le m}$ has the law of $(\mathfrak B'(a_i)\check q(a_i))_{i\le m}$. The density at $0$ of the real vector formed by the values $q(a_i)$ (real and imaginary parts at the nonreal points, one point of each pair) is the product, over the points taken in any order, of $(2\pi)^{-1/2}(1-x^2)^{1/2}/|\mathfrak B_<(x)|$ for a real point $x$ and $1/(\pi b_z|\mathfrak B_<(z)|^2)$ for a pair $z$, where $\mathfrak B_<$ is the product of the factors of the points taken before.
+\end{lemma}
+
+\begin{proof}
+For one real point $x$ this is \cite[Lemma~4.2]{MS}: the covariance $1/(1-uv)$ of $q$ minus its regression on $q(x)$ is $B_x(u)B_x(v)/(1-uv)$. For one conjugate pair it is \cite[Lemma~7.2]{MS}, with the same identity for the covariance and the pseudo-covariance. For several points we condition on one point or pair at a time: conditioning a Gaussian vector on a block of coordinates and then on the next block is conditioning on both. Once $q$ has been replaced by $\mathfrak B_A\hat q$, the remaining conditions $q(a)=0$ are equivalent to $\hat q(a)=0$, because $\mathfrak B_A(a)\ne0$; this proves the first claim by induction, also when real points and pairs are mixed. The derivative identity follows by differentiating $\mathfrak B\check q$ at $a_i$, where $\mathfrak B$ vanishes. For the densities, the density at $0$ of a Gaussian vector is the product of the conditional densities at $0$ of its blocks, and by the first claim the conditional law of $q(a)$ given the earlier values is that of $\mathfrak B_<(a)\check q(a)$. Finally $\operatorname{Var}q(x)=(1-x^2)^{-1}$, and $(\det\operatorname{Cov}(\re q(z),\im q(z)))^{1/2}=b_z/2$ (proof of Lemma~\ref{lem:circle-small}).
+\end{proof}
+
+\begin{proposition}[Two-point functions]\label{prop:twopoint}
+Let $\rho_{rr}$, $\rho_{rc}$ and $\rho_{cc}$ be the two-point correlation functions, with respect to Lebesgue measure, of pairs of real zeros, of a real zero and a zero in $\D^+$, and of pairs of zeros in $\D^+$. For distinct $x,y\in(-1,1)$ and $z,w\in\D^+$,
+\begin{equation}\label{eq:twopoint}
+\begin{aligned}
+\rho_{rr}(x,y)&=\psi\bigl(\psi+\sqrt{1-\psi^2}\arcsin\sqrt{1-\psi^2}\bigr)\,\rho_r(x)\rho_r(y),&&\psi=\psi(x,y),\\
+\rho_{rc}(x,z)&=\psi^2(2-\psi^2)\,\rho_r(x)\rho_c(z),&&\psi=\psi(x,z),\\
+\rho_{cc}(z,w)&=ab\,(3-a-b)\,\rho_c(z)\rho_c(w),&&a=\psi(z,w)^2,\ b=\psi(z,\bar w)^2 .
+\end{aligned}
+\end{equation}
+In particular $\rho_{rr}\le\rho_r\rho_r$, $\rho_{rc}\le\rho_r\rho_c$ and $\rho_{cc}\le\rho_c\rho_c$.
+\end{proposition}
+
+\begin{proof}
+\emph{The mixed pair.} The field $Z(x,z)=(q(x),\re q(z),\im q(z))$ on $U=(-1,1)\times\D^+$ has nondegenerate values, since by Lemma~\ref{lem:regression} the density of $Z(x,z)$ at $0$ is finite, and its zeros in $I\times B$ are the pairs formed by a real zero in $I$ and a zero in $B$. Its Jacobian determinant is $q'(x)|q'(z)|^2$, by the Cauchy--Riemann equations. So \cite[Theorem~6.2]{AW} gives $\E[N_\R(I)N_+(B)]=\int_I\int_B\rho_{rc}$ with
+\[
+\rho_{rc}(x,z)=p_{Z(x,z)}(0)\,\E\bigl[|q'(x)|\,|q'(z)|^2\ \big|\ q(x)=0,\ q(z)=0\bigr].
+\]
+By Lemma~\ref{lem:regression} with $\mathfrak B=B_xB_z$: $p_{Z(x,z)}(0)=(2\pi)^{-1/2}(1-x^2)^{1/2}(\pi b_z\psi^2)^{-1}$, since $|B_x(z)|^2=\psi^2$; $q'(x)=B_x'(x)B_z(x)\check q(x)$ with $|B_x'(x)|=(1-x^2)^{-1}$ and $|B_z(x)|=\psi^2$; and $|q'(z)|=\psi b_z|\check q(z)|$. Hence $\rho_{rc}=\psi^2(1-x^2)^{-1/2}b_z(2\pi)^{-1/2}\pi^{-1}M$ with $M=\E[|X|\,|Y|^2]$, $X=\check q(x)$ and $Y=\check q(z)$, viewed in $\R^2$. Write $Y=\mathbf aX+W$ with $W$ independent of $X$; the cross term vanishes because $\E[|X|X]=0$, and $\E|X|^3=2\sqrt{2/\pi}\,\sigma_X^3$. So
+\[
+M=\E|X|\Bigl(\E|Y|^2+\frac{|\E XY|^2}{\E X^2}\Bigr)=\sqrt{\frac2\pi}\,\frac{1+(1-\psi^2)}{(1-x^2)^{1/2}(1-|z|^2)},
+\]
+since $\E X^2=(1-x^2)^{-1}$, $\E|Y|^2=(1-|z|^2)^{-1}$, $\E XY=(1-xz)^{-1}$, $|1-xz|=|1-x\bar z|$ and $(1-x^2)(1-|z|^2)/|1-x\bar z|^2=1-\psi^2$. With $\rho_r(x)\rho_c(z)=b_z/(\pi^2(1-x^2)(1-|z|^2))$ this is the second line of \eqref{eq:twopoint}.
+
+\emph{Two nonreal zeros.} Use the field $(\re q(z),\im q(z),\re q(w),\im q(w))$ on $\{(z,w)\in(\D^+)^2:z\ne w\}$ and $\mathfrak B=B_zB_w$, with $|B_z(w)|=\psi(z,w)\psi(z,\bar w)=\sqrt{ab}$. The density at $0$ is $(\pi b_z)^{-1}(\pi b_wab)^{-1}$, and $|q'(z)|^2|q'(w)|^2=b_z^2b_w^2a^2b^2|\check q(z)|^2|\check q(w)|^2$. By Isserlis' formula $\E|X|^2|Y|^2=\E|X|^2\E|Y|^2+|\E XY|^2+|\E X\bar Y|^2$ for complex Gaussian $X,Y$ with real covariance structure, and $(1-|z|^2)(1-|w|^2)/|1-z\bar w|^2=1-a$, $(1-|z|^2)(1-|w|^2)/|1-zw|^2=1-b$; so the ratio of the moment to $\E|X|^2\E|Y|^2$ is $3-a-b$, which gives the third line.
+
+\emph{Two real zeros.} Use the field $(q(x),q(y))$ on $\{x\ne y\}$, or \cite[Lemma~6.1]{MS}. The density at $0$ is $(2\pi)^{-1}(1-x^2)^{1/2}(1-y^2)^{1/2}/\psi$, the Jacobian factor is $\psi^2(1-x^2)^{-1}(1-y^2)^{-1}|\check q(x)\check q(y)|$, and $\E|XY|=\frac2\pi\sigma_X\sigma_Y(\sqrt{1-c^2}+c\arcsin c)$ for the correlation $c=\sqrt{1-\psi^2}$ of $X=\check q(x)$, $Y=\check q(y)$.
+
+\emph{The bounds.} $t(2-t)\le1$ for all real $t$. On $[0,1]^2$, $\partial_a[ab(3-a-b)]=b(3-2a-b)\ge0$, and symmetrically in $b$, so $ab(3-a-b)\le1$. With $\psi=\cos\varphi$, $\varphi\in[0,\frac\pi2]$, the first factor is $\cos^2\varphi+\varphi\sin\varphi\cos\varphi\le1$, because $\varphi\le\tan\varphi$.
+\end{proof}
+
+The bound $\rho_{rr}\le\rho_r\rho_r$ is \cite[Corollary~2.2]{MS}, and the closed form for $\rho_{rr}$ is equivalent to \cite[(2.6)]{MS}; the closed form for $\rho_{cc}$ is the case $n=2$ of \cite[Theorem~2.7]{MS}, and the bound $\rho_{cc}\le\rho_c\rho_c$ is stated after it. Mixed correlations are not treated in \cite{MS}; Forrester \cite[(30)]{Fo} gives all mixed correlations as a Pfaffian, and $\rho_{rc}$ can also be read off its entries \cite[(49)--(52)]{Fo}. All three closed forms agree with a direct numerical evaluation of the Kac--Rice formula. Only the three bounds are used below.
+
+\begin{theorem}[The modulus gap]\label{thm:gap}
+For $0<\eps\le1$ and $s>0$,
+\[
+\PP\bigl(T_*\ge1+\eps,\ g<s\bigr)\le107\,\eps^{-4}s .
+\]
+\end{theorem}
+
+\begin{proof}
+Let $r_\eps=(1+\eps)^{-1/2}$ and $r'_\eps=\frac12(1+r_\eps)$. By concavity $1-r_\eps\ge\eps/4$, so $1-r'_\eps\ge\eps/8$, and as $r_\eps\ge2^{-1/2}$, $1-r_\eps'^2\ge1.853\cdot\eps/8\ge0.2316\,\eps$. If $s>(1-r_\eps)/2$, the right side exceeds $107\eps^{-3}/8>1$; so let $s\le(1-r_\eps)/2\le0.15$.
+
+On the event, $u_*\in\D^+$ is a zero with $|u_*|=R_*\le r_\eps$, and some zero $u'\notin\{u_*,\bar u_*\}$ of $q$ in $\D$ has $\bigl||u'|-R_*\bigr|<s$, hence $|u'|<r'_\eps$. If $u'$ is not real, then $u'$ or $\bar u'$ is a zero in $\D^+$ other than $u_*$, of the same modulus. So the event implies the existence of an ordered pair $(u,v)$ of distinct zeros, with $u\in\D^+_{r_\eps}$, $v\in\D^+$ or $v$ real, and $\bigl||v|-|u|\bigr|<s$. By Markov's inequality, the Rice formula for second factorial moments and Proposition~\ref{prop:twopoint}, its probability is at most
+\[
+\int_{\D^+_{r_\eps}}\rho_c(u)\Bigl[\int_{A(|u|)\cap\D^+}\rho_c(v)\,dA(v)+\int_{\{x\in\R:\ ||x|-|u||<s\}}\rho_r(x)\,dx\Bigr]dA(u),
+\]
+where $A(\varrho)=\{\varrho-s<|v|<\varrho+s\}$.
+On $\{|v|\le r'_\eps\}$ we have $\rho_c(v)\le2\im v/(\pi(1-r_\eps'^2)^3)$, as $|1-v^2|\ge1-|v|^2$, and in polar coordinates $\int_{A(\varrho)\cap\D^+}\im v\,dA(v)\le\frac23\bigl((\varrho+s)^3-(\varrho-s)^3\bigr)=4\varrho^2s+\frac43s^3\le4.03\,s$, also when $\varrho<s$. With $(1-r_\eps'^2)^{-3}\le80.5\,\eps^{-3}$ the first inner integral is at most $2\cdot80.5\cdot4.03\,s/(\pi\eps^3)\le207\,s\eps^{-3}$. The second is at most $4s/(\pi(1-r_\eps'^2))\le5.5\,s\eps^{-1}$. The outer integral is $\varkappa(r_\eps)$ of \cite[Lemma~\ref{M-lem:pairs}]{Main}, and since $\arctan\varrho\le\pi/4$, $\varkappa(r)\le\int_0^r\varrho(1-\varrho^2)^{-2}d\varrho=r^2/(2(1-r^2))$, so $\varkappa(r_\eps)\le1/(2\eps)$. Altogether the probability is at most $\frac1{2\eps}(207\eps^{-3}+5.5\eps^{-1})s\le107\,\eps^{-4}s$.
+\end{proof}
+
+The same integral bounds $\varkappa$ for small $r$. By the proof of \cite[Lemma~\ref{M-lem:pairs}]{Main}, and since $\arctan\varrho\le\varrho$,
+\[
+\varkappa(r)=\frac4\pi\int_0^r\frac{\varrho\arctan\varrho}{(1-\varrho^2)^2}\,d\varrho\le\frac4\pi\int_0^r\frac{\varrho^2\,d\varrho}{(1-\varrho^2)^2}\le\frac{4r^3}{3\pi(1-r^2)^2},
+\]
+which is at most $2r^3$ for $r\le0.7$, as $(1-r^2)^2\ge0.26>2/(3\pi)$ there. For $0.7<r<0.8$, $\varkappa(r)\le r^2/(2(1-r^2))\le2r^3$, as $4r(1-r^2)\ge1$ there; and $2r^3>1$ for $r\ge0.8$. As $\{R_*<\varrho\}=\{T_*>\varrho^{-2}\}$, \cite[Lemma~\ref{M-lem:pairs}]{Main} gives
+\begin{equation}\label{eq:Rsmall}
+\PP(R_*<\varrho)\le2\varrho^3\quad(\varrho>0),\qquad\PP(T_*>s)\le2s^{-3/2}\quad(s>1).
+\end{equation}
+
+\cite[Lemma~\ref{M-lem:moduli}]{Main} is the qualitative form of Theorem~\ref{thm:gap}. Numerically, $\PP(T_*\ge1.5,\ g<s)$ lies between $2.1s$ and $2.4s$ for $10^{-3}\le s\le10^{-2}$, so the exponent $1$ is the true one and the constant $107\eps^{-4}$ is crude.
+
+\subsection{Small balls at the collision}\label{subsec:smallballs}
+Let $r_\eps=(1+\eps)^{-1/2}$ and $r_c=(1+\eps/2)^{-1/2}$ as above, and $r_3=\frac12(1+r_c)$, so that $1-r_3\ge\eps/12$. Let $Y_2'=\sup_{|u|\le r_3}|q''(u)|$. As in \eqref{eq:Ytail}, with $r_3$ in place of $r_2$, $\E\sum_jj(j-1)|\eta_j|r_3^{j-2}=2\sqrt{2/\pi}\,(1-r_3)^{-3}\le2758\,\eps^{-3}$ and $\sum_jj^2(j-1)^2r_3^{2j-4}\le24(1-r_3)^{-5}$, so
+\begin{equation}\label{eq:Y3tail}
+\PP\bigl(Y_2'>y_3(\ell)\bigr)\le e^{-\ell}\quad(\ell\ge0),\qquad y_3(\ell)=\frac{2758+3456\,\ell^{1/2}}{\eps^3}.
+\end{equation}
+
+\begin{lemma}[Small balls for $q'(u_*)$, $\gamma_*$ and $\sin\theta_*$]\label{lem:collision-smallball}
+For $0<r<1$, $\tau>0$ and $0<s\le1$:
+\begin{enumerate}
+\item[(a)] $\E\#\{u\in\D_r^+:\ q(u)=0,\ |q'(u)|\le\tau\}\le6\pi^{-4/3}(1-r^2)^{-1}\tau^2$;
+\item[(b)] $\E\#\{u\in\D_r^+:\ q(u)=0,\ |uq'(u)|\le\tau\}\le2.862(1-r^2)^{-3/2}\tau^{3/2}$;
+\item[(c)] $\E\#\{u\in\D_r^+:\ q(u)=0,\ \im u<s|u|\}\le\frac4{3\pi}r^3(1-r^2)^{-3}s^2$.
+\end{enumerate}
+Consequently
+\begin{gather*}
+\PP\bigl(T_*\ge1+\eps,\ |q'(u_*)|\le\tau\bigr)\le\frac{2.61\,\tau^2}\eps,\qquad\PP\bigl(T_*\ge1+\eps,\ |\gamma_*|\le\tau\bigr)\le\frac{8.1\,\tau^{3/2}}{\eps^{3/2}},\\
+\PP\bigl(T_*\ge1+\eps,\ s_*<s\bigr)\le\frac{1.21\,s^2}{\eps^3}.
+\end{gather*}
+\end{lemma}
+
+\begin{proof}
+(c) On $\D_r^+$, $\rho_c(u)\le2\im u/(\pi(1-r^2)^3)$. In polar coordinates $u=\varrho e^{i\varphi}$ the set $\{\sin\varphi<s\}$ contributes at most $\int_0^r\varrho^2d\varrho\cdot2\int_0^{\arcsin s}\sin\varphi\,d\varphi\cdot\frac2{\pi(1-r^2)^3}$, and $2(1-\sqrt{1-s^2})\le2s^2$.
+
+(a) We use the weighted Rice formula \cite[Theorem~6.4]{AW}, in the form restated in \cite[Appendix~A.1, Theorem~1]{LPR}: for a Gaussian field $Z:U\to\R^d$ with $C^2$ paths and nondegenerate values on an open $U\subset\R^d$, a compact $\Lambda\subset U$, random vectors $Y^t$ continuous in $t$ with $(Z,Y^t)$ jointly Gaussian, and a bounded continuous $g$,
+\[
+\E\sum_{t\in\Lambda,\ Z(t)=0}g(Y^t)=\int_\Lambda\E\bigl[|\det Z'(t)|\,g(Y^t)\ \big|\ Z(t)=0\bigr]\,p_{Z(t)}(0)\,dt .
+\]
+Apply it to $Z=(\re q,\im q)$ on $U=\D^+$, with $Y^u=q'(u)$, a compact $\Lambda\subset\D_r^+$, and $g_k(v)=\min\bigl(1,\max(0,1-k(|v|-\tau))\bigr)$, which is bounded, continuous and decreases to $\mathbf 1\{|v|\le\tau\}$ as $k\to\infty$. Let $k\to\infty$: on the left by dominated convergence, the sum being at most the number of zeros of $q$ in $\D_r^+$, whose mean $\varkappa(r)$ is finite; on the right by monotone convergence. Then let $\Lambda\uparrow\D_r^+$. So the left side of (a) is $\int_{\D_r^+}I(u)\,dA(u)$ with
+\[
+I(u)=p_{q(u)}(0)\,\E\bigl[|q'(u)|^2\mathbf 1\{|q'(u)|\le\tau\}\ \big|\ q(u)=0\bigr].
+\]
+By Lemma~\ref{lem:regression}, given $q(u)=0$ we have $q'(u)=B_u'(u)\xi$, with $|B_u'(u)|=b:=b_u$ and $\xi$ distributed as $q(u)$. The density of $\xi$ is at most $p_{q(u)}(0)=1/(\pi b)$, and $\operatorname{Var}\re\xi\ge\frac12$ (proof of Lemma~\ref{lem:circle-small}), so $\PP(|\xi|\le\varrho)\le2\varrho/\sqrt\pi$. Hence, with $y=\im u\le b$ (as $(1-|u|^2)|1-u^2|\le2$),
+\[
+I(u)\le(\pi b)^{-1}\tau^2\,\PP(|\xi|\le\tau/b)\le\frac{2\tau^3}{\pi^{3/2}b^2}\le\frac{2\tau^3}{\pi^{3/2}y^2}.
+\]
+Also $I(u)\le\rho_c(u)\le Ay$ with $A=2/(\pi(1-r^2)^3)$. Integrating $\min(Ay,By^{-2}\tau^3)$, $B=2\pi^{-3/2}$, over $y\in(0,\infty)$ gives $\frac32A^{1/3}B^{2/3}\tau^2$, and the range of $\re u$ has length at most $2$; and $3A^{1/3}B^{2/3}=6\pi^{-4/3}(1-r^2)^{-1}$.
+
+(b) The same, with $\tau$ replaced by $\tau/|u|$: $I(u)\le\min(Ay,\ B\tau^3|u|^{-3}y^{-2})$. In polar coordinates $u=\varrho e^{i\varphi}$ we have $y=\varrho\sin\varphi$, and $2\varphi/\pi\le\sin\varphi\le\varphi$ on $[0,\frac\pi2]$; by the symmetry $\varphi\mapsto\pi-\varphi$ the $\varphi$-integral of $I$ is at most twice the integral over $(0,\infty)$ of $\min\bigl(A\varrho\varphi,\ \frac{\pi^2}4B\tau^3\varrho^{-5}\varphi^{-2}\bigr)$, which is $\beta\tau^2\varrho^{-3}$ with $\beta=3A^{1/3}(\pi^2B/4)^{2/3}=3\cdot2^{-1/3}(1-r^2)^{-1}$, and it is also at most $2\int_0^{\pi/2}A\varrho\varphi\,d\varphi=a\varrho$ with $a=A\pi^2/4=\pi/(2(1-r^2)^3)$. Integrating $\varrho\min(a\varrho,\beta\tau^2\varrho^{-3})$ over $\varrho\in(0,\infty)$ gives $\frac43a^{1/4}\beta^{3/4}\tau^{3/2}$, and $\frac43\pi^{1/4}3^{3/4}2^{-1/2}<2.862$.
+
+For the consequences, $u_*\in\D^+_{r_\eps}$ on $\{T_*\ge1+\eps\}$ (almost surely $R_*\ne r_\eps$, by \cite[Lemma~\ref{M-lem:circle}(a)]{Main}), $1-r_\eps^2=\eps/(1+\eps)\ge\eps/2$ and $r_\eps^3(1-r_\eps^2)^{-3}\le2^{3/2}\eps^{-3}$; and the probability that some zero has a property is at most the expected number of such zeros.
+\end{proof}
+
+The exponents $2$, $3/2$ and $2$ are the natural ones (heuristically: a nonreal zero of modulus about $\varrho$ near $0$ forces $\eta_0\approx\varrho^2$ and $\eta_1\approx\varrho$, so $\gamma_*\approx\varrho^2$, while $\PP(R_*<\varrho)\asymp\varrho^3$). Parts (a) and (b) are the only places where the weighted Rice formula is used. The next lemma, which needs no Rice formula, gives exponent $2$ for $|q'(u_*)|$ up to a logarithm, hence exponent $6/5$ for $|\gamma_*|$ up to a logarithm (through $\PP(R_*<\varrho)\le2\varrho^3$, \eqref{eq:Rsmall}, with $\varrho=\tau^{2/5}$); this suffices for Theorem~\ref{thm:Dtail}.
+
+\begin{lemma}[Near-critical values]\label{lem:nearcritical}
+Let $y\ge2758\,\eps^{-3}$, $0<\tau\le1$ and $0\le\delta\le\tau^2/(4y)$. Then
+\[
+\PP\Bigl(Y_2'\le y\ \text{and}\ \exists u\in\overline{\D}_{r_c}:\ |q(u)|\le\delta,\ |q'(u)|<\tau\Bigr)\le\tau^2\bigl(19+5.4\log(2.04y)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Put $h=\tau/(2y)\le\eps^3/5516\le\min(\frac13,r_3-r_c)$. Since $q(\bar u)=\overline{q(u)}$ we may assume $\im u\ge0$. Work on $\{Y_2'\le y\}$; all Taylor bounds below use segments in $\overline{\D}_{r_3}$.
+
+\emph{Points with $\im u\ge2h$.} Let $g$ be the point of the grid $h(\Z+i(\Z+\frac12))$ nearest to $u$, so $|g-u|\le h/\sqrt2$ and $\im g\ge\frac32h$. Then $|q'(g)|<\tau+yh/\sqrt2\le1.354\tau=:\tau'$ and $|q(g)|\le\delta+\tau h/\sqrt2+yh^2/4\le0.667\tau^2/y=:\delta'$. For a fixed $g$, let $b=b_g\ge\im g$. The density of $q(g)$ is at most $1/(\pi b)$, so $\PP(|q(g)|\le\delta')\le\delta'^2/b$. Given $q(g)=v$, the law of $q'(g)$ is Gaussian with a mean linear in $v$ and a covariance that does not depend on $v$; by Lemma~\ref{lem:regression} its centred part has the law of $B_g'(g)\xi$ with $\xi$ distributed as $q(g)$. By Anderson's inequality \cite{An} % TODO(author): pinpoint in [An] (the Gaussian case of Anderson's theorem) not checked.
+the disk $\{|\cdot|<\tau'\}$ has conditional probability at most $\PP(|B_g'(g)\xi|<\tau')\le\min(1,2\tau'/(\sqrt\pi\,b))$. So
+\[
+\PP\bigl(|q(g)|\le\delta',\ |q'(g)|<\tau'\bigr)\le f(\im g),\qquad f(y')=\frac{\delta'^2}{y'}\min\Bigl(1,\frac{2\tau'}{\sqrt\pi\,y'}\Bigr),
+\]
+and $f$ is decreasing. The grid points with $|\re g|\le1$ lie on the rows $\im g=(j+\frac12)h$, $j\ge1$, with at most $3/h$ points each. Comparing the sum with an integral, $\sum_{j\ge1}f((j+\frac12)h)\le f(\frac32h)+h^{-1}\int_{3h/2}^\infty f\le\delta'^2\frac{4y}{3\tau}+h^{-1}\delta'^2\bigl(1+\log(2.04y)\bigr)$, so these points contribute at most $\frac{3\delta'^2}{h^2}\bigl(\frac53+\log(2.04y)\bigr)\le\tau^2\bigl(8.9+5.4\log(2.04y)\bigr)$.
+
+\emph{Points with $0\le\im u<2h$.} Let $x=\re u$. Then $|q'(x)|\le\tau+2hy=2\tau$ and $|q(x)|\le\delta+2h\tau+2h^2y\le1.75\tau^2/y$. Let $x_g$ be the point nearest to $x$ of the grid of spacing $\tau/y$ in $[-r_c,r_c]$, which has at most $2y/\tau+1$ points. Then $|q'(x_g)|\le2.5\tau$ and $|q(x_g)|\le2.875\tau^2/y$. The density of $(q(x_g),q'(x_g))$ is at most $1/(2\pi)$, because its covariance determinant is $(1-x_g^2)^{-4}\ge1$. So each grid point contributes at most $(2\pi)^{-1}(5.75\tau^2/y)(5\tau)\le4.58\tau^3/y$, and these points contribute at most $9.16\tau^2+4.58\tau^3/y\le10.1\tau^2$.
+\end{proof}
+
+For $\rho>0$ let
+\[
+\mathfrak m(\rho)=\inf\bigl\{|q(u)|:\ |u|\le r_c,\ q\text{ has no zero in }\{|v-u|<\rho\}\bigr\},
+\]
+which is nondecreasing in $\rho$. In the setting of Section~\ref{subsec:collision-explicit}, every point of $\mathfrak A$ has modulus within $g/2$ of $R_*$ (Step 1 of the proof of Theorem~\ref{thm:collision-explicit}), every zero of $q$ other than $u_*,\bar u_*$ has modulus at distance at least $g$ from $R_*$, and $\mathfrak A\subset\overline{\D}_{r_c}$. Hence
+\begin{equation}\label{eq:depth-annulus}
+m_{\mathfrak A}(\rho)\ge\mathfrak m\bigl(\min(\rho,g/2)\bigr)\qquad(\rho>0).
+\end{equation}
+
+\begin{lemma}[Depth away from the zeros]\label{lem:depth}
+For $0<\rho\le\eps/12$ and $0<\delta\le e^{-1}$, with $y=y_3(\log(1/\delta))$,
+\[
+\PP\bigl(\mathfrak m(\rho)<\delta\bigr)\le\delta+\Bigl(\frac{16\delta^2}{\rho^2}+4y\delta\Bigr)\bigl(19+5.4\log(2.04y)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\tau=\max(4\delta/\rho,\ 2\sqrt{y\delta})$. If $\tau>1$, the right side exceeds $1$. Otherwise work on $\{Y_2'\le y\}$, whose complement has probability at most $\delta$ by \eqref{eq:Y3tail}. Let $|u|\le r_c$, $|q(u)|<\delta$ and $|q'(u)|\ge\tau$, and put $s=2\delta/|q'(u)|\le\rho/2$. On $|v-u|=s$, $|q(v)-q'(u)(v-u)|\le\delta+ys^2/2\le\frac32\delta<2\delta=|q'(u)(v-u)|$, because $ys^2\le4y\delta^2/\tau^2\le\delta$. By Rouch\'e's theorem $q$ has a zero in $\{|v-u|<s\}\subset\{|v-u|<\rho\}$. So $\mathfrak m(\rho)<\delta$ implies that some $u\in\overline\D_{r_c}$ has $|q(u)|<\delta$ and $|q'(u)|<\tau$. As $\tau^2\ge4y\delta$, Lemma~\ref{lem:nearcritical} applies.
+\end{proof}
+
+\begin{lemma}[Scale-free depth]\label{lem:depth-scalefree}
+Let
+\[
+V_{\mathfrak m}=\sup_{0<\rho\le\eps/12}\frac{\rho^{3/2}}{\mathfrak m(\rho)} .
+\]
+Then $\PP(V_{\mathfrak m}>s)\le c\,\eps^{-c}s^{-1}(1+\log s)$ for $s\ge1$, with an absolute constant $c$.
+\end{lemma}
+
+\begin{proof}
+Let $\rho_k=2^{-k-1}\eps/12$ and $\delta_k=(2\rho_k)^{3/2}/s\le e^{-1}$ for $k\ge0$. If $V_{\mathfrak m}>s$, then some $\rho\in(\rho_k,2\rho_k]$ has $\mathfrak m(\rho)<\rho^{3/2}/s$, and $\mathfrak m(\rho_k)\le\mathfrak m(\rho)<\delta_k$. By Lemma~\ref{lem:depth}, with $y_k=y_3(\log(1/\delta_k))$ and $\delta_k^2/\rho_k^2=8\rho_k/s^2$,
+\[
+\PP\bigl(\mathfrak m(\rho_k)<\delta_k\bigr)\le\delta_k+\bigl(128\rho_ks^{-2}+4y_k\delta_k\bigr)\bigl(19+5.4\log(2.04y_k)\bigr).
+\]
+Here $\delta_k\le2^{-3k/2}/s$, $\sum_k\rho_k\le\eps/12$, and $\log(1/\delta_k)\le\log s+2(k+1)+\frac32\log(12/\eps)$, so $y_k\le c\,\eps^{-3}(1+\log s+k+\log(1/\eps))^{1/2}$. Summing over $k$ gives the claim.
+\end{proof}
+
+\subsection{The tail of \texorpdfstring{$D$}{D}}\label{subsec:Dtail}
+Let
+\[
+D=\sup_{m\ge1}m\bigl(|\Lambda_m-T_*|+|z_m-2R_*^{-1}\cos\theta_*|\bigr),
+\]
+with $z_m=F_m(\eta_0,\dots,\eta_m)$, as in the proof of \cite[Corollary~\ref{M-cor:collision-weyl}]{Main}. By \cite[Corollary~\ref{M-cor:collision-gauss}]{Main}, $D<\infty$ almost surely. For the first degrees we use two crude bounds.
+
+\begin{lemma}[Small degrees]\label{lem:smalldeg}
+Let $\Sigma_3=\sum_{j\ge3}(j+1)2^{3-j}|\eta_j|$ and $\Lambda^{\sup}=\max\{30,\ (1.42|\eta_2|+45.5\,\Sigma_3)/|\eta_0|\}$.
+\begin{enumerate}
+\item[(a)] For every $m\ge2$, $\Lambda_m\le\Lambda^{\sup}$, and $\PP(\Lambda^{\sup}>x)\le365/x$ for $x\ge30$.
+\item[(b)] For $m\ge2$ and $t\ge0$, every zero $z$ of $P_{m,t}$ satisfies $|z|\le4(1+mt)^{1/2}H_m$, with $H_m=\max\bigl(1,\max_{j\le m}|\eta_j|/|\eta_0|\bigr)$.
+\item[(c)] $Y'=\sup_{j\ge0}|\eta_j|/(2\log(j+2))^{1/2}$ satisfies $\PP(Y'>y)\le2\cdot2^{-y^2}$ for $y\ge2$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $t\ge30$ and $a_j=\eta_jt^{-j/2}$. In \cite[Lemma~\ref{M-lem:interlace}(c)]{Main} with $\kappa=1$ we have $c_\kappa=\coth1+\frac12<1.82$, so for $j\le\sqrt m$ (when $j\le m/2$) $\beta_{m,j}\le2e^{1.82}(j+1)e^j\le12.4(j+1)e^j$, and for $j>\sqrt m$, $\beta_{m,j}\le\sqrt m<j$; so $\beta_{m,j}\le12.4(j+1)e^j$ for all $j\ge3$. As $t\ge30>4e^2$, $e/\sqrt t\le\frac12$, and the left side of \cite[\eqref{M-eq:interlace-crit}]{Main} is at most
+\[
+\frac{\sqrt2\,|\eta_2|}t+12.4\,\frac{e^3}{t^{3/2}}\sum_{j\ge3}(j+1)2^{3-j}|\eta_j|\le\frac{1.42|\eta_2|+45.5\,\Sigma_3}t,
+\]
+which is less than $|\eta_0|$ for $t>\Lambda^{\sup}$. So $Q_m^{(t)}$, and hence $P_{m,t}$, has only real zeros for every $t>\Lambda^{\sup}$, and $\Lambda_m\le\Lambda^{\sup}$. Conditionally on $(\eta_j)_{j\ge1}$, $\PP(|\eta_0|<v/x)\le v/x$; and $\E[1.42|\eta_2|+45.5\Sigma_3]=\sqrt{2/\pi}\,(1.42+455)\le365$, as $\sum_{j\ge3}(j+1)2^{3-j}=10$.
+
+(b) Write $P_{m,t}(z)=\sum_kc_kz^k$. From $\exp(-\frac t{2m}\partial^2)z^l=\sum_i\frac{(-t/2m)^i}{i!}\frac{l!}{(l-2i)!}z^{l-2i}$,
+\[
+c_k=\sum_{i\le(m-k)/2}\frac{(-t/2m)^i}{i!}\,\frac{(k+2i)!}{k!}\,\eta_{m-k-2i}\,\frac{m^{(k+2i)/2}}{\sqrt{(k+2i)!}},\qquad c_m=\frac{\eta_0m^{m/2}}{\sqrt{m!}}.
+\]
+Since $m^{(l-m)/2}\sqrt{m!/l!}\le1$ for $l\le m$ and $(k+2i)!/k!\le m^{2i}$, the $i$-th term of $|c_k/c_m|$ is at most $H_m(mt/2)^i/i!\le H_m\max(1,mt/2)^{p/2}$, where $p=m-k$. So $|c_k/c_m|^{1/p}\le H_m(p/2+1)^{1/p}\max(1,mt/2)^{1/2}\le2H_m(1+mt)^{1/2}$, and Fujiwara's bound $|z|\le2\max_{k<m}|c_k/c_m|^{1/(m-k)}$ \cite{Fuj} gives the claim.
+
+(c) $\PP\bigl(|\eta_j|>y(2\log(j+2))^{1/2}\bigr)\le(j+2)^{-y^2}$, and $\sum_{k\ge2}k^{-y^2}\le2\cdot2^{-y^2}$ for $y\ge2$.
+\end{proof}
+
+\begin{theorem}[The tail of $D$]\label{thm:Dtail}
+Let $q$ be the Gaussian power series, $0<\eps\le1$, and $E_c=\log\Upsilon_c/\log\lambda_{\eps/2}^{1/2}$ as in Section~\ref{subsec:collision-explicit}. There is an absolute constant $c$ such that for all $x\ge1$:
+\begin{enumerate}
+\item[(a)] $\PP(D>x,\ T_*\ge1+\eps)\le c\,\eps^{-c}x^{-\beta_\eps}$, where $\beta_\eps=1/(1782E_c)\ge\eps/(35640\log(40/\eps))$;
+\item[(b)] $\PP(D>x,\ T_*\ge1+\eps)\le C_\eps\,x^{-1/900}$, where $\log C_\eps\le c\,\eps^{-c}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Work on $\Omega=\{T_*\ge1+\eps\}$, intersected with the almost sure event on which (G1)--(G3) hold with $\rho_q=1$, $C_q<\infty$, $\nu^{\rm glob}>0$ (as $\eta_0\ne0$ and the zeros of $q$ in $\D\setminus\{0\}$ are simple, \cite[Lemma~\ref{M-lem:resample}]{Main}), and the conclusions of \cite[Corollary~\ref{M-cor:collision-gauss}]{Main} hold. Theorem~\ref{thm:collision-explicit} applies.
+
+\emph{A deterministic bound.} For $m\ge n_0$ the $m$-th term of $D$ is at most $2K$. For $m=1$ it is $T_*+2T_*^{1/2}$, as $\Lambda_1=0$ and $z_1=0$. For $2\le m<n_0$, $z_m$ is $0$ or a zero of $P_{m,\Lambda_m}$, so by Lemma~\ref{lem:smalldeg}(a), (b) the $m$-th term is at most $n_0\bigl(\Lambda^{\sup}+3T_*+4(1+n_0\Lambda^{\sup})^{1/2}H_{n_0}\bigr)$. With $Y''=\max(1,Y')$ we have $H_{n_0}\le P_\alpha Y''(2\log(n_0+2))^{1/2}\le2P_\alpha Y''n_0^{1/10}$. Hence $D\le c\,(K+n_0^{1.6}\Lambda^{\sup}T_*P_\alpha Y'')$, and Theorem~\ref{thm:collision-explicit} with Lemma~\ref{lem:logs}(b) gives $D\le c_\eps(\Pi\Lambda^{\sup}Y'')^{17}$. Next, by \eqref{eq:depth-annulus} and the monotonicity of $\mathfrak m$, with $\rho'=\min(\rho_V,g/2,\eps/12)$,
+\[
+P_{\mathfrak A}=\max\bigl(1,m_{\mathfrak A}(\rho_V)^{-1}\bigr)\le\max(1,V_{\mathfrak m})\,\rho'^{-3/2},
+\]
+and $\rho'^{-1}\le\max\bigl(6T_*^{3/2}/(r_1s_*),2P_g,12/\eps\bigr)\le c_\eps\Pi_1^{5/2}$ with $\Pi_1=P_\gamma P_sP_gP_CT_*$, since $r_1^{-1}\le c_\eps\max(T_*P_\gamma P_C,P_g,P_s)$. Let $\Pi_3$ be the product of the eleven factors $P_\gamma$, $P_s$, $P_g$, $P_C$, $T_*$, $\max(1,V_{\mathfrak m})$, $P_\nu$, $P_\alpha$, $\mathcal U$, $\Lambda^{\sup}$ and $Y''$, each at least $1$. Then $\Pi\le c_\eps\max(1,V_{\mathfrak m})\Pi_1^{19/4}P_\nu P_\alpha\mathcal U$, and
+\begin{equation}\label{eq:Dpoly}
+D\le c_\eps\,\Pi_3^{81}.
+\end{equation}
+
+\emph{Tails.} Each factor $V$ of $\Pi_3$ satisfies $\PP(V>s,\ \Omega)\le c\,\eps^{-c}s^{-b}(1+\log s)^2$ for $s\ge1$, with the following $b$:
+\begin{itemize}
+\item $P_\gamma$: $b=6/5$, by Lemma~\ref{lem:nearcritical} with $\delta=0$ and $y=y_3(2\log(1/\tau))$, and $\PP(R_*<\varrho)\le2\varrho^3$ (by \eqref{eq:Rsmall}) with $\varrho=\tau^{2/5}$ (or $b=3/2$ by Lemma~\ref{lem:collision-smallball}(b));
+\item $P_s$: $b=2$ (Lemma~\ref{lem:collision-smallball}(c)); $P_g$: $b=1$ (Theorem~\ref{thm:gap}); $P_\alpha$: $b=1$; $T_*$: $b=3/2$, by \eqref{eq:Rsmall};
+\item $P_C$ and $Y''$: every $b$, by Lemma~\ref{lem:coeff} with $\eps/2$ in place of $\eps$, and Lemma~\ref{lem:smalldeg}(c); $\Lambda^{\sup}$: $b=1$ (Lemma~\ref{lem:smalldeg}(a));
+\item $\max(1,V_{\mathfrak m})$: $b=1$ (Lemma~\ref{lem:depth-scalefree}); $P_\nu$: $b=1$, because the proof of Lemma~\ref{lem:nu-small}, with $\eps/2$ in place of $\eps$ and $\delta'=\delta$, gives $\PP(\nu^{\rm glob}<\delta)\le(32000\,\eps^{-3}\log^{1/2}(1/\delta)+4)\delta$;
+\item $\mathcal U$: for (a), $\mathcal U\le(\overline M_c/|\eta_0|)^{E_c}$ gives $\PP(\mathcal U>s)\le\PP(\overline M_c>s^{1/(2E_c)})+\PP(|\eta_0|<s^{-1/(2E_c)})\le c\,\eps^{-c}s^{-1/(2E_c)}$; for (b), $\mathcal U\le\Upsilon_c^{\mathcal Z}$ and Lemma~\ref{lem:overcrowd} with $r=r_c$, $\Upsilon=\Upsilon_c$ and exponent $1$ give $\PP(\mathcal U>s)\le C(r_c,\Upsilon_c,1)\,s^{-1}$, where $\log C(r_c,\Upsilon_c,1)\le c\,\eps^{-15}$ because $\log((1+r_c)/(1-r_c))\le\log(12/\eps)$, $2r_c^3/(1-r_c^2)^3\le54\eps^{-3}$ and $\Upsilon_c\le40/\eps$.
+\end{itemize}
+By \eqref{eq:Dpoly}, $D>x$ forces some factor of $\Pi_3$ to exceed $(x/c_\eps)^{1/891}$. Summing the eleven bounds gives (a), the smallest exponent being $1/(2E_c)$ (note $E_c\ge72$) and $E_c\le20\eps^{-1}\log(40/\eps)$, and (b), all exponents being at least $1$ and the logarithms being absorbed by the margin $1/891-1/900$.
+\end{proof}
+
+\begin{corollary}\label{cor:Dtail}
+There are absolute constants $c>0$ and $C$ such that for $x\ge e^e$
+\[
+\PP(D>x)\le C\exp\Bigl(-c\Bigl(\frac{\log x}{\log\log x}\Bigr)^{1/2}\Bigr).
+\]
+\end{corollary}
+
+\begin{proof}
+By \cite[Theorem~\ref{M-thm:sharp}]{Main} there is an absolute $C_0$ with $\PP(T_*<1+\eps)\le C_0e^{-0.8/\eps}$ for $0<\eps\le1$. With Theorem~\ref{thm:Dtail}(a),
+\[
+\PP(D>x)\le C_0e^{-0.8/\eps}+c\,\eps^{-c}\exp\Bigl(-\frac{\eps\log x}{35640\log(40/\eps)}\Bigr).
+\]
+Take $\eps=(\log\log x/\log x)^{1/2}$. For large $x$, $\log(40/\eps)\le\log\log x$, so the second term is at most $\exp\bigl(c\log\log x-(\log x/\log\log x)^{1/2}/35640\bigr)$, and the first is $C_0\exp(-0.8(\log x/\log\log x)^{1/2})$. Enlarge $C$ for the remaining $x$.
+\end{proof}
+
+\begin{remark}\label{rem:Dtail}
+(1) The tail of $D$ on $\{T_*\ge1+\eps\}$ rests on no unproved hypothesis: the small-ball bound for the modulus gap is Theorem~\ref{thm:gap}, and the weighted Rice formula is not needed. (2) In (a) the constant is polynomial in $1/\eps$ and the exponent is of order $\eps/\log(1/\eps)$; it comes from Jensen's bound for $\mathcal U$. In (b) the exponent does not depend on $\eps$, because the number of zeros of $q$ in a disk of radius $r_c$ has super-exponential tails (Lemma~\ref{lem:overcrowd}), but $\log C_\eps$ is of order $\eps^{-O(1)}$. (3) Whether $\PP(D>x)$ has a power bound without the restriction $T_*\ge1+\eps$ is Question~\ref{q:Dtail}. By \cite[Theorem~\ref{M-thm:firstorder-intro}]{Main} the limit points of $n(\Lambda_n-T_*)$ fill the interval $[\tau_c-W,\tau_c+W]$, so $D\ge W=(2(\im u_*)^2)^{-1}$; a lower bound $\PP(\im u_*<\varrho)\ge c\varrho^2$, which we expect but have not proved, would give $\PP(D>x)\ge c'x^{-1}$, so that no exponent above $1$ is possible. (4) The exponents $1/900$ and $1/(1782E_c)$ come from the exponent $10$ of Theorem~\ref{thm:collision-explicit} and a union bound over eleven factors, and are not optimised.
+\end{remark}
+
+\section{Remarks and questions}\label{sec:remarks}
+
+\subsection{Rates}\label{subsec:rates-questions}
+The exponents in Theorem~\ref{thm:rate}, any $\alpha<\frac3{50}$ and any $\theta<\frac1{10}$ at fixed $t$, do not depend on $\eps$, but the constants are not polynomial in $1/\eps$ (Remark~\ref{rem:rate}). By Remark~\ref{rem:rate} this argument cannot give a fixed-$t$ exponent above $\frac19$; the limit is the degree of the explicit onset of Theorem~\ref{thm:quant}, through the vertex loss of Lemma~\ref{lem:ext-disk} near the edges $\pm2$ and the bulk constant. The distortion of the outer factor has an $\eps$-independent small-ball exponent, uniformly in $t\ge1+\eps$ (Proposition~\ref{prop:distortion}(b)), and the natural alternative deformation is no better (Remark~\ref{rem:homotopy}).
+
+\begin{question}\label{q:distortion}
+(i) For the Gaussian power series, is there a rate $n^{-\alpha}$ in Theorem~\ref{thm:rate} with $\alpha>\frac1{10}$, or with constants polynomial in $1/\eps$? The Monte Carlo exponents of Remark~\ref{rem:rate} are $0.4$ to $0.82$. (ii) Does Proposition~\ref{prop:distortion}(b) hold for every $\beta<1$, uniformly in $t\ge1+\eps$? (iii) Is there a deformation of $a^{(t)}$ into a polynomial with the same zeros in $\D$ along which the minimum of $|a_s|$ on the unit circle and the coefficient bound of $a_s$ are controlled by powers of $\mu$, $|\eta_0|$ and $C_q$ whose exponents do not depend on $\eps$? By Remark~\ref{rem:homotopy}, any such deformation has circle minimum at most $\min_{|w|=1}|p_{\rm in}(w)|$, a product over the zeros of $a^{(t)}$ in $\D$.
+\end{question}
+
+
+
+\subsection{The constant in the final collision}
+\cite[Theorem~\ref{M-thm:collision}]{Main} gives $|\Lambda_n-T_*|=O(1/n)$ with a constant that depends on $q$. By Theorem~\ref{thm:collision-explicit} this constant is bounded, when $T_*\ge1+\eps$, by a polynomial in condition parameters of $q$ with absolute degrees and coefficients polynomial in $1/\eps$, and for Gaussian coefficients $\PP(D>x,\ T_*\ge1+\eps)\le C_\eps x^{-1/900}$ (Theorem~\ref{thm:Dtail}). The constant $C_\eps$ is not polynomial in $1/\eps$, and with a constant polynomial in $1/\eps$ we have only an exponent of order $\eps/\log(1/\eps)$; so for $D$ itself we obtain only $\PP(D>x)\le C\exp(-c(\log x/\log\log x)^{1/2})$ (Corollary~\ref{cor:Dtail}). By Remark~\ref{rem:Dtail}(3), no bound better than $x^{-1}$ can be expected.
+
+\begin{question}\label{q:Dtail}
+Does $\PP(D>x)$ decay like a power of $x$ for the Gaussian power series, without the restriction $T_*\ge1+\eps$? By \cite[Theorem~\ref{M-thm:sharp}]{Main} this would follow from Theorem~\ref{thm:Dtail}(b) with $\log C_\eps=o(1/\eps)$, or from Theorem~\ref{thm:Dtail}(a) with an exponent bounded below. What is the true exponent of $\PP(D>x,\ T_*\ge1+\eps)$?
+\end{question}
+
+
+\section*{Statement on the use of AI}
+% TODO(author): before submission, this statement must describe a line-by-line verification of every proof by the
+% author. Its wording is that of the main paper and is not yet true of a verified manuscript.
+The proofs, computations and text of this paper were produced with AI systems from Anthropic, OpenAI and Google, directed by the author. The proofs were checked by independent AI referee rounds; no human expert has yet read them.
+
+\begin{thebibliography}{99}
+\bibitem[M]{Main} B. Baggins, \emph{The real-rooting time of heat-evolved random polynomials}, preprint (2026).
+
+\bibitem[B]{CompB} B. Baggins, \emph{Nonreal zeros of heat-evolved Weyl polynomials near the collapse time}, preprint (2026).
+
+\bibitem[C]{CompC} B. Baggins, \emph{Exact counts of nonreal zeros beyond the Weyl weight: varying weights, coefficient profiles and the Laguerre flow}, preprint (2026).
+
+\bibitem{An} T. W. Anderson, \emph{The integral of a symmetric unimodal function over a symmetric convex set and some probability inequalities}, Proc. Amer. Math. Soc. \textbf{6} (1955), 170--176.
+
+\bibitem{AW} J.-M. Aza\"is, M. Wschebor, \emph{Level Sets and Extrema of Random Processes and Fields}, Wiley, Hoboken, NJ, 2009.
+
+\bibitem{Fo} P. J. Forrester, \emph{The limiting Kac random polynomial and truncated random orthogonal matrices}, J. Stat. Mech. Theory Exp. (2010), P12018; doi:10.1088/1742-5468/2010/12/P12018; arXiv:1009.3066.
+
+\bibitem{Fuj} M. Fujiwara, \emph{\"Uber die obere Schranke des absoluten Betrages der Wurzeln einer algebraischen Gleichung}, T\^ohoku Math. J. \textbf{10} (1916), 167--171.
+
+\bibitem{Ka} M. Kac, \emph{On the average number of real roots of a random algebraic equation}, Bull. Amer. Math. Soc. \textbf{49} (1943), 314--320.
+
+\bibitem{LPR} G. Lindgren, K. Podg\'orski, I. Rychlik, \emph{Effective computations of joint excursion times for stationary Gaussian processes}, arXiv:2007.14220 (2020).
+
+\bibitem{MS} S. Matsumoto, T. Shirai, \emph{Correlation functions for zeros of a Gaussian power series and Pfaffians}, Electron. J. Probab. \textbf{18} (2013), no.~49, 1--18; doi:10.1214/EJP.v18-2545; arXiv:1212.6108.
+
+\end{thebibliography}
+\end{document}

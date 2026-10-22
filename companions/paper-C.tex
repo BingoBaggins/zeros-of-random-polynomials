@@ -1,0 +1,1122 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theoremA}{Theorem}
+\renewcommand{\thetheoremA}{A}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\He}{\mathrm{He}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arcosh}{arcosh}
+
+
+\externaldocument[M-]{../annals/main}
+\externaldocument[A-]{paper-A}
+\externaldocument[B-]{paper-B}
+
+\title[Exact counts of nonreal zeros beyond the Weyl weight]{Exact counts of nonreal zeros beyond the Weyl weight: varying weights, coefficient profiles and the Laguerre flow}
+% TODO(author): address and e-mail.
+\author{B. Baggins}
+\date{Draft, October 2026}
+\subjclass[2020]{Primary 26C10, 33C45; Secondary 30C15, 35K05, 42C05, 46L54, 60G15}
+\keywords{Hermite polynomials, Laguerre polynomials, varying weights, Riemann--Hilbert problems, linear combinations of orthogonal polynomials, heat flow, coefficient profiles, real-rooting time, Laguerre flow, hard edge}
+
+\begin{document}
+
+\begin{abstract}
+Let $h_k$ be the orthonormal Hermite polynomials for the standard Gaussian weight, and let $a(w)=\sum_{j\ge0}a_jw^j$ be a real power series with radius of convergence greater than $1$ and $a(0)\neq0$ that has no zeros on the unit circle and only simple zeros in the unit disk. A companion paper shows that for all large $n$ the polynomial $\sum_{j=0}^{n}a_jh_{n-j}$ has exactly as many nonreal zeros as $a$ has in the open unit disk. We extend this exact count to symbols that depend on $n$, under a tail condition matched to the Christoffel--Darboux bound, and to the orthonormal polynomials of varying weights $e^{-nV}$ with $V$ a one-cut regular polynomial.
+
+Under the backward heat flow $\exp(-\frac t{2n}\partial_z^2)$ the zeros of a random polynomial $\sum_{k\le n}\xi_kc_{k,n}z^k$, with independent coefficients of a law that is not a point mass and has finite variance, become real; the real-rooting time is the first time at which all of them are real. For the Weyl profile $c_{k,n}=n^{k/2}/\sqrt{k!}$ the companion paper shows that it converges in distribution to $T_*=R_*^{-2}$, where $R_*$ is the smallest modulus of a nonreal zero of the random power series $\sum_j\xi_jw^j$. Under the heat flow every real polynomial becomes a combination of Hermite polynomials whose coefficients depend on $n$ through the profile. For other coefficient profiles $\exp(ng(k/n)+h_n(k/n))$, with $g$ concave and $h_n$ of logarithmic size, the collapse time $t_{\rm Wig}$ of Hall, Ho, Jalowy and Kabluchko is exactly the time from which these coefficients decay geometrically, and the real-rooting time converges in distribution to $\max(t_{\rm Wig},\rho^2T_*)$, where $\rho$ is the outer radius of the initial zero distribution; subexponential irregularities of the profile can change this limit. Elliptic polynomials reduce exactly to the Weyl case for a Gaussian entire function. Among the flows $\exp(-\tau A)$ with $Ax^k=c_kx^{k-1}$, the Laguerre flows $\exp(-\tau(x\partial_x^2+(\alpha+1)\partial_x))$ are the only ones that produce orthogonal polynomials. We extend the exact count of nonreal zeros of analytic combinations of Hermite polynomials to Laguerre polynomials, with a hard edge for fixed $\alpha$ and two soft edges for $\alpha$ proportional to $n$. The Laguerre flow preserves the polynomials with all zeros in $[0,\infty)$ for every $\alpha>-1$, and under a coupling of the degrees that shares the top coefficients the corresponding real-rooting time has an explicit almost sure limit, which also sees the negative zeros of the random power series.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+\subsection{The Weyl case}
+Let $\He_k$ be the probabilists' Hermite polynomials and $h_k=\He_k/\sqrt{k!}$ the orthonormal polynomials for the standard Gaussian measure. As in \cite[Definition~\ref{M-def:admissible}]{Main}, a power series $a(w)=\sum_{j\ge0}a_jw^j$ is \emph{admissible} if its coefficients are real, its radius of convergence is greater than $1$, $a(0)\neq0$, $a$ has no zeros on the unit circle, and all zeros of $a$ in $\D=\{|w|<1\}$ are simple.
+
+An admissible $a$ has finitely many zeros $w_1,\dots,w_k$ in $\D$; they are nonzero, and the set is closed under complex conjugation. Let $\zeta_i=w_i+w_i^{-1}$. The Joukowski map $w\mapsto w+w^{-1}$ maps $\D\setminus\{0\}$ conformally onto $\C\setminus[-2,2]$; we write $r$ for its inverse.
+
+\begin{theoremA}[{\cite[Theorem~\ref{M-thm:main}]{Main}}]\label{thm:A}
+Let $a$ be admissible, with zeros $w_1,\dots,w_k$ in $\D$, and let
+\[
+Q_n(x)=\sum_{j=0}^{n}a_j\,h_{n-j}(x).
+\]
+For every sufficiently small $\eps>0$ there is $n_0$ such that for every $n\ge n_0$ all zeros of the polynomial $z\mapsto Q_n(\sqrt n\,z)$ are simple, and they are:
+\begin{enumerate}
+\item[(a)] for each $i$, exactly one zero in the disk $|z-\zeta_i|<\eps$, which is real if $w_i$ is real and nonreal if $w_i$ is nonreal;
+\item[(b)] $n-k$ further zeros, all real and lying in $(-2-\eps,2+\eps)$.
+\end{enumerate}
+In particular, for all large $n$ the number of nonreal zeros of $Q_n$ equals the number of nonreal zeros of $a$ in $\D$.
+\end{theoremA}
+
+The main paper \cite{Main} applies Theorem~\ref{thm:A} to the backward heat flow. For real numbers $\eta_0,\eta_1,\dots$ let
+\begin{equation}\label{eq:kac}
+q(w)=\sum_{j\ge0}\eta_jw^j,
+\end{equation}
+and let
+\begin{equation}\label{eq:reversed}
+P_n(z)=\sum_{k=0}^{n}\eta_{n-k}\frac{(\sqrt n\,z)^k}{\sqrt{k!}},\qquad P_{n,t}=\exp\Bigl(-\frac{t}{2n}\partial_z^2\Bigr)P_n
+\end{equation}
+be the reversed Weyl polynomials and their heat evolutions, in which the top coefficients $\eta_0,\eta_1,\dots$ are shared by all degrees. The backward heat flow does not increase the number of nonreal zeros of a real polynomial (Laguerre, P\'olya), so $P_{n,t}$ has only real zeros exactly when $t$ is at least its \emph{real-rooting time} $\Lambda_n$ \cite[Lemma~\ref{M-lem:heat}]{Main}, a finite-degree analogue of the de Bruijn--Newman constant. Since $\exp(-\frac12\partial_x^2)x^k=\He_k(x)$, for $t>0$
+\begin{equation}\label{eq:heat-hermite}
+P_{n,t}(z)=t^{n/2}\sum_{j=0}^{n}\eta_j\,t^{-j/2}\,h_{n-j}\Bigl(\sqrt{\tfrac nt}\,z\Bigr),
+\end{equation}
+which is, up to scaling, the polynomial $Q_n$ of Theorem~\ref{thm:A} for the symbol $a(w)=q(w/\sqrt t)$. When the $\eta_j$ are independent with a common law $\mu$ that is not a point mass and has $\int x^2\,d\mu<\infty$, the series $q$ almost surely has radius of convergence $1$ and nonreal zeros in $\D$, and with
+\begin{equation}\label{eq:Rstar}
+R_*=\min\{|w|:\ w\in\D\setminus\R,\ q(w)=0\},\qquad T_*=R_*^{-2}\in(1,\infty),
+\end{equation}
+\cite[Theorem~\ref{M-thm:heat}]{Main} shows that $\Lambda_n\to T_*$ almost surely. In the standard coupling of the degrees, in which the coefficients $\xi_k$ of $z^k$ do not depend on $n$, the real-rooting time has for each $n$ the law of $\Lambda_n$, and it converges in distribution to $T_*$ \cite[Theorem~\ref{M-cor:weyl}]{Main}. So the last nonreal pair of zeros survives the macroscopic collapse of the zeros onto the real line at time $1$ \cite[Theorem~2.1]{HHJK} by a random amount of time, governed by the nonreal zero of $q$ closest to the origin. The final collision of zeros is studied in \cite{Main}, and times close to $1$ in \cite{CompB}.
+
+This paper asks what remains of this picture when the symbol depends on $n$, when the Hermite polynomials are replaced by the orthonormal polynomials of varying weights, when the weights $n^{k/2}/\sqrt{k!}$ are replaced by other coefficient profiles, and when the heat flow is replaced by another flow.
+
+\subsection{Symbols that depend on \texorpdfstring{$n$}{n}}
+Under the heat flow every real polynomial becomes, after a dilation, a combination of the $h_{n-j}$ whose coefficients depend on $n$ through the coefficient profile (Lemma~\ref{lem:profile-identity}). Section~\ref{subsec:moving} proves Theorem~\ref{thm:A} for symbols that depend on $n$ and converge coefficientwise, under a tail condition matched to the Christoffel--Darboux bound \cite[Lemma~\ref{M-lem:cd}]{Main} (Theorem~\ref{thm:moving}), and gives an explicit onset that is uniform over families of symbols (Corollary~\ref{cor:moving-onset}).
+
+\subsection{Varying weights}
+Let $V$ be a real polynomial of degree $2m\ge2$ with positive leading coefficient, and $p_{k,n}$, $k\ge0$, the orthonormal polynomials for the weight $e^{-nV(x)}\,dx$ on $\R$. Following \cite{BI}, $V$ is \emph{one-cut regular} if its equilibrium measure has support $[\alpha,\beta]$ and density $\frac1{2\pi}h(x)\sqrt{(\beta-x)(x-\alpha)}$ with $h>0$ on $[\alpha,\beta]$, and the inequality \eqref{eq:vEL} is strict off $[\alpha,\beta]$ (Section~\ref{sec:varying}). Put $c=\frac{\alpha+\beta}2$ and $d=\frac{\beta-\alpha}4$.
+
+\begin{theorem}[Varying weights]\label{thm:varying-intro}
+Let $V$ be one-cut regular and let $a$ be admissible, with zeros $w_1,\dots,w_k$ in $\D$. Put $\zeta_i=c+d(w_i+w_i^{-1})$ and $Q_n=\sum_{j=0}^{n}a_j\,p_{n-j,n}$. For every sufficiently small $\eps>0$ there is $n_0$ such that for $n\ge n_0$ all zeros of $Q_n$ are simple, exactly one of them lies in each disk $|x-\zeta_i|<\eps$, it is real if and only if $w_i$ is real, and the remaining $n-k$ zeros are real and lie in $(\alpha-\eps,\beta+\eps)$.
+\end{theorem}
+
+This is Theorem~\ref{thm:varying}; for $V(x)=x^2/2$ it is Theorem~\ref{thm:A} (Remark~\ref{rem:RC}(a)). The proof needs the recurrence coefficients of degree $n+k$, $|k|\le C\log n$, of the weight $e^{-nV}$; we obtain them from the steepest descent analysis of \cite{DKMVZ} at degree $n+k$ with the potential held fixed (Proposition~\ref{prop:RC} and Appendix~\ref{app:rc}).
+
+\subsection{Coefficient profiles}
+Hall, Ho, Jalowy and Kabluchko \cite{HHJK} consider random polynomials $\sum_{k\le n}\xi_kc_{k,n}z^k$, evolved by the same heat flow, with independent identically distributed coefficients $\xi_k$ and a profile for which $\frac1n\log|c_{k,n}|$ is uniformly close to $g(k/n)$, for a concave function $g$ on $[0,1]$. The empirical distribution of the zeros at time $t$ converges in probability to a measure $\nu_t$ \cite[Theorem~2.6]{HHJK}, and they identify the collapse time $t_{\rm Wig}$ of the zero distribution \cite[Theorem~2.12]{HHJK}: $\nu_t$ is the semicircle law on $[-2\sqrt t,2\sqrt t]$ if and only if $t\ge t_{\rm Wig}$, where
+\[
+t_{\rm Wig}=\sup_{0<\alpha<1}\exp\Bigl(\frac{2\bigl(g(\alpha)-g(1)\bigr)+\alpha\log\alpha+1-\alpha}{1-\alpha}\Bigr),
+\]
+and $t_{\rm Wig}=1$ for the Weyl profile \cite[Example~2.13]{HHJK}. Weak convergence does not see a bounded number of nonreal zeros, and we ask when the last of them becomes real.
+
+Under the heat flow every real polynomial becomes a combination of Hermite polynomials. For other coefficient profiles the coefficients of the corresponding combination depend on $n$ (Lemma~\ref{lem:profile-identity}), and Theorem~\ref{thm:A} is replaced by its version for symbols that depend on $n$ (Theorem~\ref{thm:moving}). Section~\ref{sec:profiles} shows that for profiles $\exp(ng(k/n)+h_n(k/n))$, with $g$ concave and $h_n$ of logarithmic size, $t_{\rm Wig}$ is exactly the time from which the reversed Hermite coefficients of the evolved polynomial decay geometrically, and that the real-rooting time then converges in probability to $\max(t_{\rm Wig},\rho^2T_*)$, with $T_*$ as in \eqref{eq:Rstar} and $\rho$ the outer radius of the zero distribution at time $0$.
+
+\begin{theorem}[Profiles of Hall--Ho--Jalowy--Kabluchko type]\label{thm:profiles-intro}
+Let $g:[0,1]\to\R$ be concave and continuous with $g'_-(1)>-\infty$, let $h_n:[0,1]\to\R$ satisfy the conditions \textup{(h1)--(h3)} of Section~\ref{subsec:hhjk}, and let $c_{k,n}=\exp(ng(k/n)+h_n(k/n))$ and $\rho=e^{-g'_-(1)}$. Let $\eta_0,\eta_1,\dots$ be independent with a common law $\mu$ that is not a point mass and satisfies $\int x^2\,d\mu<\infty$ and $\mu(\{0\})=0$, let $P_n(z)=\sum_{k=0}^{n}\eta_{n-k}c_{k,n}z^k$, and let $\Lambda_n$ be the real-rooting time of $P_{n,t}=\exp(-\frac t{2n}\partial_z^2)P_n$.
+\begin{enumerate}
+\item[(a)] The reversed Hermite coefficients $t^{-j/2}d^{(n)}_j$ of $P_{n,t}$, defined in \eqref{eq:dnj} and Lemma~\ref{lem:profile-identity}, satisfy $t^{-j/2}d^{(n)}_j\le C_t\theta_t^{\,j}$ for all $n$ and $0\le j\le n$, with $C_t<\infty$ and $\theta_t<1$, if $t>t_{\rm Wig}$; if $t<t_{\rm Wig}$, then $\max_{j\le n}t^{-j/2}d^{(n)}_j$ tends to infinity exponentially fast in $n$.
+\item[(b)] $\Lambda_n\to\max(t_{\rm Wig},\rho^2T_*)$ in probability, and almost surely on the event $\{\rho^2T_*>t_{\rm Wig}\}$. The real-rooting time under the standard coupling converges in distribution to the same limit.
+\end{enumerate}
+\end{theorem}
+
+This is Proposition~\ref{prop:profile-decay}(b), which does not use the concavity of $g$, and Corollary~\ref{cor:profile-hhjk}. Always $t_{\rm Wig}\ge\rho^2$. For \emph{head-dominated} profiles, those with $t_{\rm Wig}=\rho^2$, such as the Littlewood--Offord profiles $n^{\beta k}/(k!)^\beta$ with $\beta\ge\frac12$ and $c_{k,n}=e^{-k^2/(2n)}$, the convergence is almost sure: $\Lambda_n\to\rho^2T_*$ (Corollary~\ref{cor:profile-as}). So it is for the Weyl profile multiplied by a variance profile $f(k/n)$ (Remark~\ref{rem:profile-examples}(i)). For the Kac profile $c_{k,n}=1$, $t_{\rm Wig}=e$, and $\Lambda_n\to\max(e,T_*)$ in probability (Remark~\ref{rem:profile-examples}(iv)). For $t>t_{\rm Wig}$ the zeros of $P_{n,t}$ off the real bulk follow the transport map $v\mapsto v+t/v$ of \cite{HHJK} from the zeros of $P_n$ outside the disk of radius $\rho$, and a nonreal one of these is absorbed into the real bulk exactly at time $|v|^2$; so the limit in Theorem~\ref{thm:profiles-intro} is the later of the macroscopic collapse and the absorption of the last nonreal outlier (Remark~\ref{rem:profile-transport}).
+
+On the whole class of profiles allowed in \cite{HHJK}, factors $e^{o(n)}$ in the coefficients can change this limit (Remark~\ref{rem:profile-A2}). For example, if $c_{n-2,n}$ in the Weyl profile is multiplied by $B_n\to\infty$ with $\log B_n=o(n)$, then $t_{\rm Wig}$ is still $1$, but for Gaussian coefficients $\Lambda_n\to\infty$ almost surely on the event $\{\eta_0\eta_2>0\}$, which has probability $\frac12$. At $t=t_{\rm Wig}$ itself, for profiles with $t_{\rm Wig}>\rho^2$, the bottom coefficients of $P_n$ are not negligible, and for the Kac profile a heuristic, supported by numerical experiments, describes a window of width $1/n$ around $e$ in which $\Theta(\sqrt n)$ zeros can become nonreal (Question~\ref{q:kac-window}).
+
+Elliptic polynomials $\sum_k\eta_{n-k}\binom nk^{1/2}x^k$ are not covered, since their profile has $g'(1)=-\infty$. Their zeros become real at heat times of order $1$, and for standard Gaussian coefficients their real-rooting time converges almost surely to $R_F^{-2}$, where $R_F$ is the smallest modulus of a nonreal zero of the real Gaussian entire function $F(v)=\sum_j\eta_jv^j/\sqrt{j!}$, which has nonreal zeros almost surely (Theorem~\ref{thm:elliptic} and Lemma~\ref{lem:gaf}).
+
+\subsection{The Laguerre flow}
+The heat flow rests on the identity $\He_k=\exp(-\frac12\partial^2)x^k$. Let $\alpha>-1$ and $D_\alpha=x\partial_x^2+(\alpha+1)\partial_x$. Its Laguerre counterpart is the classical identity $\exp(-\tau D_\alpha)x^k=\tau^k\ell^{(\alpha)}_k(x/\tau)$, where $\ell^{(\alpha)}_k$ are the monic Laguerre polynomials (Proposition~\ref{prop:lag-identity}), and there is no other within a natural class of flows: for an operator $A$ with $Ax^k=c_kx^{k-1}$ (a weighted backward shift), the polynomials $\exp(-A)x^n$ are the monic orthogonal polynomials of a positive measure with infinite support if and only if $A=\theta D_\alpha$ with $\theta\ne0$ and $\alpha>-1$ (Proposition~\ref{prop:lag-unique}). In particular no such flow produces the orthonormal polynomials of the weights $e^{-nV}$ of Theorem~\ref{thm:varying-intro}.
+
+Let $\lambda^{(\alpha)}_k$ be the orthonormal polynomials for $y^\alpha e^{-y}\,dy$ on $(0,\infty)$, with positive leading coefficients. The exact count of Theorem~\ref{thm:A} extends to their analytic combinations.
+
+\begin{theorem}[Laguerre combinations]\label{thm:lag-count-intro}
+Let $a$ be admissible, with zeros $w_1,\dots,w_k$ in $\D$. Suppose either that $\alpha>-1$ is fixed and $(c,d)=(2,1)$, or that $\alpha=\gamma n$ with $\gamma>0$ fixed and $(c,d)=(2+\gamma,\sqrt{1+\gamma})$. Put $\zeta_i=c+d(w_i+w_i^{-1})$ and $Q_n(x)=\sum_{j=0}^{n}a_j\,\lambda^{(\alpha)}_{n-j}(nx)$. For every sufficiently small $\eps>0$ there is $n_0$ such that for $n\ge n_0$ all zeros of $Q_n$ are simple, exactly one of them lies in each disk $|x-\zeta_i|<\eps$, it is real if and only if $w_i$ is real, and the remaining $n-k$ zeros are real and lie in $(c-2d-\eps,c+2d+\eps)$; for fixed $\alpha$ they lie in $(0,4+\eps)$.
+\end{theorem}
+
+This is Theorem~\ref{thm:lag-count}. For fixed $\alpha$ the scaled polynomials $\lambda^{(\alpha)}_k(n\,\cdot)$ are orthogonal for $x^\alpha e^{-nx}$, which has a hard edge at $0$. There the Christoffel--Darboux bound \cite[Lemma~\ref{M-lem:cd}]{Main} holds only with $n^3$ in place of $n$, and this exponent is sharp (Lemma~\ref{lem:lag-cd}); logarithmically many backward steps of the recurrence still suffice, and a monotonicity argument keeps the bulk zeros off the negative axis (Lemma~\ref{lem:lag-edge}). For $\alpha=\gamma n$ they are orthogonal for the varying weight $e^{-n(x-\gamma\log x)}$ on $(0,\infty)$, which has two soft edges and is not covered by Theorem~\ref{thm:varying-intro}. In both cases the proof follows that of Theorem~\ref{thm:varying}, with explicit Laguerre formulas in place of its Riemann--Hilbert input.
+
+Unlike the heat flow, the Laguerre flow does not preserve real-rootedness. It preserves the polynomials with all zeros in $[0,\infty)$, for every $\alpha>-1$ (Lemma~\ref{lem:lag-preserve}). For integer $\alpha$ at least the degree, the equation of motion of the zeros, its gradient form and a Lyapunov argument that gives this preservation are due to Cuenca and McSwiggen \cite{CM}, who also write the equation of motion with real parameters as a gradient flow \cite[Section~5.1]{CM}; our proof follows the same route for the flow on polynomials itself, for every real $\alpha>-1$. So the Laguerre flow has its own real-rooting time.
+
+\begin{theorem}[The real-rooting time of the Laguerre flow]\label{thm:lag-intro}
+Let either $\alpha>-1$ be fixed, or $\alpha=\gamma n$ with $\gamma>0$ fixed. Let $\eta_0,\eta_1,\dots$ be independent with a common law $\mu$ that is not a point mass and satisfies $\int x^2\,d\mu<\infty$ and $\mu(\{0\})=0$, let $q$ and $R_*$ be as in \eqref{eq:kac} and \eqref{eq:Rstar}, and put
+\[
+P_n(x)=\sum_{k=0}^{n}\eta_{n-k}\,\frac{(nx)^k}{\sqrt{k!\,\Gamma(k+\alpha+1)}},\qquad P_{n,t}=\exp\Bigl(-\frac tnD_\alpha\Bigr)P_n,
+\]
+$\Lambda^L_n=\inf\{t\ge0:\text{all zeros of }P_{n,t}\text{ lie in }[0,\infty)\}$, and $R_-=\min\{|u|:\ q(u)=0,\ -1<u<0\}$, with $R_-=1$ if $q$ has no zero in $(-1,0)$. Almost surely, all zeros of $P_{n,t}$ lie in $[0,\infty)$ exactly when $t\ge\Lambda^L_n$, and
+\[
+\lim_{n\to\infty}\Lambda^L_n=\frac1{\min(R_*,R_-)}\quad\text{for fixed }\alpha,\qquad\lim_{n\to\infty}\Lambda^L_n=\max\Bigl(\frac1{R_*},\frac1{\sqrt{1+\gamma}\,R_-}\Bigr)\quad\text{for }\alpha=\gamma n.
+\]
+\end{theorem}
+
+This is Theorem~\ref{thm:lag-rooting}(c),(d), which also locates the zeros of $P_{n,t}$ for fixed $t>1$. Unlike $T_*$, the limit for fixed $\alpha$ also counts the negative real zeros of $q$; for $\alpha=\gamma n$ it counts only those close enough to $0$. For $\alpha=-\frac12$ the Laguerre flow is the heat flow on even polynomials, and the theorem reduces to \cite[Theorem~\ref{M-thm:fixedq}]{Main} for the series $q(u^2)$ (Remark~\ref{rem:lag-half}).
+
+\subsection{Related work}\label{subsec:related}
+For the literature on zeros of linear combinations of orthogonal polynomials, on the de Bruijn--Newman constant and on the zeros of random power series we refer to \cite{Main}. For varying weights we use the steepest descent analysis of the Riemann--Hilbert problem by Deift, Kriecherbauer, McLaughlin, Venakides and Zhou \cite{DKMVZ}, as written out by Bleher \cite{Bl}, and the one-cut regular potentials of Bleher and Its \cite{BI}. To change the degree with the potential held fixed we absorb the excess degree into the outer parametrix, as Kuijlaars, McLaughlin, Van Assche and Vanlessen \cite{KMVV} do for the whole degree on $[-1,1]$.
+
+The collapse time, the limit measures $\nu_t$ and the transport map of the zeros under the heat flow are due to Hall, Ho, Jalowy and Kabluchko \cite{HHJK}; for the heat flow applied to Gaussian analytic functions themselves see \cite{HHJK2}.
+
+The identity of Proposition~\ref{prop:lag-identity}(a) is classical. It is the Laguerre counterpart of $\He_k(x)=\exp(-\frac12\partial_x^2)x^k$, which gives the heat polynomials of Rosenbloom and Widder \cite{RW}. In the variable $y=\sqrt x$, $D_\alpha=\frac14(\partial_y^2+\frac{2\alpha+1}y\partial_y)$ is a quarter of the radial Laplacian in dimension $2\alpha+2$, and the identity expresses the radial heat polynomials of Bragg \cite{Br} and the generalised heat polynomials of Haimo \cite{Ha} (with $\nu=\alpha+\frac12$) through Laguerre polynomials.
+% TODO(author): the normalisations of [Br] and [Ha] were not checked against the sources (Haimo's text is a scan that
+% could not be read during the upgrade round).
+For an integer parameter the Laguerre flow is the rectangular finite free heat flow \cite{Cu,CM,GM}: it acts as the rectangular additive convolution of Gribinski and Marcus with a Laguerre polynomial (Section~\ref{subsec:lag-identity}); Cuenca \cite{Cu} shows that the flow $\exp(-\frac{s^2}nD_n)$ realises asymptotically the rectangular free convolution with a rectangular Gaussian law; and Cuenca and McSwiggen \cite{CM} study $\exp(-2tD_m)$, for integer $m$ at least the degree, as the rectangular finite free heat flow, with the equation of motion of the zeros and its gradient form that we use in the proof of Lemma~\ref{lem:lag-preserve} (Remark~\ref{rem:lag-special}). Proposition~\ref{prop:lag-unique} is a classification of orthogonal Brenke polynomials with a particular generating function; orthogonal Brenke polynomials in general were classified by Chihara \cite{Ch68,Ch71}, with a complete treatment by Asai, Kubo and Kuo \cite{AKK} (Remark~\ref{rem:lag-brenke}).
+
+\subsection{Organisation}
+Section~\ref{subsec:moving} proves Theorem~\ref{thm:A} for symbols that depend on $n$ (Theorem~\ref{thm:moving}) and gives an explicit onset for them (Corollary~\ref{cor:moving-onset}). Section~\ref{sec:varying} proves Theorem~\ref{thm:varying-intro} on varying weights, with the top recurrence coefficients of $e^{-nV}$ obtained in Appendix~\ref{app:rc}. Section~\ref{sec:profiles} treats coefficient profiles. Section~\ref{subsec:used} recalls what we use from \cite{Main}; Section~\ref{subsec:identity} gives the identity and the real-rooting time for a profile and a fixed power series; Section~\ref{subsec:hhjk} identifies the collapse time of \cite{HHJK} as the decay threshold and proves Theorem~\ref{thm:profiles-intro}; Section~\ref{subsec:A2} shows what fails on the whole class of \cite{HHJK} and relates the limit to the transport map; and Section~\ref{subsec:elliptic} treats elliptic polynomials. Section~\ref{sec:laguerre} treats the Laguerre flow: the identity and its uniqueness, the exact count of Theorem~\ref{thm:lag-count-intro}, and the real-rooting time of Theorem~\ref{thm:lag-intro}. Section~\ref{sec:remarks} contains remarks and questions, among them the critical window at the collapse time for the Kac profile, and lists the properties of the Hermite polynomials that the proof of Theorem~\ref{thm:A} uses.
+
+We use one main paper \cite{Main} and, in Section~\ref{subsec:moving} only, the companion paper \cite{CompA}. From \cite{Main} we use Theorem~\ref{thm:A} and the lemmas of its proof \cite[Sections~{\ref{M-sec:prelim}}--{\ref{M-sec:proof}}]{Main}, which the proofs of Theorems~\ref{thm:moving}, \ref{thm:varying} and~\ref{thm:lag-count} adapt, among them the Christoffel--Darboux bound \cite[Lemma~\ref{M-lem:cd}]{Main}, the bulk estimate \cite[Proposition~\ref{M-prop:bulk}]{Main} and the exterior asymptotics \cite[Proposition~\ref{M-prop:exterior}]{Main}; and, for the heat flow and the Laguerre flow, the heat-flow lemma \cite[Lemma~\ref{M-lem:heat}]{Main}, the case of a fixed power series \cite[Theorem~\ref{M-thm:fixedq}]{Main} and three facts about the random series $q$ (Section~\ref{subsec:used}). From \cite{CompA} we use the explicit onset \cite[Theorem~\ref{A-thm:quant}]{CompA}, for Corollary~\ref{cor:moving-onset}.
+
+\section{Symbols that depend on \texorpdfstring{$n$}{n}}\label{subsec:moving}
+
+In applications the symbol often depends on $n$. For instance, under the heat flow a polynomial with a general coefficient profile becomes a Hermite combination whose coefficients converge as $n\to\infty$ but depend on $n$ (Lemma~\ref{lem:profile-identity} and Theorem~\ref{thm:profile} below). For a real sequence $b=(b_j)_{j\ge0}$ we write $Q_n[b]=\sum_{j=0}^{n}b_jh_{n-j}$, as in \cite[Definition~\ref{A-def:condition}]{CompA}; only $b_0,\dots,b_n$ enter.
+
+\begin{hypothesis}\label{hyp:N}
+Let $a$ be admissible, and for each $n$ let $a^{(n)}_0,\dots,a^{(n)}_n$ be real numbers; put $a^{(n)}_j=0$ for $j>n$. There are $C_0<\infty$, $R_0>1$, $\ell_0>1/(2\log R_0)$ and integers $m_n\le n$ with $m_n\ge\ell_0\log n$ for all large $n$, such that $|a_j|\le C_0R_0^{-j}$ for all $j\ge0$ and:
+\begin{enumerate}
+\item[(N1)] $|a^{(n)}_j|\le C_0R_0^{-j}$ for $0\le j\le m_n$;
+\item[(N2)] $n\sum_{m_n<j\le n}\bigl(a^{(n)}_j\bigr)^2\to0$ as $n\to\infty$;
+\item[(N3)] $a^{(n)}_j\to a_j$ as $n\to\infty$, for every fixed $j\ge0$.
+\end{enumerate}
+\end{hypothesis}
+
+If $\sup_n\max_{j\le n}|a^{(n)}_j|R_0^j<\infty$, then (N1) and (N2) hold with $m_n=n$ and the same $R_0$, and the bound on $|a_j|$ follows from (N3). No rate is required in (N3).
+
+\begin{theorem}[Symbols that depend on $n$]\label{thm:moving}
+Assume Hypothesis~\ref{hyp:N}, let $w_1,\dots,w_k$ be the zeros of $a$ in $\D$, and $\zeta_i=w_i+w_i^{-1}$. For every sufficiently small $\eps>0$ there is $n_0$ such that for every $n\ge n_0$ all zeros of the polynomial $z\mapsto Q_n[a^{(n)}](\sqrt n\,z)$ are simple, and they are:
+\begin{enumerate}
+\item[(a)] for each $i$, exactly one zero in the disk $|z-\zeta_i|<\eps$, which is real if $w_i$ is real and nonreal if $w_i$ is nonreal;
+\item[(b)] $n-k$ further zeros, all real and lying in $(-2-\eps,2+\eps)$.
+\end{enumerate}
+In particular, for all large $n$ the number of nonreal zeros of $Q_n[a^{(n)}]$ equals the number of nonreal zeros of $a$ in $\D$.
+\end{theorem}
+
+The proof deforms $a$ into $a^{(n)}$ along a segment, for each fixed $n$, and makes the estimates of \cite[Propositions~{\ref{M-prop:bulk}} and~{\ref{M-prop:exterior}}]{Main} uniform along it. Theorem~\ref{thm:A} is used only at the starting point $a$.
+
+\begin{proof}
+For $\lambda\in[0,1]$ let $b=b_{n,\lambda}=a+\lambda(a^{(n)}-a)$, a real power series, and $\widehat Q_{n,\lambda}(z)=Q_n[b_{n,\lambda}](\sqrt n\,z)$. Fix $\ell\in(1/(2\log R_0),\ell_0)$ and put $M_n=\lceil\ell\log n\rceil$, so that $M_n\le m_n$ for all large $n$. For $j\le m_n$ we have $|b_j-a_j|\le|a^{(n)}_j-a_j|\le2C_0R_0^{-j}$ by (N1). Since $b_j^2\le a_j^2+(a^{(n)}_j)^2$ by convexity,
+\begin{equation}\label{eq:moving-tail}
+\sum_{M_n<j\le n}b_j^2\le\sum_{j>M_n}a_j^2+\sum_{M_n<j\le m_n}C_0^2R_0^{-2j}+\sum_{m_n<j\le n}\bigl(a^{(n)}_j\bigr)^2=o(1/n),
+\end{equation}
+uniformly in $\lambda$: the first two sums are at most $2C_0^2(1-R_0^{-2})^{-1}R_0^{-2M_n}\le2C_0^2(1-R_0^{-2})^{-1}n^{-2\ell\log R_0}$ with $2\ell\log R_0>1$, and the third is $o(1/n)$ by (N2). Likewise $\|b_{n,\lambda}\|_{\ell^2}\le\|a\|_{\ell^2}+\|a^{(n)}\|_{\ell^2}\le B$ for a constant $B$ and all $n$ and $\lambda$, by (N1) and (N2).
+
+\emph{Step 1: the bulk, uniformly in $\lambda$.} Fix $\kappa_0>0$ with $e^{\kappa_0}<R_0$ and let $\mu=\min_{|w|=1}|a(w)|>0$. By \cite[Lemma~\ref{M-lem:limit}]{Main} and continuity there is $\kappa\in(0,\kappa_0]$ with $\det H_a(z)\ge\mu^2/2$ for real $|z|\le L:=2\cosh\kappa$; let $\Gamma=\sup_{|z|\le L}\|H_a(z)\|$. Let $n$ be so large that $M_n+2\le n/2$ and $(M_n+1)^2\le n$. With the notation of \cite[Section~\ref{M-sec:bulk}]{Main},
+\[
+H_{n,M_n}[b](z)-H_a(z)=\sum_{j\le M_n}(b_j-a_j)\,G_{n,j}(z)+\sum_{j\le M_n}a_j\bigl(G_{n,j}(z)-G_j(z)\bigr)-\sum_{j>M_n}a_jG_j(z).
+\]
+The last two sums do not involve $\lambda$, and they tend to $0$ uniformly on $[-L,L]$, as in the proof of \cite[\eqref{M-eq:head-conv}]{Main} for the constant family $a_s=a$. For the first sum, \cite[Lemma~\ref{M-lem:transfer}]{Main} gives $\|G_{n,j}(z)\|\le C_1(j+2)e^{(j+1)\kappa}$ for $j\le M_n$ and $|z|\le L$, with $C_1=4e^{c_\kappa}$, as in the proof of \cite[Proposition~\ref{M-prop:bulk}]{Main}. So for every fixed $J$,
+\[
+\sup_{\lambda\in[0,1],\,|z|\le L}\Bigl\|\sum_{j\le M_n}(b_j-a_j)G_{n,j}(z)\Bigr\|\le C_1\sum_{j\le J}|a^{(n)}_j-a_j|(j+2)e^{(j+1)\kappa}+2C_0C_1\sum_{j>J}(j+2)e^{(j+1)\kappa}R_0^{-j}.
+\]
+The second sum is small for large $J$, as $e^\kappa<R_0$, and the first tends to $0$ by (N3). Hence $\delta_n=\sup_{\lambda,|z|\le L}\|H_{n,M_n}[b_{n,\lambda}](z)-H_a(z)\|\to0$, and as in \cite[\eqref{M-eq:head-lower}]{Main}, for large $n$,
+\[
+\|H_{n,M_n}[b_{n,\lambda}](z)\,u\|\ge2c\,\|u\|\qquad(u\in\R^2,\ \lambda\in[0,1],\ |z|\le L),\qquad2c=\frac{\mu^2}{4(\Gamma+1)} .
+\]
+The tail $E=\sum_{M_n<j\le n}b_jh_{n-j}$ satisfies, by the Cauchy--Schwarz inequality and \cite[Lemma~\ref{M-lem:cd}]{Main} as in the proof of \cite[Proposition~\ref{M-prop:bulk}]{Main}, for $x=\sqrt nz$ with $|z|\le L$,
+\[
+\Bigl\|\Bigl(E(x),\frac{E'(x)}{\sqrt n}\Bigr)\Bigr\|\le\sqrt2\Bigl(\sum_{M_n<j\le n}b_j^2\Bigr)^{1/2}\bigl(n(1+\tfrac L2)\bigr)^{1/2}\|v_n(x)\|,
+\]
+which is $o(\|v_n(x)\|)$ uniformly in $\lambda$ by \eqref{eq:moving-tail}. By \cite[\eqref{M-eq:head}]{Main} there is $n_1$ such that for $n\ge n_1$, all $\lambda\in[0,1]$ and all real $x$ with $|x|\le L\sqrt n$,
+\[
+Q_n[b_{n,\lambda}](x)^2+\frac{Q_n[b_{n,\lambda}]'(x)^2}{n}\ge c^2\|v_n(x)\|^2>0 .
+\]
+In particular $\widehat Q_{n,\lambda}$ has no multiple real zero in $[-L,L]$.
+
+\emph{Step 2: the exterior, uniformly in $\lambda$.} Let $K\subset\C\setminus[-2,2]$ be compact, $d_K=\dist(K,[-2,2])$ and $\varrho=\max_K|r|<1$. The last display of the proof of \cite[Proposition~\ref{M-prop:exterior}]{Main} holds for every real $b\in\ell^2$, because only $b_0,\dots,b_n$ enter $Q_n[b]$ and $u_i=0$ for $i\ge n$ there:
+\[
+\Bigl|\frac{Q_n[b](\sqrt nz)}{h_n(\sqrt nz)}-b(r(z))\Bigr|\le\frac{2\|b\|_{\ell^2}}{d_Kn}\Bigl(\sum_{i\ge0}(i+1)^2\varrho^{2(i+1)}\Bigr)^{1/2}\qquad(z\in K).
+\]
+For $b=b_{n,\lambda}$ the right side is at most $2B(d_Kn)^{-1}(\sum_i(i+1)^2\varrho^{2(i+1)})^{1/2}$. Moreover $b_{n,\lambda}(r)-a(r)=\lambda\bigl(a^{(n)}(r)-a(r)\bigr)$, and for $z\in K$
+\[
+|a^{(n)}(r(z))-a(r(z))|\le\sum_{j\le m_n}|a^{(n)}_j-a_j|\varrho^j+\Bigl(\sum_{m_n<j\le n}\bigl(a^{(n)}_j\bigr)^2\Bigr)^{1/2}(1-\varrho^2)^{-1/2}+\sum_{j>m_n}|a_j|\varrho^j ,
+\]
+which tends to $0$: the first sum by (N3) and dominated convergence (its terms are at most $2C_0\varrho^j$), the second by (N2), the third because $m_n\to\infty$. Hence
+\[
+\sup_{\lambda\in[0,1],\,z\in K}\Bigl|\frac{\widehat Q_{n,\lambda}(z)}{h_n(\sqrt nz)}-a(r(z))\Bigr|\to0\qquad(n\to\infty).
+\]
+
+\emph{Step 3: geometry.} By (N3), $|b_{n,\lambda,0}|\ge|a_0|/2>0$ for large $n$ and all $\lambda$, so $\widehat Q_{n,\lambda}$ has degree $n$, and by \cite[Lemma~\ref{M-lem:colleague}]{Main} all its zeros lie in $\{|z|\le\varrho_0\}$, $\varrho_0=2+2B/|a_0|$. Define $\delta_0$, $\eps$, $D_i$, $U$ and $K$ as in \cite[Section~\ref{M-sec:proof}]{Main} for the fixed symbol $a$, with $L$ from Step~1 and $\varrho_0$ as here. The zeros of $a\circ r$ are exactly $\zeta_1,\dots,\zeta_k$, so $m=\min_K|a\circ r|>0$. By Step~2 there is $n_2$ such that for $n\ge n_2$ and every $\lambda$, $|\widehat Q_{n,\lambda}/h_n(\sqrt n\,\cdot)-a\circ r|<m$ on $K$. Since $h_n(\sqrt n\,\cdot)$ has no zeros off $[-2,2]$ (\cite[Lemma~\ref{M-lem:resolvent}]{Main}), for $n\ge n_2$ and every $\lambda$: $\widehat Q_{n,\lambda}$ has no zeros in $K$, so all its zeros lie in $U\cup\bigcup_i\operatorname{int}D_i$; and by Rouch\'e's theorem on $\partial D_i$ it has exactly one zero in $\operatorname{int}D_i$, which is real when $\zeta_i$ is real, by the symmetry of $D_i$ and of the zeros, and nonreal when $\zeta_i$ is nonreal.
+
+\emph{Step 4: counting.} Let $n\ge\max(n_1,n_2)$, and let $n$ also be so large that Theorem~\ref{thm:A} applies to $a$ with this $\eps$. For every $\lambda$, the real zeros of $\widehat Q_{n,\lambda}$ in $U$ lie in $(-2-\eps,2+\eps)\subset(-L,L)$ and are simple by Step~1, and the real zeros in the disks $D_i$ are simple by Step~3; there are no other zeros. The coefficients of $\widehat Q_{n,\lambda}$ are affine in $\lambda$, and its degree is $n$. By \cite[Lemma~\ref{M-lem:constancy}]{Main}, the number $N(\lambda)$ of nonreal zeros of $\widehat Q_{n,\lambda}$ does not depend on $\lambda$. Since $b_{n,0}=a$, Theorem~\ref{thm:A} gives that $N(0)$ is the number of nonreal $w_i$. At $\lambda=1$ we have $\widehat Q_{n,1}=Q_n[a^{(n)}](\sqrt n\,\cdot)$, and by Step~3 the disks $D_i$ with nonreal centre already contain $N(1)=N(0)$ nonreal zeros. So the $n-k$ zeros in $U$ are real; they lie in $(-2-\eps,2+\eps)$ and are simple by Step~1, and the zeros in the disks $D_i$ are simple. This proves the theorem.
+\end{proof}
+
+\begin{remark}\label{rem:moving-segment}
+(i) The circle condition (H4) of \cite[Hypothesis~\ref{M-hyp:H}]{Main} is not needed along the segment: in Step~1 the head matrices are compared with the fixed limit $H_a$, whose determinant is bounded below because $a$ has no zeros on the unit circle. (ii) If $\sup_n\max_{j\le n}|a^{(n)}_j|R_0^j<\infty$, one can instead run \cite[Propositions~{\ref{M-prop:bulk}} and~{\ref{M-prop:exterior}}]{Main} on a compact family containing all $a^{(n)}$, after replacing $[0,1]$ by a compact parameter set and dropping (H3). Under (N2) alone this is not possible, since the tail bound for $a^{(m)}$ is available only at its own degree $n=m$; this is why the segment is used.
+\end{remark}
+
+\begin{remark}\label{rem:moving-exponent}
+Condition (N2) is the form in which \cite[Lemma~\ref{M-lem:cd}]{Main} enters the proof, and the factor $n$ in it matches that lemma. At $z=0$ the bound of \cite[Lemma~\ref{M-lem:cd}]{Main} is an equality, $\sum_{k<n}h_k(0)^2=n\|v_n(0)\|^2$. So a tail aligned with $(h_{n-j}(0))_{j>m_n}$, with $n\sum_{m_n<j\le n}(a^{(n)}_j)^2=c^2$, changes $Q_n(0)$ by $(1+o(1))\,c\,\|v_n(0)\|$, which is of the order of the head. In numerical experiments ($n\le3200$, $a$ with two nonreal zeros in $\D$, tails aligned at the local maximum of $|Q_n[a]|$ nearest $0$), such tails with $c=4$ and sign opposite to $Q_n[a]$ there produced an additional nonreal pair, while tails of $\ell^2$-norm $n^{-3/4}$ did not.
+\end{remark}
+
+Theorem~\ref{thm:moving} obtains $n_0$ by compactness. The explicit onset of \cite[Theorem~\ref{A-thm:quant}]{CompA} applies to each $a^{(n)}$ separately; since its conditions are monotone in the parameters, it gives a uniform onset under uniform bounds, and no convergence of $a^{(n)}$ is needed. We use the notation of \cite[Definition~\ref{A-def:condition}]{CompA}, \cite[Lemma~\ref{A-lem:outer}]{CompA} and \cite[Theorem~\ref{A-thm:quant}]{CompA}; recall that $\overline M$, $R_1$, $\Upsilon$ and $E$ depend only on $C_0$ and $R_0$.
+
+\begin{corollary}[An explicit onset for symbols that depend on $n$]\label{cor:moving-onset}
+Let $C_0<\infty$, $R_0>1$, $0<d\le\frac12$ and $\alpha_*,\mu_*,\mu_{d*},\nu_*>0$. Put
+\[
+k_*=\frac{\log(\overline M/\alpha_*)}{\log R_1},\qquad C'_*=\overline M\Bigl(\frac{\overline M}{\alpha_*}\Bigr)^{E},\qquad\mathfrak d_*=\frac{\mu_*}{\overline M}\Bigl(\frac{\overline M}{\alpha_*}\Bigr)^{-E},\qquad\mu'_*=\mathfrak d_*\mu_*,
+\]
+let $\kappa_*$, $\Gamma_*$ and $D_{H*}$ be the constants $\kappa$, $\Gamma$ and $D_H$ of \cite[Lemma~\ref{A-lem:bulk-explicit}]{CompA} for $C=C'_*$, $R=R_1$ and $\mu_S=\mu'_*$, and suppose that $d\le\kappa_*/\sqrt2$. Let $n_*\ge2$ be such that every $n\ge n_*$ satisfies $n\ge k_*$, the conditions \cite[\eqref{A-eq:bulk-explicit}]{CompA} for these constants, and
+\[
+n>\frac{2\sqrt2\,C'_*}{(1-R_0^{-1})^{1/2}d^{7/2}\,\mathfrak d_*\mu_{d*}},\qquad n>\frac{64\,C_0}{(1-R_0^{-2})^{1/2}d^{9/2}\nu_*}.
+\]
+Let $n\ge n_*$, and let $a^{(n)}\in\mathcal S(C_0,R_0)$ satisfy $\alpha\ge\alpha_*$, $\mu\ge\mu_*$, $\mu_d\ge\mu_{d*}$, $\nu_d\ge\nu_*$, and have no zero in $\{1-d\le|w|\le1\}$, where $\alpha,\mu,\mu_d,\nu_d$ are the parameters of $a^{(n)}$. Then the number of nonreal zeros of $Q_n[a^{(n)}]$ equals the number of nonreal zeros of $a^{(n)}$ in $\D$, both counted with multiplicity, all real zeros of $Q_n[a^{(n)}]$ are simple, and every zero $z$ of $Q_n[a^{(n)}](\sqrt n\,\cdot)$ that is not of the form $w+w^{-1}$ with $|w|<1-d$ is real and lies in $(-2-2d^2,2+2d^2)$.
+\end{corollary}
+
+Such an $n_*$ exists, and, as in the discussion after \cite[Theorem~\ref{A-thm:quant}]{CompA}, it can be taken polynomial in $1/d$, $1/\alpha_*$, $1/\mu_*$, $1/\mu_{d*}$ and $1/\nu_*$, up to logarithmic factors, with exponents depending only on $R_0$.
+
+\begin{proof}
+Apply \cite[Theorem~\ref{A-thm:quant}]{CompA} to $a=a^{(n)}$. By \cite[Lemma~\ref{A-lem:outer}]{CompA}(b), its number $k$ of zeros in $\D$ satisfies $k\le k_*$ and $\Upsilon^k\le(\overline M/\alpha)^E\le(\overline M/\alpha_*)^E$. Hence the constants of \cite[Theorem~\ref{A-thm:quant}]{CompA} for $a^{(n)}$ satisfy $C_0'=\overline M\Upsilon^k\le C'_*$, $\mathfrak d_0=(\mu/\overline M)\Upsilon^{-k}\ge\mathfrak d_*$ and $\mu'=\mathfrak d_0\mu\ge\mu'_*$. The number $\kappa=\min\{1,\frac14\log R_0,\mu'R_0^{1/2}(1-\vartheta_0)^2/(6C_0')\}$ is nondecreasing in $\mu'$ and nonincreasing in $C_0'$, so $\kappa\ge\kappa_*$ and condition (i) of \cite[Theorem~\ref{A-thm:quant}]{CompA} holds. In \cite[\eqref{A-eq:bulk-explicit}]{CompA}, with $R=R_1$ fixed, $M_n$ does not depend on $a^{(n)}$, $\Gamma$ and $D_H$ are nondecreasing in $C$ and $D_H$ is nonincreasing in $\kappa$; so each right side is nondecreasing in $C$ and nonincreasing in $\kappa$ and $\mu_S$, and the conditions for $(C_0',\kappa,\mu')$ follow from those for $(C'_*,\kappa_*,\mu'_*)$. Together with $n\ge k_*\ge k$ this is (ii). The right sides of (iii) and (iv) are nondecreasing in $C_0'$ and nonincreasing in $\mathfrak d_0$, $\mu_d$ and $\nu_d$, so (iii) and (iv) follow from the two displayed conditions. \cite[Theorem~\ref{A-thm:quant}]{CompA} gives the conclusion.
+\end{proof}
+
+\begin{remark}\label{rem:moving-rate}
+Under Hypothesis~\ref{hyp:N} with a rate, Corollary~\ref{cor:moving-onset} makes the onset of Theorem~\ref{thm:moving} explicit. Let $\delta_n=\sum_{j\ge0}|a^{(n)}_j-a_j|R_1^j$ (with $a^{(n)}_j=0$ for $j>n$). Then $|a^{(n)}-a|\le\delta_n$ on $\{|w|\le R_1\}$ and $|(a^{(n)})'-a'|\le\delta_n\max_jjR_1^{-j}$ on $\overline\D$, and $a^{(n)}\in\mathcal S(C_0+\delta_n,R_1)$. So the parameters $\alpha,\mu,\mu_d,\nu_d$ of $a^{(n)}$ are within $O(\delta_n)$ of those of $a$, the annulus $\{1-d\le|w|\le1\}$ stays zero-free once $\delta_n<\min_{1-d\le|w|\le1}|a|$, and Corollary~\ref{cor:moving-onset}, applied with $R_1$ in place of $R_0$ and with half the parameters of $a$ as lower bounds, applies as soon as $\delta_n$ is below a fixed multiple of $\min(\alpha,\mu,\mu_d,\nu_d,\min_{1-d\le|w|\le1}|a|)$ and $n$ exceeds the corresponding $n_*$. This is the mechanism of \cite[Theorem~\ref{A-thm:rate}]{CompA}.
+\end{remark}
+
+\section{Varying weights}\label{sec:varying}
+
+The proof of Theorem~\ref{thm:A} in \cite[Sections~{\ref{M-sec:prelim}}--{\ref{M-sec:proof}}]{Main} uses only a few properties of the Hermite polynomials, which we list in Section~\ref{subsec:hermite}. Here we extend it to the orthonormal polynomials of varying weights $e^{-nV}$ whose equilibrium measure is one-cut regular.
+
+Let $V$ be a real polynomial of degree $2m\ge2$ with positive leading coefficient. For $n\ge1$ let $p_{k,n}$ ($k\ge0$) be the orthonormal polynomials for the weight $e^{-nV(x)}\,dx$ on $\R$, with leading coefficients $\gamma_{k,n}>0$, and write
+\begin{equation}\label{eq:vrec}
+x\,p_{k,n}=\rho_{k+1,n}\,p_{k+1,n}+\sigma_{k,n}\,p_{k,n}+\rho_{k,n}\,p_{k-1,n},\qquad\rho_{k,n}=\gamma_{k-1,n}/\gamma_{k,n}>0,\quad\rho_{0,n}=0 .
+\end{equation}
+Let $J^{(n)}$ be the semi-infinite Jacobi matrix with diagonal $(\sigma_{k,n})_{k\ge0}$ and off-diagonal $(\rho_{k,n})_{k\ge1}$, so that $\int y^qp_{k,n}(y)p_{l,n}(y)e^{-nV(y)}dy=(J^{(n)})^q_{kl}$, and let $J_{N,n}$ be its upper left $N\times N$ block.
+
+The equilibrium measure $\mu_V$ is the probability measure on $\R$ that minimises $\iint\log|x-y|^{-1}d\mu(x)\,d\mu(y)+\int V\,d\mu$. There is a constant $\ell_V$ with
+\begin{equation}\label{eq:vEL}
+u_V(x):=2\int\log|x-s|^{-1}\,d\mu_V(s)+V(x)-\ell_V\ \ge\ 0\qquad(x\in\R),
+\end{equation}
+with equality on $\operatorname{supp}\mu_V$ \cite[Theorem~I.1.3]{SaTo}. Following \cite[\S4]{BI}, $V$ is \emph{one-cut regular} if $\operatorname{supp}\mu_V=[\alpha,\beta]$, $d\mu_V(x)=\frac1{2\pi}h(x)\sqrt{(\beta-x)(x-\alpha)}\,dx$ on $[\alpha,\beta]$ with $h>0$ on $[\alpha,\beta]$, and $u_V>0$ on $\R\setminus[\alpha,\beta]$. We put $c=\frac{\alpha+\beta}2$ and $d=\frac{\beta-\alpha}4$, so that $[\alpha,\beta]=[c-2d,c+2d]$. Then
+\begin{equation}\label{eq:vh}
+h(x)=\frac1{2\pi}\int_0^{2\pi}D_V(x,c+2d\cos\theta)\,d\theta,\qquad D_V(x,y)=\frac{V'(x)-V'(y)}{x-y},
+\end{equation}
+which follows from \cite[(4.12)]{BI} by collapsing the contour onto $[\alpha,\beta]$.
+% TODO(author): the pinpoints [SaTo, Thm I.1.3] and [SaTo, Thm III.2.1] (the latter in the proof of Lemma lem:outliers,
+% where the argument is given in full) were not checked against the book. [BI, Sec. 4 and (4.12)] were checked against
+% arXiv:math-ph/0409082.
+Let $r_V(z)=r((z-c)/d)$; it maps $\C\setminus[\alpha,\beta]$ conformally onto $\D\setminus\{0\}$, with inverse $w\mapsto c+d(w+w^{-1})$.
+
+\begin{theorem}\label{thm:varying}
+Let $V$ be one-cut regular and let $a$ be admissible, with zeros $w_1,\dots,w_k$ in $\D$. Put $\zeta_i=c+d(w_i+w_i^{-1})$ and $Q_n=\sum_{j=0}^{n}a_j\,p_{n-j,n}$. For every sufficiently small $\eps>0$ there is $n_0$ such that for $n\ge n_0$ all zeros of $Q_n$ are simple, exactly one of them lies in each disk $|x-\zeta_i|<\eps$, it is real if and only if $w_i$ is real, and the remaining $n-k$ zeros are real and lie in $(\alpha-\eps,\beta+\eps)$.
+\end{theorem}
+
+The proof needs the top recurrence coefficients over a window of $O(\log n)$ indices.
+
+\begin{proposition}\label{prop:RC}
+Let $V$ be one-cut regular. For every $C>0$ and $\eta>0$,
+\[
+\max_{|k|\le C\log n}\bigl(|\rho_{n+k,n}-d|+|\sigma_{n+k,n}-c|\bigr)=O(n^{-1+\eta})\qquad(n\to\infty),
+\]
+and for each fixed $k\in\Z$, $\rho_{n+k,n}=d+O(1/n)$ and $\sigma_{n+k,n}=c+O(1/n)$.
+\end{proposition}
+
+For $\rho_{n,n}$ and $\sigma_{n-1,n}$ this is part of the steepest descent analysis of \cite{DKMVZ}; see \cite[(12.16)]{Bl}. For $k\ne0$ no uniformity of that analysis in the potential is needed: we keep the potential $V$ and change only the degree, and the excess $k$ is absorbed by an explicit factor in the outer parametrix. We include this short argument in Appendix~\ref{app:rc}; we did not find it written.
+
+\begin{remark}\label{rem:RC}
+(a) For $V=x^2/2$ one has $p_{k,n}(x)=(n/2\pi)^{1/4}h_k(\sqrt n\,x)$, $\rho_{k,n}=\sqrt{k/n}$, $\sigma_{k,n}=0$ and $[\alpha,\beta]=[-2,2]$, and Theorem~\ref{thm:varying} is Theorem~\ref{thm:A}.
+
+(b) \cite[Proposition~5.1]{BI} asserts the stronger statement $\rho_{k,n}=d(k/n)+O(n^{-1})$, $\sigma_{k,n}=c(k/n)+O(n^{-1})$ uniformly for $|k/n-1|\le\eps$, where $c(s)\pm2d(s)$ are the endpoints of the support of $\mu_{V/s}$; there the uniformity in $k/n$ is sketched, and Proposition~\ref{prop:RC} covers the window needed here.
+
+(c) Let $V=\kappa x^{2m}$ with $\kappa>0$. Then $V$ is one-cut regular: the support is an interval \cite[Theorem~IV.1.10]{SaTo}, symmetric, so $c=0$; $h>0$ by \eqref{eq:vh} since $D_V(x,y)>0$ for $(x,y)\ne(0,0)$, and $u_V$ is strictly convex on $[\beta,\infty)$ (as $u_V''=V''+2\int(x-s)^{-2}d\mu_V(s)$), vanishes at $\beta$ and is nonnegative, so it is positive on $(\beta,\infty)$; likewise on $(-\infty,\alpha)$. Moreover $\sigma_{k,n}=0$ and $\rho_{k,n}=\alpha_k(n\kappa)^{-1/(2m)}$, where $\alpha_k$ are the recurrence coefficients of the fixed weight $e^{-u^{2m}}$. Freud's conjecture $\alpha_k\sim\frac12[\Gamma(m)\Gamma(\frac12)/\Gamma(m+\frac12)]^{1/(2m)}k^{1/(2m)}$, proved in \cite{Ma,LMS}, gives $\rho_{k,n}\to d'$ along every sequence with $k/n\to1$, where $m\kappa\binom{2m}m d'^{2m}=1$; and $d'=d$ by the endpoint equations \cite[(4.13)]{BI}. This is all that the proof below uses of Proposition~\ref{prop:RC}, so for these $V$ Theorem~\ref{thm:varying} needs no Riemann--Hilbert analysis. In terms of the orthonormal polynomials $\pi_k$ of $e^{-u^{2m}}$: after the scaling $u=(n\kappa)^{1/(2m)}x$ the combinations $\sum_{j\le n}a_j\pi_{n-j}$ have the zero structure of Theorem~\ref{thm:varying}.
+% TODO(author): [SaTo, Thm IV.1.10] (the support of a convex external field is an interval) was not checked against
+% the book. [BI, (4.13)] was read in arXiv:math-ph/0409082: T_j = 2 delta_{jq}, which for one cut and V = kappa x^{2m}
+% collapses to m*kappa*binom(2m,m)*d^{2m} = 1. The bibliographic data of [Ma] and [LMS] are confirmed.
+\end{remark}
+
+The proof of Theorem~\ref{thm:varying} follows \cite[Sections~{\ref{M-sec:prelim}}--{\ref{M-sec:proof}}]{Main}. We first prove three lemmas, which replace the Hermite-specific steps.
+
+\begin{lemma}[Ladder identity]\label{lem:ladder}
+For $k\ge1$, $p_{k,n}'=n\,\Phi_{k,n}\,p_{k-1,n}-n\,\Psi_{k,n}\,p_{k,n}$, where
+\[
+\Phi_{k,n}(x)=\rho_{k,n}\bigl[D_V(x,J^{(n)})\bigr]_{kk},\qquad\Psi_{k,n}(x)=\rho_{k,n}\bigl[D_V(x,J^{(n)})\bigr]_{k,k-1}
+\]
+are polynomials in $x$ of degree at most $2m-2$ whose coefficients are polynomials in the $\rho_{i,n},\sigma_{i,n}$ with $|i-k|\le2m$. Let $\Phi=d\,h$ and $\Psi(x)=\frac d{2\pi}\int_0^{2\pi}D_V(x,c+2d\cos\theta)\cos\theta\,d\theta$. For every compact $I\subset\R$ and every $B$ there is $C_{I,B}$ such that, if $k\ge2m$ and $|\rho_{i,n}-d|+|\sigma_{i,n}-c|\le\eta\le B$ for $|i-k|\le2m$, then $|\Phi_{k,n}-\Phi|+|\Psi_{k,n}-\Psi|\le C_{I,B}\,\eta$ on $I$.
+\end{lemma}
+
+\begin{proof}
+Write $p_{k,n}'=\sum_{l<k}c_lp_{l,n}$. Integration by parts gives $c_l=n\int V'p_{k,n}p_{l,n}e^{-nV}$, so $p_{k,n}'(x)=n\int(V'(y)-V'(x))p_{k,n}(y)K_k(x,y)e^{-nV(y)}dy$ with $K_k(x,y)=\sum_{l<k}p_{l,n}(x)p_{l,n}(y)$; the term with $V'(x)$ vanishes by orthogonality. The Christoffel--Darboux formula \cite[Theorem~3.2.2]{Sz}
+\[
+(x-y)K_k(x,y)=\rho_{k,n}\bigl(p_{k,n}(x)p_{k-1,n}(y)-p_{k-1,n}(x)p_{k,n}(y)\bigr)
+\]
+gives the identity with
+\begin{align*}
+\Phi_{k,n}(x)&=\rho_{k,n}\int D_V(x,y)\,p_{k,n}(y)^2e^{-nV(y)}\,dy,\\
+\Psi_{k,n}(x)&=\rho_{k,n}\int D_V(x,y)\,p_{k,n}(y)p_{k-1,n}(y)e^{-nV(y)}\,dy,
+\end{align*}
+which are the stated matrix entries. They are polynomials in the coefficients, hence Lipschitz on bounded sets. If all the coefficients involved equal $(d,c)$, then $(J^{(n)})^q_{kl}$ is the $(k-l)$-th Fourier coefficient of $(c+2d\cos\theta)^q$, because the bi-infinite Jacobi matrix with constant entries is the Laurent operator with symbol $c+2d\cos\theta$; so $\Phi_{k,n}=\Phi$ by \eqref{eq:vh}, and $\Psi_{k,n}=\Psi$.
+\end{proof}
+
+\begin{lemma}[Location of zeros]\label{lem:outliers}
+(a) There is $C_V$ such that for all $n\ge1$ and $k\le2n+1$ the zeros of $p_{k,n}$ lie in $[-C_V,C_V]$. Hence $\|J_{2n+1,n}\|\le C_V$, and $|\sigma_{k,n}|,\rho_{k,n}\le C_V$ for $k\le2n$.
+
+(b) Let $V$ be one-cut regular. For every $\eps>0$ there is $n_\eps$ such that for $n\ge n_\eps$ the zeros of $p_{n,n}$ and of $p_{n+1,n}$ lie in $(\alpha-\eps,\beta+\eps)$.
+\end{lemma}
+
+\begin{proof}
+If $x_0$ is a zero of $p_{N,n}$ and $q=p_{N,n}/(x-x_0)$, then $\int(x-x_0)q^2e^{-nV}=0$. We show that otherwise $q^2e^{-nV}$ would have almost all its mass, weighted by $1+|x|$, on one side of $x_0$. Write $\|q\|^2=\int q^2e^{-nV}$, and recall that $\sup_Iq^2\le\frac{(N+1)^2}{|I|}\int_Iq^2$ for $\deg q\le N$ and an interval $I$ (expand $q$ in normalised Legendre polynomials of $I$).
+
+(a) Let $N\le2n+1$, so that $\deg q\le2n$, and $V^*=\max_{[-1,1]}V$. For $|x|\ge1$, $|q(x)|\le(2|x|)^{2n}\sup_{[-1,1]}|q|$ by the extremal property of Chebyshev polynomials, and $\sup_{[-1,1]}q^2\le\frac{(2n+1)^2}2e^{nV^*}\|q\|^2$. Choose $X\ge1$, depending only on $V$, with $V(x)-V^*-4\log(2|x|)\ge1+\log(2+|x|)$ for $|x|\ge X$. Then for $n\ge3$, $\int_{|x|\ge X}(1+|x|)q^2e^{-nV}\le(2n+1)^2e^{-n}\|q\|^2=:\delta_n\|q\|^2$. If $x_0\ge X+1$, then $x-x_0\le-1$ for $x<X$ and $x-x_0\le|x|$ for $x\ge X$, so $0\le-(1-2\delta_n)\|q\|^2$, which is impossible once $\delta_n<\frac12$; likewise for $x_0\le-X-1$. Finitely many $n$ remain. The entries of the symmetric matrix $J_{2n+1,n}$ are bounded by its norm, the largest modulus of a zero of $p_{2n+1,n}$.
+
+(b) Let $U(x)=\int\log|x-s|^{-1}d\mu_V(s)$, which is continuous because $\mu_V$ has a bounded density, and $\phi=U+\frac V2-\frac{\ell_V}2=\frac12u_V$. Then $\phi=0$ on $[\alpha,\beta]$, $\phi>0$ off $[\alpha,\beta]$, and $\phi(x)\ge\frac{V(x)}2-\log(|x|+|\alpha|+|\beta|)-\frac{\ell_V}2$, so $\int(1+|x|)e^{-\phi}<\infty$. Let $\deg q\le n$ and $M=\sup_{[\alpha,\beta]}|q|e^{-nV/2}$. The function $\frac1n\log|q|+U$ is subharmonic in $\overline\C\setminus[\alpha,\beta]$ (bounded above at $\infty$ since $\deg q\le n$) and at most $\frac1n\log M+\frac{\ell_V}2$ on $[\alpha,\beta]$, so by the maximum principle $|q(x)|e^{-nV(x)/2}\le Me^{-n\phi(x)}$ for real $x$ \cite[Theorem~III.2.1]{SaTo}. With $L=\max_{[\alpha-1,\beta+1]}|V'|$, comparison with $\int_{x_*-1/n}^{x_*+1/n}q^2$ at a point $x_*\in[\alpha,\beta]$ where $M$ is attained gives $M^2\le\frac{e^L}2n(n+1)^2\|q\|^2$. Now let $x_0\ge\beta+\eps$ be a zero of $p_{N,n}$, $N\le n+1$, $q=p_{N,n}/(x-x_0)$, $\mathcal O=\R\setminus(\alpha-\frac\eps2,\beta+\frac\eps2)$ and $\eta=\min_{\mathcal O}\phi>0$. Since $2n\phi\ge n\eta+\phi$ on $\mathcal O$, $\int_{\mathcal O}(1+|x|)q^2e^{-nV}\le\delta_n\|q\|^2$ with $\delta_n=\frac{e^L}2n(n+1)^2e^{-n\eta}\int(1+|x|)e^{-\phi}\to0$. As $x-x_0\le-\frac\eps2$ for $x<\beta+\frac\eps2$, this gives $0\le-\frac\eps2(1-\delta_n)\|q\|^2+\delta_n\|q\|^2<0$ for large $n$. Likewise for $x_0\le\alpha-\eps$.
+\end{proof}
+
+\begin{lemma}[Perturbed transfer matrices]\label{lem:perturbed}
+Let $\kappa>0$, $y\in\R$ with $|y|\le\cosh\kappa$, $T_0=\begin{pmatrix}0&1\\-1&2y\end{pmatrix}$, and let $\Delta_1,\dots,\Delta_l$ be real $2\times2$ matrices of norm at most $\eps\le\frac1{16}$. Then $\|(T_0+\Delta_l)\cdots(T_0+\Delta_1)\|\le8(l+1)e^{l(\kappa+4\sqrt\eps)}$.
+\end{lemma}
+
+\begin{proof}
+Since $T_0^p=\begin{pmatrix}-U_{p-2}(y)&U_{p-1}(y)\\-U_{p-1}(y)&U_p(y)\end{pmatrix}$, \cite[Lemma~\ref{M-lem:chebyshev}]{Main} gives $\|T_0^p\|\le4(p+1)e^{p\kappa}$ for $p\ge0$. Let $\Pi_l$ be the product and $u_l=e^{-l\kappa}\|\Pi_l\|$. The identity $\Pi_l=T_0^l+\sum_{i=1}^lT_0^{l-i}\Delta_i\Pi_{i-1}$ gives $u_l\le4(l+1)+4\eps\sum_{i=1}^l(l-i+1)u_{i-1}$. Let $\lambda=1+4\sqrt\eps$. If $u_i\le8(i+1)\lambda^i$ for $i<l$, then
+\[
+\sum_{i=1}^l(l-i+1)u_{i-1}\le8\sum_{q=1}^lq(l-q+1)\lambda^{l-q}\le8(l+1)\lambda^l\sum_{q\ge1}q\lambda^{-q}=8(l+1)\lambda^l\frac{\lambda}{16\eps},
+\]
+so $u_l\le4(l+1)+2\lambda(l+1)\lambda^l\le8(l+1)\lambda^l$. Finally $\lambda^l\le e^{4l\sqrt\eps}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:varying}]
+We list the changes in \cite[Sections~{\ref{M-sec:prelim}}--{\ref{M-sec:proof}}]{Main}. The variable is $x$ itself, $Q_n'/\sqrt n$ is replaced by $Q_n'/n$, and the intervals $[-2,2]$, $[-L,L]$ by $[\alpha,\beta]$ and $I_\kappa=[c-2d\cosh\kappa,c+2d\cosh\kappa]$. We write $v_n=(p_{n,n},p_{n-1,n})^T$ and $\vec p_n=(p_{0,n},\dots,p_{n-1,n})^T$, so that $(x-J_{n,n})\vec p_n(x)=\rho_{n,n}p_{n,n}(x)e_{n-1}$ by \eqref{eq:vrec}. Proposition~\ref{prop:RC} is used at fixed offsets, and in the backward recurrence on the window $|k|\le C\log n$.
+
+\emph{Preliminaries (\cite[Section~\ref{M-sec:prelim}]{Main}).} \cite[Lemma~\ref{M-lem:zeros}]{Main} holds with $J_{N,n}$ in place of $J_m$, except for the bound on the zeros, with the same proof (it uses only $\rho_{k,n}>0$); in particular $v_n(x)\ne0$ for real $x$. \cite[Lemma~\ref{M-lem:quadrature}]{Main} holds with the zeros of $p_{n+1,n}$ as nodes, for every positive weight with finite moments \cite[Theorems~3.4.1--3.4.2]{Sz}, \cite[Lemma~\ref{M-lem:constancy}]{Main} holds verbatim, and so does \cite[Lemma~\ref{M-lem:quasi}]{Main} for $P=\sum_{j\le k}c_jp_{n-j,n}$; by Lemma~\ref{lem:outliers}(b) the extreme zeros of $p_{n+1,n}$ lie in $(\alpha-\eps,\beta+\eps)$ for $n\ge n_\eps$. \cite[Lemma~\ref{M-lem:resolvent}]{Main} becomes: if $z\notin\operatorname{spec}J_{n,n}$, then $p_{n,n}(z)\ne0$ and $\vec p_n(z)/(\rho_{n,n}p_{n,n}(z))=(z-J_{n,n})^{-1}e_{n-1}$. In \cite[Lemma~\ref{M-lem:colleague}]{Main}, $Q=\sum_{j\le n}a_jp_{n-j,n}$ and $C=J_{n,n}-\frac{\rho_{n,n}}{a_0}e_{n-1}b^T$ satisfy $\det(zI-C)=Q(z)/(a_0\gamma_{n,n})$, by the matrix determinant lemma with $\det(zI-J_{n,n})=p_{n,n}(z)/\gamma_{n,n}$ and $\operatorname{adj}(zI-J_{n,n})e_{n-1}=\vec p_n(z)/(\gamma_{n,n}\rho_{n,n})$; by Lemma~\ref{lem:outliers}(a) every zero of $Q$ has $|z|\le C_V\bigl(1+|a_0|^{-1}(\sum_{j\ge1}a_j^2)^{1/2}\bigr)$. \cite[Lemma~\ref{M-lem:limit}]{Main} is used at $z=(x-c)/d$.
+
+\emph{Christoffel--Darboux bound (replaces \cite[Lemma~\ref{M-lem:cd}]{Main}).} By the confluent Christoffel--Darboux formula \cite[Theorem~3.2.2]{Sz}, $K_n(x):=\sum_{k<n}p_{k,n}(x)^2$ equals $\rho_{n,n}(p_{n,n}'p_{n-1,n}-p_{n,n}p_{n-1,n}')$. Lemma~\ref{lem:ladder} for $k=n,n-1$ and \eqref{eq:vrec} for $k=n-1$ give
+\[
+\frac{K_n}n=\rho_{n,n}\Phi_{n,n}\,p_{n-1,n}^2+\frac{\rho_{n,n}^2\Phi_{n-1,n}}{\rho_{n-1,n}}\,p_{n,n}^2+\rho_{n,n}\Bigl(\Psi_{n-1,n}-\Psi_{n,n}-\frac{(x-\sigma_{n-1,n})\Phi_{n-1,n}}{\rho_{n-1,n}}\Bigr)p_{n,n}p_{n-1,n}.
+\]
+For every compact $I$, $B_I=\sup_{n\ge2m}\max_{1\le k\le n}\sup_I(|\Phi_{k,n}|+|\Psi_{k,n}|)$ is finite by Lemmas~\ref{lem:ladder} and~\ref{lem:outliers}(a) (the indices involved are at most $n+2m\le2n$). As $\rho_{n,n}\le C_V$, $|\sigma_{n-1,n}|\le C_V$ and $\rho_{n-1,n}\ge d/2$ for large $n$ (Proposition~\ref{prop:RC}), the coefficients are bounded on $I$, and $K_n(x)\le C_In\|v_n(x)\|^2$ for $x\in I$ and $n\ge n_I$.
+
+\emph{Backward recurrence (replaces \cite[Lemmas~{\ref{M-lem:continuant}}--{\ref{M-lem:transfer}}]{Main}).} Define $A_{n,j},B_{n,j}$ for $0\le j\le n$ by the initial values $(A_{n,0},B_{n,0})=(1,0)$, $(A_{n,1},B_{n,1})=(0,1)$ and by $\rho_{n-j+1,n}X_j=(x-\sigma_{n-j+1,n})X_{j-1}-\rho_{n-j+2,n}X_{j-2}$, which is \eqref{eq:vrec} at $k=n-j+1$. Then $p_{n-j,n}=A_{n,j}p_{n,n}+B_{n,j}p_{n-1,n}$, and
+\[
+\begin{pmatrix}A_{n,j-1}&B_{n,j-1}\\A_{n,j}&B_{n,j}\end{pmatrix}=T_{n,j}\cdots T_{n,2},\qquad T_{n,i}=\begin{pmatrix}0&1\\-\rho_{n-i+2,n}/\rho_{n-i+1,n}&(x-\sigma_{n-i+1,n})/\rho_{n-i+1,n}\end{pmatrix}.
+\] With $(\rho,\sigma)\equiv(d,c)$ the recurrence is the free one in the variable $z=(x-c)/d$, so for fixed $j$, $A_{n,j}\to A_j((x-c)/d)$ and $B_{n,j}\to B_j((x-c)/d)$ uniformly on compact sets, by Proposition~\ref{prop:RC}. Fix $C>0$ and let $\eta_n=\max_{0\le r\le 2C\log n}(|\rho_{n-r,n}-d|+|\sigma_{n-r,n}-c|)$, which tends to $0$ by Proposition~\ref{prop:RC}. If $\eta_n\le d/2$ and $|x-c|\le2d\cosh\kappa$, then $|\rho'/\rho-1|\le4\eta_n/d$ and $|\frac{x-\sigma}\rho-\frac{x-c}d|\le\frac{2\eta_n}d(1+2\cosh\kappa)$ for the entries of $T_{n,i}$, $i\le2C\log n+1$, so $\|T_{n,i}-T_0(\frac{x-c}{2d})\|\le\eps_n:=(6+4\cosh\kappa)\eta_n/d$. By Lemma~\ref{lem:perturbed}, once $\eps_n\le\frac1{16}$ and $C\log n+2\le2C\log n$,
+\begin{equation}\label{eq:vtransfer}
+|A_{n,j}(x)|+|B_{n,j}(x)|\le16(j+1)e^{j(\kappa+4\sqrt{\eps_n})}\qquad(0\le j\le C\log n+2,\ |x-c|\le2d\cosh\kappa).
+\end{equation}
+
+\emph{Bulk (replaces \cite[Proposition~\ref{M-prop:bulk}]{Main}).} Let $(a_s)$ satisfy (H1), (H2) and (H4) of \cite[Hypothesis~\ref{M-hyp:H}]{Main}, and let $Q_n^s=\sum_{j\le n}a_j(s)p_{n-j,n}$. We show that there are $\kappa>0$, $c_0>0$ and $n_1$ with $Q_n^s(x)^2+(Q_n^s{}'(x)/n)^2\ge c_0^2\|v_n(x)\|^2>0$ for $n\ge n_1$, $s\in[0,1]$ and $x\in I_\kappa$. By Lemma~\ref{lem:ladder}, $p_{n-j,n}'/n=\Phi_{n-j,n}p_{n-j-1,n}-\Psi_{n-j,n}p_{n-j,n}$, so for $M\le n-1$ the head $Q_{n,M}=\sum_{j\le M}a_jp_{n-j,n}$ satisfies $(Q_{n,M},Q_{n,M}'/n)^T=H_{n,M}[a]v_n$, now with
+\[
+G_{n,j}(x)=\begin{pmatrix}1&0\\-\Psi_{n-j,n}&\Phi_{n-j,n}\end{pmatrix}\begin{pmatrix}A_{n,j}&B_{n,j}\\A_{n,j+1}&B_{n,j+1}\end{pmatrix}\to\begin{pmatrix}1&0\\-\Psi&\Phi\end{pmatrix}G_j\Bigl(\frac{x-c}d\Bigr)
+\]
+for fixed $j$, uniformly on compact sets (Lemma~\ref{lem:ladder} and Proposition~\ref{prop:RC}). Hence the limiting head matrix is $\widetilde H_a(x)=\begin{pmatrix}1&0\\-\Psi&\Phi\end{pmatrix}H_a(\frac{x-c}d)$, and by \cite[Lemma~\ref{M-lem:limit}]{Main} $\det\widetilde H_a(c+2d\cos\theta)=d\,h(c+2d\cos\theta)\,|a(e^{i\theta})|^2$. The proof of \cite[Proposition~\ref{M-prop:bulk}]{Main} then goes through with these changes. Fix $\kappa_0\in(0,1]$ with $e^{\kappa_0}<R_0$, and let $\mu$ be as there, $\Phi_{\min}=\min_{[\alpha,\beta]}d\,h>0$ and $B=B_{I_1}$. By continuity there is $\kappa\in(0,\kappa_0/2]$ with $\det\widetilde H_{a_s}(x)\ge\mu^2\Phi_{\min}/2$ for $s\in[0,1]$, $x\in I_\kappa$; let $\Gamma$ be the supremum of $\|\widetilde H_{a_s}(x)\|$ there. Fix $\ell>1/(2\log R_0)$, $M_n=\lceil\ell\log n\rceil$, and apply \eqref{eq:vtransfer} with $C=\ell+1$. For $j\le M_n$ and large $n$ it gives $\|G_{n,j}(x)\|\le32(1+B)(j+2)e^{(j+1)\kappa_1}$ with $\kappa_1=\kappa+4\sqrt{\eps_n}\le\kappa_0$, and \cite[Lemma~\ref{M-lem:chebyshev}]{Main} gives the same bound for the limits; with the fixed-$j$ convergence, the head converges uniformly in $s$ and $x\in I_\kappa$ exactly as in \cite[\eqref{M-eq:head-conv}]{Main}, so for large $n$, $\|H_{n,M_n}[a_s](x)u\|\ge2c_0\|u\|$ with $2c_0=\mu^2\Phi_{\min}/(4(\Gamma+1))$. For the tail $E=\sum_{j>M_n}a_j(s)p_{n-j,n}$ we have $E'/n=\sum_{M_n<j<n}a_j(s)(\Phi_{n-j,n}p_{n-j-1,n}-\Psi_{n-j,n}p_{n-j,n})$, so by Cauchy--Schwarz and the Christoffel--Darboux bound on $I_\kappa$,
+\[
+\|(E,E'/n)\|\le(1+2B)\Bigl(\sum_{j>M_n}a_j(s)^2\Bigr)^{1/2}K_n(x)^{1/2}\le(1+2B)\frac{C_0R_0^{-M_n}}{(1-R_0^{-2})^{1/2}}\sqrt{C_{I_\kappa}n}\,\|v_n(x)\|,
+\]
+which is $o(\|v_n(x)\|)$ as $\ell\log R_0>\frac12$. The conclusion is as there. In particular $Q_n^s$ has no multiple real zero in $I_\kappa\supset[\alpha,\beta]$.
+
+\emph{Exterior (replaces \cite[Proposition~\ref{M-prop:exterior}]{Main}).} Let $(a_s)$ satisfy (H1) and let $K\subset\C\setminus[\alpha,\beta]$ be compact; we show $\sup_{s,z\in K}|Q_n^s(z)/p_{n,n}(z)-a_s(r_V(z))|\to0$. Let $\delta_K=\dist(K,[\alpha,\beta])$ and $\varrho=\max_K|r_V|<1$. By Lemma~\ref{lem:outliers}(b), for large $n$ the spectrum of $J_{n,n}$ has distance at least $\delta_K/2$ from $K$, so $p_{n,n}\ne0$ on $K$. On $\ell^2(\{0,1,\dots\})$ let $T_\infty$ have diagonal $c$ and off-diagonal $d$, and let $T_n$ be $J_{n,n}$ with the order of the basis reversed, direct-summed with $c\,I$: $T_ne_i=\rho_{n-i,n}e_{i-1}+\sigma_{n-1-i,n}e_i+\rho_{n-1-i,n}e_{i+1}$ for $i\le n-1$ (with $e_{-1}=0$ and $\rho_{0,n}=0$) and $T_ne_i=ce_i$ for $i\ge n$. Both are self-adjoint, and $\operatorname{spec}T_n=\operatorname{spec}J_{n,n}\cup\{c\}$ has distance at least $\delta_K/2$ from $K$. By the preliminaries, $u=(z-T_n)^{-1}e_0$ has $u_i=p_{n-1-i,n}(z)/(\rho_{n,n}p_{n,n}(z))$ for $i<n$ and $u_i=0$ for $i\ge n$, and $y=(z-T_\infty)^{-1}e_0$ has $y_i=w^{i+1}/d$ with $w=r_V(z)$, since $z-c=d(w+w^{-1})$. So $\|u-y\|\le\frac2{\delta_K}\|(T_n-T_\infty)y\|$. The entries of $T_n-T_\infty$ are at most $C_V+|c|+d$ (Lemma~\ref{lem:outliers}(a)), and in the rows $i\le L$ at most $\eta_{n,L}=\max_{0\le r\le L+1}(|\rho_{n-r,n}-d|+|\sigma_{n-r,n}-c|)$. As $|y_i|\le\varrho^{i+1}/d$,
+\[
+\|(T_n-T_\infty)y\|\le\frac3d(1-\varrho^2)^{-1/2}\bigl(\eta_{n,L}+(C_V+|c|+d)\varrho^{L}\bigr),
+\]
+which is small if $L$ is chosen first and then $n$ (Proposition~\ref{prop:RC}). Finally $Q_n^s(z)/p_{n,n}(z)=a_0+\rho_{n,n}\sum_{j\ge1}a_j(s)u_{j-1}$ and $a_s(r_V(z))=a_0+d\sum_{j\ge1}a_j(s)y_{j-1}$, and the difference is at most $\|a_s\|_{\ell^2}(\rho_{n,n}\|u-y\|+|\rho_{n,n}-d|\,\|y\|)$.
+
+\emph{Counting (\cite[Section~\ref{M-sec:proof}]{Main}).} The deformation $a_s=p_{\mathrm{in}}\,p_{\mathrm{out}}(s\,\cdot)$, \cite[Hypothesis~\ref{M-hyp:H}]{Main} and the final count are verbatim, with $\zeta_i=c+d(w_i+w_i^{-1})$, $F_s=a_s\circ r_V$, $\widehat Q_{n,s}=Q_n^s$ (of degree $n$, with leading coefficient $a_0\gamma_{n,n}$), $\delta_0$ the minimum of $\dist(\zeta_i,[\alpha,\beta])$, $|\zeta_i-\zeta_{i'}|$ and $|\im\zeta_i|$, $U=\{z:\dist(z,[\alpha,\beta])<\eps\}$, $\varrho_0=C_V(1+|a_0|^{-1}C_0(1-R_0^{-2})^{-1/2})$, and $0<\eps<\min(1,2d(\cosh\kappa-1),\delta_0/3)$, so that $U\cap\R=(\alpha-\eps,\beta+\eps)$ lies in the interior of $I_\kappa$. The fact that $h_n(\sqrt n\,\cdot)$ has no zeros off $[-2,2]$ is replaced by Lemma~\ref{lem:outliers}(b): for $n\ge n_\eps$, $p_{n,n}$ has no zeros in $K$ or in the disks $D_i$, which is what (i) and the Rouch\'e step (ii) there use. At $s=0$, \cite[Lemma~\ref{M-lem:quasi}]{Main} places $n-k$ real zeros between the extreme zeros of $p_{n+1,n}$, which lie in $U$ for $n\ge n_\eps$.
+\end{proof}
+
+\section{Coefficient profiles}\label{sec:profiles}\label{subsec:profiles}
+
+The identity \eqref{eq:heat-hermite} is not specific to the weights $1/\sqrt{k!}$: under the heat flow every real polynomial becomes a combination of Hermite polynomials. What depends on the weights is whether the reversed coefficients of that combination converge.
+
+\subsection{Results used}\label{subsec:used}
+As in Sections~\ref{sec:intro} and~\ref{subsec:moving}, $r$ is the inverse of the Joukowski map and $Q_n[b]=\sum_{j=0}^{n}b_jh_{n-j}$ for a real sequence $b=(b_j)_{j\ge0}$. Symbols that depend on $n$ are treated in Section~\ref{subsec:moving}: under Hypothesis~\ref{hyp:N} the conclusion of Theorem~\ref{thm:A} holds for $Q_n[a^{(n)}]$ in place of $Q_n$ (Theorem~\ref{thm:moving}). We recall the results of \cite{Main} on the heat flow that we use.
+
+\emph{A fixed power series.} Let $(\eta_j)_{j\ge0}$ be real, not all zero, let $q$ be as in \eqref{eq:kac}, with radius of convergence $\rho_q\in(0,\infty]$, let $Z_q$ be the set of zeros of $q$ in $\{0<|w|<\rho_q\}$, and put
+\begin{equation}\label{eq:Rstar-det}
+R_*=\inf\{|u|:\ u\in Z_q\setminus\R\}\in(0,\rho_q],\qquad T_*=R_*^{-2}\in[0,\infty),
+\end{equation}
+with $R_*=\rho_q$ if $Z_q\subset\R$, and $\infty^{-2}=0$. When $\rho_q=1$ and $q$ has a nonreal zero in $\D$, this agrees with \eqref{eq:Rstar}. With $P_{n,t}$ and $\Lambda_n$ as in \eqref{eq:reversed}, \cite[Theorem~\ref{M-thm:fixedq}]{Main} shows the following. If $t>0$, $\sqrt t\,\rho_q>1$, $q$ has no zero on $\{|w|=t^{-1/2}\}$ and all zeros of $q$ in $\{0<|w|<t^{-1/2}\}$ are simple, then for large $n$ the zeros of $P_{n,t}$ are those described by Theorem~\ref{thm:A} for the symbol $q(\cdot/\sqrt t)$, multiplied by $\sqrt t$. If the real zeros $u\in Z_q$ with $|u|<R_*$ are simple, then $\limsup_n\Lambda_n\le T_*$; and if $R_*<\rho_q$, then $\liminf_n\Lambda_n\ge T_*$.
+
+\emph{The heat flow.} For a real polynomial $p\not\equiv0$ and $s\ge0$, the polynomial $\exp(-s\partial_z^2)p$ has the degree and the leading coefficient of $p$, and at most as many nonreal zeros as $p$. Hence, for every real polynomial $P\not\equiv0$ of degree at most $n$, the set of $t\ge0$ at which $\exp(-\frac t{2n}\partial_z^2)P$ has only real zeros is a closed interval $[\Lambda,\infty)$ \cite[Lemma~\ref{M-lem:heat}(b),(c)]{Main}.
+
+\emph{Random coefficients.} Let $\eta_0,\eta_1,\dots$ be independent with a common law $\mu$ that is not a point mass and satisfies $\int\log^+|x|\,d\mu(x)<\infty$. Almost surely $q$ has radius of convergence $1$, and all its zeros in $\D\setminus\{0\}$ are simple \cite[Lemma~\ref{M-lem:resample} and the paragraph before it]{Main}. Let $\mathcal E$ be the set of $t>1$ for which $q$ has a zero on the circle $\{|w|=t^{-1/2}\}$ with positive probability; it is countable, and it is empty if $\mu$ has no atoms \cite[Lemma~\ref{M-lem:circle}]{Main}. If moreover $\int x^2\,d\mu<\infty$, then almost surely $q$ has infinitely many nonreal zeros in $\D$ \cite[Proposition~\ref{M-prop:nonreal}]{Main}, so that $R_*$ and $T_*$ in \eqref{eq:Rstar} are defined.
+
+\subsection{The identity and a fixed power series}\label{subsec:identity}
+Let $c_{k,n}$, $0\le k\le n$, be real numbers with $c_{n,n}\ne0$, let $(\eta_j)_{j\ge0}$ be real, and put
+\begin{equation}\label{eq:profile-poly}
+P_n(z)=\sum_{k=0}^{n}\eta_{n-k}\,c_{k,n}\,z^k,\qquad P_{n,t}=\exp\Bigl(-\frac t{2n}\partial_z^2\Bigr)P_n,
+\end{equation}
+and
+\begin{equation}\label{eq:dnj}
+d^{(n)}_j=\frac{c_{n-j,n}}{c_{n,n}}\prod_{r=0}^{j-1}\Bigl(1-\frac rn\Bigr)^{-1/2}\qquad(0\le j\le n).
+\end{equation}
+For the Weyl profile $c_{k,n}=n^{k/2}/\sqrt{k!}$ this is \eqref{eq:reversed}, and $d^{(n)}_j=1$.
+
+\begin{lemma}\label{lem:profile-identity}
+For $t>0$,
+\begin{equation}\label{eq:profile-heat}
+P_{n,t}(z)=c_{n,n}\Bigl(\frac tn\Bigr)^{n/2}\sqrt{n!}\;Q^{(n,t)}_n\Bigl(\sqrt{\tfrac nt}\,z\Bigr),\qquad Q^{(n,t)}_n=\sum_{j=0}^{n}\eta_j\,t^{-j/2}d^{(n)}_j\,h_{n-j}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By \cite[Lemma~\ref{M-lem:heat}(a)]{Main} and its proof,
+\[
+\exp\Bigl(-\frac t{2n}\partial_z^2\Bigr)z^k=n^{-k/2}t^{k/2}\He_k\bigl(\sqrt{n/t}\,z\bigr)=\Bigl(\frac tn\Bigr)^{k/2}\sqrt{k!}\,h_k\bigl(\sqrt{n/t}\,z\bigr).
+\]
+So $P_{n,t}$ is $\sum_j\eta_jb_{n-j}h_{n-j}(\sqrt{n/t}\,z)$ with $b_k=c_{k,n}(t/n)^{k/2}\sqrt{k!}$, and $b_{n-j}/b_n=t^{-j/2}d^{(n)}_j$ because $\sqrt{(n-j)!/n!}=n^{-j/2}\prod_{r<j}(1-r/n)^{-1/2}$.
+\end{proof}
+
+So $P_{n,t}$ corresponds to the symbol $a^{(n,t)}_j=\eta_jt^{-j/2}d^{(n)}_j$, which depends on $n$, and Theorem~\ref{thm:A} is replaced by its version for symbols that depend on $n$, Theorem~\ref{thm:moving}. Put
+\begin{equation}\label{eq:tc}
+t_c=\inf\Bigl\{s>0:\ \sup_{n\ge1}\max_{0\le j\le n}|d^{(n)}_j|\,s^{-j/2}<\infty\Bigr\}\in[0,\infty].
+\end{equation}
+The set of such $s$ is an interval unbounded above, so for every $s>t_c$ there is $C_s$ with $|d^{(n)}_j|\le C_ss^{j/2}$ for all $n$ and $j\le n$.
+
+\begin{theorem}[A coefficient profile and a fixed power series]\label{thm:profile}
+Let $(\eta_j)$ be real with $\eta_0\ne0$, and let $q(u)=\sum_j\eta_ju^j$ have radius of convergence $\rho_q\ge1$. Suppose that
+\begin{enumerate}
+\item[(P1)] $d^{(n)}_j\to\delta_j$ as $n\to\infty$ for every $j$, with $\delta_0=1$;
+\item[(P2)] $t_c<\infty$.
+\end{enumerate}
+Let $q_\delta(u)=\sum_j\eta_j\delta_ju^j$, whose radius of convergence is at least $t_c^{-1/2}$, and let $R_*^\delta$ and $T_*^\delta=(R_*^\delta)^{-2}$ be defined for $q_\delta$ as in \eqref{eq:Rstar-det}. Let $\Lambda_n$ be the real-rooting time of $P_{n,t}$.
+\begin{enumerate}
+\item[(a)] Let $t>t_c$ be such that $q_\delta$ has no zero on $\{|u|=t^{-1/2}\}$ and only simple zeros in $\{0<|u|<t^{-1/2}\}$. For every sufficiently small $\eps>0$ there is $n_0$ such that for $n\ge n_0$: all zeros of $P_{n,t}$ are simple; for each zero $u$ of $q_\delta$ with $|u|<t^{-1/2}$, exactly one zero of $P_{n,t}$ lies within distance $\eps$ of $tu+u^{-1}$, and it is real if and only if $u$ is real; all other zeros of $P_{n,t}$ are real and lie in $(-2\sqrt t-\eps,2\sqrt t+\eps)$.
+\item[(b)] If the real zeros of $q_\delta$ of modulus less than $R_*^\delta$ are simple, then $\limsup_n\Lambda_n\le\max(t_c,T^\delta_*)$.
+\item[(c)] If $T^\delta_*>t_c$, then $\liminf_n\Lambda_n\ge T^\delta_*$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+For $s>t_c$ we have $|\delta_j|\le C_ss^{j/2}$ by (P1), so the radius of $q_\delta$ is at least $s^{-1/2}\rho_q\ge s^{-1/2}$.
+
+(a) Take $s\in(t_c,t)$ and $\epsilon'>0$ with $R_0:=(t/s)^{1/2}e^{-\epsilon'}>1$. Since $\rho_q\ge1$, $|\eta_j|\le C'e^{\epsilon'j}$, so $|a^{(n,t)}_j|\le C'C_sR_0^{-j}$ for all $n$ and $j\le n$; and $a^{(n,t)}_j\to\eta_jt^{-j/2}\delta_j=:a_j$ for each $j$, with $|a_j|\le C'C_sR_0^{-j}$. Thus Hypothesis~\ref{hyp:N} holds with $m_n=n$. The limit $a(w)=q_\delta(w/\sqrt t)$ is admissible: its radius of convergence is at least $R_0>1$, $a(0)=\eta_0\ne0$, it has no zero on the unit circle, and its zeros in $\D$ are the simple zeros $\sqrt tu$, $0<|u|<t^{-1/2}$. By Theorem~\ref{thm:moving} applied with $\eps/\sqrt t$, and by \eqref{eq:profile-heat}, after the dilation $z\mapsto\sqrt t\,z$, as in the proof of \cite[Theorem~\ref{M-thm:fixedq}(a)]{Main}, the zeros of $P_{n,t}$ are as stated; note $\sqrt t\bigl(\sqrt tu+(\sqrt tu)^{-1}\bigr)=tu+u^{-1}$.
+
+(b) Let $t>\max(t_c,T^\delta_*)$ be such that $q_\delta$ has no zero on $\{|u|=t^{-1/2}\}$; this excludes only countably many $t$, because $t^{-1/2}$ is less than the radius of $q_\delta$. The zeros of $q_\delta$ in $\{|u|<t^{-1/2}\}$ have modulus less than $R^\delta_*$, so they are real and simple, and $u=0$ is not a zero. By (a), $P_{n,t}$ has only real zeros for large $n$, so $\Lambda_n\le t$ by \cite[Lemma~\ref{M-lem:heat}(c)]{Main}, which holds for every real polynomial.
+
+(c) Let $t_c<t<T^\delta_*$. Then $R^\delta_*<t^{-1/2}<t_c^{-1/2}$ is less than the radius of $q_\delta$, so, as in the proof of \cite[Theorem~\ref{M-thm:fixedq}(c)]{Main}, the infimum $R^\delta_*$ is attained at a nonreal zero $u_*$, and $w_*=\sqrt tu_*$ is a nonreal zero of $a=q_\delta(\cdot/\sqrt t)$ in $\D$. With $R_0$ as in (a), Step~2 of the proof of Theorem~\ref{thm:moving}, which uses only the bounds of Hypothesis~\ref{hyp:N} and not admissibility, gives $Q^{(n,t)}_n(\sqrt nz)/h_n(\sqrt nz)\to a(r(z))$ uniformly on a closed disk $B$ about the nonreal point $w_*+w_*^{-1}$ that does not meet $\R$ and on whose boundary $a\circ r$ has no zero. By Rouch\'e's theorem and \cite[Lemma~\ref{M-lem:resolvent}]{Main}, $Q^{(n,t)}_n(\sqrt n\,\cdot)$ has a nonreal zero in $B$ for all large $n$, so $P_{n,t}$ has a nonreal zero and $\Lambda_n>t$ by \cite[Lemma~\ref{M-lem:heat}(c)]{Main}.
+\end{proof}
+
+For the Weyl profile $\delta_j=1$, $t_c=1$ and $q_\delta=q$, and Theorem~\ref{thm:profile} is \cite[Theorem~\ref{M-thm:fixedq}]{Main} for $t>1$.
+
+\begin{corollary}[Random coefficients]\label{cor:profile-as}
+Let $\eta_0,\eta_1,\dots$ be independent with a common law $\mu$ that is not a point mass and satisfies $\int x^2\,d\mu<\infty$ and $\mu(\{0\})=0$, and let $q$, $R_*$, $T_*$ and $\mathcal E$ be as in \eqref{eq:kac}, \eqref{eq:Rstar} and Section~\ref{subsec:used}. Suppose that (P1) holds with $\delta_j=\rho^j$ for some $\rho>0$, and that (P2) holds. Then $t_c\ge\rho^2$, and almost surely:
+\begin{enumerate}
+\item[(i)] $\limsup_n\Lambda_n\le\max(t_c,\rho^2T_*)$, and $\Lambda_n\to\rho^2T_*$ on the event $\{\rho^2T_*>t_c\}$;
+\item[(ii)] for each fixed $t>t_c$ with $t/\rho^2\notin\mathcal E$, the zeros of $P_{n,t}$ are, for all large $n$, as in Theorem~\ref{thm:profile}(a) with $q_\delta=q(\rho\,\cdot)$; in particular the number of nonreal zeros of $P_{n,t}$ is eventually the number of nonreal zeros of $q$ in $\{|u|<\rho t^{-1/2}\}$.
+\end{enumerate}
+If $t_c=\rho^2$, then $\Lambda_n\to\rho^2T_*$ almost surely, and the real-rooting time of $P_{n,t}$ under the standard coupling (coefficients $\xi_k$ of $z^k$ independent of $n$) converges in distribution to $\rho^2T_*$.
+\end{corollary}
+
+\begin{proof}
+For fixed $j$, $|d^{(n)}_j|\le C_ss^{j/2}$ and $d^{(n)}_j\to\rho^j$ give $\rho^j\le C_ss^{j/2}$ for all $j$, so $s\ge\rho^2$ for every $s>t_c$. Work on the almost sure event on which $\rho_q=1$, $\eta_0\ne0$, every zero of $q$ in $\D\setminus\{0\}$ is simple \cite[Lemma~\ref{M-lem:resample}]{Main} and $q$ has a nonreal zero in $\D$ \cite[Proposition~\ref{M-prop:nonreal}]{Main}. Here $q_\delta(u)=q(\rho u)$, whose zeros are the points $u/\rho$ with $q(u)=0$; so $R^\delta_*=R_*/\rho$, $T^\delta_*=\rho^2T_*$, and the real zeros of $q_\delta$ in its disk of convergence are simple. Theorem~\ref{thm:profile}(b) and (c) give (i). For (ii), $q_\delta$ has a zero on $\{|u|=t^{-1/2}\}$ exactly when $q$ has a zero on $\{|u|=(t/\rho^2)^{-1/2}\}$, and $t/\rho^2>t_c/\rho^2\ge1$; by \cite[Lemma~\ref{M-lem:circle}]{Main} this has probability $0$ for $t/\rho^2\notin\mathcal E$, and Theorem~\ref{thm:profile}(a) applies. If $t_c=\rho^2$, then $\rho^2T_*>t_c$ almost surely because $T_*>1$. Under the standard coupling the coefficient vector of $P_n$ has, for each $n$, the law of $(\eta_n,\dots,\eta_0)$, so the real-rooting time has the law of $\Lambda_n$, and almost sure convergence of $\Lambda_n$ gives convergence in distribution.
+\end{proof}
+
+\subsection{The profiles of Hall, Ho, Jalowy and Kabluchko}\label{subsec:hhjk}
+In \cite{HHJK} the coefficients $\xi_k$ of $z^k$ are independent and identically distributed, nondegenerate, with $\E\log(1+|\xi_0|)<\infty$ (their assumption (A1)), and the profile satisfies $\sup_{0\le k\le n}|\frac1n\log|c_{k,n}|-g(k/n)|\to0$ for a concave function $g:[0,1]\to\R$ with $g'_-(1)>-\infty$ (their (A2)). Under (A1) and (A2) the empirical distribution of the zeros of $P_{n,t}$ converges in probability to a measure $\nu_t$ \cite[Theorem~2.6]{HHJK}, and $\nu_t$ is the semicircle law on $[-2\sqrt t,2\sqrt t]$ if and only if $t\ge t_{\rm Wig}$, where
+\begin{equation}\label{eq:profile-F}
+t_{\rm Wig}=\sup_{0<\alpha<1}e^{F(\alpha)},\qquad F(\alpha)=\frac{2\bigl(g(\alpha)-g(1)\bigr)+\alpha\log\alpha+1-\alpha}{1-\alpha};
+\end{equation}
+for $t<t_{\rm Wig}$ the measure $\nu_t$ is not concentrated on $\R$ \cite[Theorem~2.12 and (2.17)]{HHJK}. For the Weyl profile $t_{\rm Wig}=1$ \cite[Example~2.13]{HHJK}. The function $F$ is continuous on $(0,1)$, with $F(\alpha)\to2(g(0)-g(1))+1$ as $\alpha\downarrow0$ and $F(\alpha)\to-2g'_-(1)$ as $\alpha\uparrow1$, when $g$ is continuous on $[0,1]$ and left-differentiable at $1$; we extend it continuously to $[0,1]$, and then $t_{\rm Wig}=\max_{[0,1]}e^F<\infty$.
+
+Condition (A2) allows factors $e^{o(n)}$, which can change $d^{(n)}_j$ completely (Remark~\ref{rem:profile-A2}). We therefore consider profiles
+\[
+c_{k,n}=\exp\bigl(n\,g(k/n)+h_n(k/n)\bigr),
+\]
+where $g:[0,1]\to\R$ is continuous and left-differentiable at $1$, and the functions $h_n:[0,1]\to\R$ satisfy, after the normalisation $h_n(1)=0$ (which multiplies $P_n$ by a constant):
+\begin{enumerate}
+\item[(h1)] $\sup_n\max_{0\le j\le n/2}|h_n(1-j/n)|<\infty$;
+\item[(h2)] $\max_{0\le j\le n}|h_n(1-j/n)|=O(\log n)$;
+\item[(h3)] $h_n(1-j/n)\to0$ for every fixed $j$.
+\end{enumerate}
+If $g$ is concave with $g'_-(1)>-\infty$, such profiles satisfy (A2), by (h2).
+
+\begin{proposition}[The collapse time is the decay threshold]\label{prop:profile-decay}
+Let $c_{k,n}=\exp(ng(k/n)+h_n(k/n))$ be as above, and $\rho=e^{-g'_-(1)}$.
+\begin{enumerate}
+\item[(a)] $d^{(n)}_j\to\rho^j$ for every fixed $j$.
+\item[(b)] For every $s>t_{\rm Wig}$ there are $C_s<\infty$ and $\theta_s<1$ with $d^{(n)}_js^{-j/2}\le C_s\theta_s^{\,j}$ for all $n$ and $0\le j\le n$; and for every $s<t_{\rm Wig}$, $\max_{j\le n}d^{(n)}_js^{-j/2}$ tends to infinity exponentially fast in $n$. In particular $t_c=t_{\rm Wig}$.
+\item[(c)] $t_{\rm Wig}\ge\rho^2$, with equality if and only if $F\le-2g'_-(1)$ on $(0,1)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $u=j/n$, $G(u)=(1-u)\log(1-u)+u$ and $\Delta_n(j)=h_n(1-j/n)$. Then
+\[
+\log d^{(n)}_j=n\bigl(g(1-u)-g(1)\bigr)+\Delta_n(j)+\frac12\sum_{r<j}\phi(r/n),\qquad\phi(x)=-\log(1-x),
+\]
+and the definition of $F$ gives $n(g(1-u)-g(1))+\frac n2G(u)=\frac{nu}2F(1-u)$.
+
+(a) Since $g$ is left-differentiable at $1$, $n(g(1-j/n)-g(1))\to-jg'_-(1)$; moreover $\Delta_n(j)\to0$ by (h3), and $\sum_{r<j}\phi(r/n)\to0$.
+
+(b) As $\phi$ is increasing, $\sum_{r<j}\phi(r/n)\le n\int_0^{j/n}\phi=nG(u)$. Hence
+\[
+\log\bigl(d^{(n)}_js^{-j/2}\bigr)\le\frac{nu}2\bigl(F(1-u)-\log s\bigr)+\Delta_n(j)\le-\frac j2\log\frac s{t_{\rm Wig}}+\Delta_n(j).
+\]
+Let $s>t_{\rm Wig}$ and $s'=(st_{\rm Wig})^{1/2}\in(t_{\rm Wig},s)$, and split $\frac j2\log\frac s{t_{\rm Wig}}=\frac j2\log\frac s{s'}+\frac j2\log\frac{s'}{t_{\rm Wig}}$. For $j\le n/2$, $\Delta_n(j)$ is bounded by (h1). For $j>n/2$, $\Delta_n(j)-\frac j2\log\frac{s'}{t_{\rm Wig}}\le C\log n-\frac n4\log\frac{s'}{t_{\rm Wig}}$ by (h2), which is bounded in $n$. So $d^{(n)}_js^{-j/2}\le C_s(s'/s)^{j/2}$.
+
+Let $s<t_{\rm Wig}$, choose $\alpha\in(0,1)$ with $F(\alpha)>\log s$, and let $j=\lfloor(1-\alpha)n\rfloor$, so $u\to1-\alpha$. As $\phi$ is increasing, $\sum_{r<j}\phi(r/n)\ge n\int_0^{(j-1)/n}\phi\ge nG(u)-\phi(u)$, and $\phi(u)\le\log(2/\alpha)$ for large $n$. With (h2),
+\[
+\log\bigl(d^{(n)}_js^{-j/2}\bigr)\ge\frac{nu}2\bigl(F(1-u)-\log s\bigr)-C\log n-\tfrac12\log(2/\alpha)=\frac{n(1-\alpha)}2\bigl(F(\alpha)-\log s\bigr)-o(n),
+\]
+by the continuity of $F$ at $\alpha$. So $t_c=t_{\rm Wig}$.
+
+(c) $F(\alpha)\to-2g'_-(1)=2\log\rho$ as $\alpha\uparrow1$, so $t_{\rm Wig}\ge\rho^2$, with equality exactly when $F\le2\log\rho$ throughout.
+\end{proof}
+
+So the time from which the reversed Hermite coefficients $t^{-j/2}d^{(n)}_j$ decay geometrically, uniformly in $n$, is exactly the collapse time of \cite{HHJK}; for $t<t_{\rm Wig}$ they grow exponentially, and \cite[Theorem~2.12]{HHJK} shows that a positive fraction of the zeros is then nonreal. We call a profile \emph{head-dominated} if $t_{\rm Wig}=\rho^2$, and \emph{tail-dominated} otherwise; in the second case the supremum in \eqref{eq:profile-F} is not approached as $\alpha\uparrow1$, and the coefficients of $P_n$ of degree at most $(1-\alpha)n$ keep zeros away from the real line.
+
+\begin{corollary}[Profiles of HHJK type]\label{cor:profile-hhjk}
+Let $c_{k,n}=\exp(ng(k/n)+h_n(k/n))$ with $g$ concave, continuous on $[0,1]$ and $g'_-(1)>-\infty$, and $h_n$ satisfying (h1)--(h3). Let $\mu$ be as in Corollary~\ref{cor:profile-as}; it satisfies (A1). Then
+\[
+\Lambda_n\to\max\bigl(t_{\rm Wig},\rho^2T_*\bigr)\quad\text{in probability},
+\]
+almost surely on $\{\rho^2T_*>t_{\rm Wig}\}$; and the real-rooting time under the standard coupling converges in distribution to the same limit.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:profile-decay}, (P1) holds with $\delta_j=\rho^j$ and $t_c=t_{\rm Wig}<\infty$. By Corollary~\ref{cor:profile-as}(i), almost surely $\limsup\Lambda_n\le\max(t_{\rm Wig},\rho^2T_*)$ and $\Lambda_n\to\rho^2T_*$ on $\{\rho^2T_*>t_{\rm Wig}\}$. Let $0<t<t_{\rm Wig}$. For each $n$, $P_n$ has the law of the polynomial of \cite{HHJK} with coefficients $\xi_k=\eta_{n-k}$, so the empirical distribution $\mu_{n,t}$ of the zeros of $P_{n,t}$ converges in probability to $\nu_t$, and $\nu_t(\C\setminus\R)>0$. Choose an open set $O$ with $\overline O\cap\R=\emptyset$ and $\nu_t(O)>0$. Every subsequence has a further subsequence along which $\mu_{n,t}\to\nu_t$ weakly almost surely, and then $\liminf\mu_{n,t}(O)\ge\nu_t(O)$ by the portmanteau theorem \cite[Chapter~1]{Bi2}; hence $\PP(\mu_{n,t}(O)>0)\to1$, and $\PP(\Lambda_n>t)\to1$ by \cite[Lemma~\ref{M-lem:heat}(c)]{Main}. Therefore, for $\eps>0$,
+\[
+\PP\bigl(\Lambda_n<\max(t_{\rm Wig},\rho^2T_*)-\eps\bigr)\le\PP(\Lambda_n<t_{\rm Wig}-\eps)+\PP\bigl(\Lambda_n<\rho^2T_*-\eps,\ \rho^2T_*>t_{\rm Wig}\bigr)\to0,
+\]
+and with the almost sure upper bound this is convergence in probability. The last statement follows because, for each $n$, the real-rooting time under the standard coupling has the law of $\Lambda_n$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:profiles-intro}]
+Part (a) is Proposition~\ref{prop:profile-decay}(b) with $s=t$, and part (b) is Corollary~\ref{cor:profile-hhjk}.
+\end{proof}
+
+\begin{remark}[Examples]\label{rem:profile-examples}
+In the following cases $d^{(n)}_j$ and $t_c$ are computed directly from \eqref{eq:dnj}; $\mu$ is as in Corollary~\ref{cor:profile-as}.
+\begin{enumerate}
+\item[(i)] \emph{Weyl with a variance profile}, $c_{k,n}=n^{k/2}f(k/n)/\sqrt{k!}$ with $f$ bounded, continuous at $1$ and $f(1)\ne0$: $d^{(n)}_j=f(1-j/n)/f(1)$, so $\delta_j=1$ and $t_c=1$, and $\Lambda_n\to T_*$ almost surely. Only the ratios $d^{(n)}_j$ with $j$ fixed enter the limit.
+\item[(ii)] \emph{Littlewood--Offord}, $c_{k,n}=n^{\beta k}/(k!)^\beta$: $d^{(n)}_j=\prod_{r<j}(1-r/n)^{\beta-1/2}$. For $\beta\ge\frac12$, $d^{(n)}_j\in(0,1]$, $t_c=1$ and $\Lambda_n\to T_*$ almost surely. For $\beta<\frac12$, $d^{(n)}_j=(d^{{\rm Kac},(n)}_j)^{1-2\beta}$, so $t_c=e^{1-2\beta}=t_{\rm Wig}$ by (iv), and $\Lambda_n\to\max(e^{1-2\beta},T_*)$ in probability.
+\item[(iii)] $g(\alpha)=-\alpha^2/2$, $c_{k,n}=e^{-k^2/(2n)}$ \cite[Section~4.4]{HHJK}: $\rho=e$, and $d^{(n)}_je^{-j}=\exp\bigl(-\frac{j^2}{2n}+\frac12\sum_{r<j}\phi(r/n)\bigr)\le1$ because $\sum_{r<j}\phi(r/n)\le nG(j/n)\le j^2/n$; so $t_c=e^2=t_{\rm Wig}$ and $\Lambda_n\to e^2T_*$ almost surely.
+\item[(iv)] \emph{Kac}, $c_{k,n}=1$: $d^{(n)}_j=\prod_{r<j}(1-r/n)^{-1/2}=(n^j(n-j)!/n!)^{1/2}$. Since $j\mapsto\log(d^{(n)}_js^{-j/2})$ is convex, its maximum is at $j=0$ or $j=n$, where $d^{(n)}_ns^{-n/2}=(n^n/(n!s^n))^{1/2}$; so $t_c=e=t_{\rm Wig}$, and $\Lambda_n\to\max(e,T_*)$ in probability, almost surely on $\{T_*>e\}$.
+\item[(v)] \emph{Hyperbolic}, $c_{k,n}=\binom{L+k-1}k^{1/2}$ with $L>0$: $d^{(n)}_j$ is $d^{{\rm Kac},(n)}_j$ times $(\Gamma(L+n-j)\,n!/(\Gamma(L+n)\,(n-j)!))^{1/2}$, which is at most $1$ for $L\ge1$; for $0<L<1$ it equals $\prod_{r=1}^{j}((n-r+1)/(n-r+L))^{1/2}$, which is at most $e^{(1-L)/2}$ for $j\le n/2$ and at most $Cn^{(1-L)/2}$ for all $j$. So $t_c=e$ by the argument of Proposition~\ref{prop:profile-decay}(b), and the conclusion is that of (iv).
+\end{enumerate}
+The profiles in (ii) with $\beta<\frac12$, (iv) and (v) satisfy (h1)--(h3) with a concave $g$, by Stirling's formula: $g(\alpha)=-\beta(\alpha\log\alpha-\alpha)$, $0$ and $0$, and $h_n(u)=-\frac\beta2\log u+O(1/(nu))$, $0$ and $\frac{L-1}2\log u+O(1/(nu))$ for $u\ge1/n$, while $|h_n(0)|=O(\log n)$. So Corollary~\ref{cor:profile-hhjk} applies to them; the lower bound in probability uses \cite[Theorem~2.12]{HHJK}. Whether $\Lambda_n\to t_{\rm Wig}$ almost surely on $\{\rho^2T_*<t_{\rm Wig}\}$ for tail-dominated profiles is open (Question~\ref{q:kac-window}).
+\end{remark}
+
+\subsection{The whole class (A2) and the transport map}\label{subsec:A2}
+
+\begin{remark}[The whole class (A2)]\label{rem:profile-A2}
+Corollary~\ref{cor:profile-hhjk} does not extend to all profiles satisfying (A2). The argument for the lower bound in Proposition~\ref{prop:profile-decay}(b) still applies, because a factor $e^{o(n)}$ does not affect it, so $t_c\ge t_{\rm Wig}$ under (A2); but factors $e^{o(n)}$ can make $t_c$ larger than $t_{\rm Wig}$, or destroy (P1). In both examples below the profile is the Weyl profile with one coefficient multiplied by a factor $e^{o(n)}$, so (A2) holds with the Weyl $g$ and $t_{\rm Wig}=1$; and $\mu$ is the standard Gaussian law.
+% Example (ii) is numerical: scripts/prof/bump_counterexample.py, work/prof/bump_counterexample.txt (idea 106).
+
+(i) Multiply $c_{n-2,n}$ by $B_n$, where $B_n\to\infty$ and $\log B_n=o(n)$. Then $d^{(n)}_2=B_n$, (P1) fails, and \emph{on the event $\{\eta_0\eta_2>0\}$, of probability $\frac12$, $\Lambda_n\to\infty$}. Indeed, fix $t>1$ and work on the almost sure event $\{\rho_q=1\}$. By \eqref{eq:profile-heat} the symbol is $b(w)=q(w/\sqrt t)+(B_n-1)\eta_2w^2/t$, with $\|b\|_{\ell^2}\le C(1+B_n)$. Let $Z_n=i\,(B_n\eta_2/(t\eta_0))^{1/2}$ and let $\Gamma_n$ be the circle $|z-Z_n|=|Z_n|/2$, which lies in the upper half-plane. For $z$ on or inside $\Gamma_n$ and $n$ large, $|z|\ge|Z_n|/2\ge8$, so $|r(z)|\le1/(|z|-1)\le2/|z|\le\frac14$ and $\dist(z,[-2,2])\ge|z|/2$, and $\sum_{i\ge0}(i+1)^2|r(z)|^{2(i+1)}\le2|r(z)|^2$; the last display of the proof of \cite[Proposition~\ref{M-prop:exterior}]{Main}, which holds for every $b\in\ell^2$, gives
+\[
+\Bigl|\frac{Q_n[b](\sqrt nz)}{h_n(\sqrt nz)}-b(r(z))\Bigr|\le\frac{12\,\|b\|_{\ell^2}}{n|z|^2}\le\frac{C'(1+B_n)}{nB_n}\to0\qquad(z\in\Gamma_n).
+\]
+As $r(z)=z^{-1}+O(|z|^{-3})$, we have $b(r(z))=f(z)+o(1)$ uniformly on $\Gamma_n$, where $f(z)=\eta_0+B_n\eta_2/(tz^2)=\eta_0(z-Z_n)(z+Z_n)/z^2$. On $\Gamma_n$, $|f(z)|\ge|\eta_0|\cdot\frac{|Z_n|}2\cdot\frac{3|Z_n|}2\cdot\bigl(\frac{3|Z_n|}2\bigr)^{-2}=\frac{|\eta_0|}3$. By Rouch\'e's theorem, $Q_n[b](\sqrt n\,\cdot)/h_n(\sqrt n\,\cdot)$, and hence $P_{n,t}$ after the dilation of \eqref{eq:profile-heat}, has a nonreal zero for all large $n$, and $\Lambda_n>t$. By the same Rouch\'e argument at time $0$, applied directly to $P_n(z)/(c_{n,n}z^n)$, these come from two zeros of $P_n$ near $\pm i\sqrt{B_n\eta_2/\eta_0}$, outliers that the transport map of Remark~\ref{rem:profile-transport} absorbs only at time $|v|^2\to\infty$. In numerical experiments ($B_n=n$, $n\le6400$, $t\in\{2,4,9\}$) the number of nonreal zeros of $P_{n,t}$ was $2$ on $\{\eta_0\eta_2>0\}$ and $0$ on $\{\eta_0\eta_2<0\}$ in at least $98\%$ of the samples, whatever the nonreal zeros of $q$: the factor $B_n$ also suppresses the outliers that come from the zeros of $q$.
+
+(ii) Multiply $c_{n-J,n}$ by $e^{\sqrt n}$, where $J=\lfloor\sqrt n\rfloor$. Then $d^{(n)}_J=e^{\sqrt n}$ and $d^{(n)}_j=1$ for $j\ne J$, so $t_c=e^2>t_{\rm Wig}=1$. In numerical experiments with $n\in\{100,400,1600\}$, at $t=2$ and $t=4$ the polynomial $P_{n,t}$ had on average about $\sqrt n-1$ nonreal zeros, and its number of nonreal zeros agreed with that of $q$ in $\{|u|<t^{-1/2}\}$ in at most $2.5\%$ of the samples; at $t=9>e^2$ the agreement was $68\%$, $88.5\%$ and $100\%$.
+\end{remark}
+
+\begin{remark}[Outliers and the transport map]\label{rem:profile-transport}
+In the setting of Corollary~\ref{cor:profile-as}, for $t>t_c$ the zero of $P_{n,t}$ attached to a zero $u$ of $q$ with $|u|<\rho t^{-1/2}$ lies within $\eps$ of
+\[
+T_t(v)=v+\frac tv,\qquad v=\frac\rho u ,
+\]
+by Theorem~\ref{thm:profile}(a). If moreover $g$ is concave and $h_n$ satisfies (h1)--(h3), the point $v=\rho/u$ is the limit of a zero of $P_n=P_{n,0}$: by concavity $c_{n-j,n}/c_{n,n}\le\rho^je^{h_n(1-j/n)}$, so with (h1), (h2) and $|\eta_j|=e^{o(j)}$, $P_n(z)/(c_{n,n}z^n)\to q(\rho/z)$ uniformly on $\{|z|\ge\rho(1+\eps)\}$, and Rouch\'e's theorem applies. So the outliers of $P_n$ outside the outer radius $\rho$ of $\nu_0$ follow $T_t$, which is the transport map $w\mapsto w+t\alpha_0(w)/w$ of \cite[Definition~3.1 and Theorem~3.3]{HHJK} outside the support of $\nu_0$, where $\alpha_0=1$ (under their assumption (A3)). The map $T_t$ sends the circle $\{|v|=\sqrt t\}$ onto $[-2\sqrt t,2\sqrt t]$, and a nonreal outlier $v$ is absorbed into the real bulk exactly at time $|v|^2$. So the limit in Corollaries~\ref{cor:profile-as} and~\ref{cor:profile-hhjk} reads $\max(t_{\rm Wig},\max\{|v|^2:\ v\text{ a nonreal outlier of }P_n\})$: the later of the macroscopic collapse and the absorption of the last nonreal outlier. The motion of the bulk zeros for $t<t_{\rm sing}\le t_{\rm Wig}$ \cite[Conjecture~3.7 and Open Problem~3.8]{HHJK} is not addressed here.
+\end{remark}
+
+\subsection{Elliptic polynomials}\label{subsec:elliptic}
+The elliptic polynomials $\sum_k\eta_{n-k}\binom nk^{1/2}z^k$ are not covered by (A2), since their profile $g(\alpha)=-\frac12[\alpha\log\alpha+(1-\alpha)\log(1-\alpha)]$ has $g'(1)=-\infty$. Their zeros become real at heat times of order $1$, that is, at time $t=n\tau\to\infty$ in the scaling of \eqref{eq:profile-poly}; the symbol is then a fixed entire function. In this subsection $F$ denotes a random entire function, not the function of \eqref{eq:profile-F}.
+
+\begin{lemma}\label{lem:gaf}
+Let $\eta_0,\eta_1,\dots$ be independent standard Gaussian variables, and let
+\[
+F(v)=\sum_{j\ge0}\eta_j\frac{v^j}{\sqrt{j!}},
+\]
+a random entire function with real coefficients. Almost surely:
+\begin{enumerate}
+\item[(a)] all zeros of $F$ are simple;
+\item[(b)] for each fixed $r>0$, $F$ has no zero on $\{|v|=r\}$;
+\item[(c)] $F$ has a nonreal zero.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $F_1=F-\eta_0$, which is independent of $\eta_0$. Almost surely $F_1'\not\equiv0$, so the set $V=\{-F_1(v):F_1'(v)=0\}$ is countable. A multiple zero $v$ of $F$ has $F_1'(v)=F'(v)=0$ and $\eta_0=-F_1(v)\in V$. As $\eta_0$ has no atoms and is independent of $V$, $\PP(\eta_0\in V)=0$ by Fubini's theorem.
+
+(b) This is the proof of \cite[Lemma~\ref{M-lem:circle}(a)]{Main}, which applies to entire functions.
+
+(c) For real $s$ let $(\theta_sG)(v)=G(v+s)e^{-sv-s^2/2}$, a continuous map of the space $H(\C)$ of entire functions, with the topology of locally uniform convergence, into itself. The process $\theta_sF$ is a centred Gaussian random entire function with real Taylor coefficients, and
+\[
+\E\bigl[(\theta_sF)(v)\,(\theta_sF)(v')\bigr]=e^{(v+s)(v'+s)-s(v+v')-s^2}=e^{vv'}=\E[F(v)F(v')].
+\]
+For a random entire function $G$ with real coefficients, $\overline{G(v)}=G(\bar v)$, so the covariances of the real and imaginary parts of $G$ at finitely many points are determined by $(v,v')\mapsto\E[G(v)G(v')]$; and the law of a random element of $H(\C)$ is determined by its finite-dimensional distributions. So $\theta_sF$ has the law of $F$. The zeros of $\theta_sF$ are those of $F$ shifted by $-s$, so the event $A=\{G\in H(\C):G\text{ has no nonreal zero}\}$, which is Borel because $\{G:G\text{ has a zero in }K\}$ is closed for every compact $K$, satisfies $\theta_s^{-1}(A)=A$.
+
+\emph{Mixing.} The cross-covariance $\E[F(v)(\theta_sF)(v')]=e^{vv'+s(v-v')-s^2/2}$ tends to $0$ as $s\to\infty$, locally uniformly in $(v,v')$. Hence the finite-dimensional distributions of the pair $(F,\theta_sF)$ converge to those of $(F,\widetilde F)$, with $\widetilde F$ an independent copy of $F$; the laws of the pairs are tight in $H(\C)^2$, since both marginals have the law of $F$; so $(F,\theta_sF)\Rightarrow(F,\widetilde F)$ \cite[Chapter~1]{Bi2}. Let $\eps>0$ and choose a continuous $\varphi:H(\C)\to[0,1]$ with $\E|\mathbf 1_A(F)-\varphi(F)|<\eps$, which is possible because bounded continuous functions are dense in $L^1$ of a finite Borel measure on a metric space. Since $\{F\in A\}=\{\theta_sF\in A\}$ and $\theta_sF$ has the law of $F$,
+\[
+\bigl|\PP(F\in A)-\E[\varphi(F)\varphi(\theta_sF)]\bigr|\le2\eps,\qquad\E[\varphi(F)\varphi(\theta_sF)]\to\bigl(\E\varphi(F)\bigr)^2 ,
+\]
+and $|\E\varphi(F)-\PP(F\in A)|<\eps$. Letting $s\to\infty$ and then $\eps\to0$ gives $\PP(F\in A)\in\{0,1\}$.
+
+\emph{$\PP(F\in A)<1$.} Let $g(v)=1+v^2$, whose zeros $\pm i$ are nonreal, and $\delta>0$. Choose $J\ge3$ with $\sum_{j\ge J}\E|\eta_j|\,2^j/\sqrt{j!}<\delta/4$, and $\epsilon'>0$ with $\epsilon'\sum_{3\le j<J}2^j/\sqrt{j!}<\delta/2$. By independence and Markov's inequality, with positive probability $|\eta_0-1|,|\eta_1|,|\eta_2-\sqrt2|<\delta/12$, $|\eta_j|<\epsilon'$ for $3\le j<J$, and $\sum_{j\ge J}|\eta_j|2^j/\sqrt{j!}<\delta/2$; then $|F-g|<2\delta$ on $\{|v|\le2\}$. On the circle $|v-i|=\frac12$ we have $|g(v)|=|v-i||v+i|\ge\frac34$, so for $\delta=\frac14$ Rouch\'e's theorem gives a zero of $F$ in $\{|v-i|<\frac12\}$, which is nonreal. So $\PP(F\in A)<1$, hence $\PP(F\in A)=0$.
+\end{proof}
+
+\begin{theorem}[Elliptic polynomials under the heat flow]\label{thm:elliptic}
+Let $\eta_0,\eta_1,\dots$ be independent standard Gaussian variables, $F$ as in Lemma~\ref{lem:gaf}, $R_F$ the smallest modulus of a nonreal zero of $F$ and $T_F=R_F^{-2}$. Let
+\[
+P^{\rm ell}_n(x)=\sum_{k=0}^{n}\eta_{n-k}\binom nk^{1/2}x^k,\qquad P^{\rm ell}_{n,\tau}=\exp\Bigl(-\frac\tau2\partial_x^2\Bigr)P^{\rm ell}_n\quad(\tau\ge0),
+\]
+and let $\Lambda^{\rm ell}_n$ be the real-rooting time of $P^{\rm ell}_{n,\tau}$, in the variable $\tau$.
+\begin{enumerate}
+\item[(a)] For each fixed $\tau>0$, almost surely, for every sufficiently small $\eps>0$ and all large $n$: all zeros of $P^{\rm ell}_{n,\tau}$ are simple; for each zero $v$ of $F$ with $|v|<\tau^{-1/2}$, exactly one of them lies within $\eps\sqrt n$ of $\sqrt n\,(\tau v+v^{-1})$, and it is real if and only if $v$ is real; all others are real and lie in $(-(2\sqrt\tau+\eps)\sqrt n,(2\sqrt\tau+\eps)\sqrt n)$.
+\item[(b)] $\Lambda^{\rm ell}_n\to T_F$ almost surely, and the real-rooting time under the standard coupling converges in distribution to $T_F$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $P_n$, $P_{n,t}$ and $\Lambda_n$ be as in \eqref{eq:reversed}, built from the real sequence $(\eta_j/\sqrt{j!})_{j\ge0}$, the coefficients of $q=F$, whose radius of convergence is $\rho_q=\infty$. Then
+\[
+P^{\rm ell}_n(\sqrt nz)=\sum_{k=0}^{n}\eta_{n-k}\Bigl(\frac{n!}{k!\,(n-k)!}\Bigr)^{1/2}(\sqrt nz)^k=\sqrt{n!}\,P_n(z),
+\]
+and since $\frac\tau2\partial_x^2=\frac\tau{2n}\partial_z^2$ for $x=\sqrt nz$, $P^{\rm ell}_{n,\tau}(\sqrt nz)=\sqrt{n!}\,P_{n,\tau}(z)$ for all $\tau\ge0$. So $\Lambda^{\rm ell}_n=\Lambda_n$. Almost surely $\eta_0\ne0$ and, by Lemma~\ref{lem:gaf}, all zeros of $F$ are simple, $F$ has no zero on $\{|v|=\tau^{-1/2}\}$, and $F$ has a nonreal zero, so that $R_F<\infty=\rho_q$. \cite[Theorem~\ref{M-thm:fixedq}(a)]{Main} gives (a) after the dilation by $\sqrt n$, and \cite[Theorem~\ref{M-thm:fixedq}(b),(c)]{Main} give $\Lambda_n\to T_F$. Under the standard coupling the real-rooting time has, for each $n$, the law of $\Lambda^{\rm ell}_n$.
+\end{proof}
+
+In particular, for elliptic polynomials the last nonreal pair of zeros disappears at a heat time of order $1$, governed by the nonreal zero of the real Gaussian entire function $F$ closest to the origin.
+
+\section{The Laguerre flow}\label{sec:laguerre}
+
+This section proves the statements of Section~\ref{sec:intro} on the Laguerre flow: the identity and its uniqueness, Theorem~\ref{thm:lag-count-intro} (as Theorem~\ref{thm:lag-count}) and Theorem~\ref{thm:lag-intro}. In this section $c$, $d$, $\rho_k$, $\sigma_k$, $P_n$ and $P_{n,t}$ have new meanings, unrelated to those of Section~\ref{sec:profiles}, while $c$, $d$, $\rho_{k,n}$, $\sigma_{k,n}$ and $r_V$ play the roles they have in Section~\ref{sec:varying}; admissibility, the map $r$, and $q$, $R_*$ and $\mathcal E$ are as in Sections~\ref{sec:intro} and~\ref{subsec:used}.
+
+\emph{Notation.} Let $\alpha>-1$ and $D_\alpha=x\partial_x^2+(\alpha+1)\partial_x$. Let $L^{(\alpha)}_k$ be the Laguerre polynomials \cite[Section~5.1]{Sz}, $\ell_k=\ell^{(\alpha)}_k=(-1)^kk!\,L^{(\alpha)}_k$ the monic ones, and $\lambda_k=\lambda^{(\alpha)}_k=\ell_k/\sqrt{k!\,\Gamma(k+\alpha+1)}$ the orthonormal polynomials for $y^\alpha e^{-y}\,dy$ on $(0,\infty)$, with positive leading coefficients. Then
+\begin{equation}\label{eq:lag-notation}
+L^{(\alpha)}_k(y)=\sum_{i=0}^{k}\binom{k+\alpha}{k-i}\frac{(-y)^i}{i!},\qquad y\lambda_k'=k\lambda_k+\rho_k\lambda_{k-1},
+\end{equation}
+\begin{equation}\label{eq:lag-rec}
+y\lambda_k=\rho_{k+1}\lambda_{k+1}+\sigma_k\lambda_k+\rho_k\lambda_{k-1},\qquad\sigma_k=2k+\alpha+1,\quad\rho_k=\sqrt{k(k+\alpha)},
+\end{equation}
+with $\lambda_{-1}=0$; the ladder relation in \eqref{eq:lag-notation} is $yL_k'=kL_k-(k+\alpha)L_{k-1}$, and \eqref{eq:lag-rec} is the three-term recurrence of $L^{(\alpha)}_k$, both rewritten in the orthonormal normalisation. We write $v_n=(\lambda_n,\lambda_{n-1})^T$ and $K_n=\sum_{k<n}\lambda_k^2$.
+
+\subsection{The identity}\label{subsec:lag-identity}
+
+\begin{proposition}\label{prop:lag-identity}
+(a) For every real $\alpha$, $\tau\ne0$ and $k\ge0$,
+\[
+\exp(-\tau D_\alpha)\,x^k=\tau^k\,\ell^{(\alpha)}_k(x/\tau),
+\]
+where for $\alpha\le-1$ the polynomial $\ell^{(\alpha)}_k$ is defined by \eqref{eq:lag-notation}. (b) For a polynomial $p$ and $x=y^2$,
+\[
+\exp(-\tau D_{-1/2})[p](y^2)=\exp\bigl(-\tfrac\tau4\partial_y^2\bigr)[p(y^2)],\qquad y\,\exp(-\tau D_{1/2})[p](y^2)=\exp\bigl(-\tfrac\tau4\partial_y^2\bigr)[y\,p(y^2)].
+\]
+\end{proposition}
+
+Part (a) is classical (Section~\ref{subsec:related}). We include the two-line proof, since we have not checked the normalisations of \cite{Br,Ha}.
+
+\begin{proof}
+(a) Since $D_\alpha x^k=k(k+\alpha)x^{k-1}$, the coefficient of $x^{k-m}$ in $\exp(-\tau D_\alpha)x^k$ is $\frac{(-\tau)^m}{m!}\frac{k!}{(k-m)!}(k+\alpha)(k+\alpha-1)\cdots(k+\alpha-m+1)$. By \eqref{eq:lag-notation} with $i=k-m$, the coefficient of $x^{k-m}$ in $(-1)^kk!\,\tau^kL^{(\alpha)}_k(x/\tau)$ is $(-1)^kk!\,\tau^m\binom{k+\alpha}m(-1)^{k-m}/(k-m)!$, which is the same.
+
+(b) $\partial_y^2[p(y^2)]=4y^2p''(y^2)+2p'(y^2)=4(D_{-1/2}p)(y^2)$ and $\partial_y^2[yp(y^2)]=4y^3p''(y^2)+6yp'(y^2)=4y(D_{1/2}p)(y^2)$. On polynomials both operators are nilpotent, so the exponentials are finite sums and the intertwining relations pass to them.
+\end{proof}
+
+For an integer $\alpha=m\ge0$ and $\deg p\le d$, $\exp(-\tau D_m)p$ is the rectangular additive convolution of $p$ with $\tau^d\ell^{(m)}_d(x/\tau)$ of Gribinski and Marcus \cite[Definition~2.1 and (3)]{GM}; the generator appears there as the special case of the convolution with $x^{d-1}$, which is $D_mp/(d(d+m))$ \cite{GM}. By (b), the Laguerre flows with $\alpha=\mp\frac12$ are the heat flow on even and on odd polynomials.
+
+\subsection{Uniqueness}\label{subsec:lag-unique}
+A degree-lowering flow $\exp(-\tau A)$ with $\exp(-\tau A)x^k=\tau^k\pi_k(x/\tau)$ for monic polynomials $\pi_k$ satisfies $\exp(-A)x^k=\pi_k$, and $A$ is then a \emph{weighted backward shift}, $Ax^k=c_kx^{k-1}$. Among these, only the Laguerre operators give orthogonal polynomials.
+
+\begin{proposition}\label{prop:lag-unique}
+Let $c_0=0$ and $c_k\in\R$ for $k\ge1$, let $A$ be the linear operator on polynomials with $Ax^k=c_kx^{k-1}$, and $p_n=\exp(-A)x^n$. Then $(p_n)_{n\ge0}$ is the sequence of monic orthogonal polynomials of a positive measure on $\R$ with infinite support if and only if $c_k=\theta k(k+\alpha)$ for some $\theta\ne0$ and $\alpha>-1$. In that case $A=\theta D_\alpha$ and $p_n(x)=\theta^n\ell^{(\alpha)}_n(x/\theta)$: the monic Laguerre polynomials up to the dilation $x\mapsto\theta x$, which is a reflection when $\theta<0$.
+\end{proposition}
+
+\begin{proof}
+By Favard's theorem \cite[Chapter~I, Section~4]{Chi} and its converse \cite[Theorem~3.2.1]{Sz}, the condition is equivalent to a recurrence $xp_n=p_{n+1}+\beta_np_n+\gamma_np_{n-1}$, $n\ge0$ ($p_{-1}=0$), with real $\beta_n$ and $\gamma_n>0$ for $n\ge1$.
+% TODO(author): the pinpoints [Chi, Ch. I, Sec. 4] (Favard) and [Sz, Theorem 3.2.1] were not checked.
+
+\emph{No $c_N$ vanishes.} If $c_N=0$ for some $N\ge1$, then $A^mx^n$ contains the factor $c_N$ whenever $x^{n-m}$ has degree less than $N\le n$, so $x^N$ divides $p_n$ for every $n\ge N$. Then $p_N$ and $p_{N+1}$ have the common zero $0$, which is impossible for consecutive orthogonal polynomials: by the recurrence, a common zero of $p_N$ and $p_{N+1}$ is a zero of all $p_k$, $k\le N+1$, including $p_0=1$.
+
+\emph{The coefficient equations.} Write $C_k=c_1\cdots c_k$. Then $p_n=\sum_{m=0}^{n}\frac{(-1)^m}{m!}\frac{C_n}{C_{n-m}}x^{n-m}$. Comparing the coefficients of $x^{n+1-m}$ in the recurrence and multiplying by $(-1)^mm!\,C_{n+1-m}/C_{n-1}$ gives, for $n\ge1$ and $1\le m\le n+1$,
+\[
+c_n\,c_{n+1-m}=c_n\,c_{n+1}-m\,\beta_nc_n+m(m-1)\,\gamma_n .
+\]
+\emph{$c$ is a quadratic.} Since $c_n\ne0$, for each $n\ge1$ the map $k\mapsto c_k$ agrees on $\{0,\dots,n\}$ with a polynomial $P_n$ of degree at most $2$ in $k=n+1-m$. For $n\ge2$ these polynomials agree on $\{0,1,2\}$, so they are all equal to one polynomial $P$, and $c_k=P(k)$ for all $k$. As $P(0)=c_0=0$, $c_k=\theta k^2+bk$.
+
+\emph{The recurrence coefficients.} Inserting $c_{n+1-m}=\theta(n+1-m)^2+b(n+1-m)$ and comparing powers of $m$ gives $\gamma_n=\theta c_n=\theta^2n(n+b/\theta)$ and $\beta_n=\theta(2n+1)+b$. For $\theta=0$, $\gamma_n=0$. For $\theta\ne0$, $\gamma_n>0$ for all $n\ge1$ if and only if $\alpha:=b/\theta>-1$. Then $c_k=\theta k(k+\alpha)$, $A=\theta D_\alpha$ on polynomials, and $p_n=\theta^n\ell^{(\alpha)}_n(x/\theta)$ by Proposition~\ref{prop:lag-identity}(a). Conversely these are orthogonal, for $x^\alpha e^{-x/\theta}$ on $(0,\infty)$ if $\theta>0$ and for its reflection if $\theta<0$.
+\end{proof}
+
+\begin{remark}\label{rem:lag-brenke}
+(i) Since $\sum_np_n(x)\,t^n/C_n=e^{-t}\sum_kx^kt^k/C_k$, the polynomials $p_n/C_n$ are Brenke polynomials with $A(t)=e^{-t}$, and Proposition~\ref{prop:lag-unique} classifies the orthogonal ones among them. For general $A(t)$, the orthogonal Brenke polynomials were classified by Chihara \cite{Ch68,Ch71}, with a complete treatment by Asai, Kubo and Kuo \cite{AKK}; besides Laguerre they include the Hermite polynomials ($A(t)=e^{-t^2/2}$, an operator lowering the degree by two) and $q$-families. We have not checked these classifications; Proposition~\ref{prop:lag-unique} does not use them. (ii) In particular, no flow $\exp(-\tau A)$ with $Ax^k=c_kx^{k-1}$ produces, as in \eqref{eq:heat-hermite} or Proposition~\ref{prop:lag-identity}, the orthonormal polynomials of a weight $e^{-nV}$ on $\R$ with $V$ a polynomial; the Hermite polynomials need an operator that lowers the degree by two. Whether operators lowering the degree by two give anything beyond generalised Hermite families has not been examined.
+\end{remark}
+
+\subsection{Exact counts for Laguerre combinations}\label{subsec:lag-count}
+We consider two regimes, in the scaled variable $x=y/n$:
+\begin{equation}\label{eq:lag-cases}
+\begin{aligned}
+&\text{(L0)}&&\alpha>-1\text{ fixed}, &&c=2,\ d=1;\\
+&\text{(L}\gamma\text{)}&&\alpha=\gamma n,\ \gamma>0\text{ fixed},\quad &&c=2+\gamma,\ d=\sqrt{1+\gamma}.
+\end{aligned}
+\end{equation}
+Then $[c-2d,c+2d]$ is $[0,4]$ in case (L0) and $[(\sqrt{1+\gamma}-1)^2,(\sqrt{1+\gamma}+1)^2]$ in case (L$\gamma$).
+In case (L$\gamma$) the polynomials $p_{k,n}(x)=n^{(\gamma n+1)/2}\lambda^{(\gamma n)}_k(nx)$ are orthonormal for the varying weight $e^{-n(x-\gamma\log x)}$ on $(0,\infty)$, which is not covered by Section~\ref{sec:varying}; in case (L0) the weight $x^\alpha e^{-nx}$ has a hard edge at $0$. In both cases $p_{k,n}$ satisfies \eqref{eq:lag-rec} with the coefficients $\rho_{k,n}=\rho_k/n$ and $\sigma_{k,n}=\sigma_k/n$, and, with constants depending on $\alpha$ in case (L0) and on $\gamma$ in case (L$\gamma$),
+\begin{equation}\label{eq:lag-rc}
+|\rho_{n-r,n}-d|+|\sigma_{n-r,n}-c|\le C\,\frac{r+1}n\qquad(0\le r\le n).
+\end{equation}
+Indeed $\sigma_{n-r,n}-c=(\alpha+1-2r)/n$ in case (L0) and $(1-2r)/n$ in case (L$\gamma$); $|\rho_{n-r}-(n-r)|\le|\alpha|$ in case (L0); and in case (L$\gamma$), $\rho_{n-r,n}=((1-u)(1-u+\gamma))^{1/2}$ with $u=r/n$, which is Lipschitz on $[0,\frac12]$ and differs from $d$ by at most $d\le2d\,(r+1)/n$ for $u>\frac12$.
+
+\begin{lemma}\label{lem:lag-cd}
+Let $\alpha>-1$ and $n\ge1$.
+\begin{enumerate}
+\item[(a)] $yK_n(y)=\rho_n^2\|v_n(y)\|^2+\rho_n(2n+\alpha-y)\lambda_n(y)\lambda_{n-1}(y)$ for all real $y$.
+\item[(b)] For $y\le0$ and $0\le k\le n$, $|\lambda_k(y)|\le C_\alpha n^{(-\alpha)^+/2}|\lambda_n(y)|$.
+\item[(c)] Case (L0): for $0<\delta\le1$ there is $C=C(\alpha)$ with $K_n(y)\le Cn^3\|v_n(y)\|^2$ for $y\in[-\delta n,(4+\delta)n]$ and all $n$.
+\item[(d)] The exponent $3$ in (c) cannot be lowered: if $y_1$ is the smallest zero of $\lambda_n$, then
+\[
+\frac{K_n(y_1)}{\|v_n(y_1)\|^2}=\frac{\rho_n^2}{y_1}\ge\frac{n(n+\alpha)(n+\alpha+1)}{(\alpha+1)(\alpha+2)} .
+\]
+\item[(e)] Case (L$\gamma$): for $0<a_-<a_+$ there is $C=C(\gamma,a_\pm)$ with $K_n(y)\le Cn\|v_n(y)\|^2$ for $y\in[a_-n,a_+n]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By the confluent Christoffel--Darboux formula \cite[Theorem~3.2.2]{Sz}, $K_n=\rho_n(\lambda_n'\lambda_{n-1}-\lambda_n\lambda_{n-1}')$, as $\rho_n$ is the ratio of the leading coefficients of $\lambda_{n-1}$ and $\lambda_n$. Multiply by $y$ and use the ladder relation at $n$ and $n-1$: $yK_n=\rho_n\bigl(\rho_n\lambda_{n-1}^2+\lambda_n\lambda_{n-1}-\rho_{n-1}\lambda_n\lambda_{n-2}\bigr)$. By \eqref{eq:lag-rec} at $k=n-1$, $\rho_{n-1}\lambda_{n-2}=(y-\sigma_{n-1})\lambda_{n-1}-\rho_n\lambda_n$, and $1+\sigma_{n-1}=2n+\alpha$.
+
+(b) Let $y=-s$, $s\ge0$. By \eqref{eq:lag-notation}, $(-1)^k\lambda_k(-s)=\sqrt{k!\,\Gamma(k+\alpha+1)}\sum_{i\le k}\frac{s^i}{(k-i)!\,\Gamma(i+\alpha+1)\,i!}$, with nonnegative coefficients. Since $(n-i)!/(k-i)!\le n!/k!$ for $i\le k\le n$, the coefficient of $s^i$ for degree $k$ is at most $(n!\,\Gamma(k+\alpha+1)/(k!\,\Gamma(n+\alpha+1)))^{1/2}$ times that for degree $n$. The function $m\mapsto\Gamma(m+\alpha+1)/m!$ is nondecreasing if $\alpha\ge0$, and for $-1<\alpha<0$ it is at most $\Gamma(\alpha+1)$ and at least $c_\alpha(m+1)^\alpha$. So the factor is at most $C_\alpha n^{(-\alpha)^+/2}$.
+
+(c) \emph{$y\le0$.} By (b), $K_n\le C_\alpha^2n^{1+(-\alpha)^+}\lambda_n^2\le C_\alpha^2n^2\|v_n\|^2$.
+
+\emph{$0<y\le c_\alpha/n$,} where $c_\alpha\in(0,1]$ satisfies $c_\alpha e^{c_\alpha}\le(\alpha+1)/2$. By \eqref{eq:lag-notation}, $L^{(\alpha)}_k(y)/L^{(\alpha)}_k(0)=\sum_{i\ge0}\frac{(-k)_i}{(\alpha+1)_i}\frac{y^i}{i!}$, where $(x)_i$ is the rising factorial. As $|(-k)_i|\le k^i$, $ky\le c_\alpha$ and $(\alpha+1)_i\ge(\alpha+1)(i-1)!$, this ratio differs from $1$ by at most $\sum_{i\ge1}c_\alpha^i/((\alpha+1)(i-1)!)=c_\alpha e^{c_\alpha}/(\alpha+1)\le\frac12$, for every $k\le n$. Hence $K_n(y)\le\frac94K_n(0)$ and $\lambda_n(y)^2\ge\frac14\lambda_n(0)^2$. Moreover $\lambda_k(0)^2=\binom{k+\alpha}k/\Gamma(\alpha+1)$, and $\sum_{k<n}\binom{k+\alpha}k=\binom{n+\alpha}{n-1}$, so $K_n(0)/\lambda_n(0)^2=n/(\alpha+1)$. Thus $K_n(y)\le\frac{9n}{\alpha+1}\|v_n(y)\|^2$.
+
+\emph{$c_\alpha/n\le y\le(4+\delta)n$.} Here $|2n+\alpha-y|\le3n+|\alpha|$ and $\rho_n\le n+|\alpha|$, so by (a), $yK_n\le\bigl(\rho_n^2+\frac12\rho_n|2n+\alpha-y|\bigr)\|v_n\|^2\le3(n+|\alpha|)^2\|v_n\|^2$, and $K_n\le3c_\alpha^{-1}n(n+|\alpha|)^2\|v_n\|^2$.
+
+(d) At $y_1$, $\lambda_n(y_1)=0\ne\lambda_{n-1}(y_1)$, and (a) gives the identity. The zeros $y_1<\dots<y_n$ of $\lambda_n$ are positive, and by \eqref{eq:lag-notation}, $\prod_i(1-y/y_i)=L^{(\alpha)}_n(y)/L^{(\alpha)}_n(0)=1-\frac n{\alpha+1}y+\frac{n(n-1)}{2(\alpha+1)(\alpha+2)}y^2-\dots$. So $e_1=\sum_iy_i^{-1}=\frac n{\alpha+1}$ and $\sum_iy_i^{-2}=e_1^2-\frac{n(n-1)}{(\alpha+1)(\alpha+2)}=\frac{n(n+\alpha+1)}{(\alpha+1)^2(\alpha+2)}$. As $\sum_iy_i^{-2}\le y_1^{-1}e_1$, $y_1\le(\alpha+1)(\alpha+2)/(n+\alpha+1)$.
+
+(e) Here $\rho_n=n\sqrt{1+\gamma}$ and $|2n+\alpha-y|\le(2+\gamma+a_+)n$, so by (a), $yK_n\le Cn^2\|v_n\|^2$, and $y\ge a_-n$.
+\end{proof}
+
+By the Mehler--Heine asymptotics \cite[Theorem~8.1.3]{Sz}, $ny_1\to j_{\alpha,1}^2/4$, where $j_{\alpha,1}$ is the first positive zero of the Bessel function $J_\alpha$; so the ratio in (d) is asymptotic to $4n^3/j_{\alpha,1}^2$. The loss of $n^3$ against the $n$ of \cite[Lemma~\ref{M-lem:cd}]{Main} sits at the hard edge; in the bulk, (a) gives $K_n\le Cn\|v_n\|^2$ on $[\eps n,(4-\eps)n]$.
+% TODO(author): the pinpoint [Sz, Theorem 8.1.3] (Mehler--Heine for Laguerre) was not checked; (d) does not use it.
+
+\begin{lemma}[Exterior]\label{lem:lag-exterior}
+In case (L0) or (L$\gamma$), let $K\subset\C\setminus[c-2d,c+2d]$ be compact and $r_V(z)=r((z-c)/d)$. There are $C_K$ and $n_K$ such that for every real $b\in\ell^2$ and $n\ge n_K$
+\[
+\sup_{z\in K}\Bigl|\frac{\sum_{j=0}^{n}b_j\lambda_{n-j}(nz)}{\lambda_n(nz)}-b(r_V(z))\Bigr|\le\frac{C_K\|b\|_{\ell^2}}n .
+\]
+\end{lemma}
+
+\begin{proof}
+This is the exterior step of the proof of Theorem~\ref{thm:varying}, with the scaled coefficients $\rho_{k,n}=\rho_k/n$, $\sigma_{k,n}=\sigma_k/n$ in place of those of $e^{-nV}$. The zeros of $\lambda_N(n\cdot)$ are the eigenvalues of the scaled Jacobi matrix $J_{N,n}$, for every $N$. By Gershgorin's theorem and the concavity of $k\mapsto\rho_k$ (in case (L$\gamma$); $\rho_k+\rho_{k+1}\le2\sqrt{(k+\frac12)(k+\frac12+\alpha)}$), the spectrum of $J_{n,n}$ lies in $[(\sqrt{1+\gamma}-1)^2-C/n,(\sqrt{1+\gamma}+1)^2+C/n]$ in case (L$\gamma$); in case (L0) it lies in $(0,4+C/n]$, since $\rho_k\le k+\frac12\alpha^+$ and the zeros of $\lambda_n$ are positive. So for large $n$ it has distance at least $\delta_K/2$ from $K$, $\delta_K=\dist(K,[c-2d,c+2d])$. With $T_n$, $T_\infty$, $u=(z-T_n)^{-1}e_0$ and $y=(z-T_\infty)^{-1}e_0$ as there, $\lambda_{n-1-i}(nz)/\lambda_n(nz)=\rho_{n,n}u_i$ and $y_i=r_V(z)^{i+1}/d$. The entries of $T_n-T_\infty$ in row $i$ are at most $C(i+1)/n$ for $i<n$, by \eqref{eq:lag-rc}, and at most $C$ for $i\ge n$. With $\varrho=\max_K|r_V|<1$ this gives $\|(T_n-T_\infty)y\|\le C'_K/n$, hence $\|u-y\|\le2C'_K/(\delta_Kn)$, and
+\[
+\Bigl|\frac{\sum_jb_j\lambda_{n-j}(nz)}{\lambda_n(nz)}-b(r_V(z))\Bigr|\le\|b\|_{\ell^2}\bigl(\rho_{n,n}\|u-y\|+|\rho_{n,n}-d|\,\|y\|\bigr)\le\frac{C_K\|b\|_{\ell^2}}n ,
+\]
+as $u_i=0$ for $i\ge n$ and $|\rho_{n,n}-d|\le C/n$.
+\end{proof}
+
+\begin{lemma}[No zeros at the hard edge]\label{lem:lag-edge}
+In case (L0), let $a$ be admissible and $Q_n(x)=\sum_{j=0}^{n}a_j\lambda_{n-j}(nx)$. There are $\delta>0$ and $n_\delta$ such that $Q_n$ has no zero in $[-\delta,0]$ for $n\ge n_\delta$.
+\end{lemma}
+
+\begin{proof}
+Let $R_n=\lambda_{n-1}/\lambda_n$, which is defined on $(-\infty,0]$ since the zeros of $\lambda_n$ are positive. By the confluent Christoffel--Darboux formula, $R_n'=-K_n/(\rho_n\lambda_n^2)<0$ there, so $x\mapsto R_n(nx)$ is decreasing on $[-1,0]$. By Lemma~\ref{lem:lag-exterior} with $b=(0,1,0,\dots)$, $R_n(nx)\to r(x-2)$ for each $x<0$; and $R_n(0)=-\sqrt{n/(n+\alpha)}\to-1=r(-2)$, by the formula for $\lambda_k(0)^2$ in the proof of Lemma~\ref{lem:lag-cd} and the sign $(-1)^k$ of $\lambda_k(0)$. Monotone functions that converge pointwise to a continuous function on a compact interval converge uniformly, so $R_n(n\,\cdot)\to r(\cdot-2)$ uniformly on $[-1,0]$.
+
+Let $R_0>1$ and $C_0$ be such that $|a_j|\le C_0R_0^{-j}$, fix $\ell$ with $\ell\log R_0>\frac12$ and $M_n=\lceil\ell\log n\rceil$, and choose $\kappa>0$ with $e^\kappa<R_0$; let $0<\delta\le\min(1,2\cosh\kappa-2)$. Let $A_{n,j},B_{n,j}$ be the coefficients of the backward recurrence of the proof of Theorem~\ref{thm:varying} for the coefficients $\rho_{k,n},\sigma_{k,n}$, so that $\lambda_{n-j}(nx)=A_{n,j}(x)\lambda_n(nx)+B_{n,j}(x)\lambda_{n-1}(nx)$. By \eqref{eq:vtransfer}, whose hypotheses hold by \eqref{eq:lag-rc}, and the fixed-$j$ limits $A_{n,j}\to A_j(x-2)$, $B_{n,j}\to B_j(x-2)$, dominated convergence gives, uniformly on $[-\delta,0]$,
+\[
+\sum_{j\le M_n}a_j\frac{\lambda_{n-j}(nx)}{\lambda_n(nx)}=\sum_{j\le M_n}a_j\bigl(A_{n,j}(x)+B_{n,j}(x)R_n(nx)\bigr)\to\sum_ja_j\bigl(A_j+B_jr\bigr)(x-2)=a\bigl(r(x-2)\bigr),
+\]
+as $A_j(z)+wB_j(z)=w^j$ for $z=w+w^{-1}$ (proof of \cite[Lemma~\ref{M-lem:limit}]{Main}). By Lemma~\ref{lem:lag-cd}(b),
+\[
+\Bigl|\sum_{j>M_n}a_j\frac{\lambda_{n-j}(nx)}{\lambda_n(nx)}\Bigr|\le C_\alpha n^{(-\alpha)^+/2}\sum_{j>M_n}|a_j|\to0,
+\]
+since $\ell\log R_0>\frac12>(-\alpha)^+/2$. So $Q_n(x)/\lambda_n(nx)\to a(r(x-2))$ uniformly on $[-\delta,0]$. For $x\in[-\delta,0]$, $r(x-2)\in[-1,r(-2-\delta)]$ and $r(-2-\delta)\to-1$ as $\delta\to0$; since $a(-1)\ne0$, $|a(r(x-2))|\ge|a(-1)|/2$ on $[-\delta,0]$ for $\delta$ small, and $Q_n$ has no zero there for large $n$.
+\end{proof}
+
+\begin{theorem}[Laguerre combinations]\label{thm:lag-count}
+Let $a$ be admissible, with zeros $w_1,\dots,w_k$ in $\D$. In case (L0) or (L$\gamma$) of \eqref{eq:lag-cases} put $\zeta_i=c+d(w_i+w_i^{-1})$ and
+\[
+Q_n(x)=\sum_{j=0}^{n}a_j\,\lambda^{(\alpha)}_{n-j}(nx).
+\]
+For every sufficiently small $\eps>0$ there is $n_0$ such that for $n\ge n_0$ all zeros of $Q_n$ are simple, exactly one of them lies in each disk $|x-\zeta_i|<\eps$, it is real if and only if $w_i$ is real, and the remaining $n-k$ zeros are real and lie in $(c-2d-\eps,c+2d+\eps)$. In case (L0) these $n-k$ zeros lie in $(0,4+\eps)$; so the negative zeros of $Q_n$ are exactly those near the points $\zeta_i<0$, which come from the zeros $w_i\in(-1,0)$.
+\end{theorem}
+
+\begin{proof}
+We follow the proof of Theorem~\ref{thm:varying}, with the polynomials $p_{k,n}(x)=n^{(\alpha+1)/2}\lambda_k(nx)$ in place of the orthonormal polynomials of $e^{-nV}$, and record the changes.
+
+\emph{Recurrence coefficients and zeros.} The bound \eqref{eq:lag-rc} replaces Proposition~\ref{prop:RC}, at fixed offsets and on windows $r\le C\log n$. By Gershgorin's theorem, as in the proof of Lemma~\ref{lem:lag-exterior}, the zeros of $p_{N,n}$, $N\le2n+1$, lie in a bounded interval, and those of $p_{n,n}$ and $p_{n+1,n}$ lie in $(c-2d-C/n,c+2d+C/n)$; this replaces Lemma~\ref{lem:outliers}. In case (L0) all these zeros are positive.
+
+\emph{Preliminaries.} As in the proof of Theorem~\ref{thm:varying}, the statements on zeros, Gaussian quadrature, constancy of the nonreal count, quasi-orthogonality and the resolvent identity \cite[Lemmas~{\ref{M-lem:zeros}}, {\ref{M-lem:quadrature}}, {\ref{M-lem:constancy}}, {\ref{M-lem:quasi}} and~{\ref{M-lem:resolvent}}]{Main} hold for the weights $x^\alpha e^{-nx}$ on $(0,\infty)$, and the colleague matrix \cite[Lemma~\ref{M-lem:colleague}]{Main} bounds every zero of $\sum_{j\le n}a_jp_{n-j,n}$ by $C(1+|a_0|^{-1}\|a\|_{\ell^2})$.
+
+\emph{Christoffel--Darboux bound.} Lemma~\ref{lem:lag-cd}(c) and (e) replace the bound $K_n\le C_In\|v_n\|^2$: in the variable $x$, $K_n(nx)\le Cn^3\|v_n(nx)\|^2$ for $x\in[-\delta,4+\delta]$ in case (L0), and $K_n(nx)\le Cn\|v_n(nx)\|^2$ on a neighbourhood $[a_-,a_+]$ of $[c-2d,c+2d]$ with $a_->0$ in case (L$\gamma$).
+
+\emph{Derivative.} In place of Lemma~\ref{lem:ladder} we use $\widetilde D=\frac xn\frac d{dx}$. By \eqref{eq:lag-notation}, $\widetilde D[\lambda_k(nx)]=\frac kn\lambda_k(nx)+\frac{\rho_k}n\lambda_{k-1}(nx)$. So for the head $Q_{n,M}=\sum_{j\le M}a_j\lambda_{n-j}(n\cdot)$, $(Q_{n,M},\widetilde DQ_{n,M})^T=H_{n,M}[a]\,v_n(n\cdot)$ with
+\[
+G_{n,j}(x)=\begin{pmatrix}1&0\\ \frac{n-j}n&\frac{\rho_{n-j}}n\end{pmatrix}\begin{pmatrix}A_{n,j}&B_{n,j}\\A_{n,j+1}&B_{n,j+1}\end{pmatrix}\to\begin{pmatrix}1&0\\1&d\end{pmatrix}G_j\Bigl(\frac{x-c}d\Bigr)
+\]
+for fixed $j$, and the limiting head matrix $\begin{pmatrix}1&0\\1&d\end{pmatrix}H_a(\frac{x-c}d)$ has determinant $d\,a(w)a(w^{-1})$, $x=c+d(w+w^{-1})$, which is $d\,|a(e^{i\theta})|^2>0$ on $[c-2d,c+2d]$.
+
+\emph{Bulk.} For a family $(a_s)$ satisfying (H1), (H2) and (H4) of \cite[Hypothesis~\ref{M-hyp:H}]{Main}, the bulk step of the proof of Theorem~\ref{thm:varying} goes through with these changes, on $I_\kappa=[c-2d\cosh\kappa,c+2d\cosh\kappa]$, with \eqref{eq:vtransfer} for the transfer matrices. For the tail $E=\sum_{j>M_n}a_j(s)\lambda_{n-j}(n\cdot)$ we have $\|(E,\widetilde DE)\|\le(2+d+o(1))\bigl(\sum_{j>M_n}a_j(s)^2\bigr)^{1/2}K_n(n\cdot)^{1/2}$, which is $o(\|v_n(n\cdot)\|)$ if $M_n=\lceil\ell\log n\rceil$ with $\ell\log R_0>\frac32$ in case (L0) and $\ell\log R_0>\frac12$ in case (L$\gamma$). So, for large $n$, $Q^s_n(x)^2+(\widetilde DQ^s_n(x))^2\ge c_0^2\|v_n(nx)\|^2>0$ for all $s$ and $x\in I_\kappa$. A real multiple zero $x$ of $Q^s_n$ would make both terms vanish (also at $x=0$, where $\widetilde DQ^s_n=0$); so $Q^s_n$ has no multiple real zero in $I_\kappa$.
+
+\emph{Exterior.} Lemma~\ref{lem:lag-exterior} replaces the exterior step.
+
+\emph{Counting.} Verbatim as in the proof of Theorem~\ref{thm:varying}, with $\zeta_i=c+d(w_i+w_i^{-1})$, $U=\{z:\dist(z,[c-2d,c+2d])<\eps\}$ and $0<\eps<\min(1,2d(\cosh\kappa-1),\delta_0/3)$. This proves the theorem except for the last statement.
+
+\emph{Positivity in case (L0).} Take also $\eps<\delta$, with $\delta$ from Lemma~\ref{lem:lag-edge}. The $n-k$ real zeros in $U\cap\R=(-\eps,4+\eps)$ avoid $[-\delta,0]$, so they lie in $(0,4+\eps)$. For $w_i\in(-1,0)$, $\zeta_i=2-(|w_i|+|w_i|^{-1})<0$; for $w_i\in(0,1)$, $\zeta_i>4$.
+\end{proof}
+
+\begin{remark}[Symbols that depend on $n$]\label{rem:lag-moving}
+The analogue of Theorem~\ref{thm:moving} for Laguerre combinations should hold under the conditions of Hypothesis~\ref{hyp:N} with $\ell_0\log R_0>\frac32$, and with $n^3$ in place of $n$ in (N2) in case (L0). This is an outline: it needs Steps~1 and~2 of the proof of Theorem~\ref{thm:moving} with $K_n\le Cn^3\|v_n\|^2$, and Lemma~\ref{lem:lag-edge} uniformly along the segment; in the tail step of that lemma the $\ell^1$ norm of the tail times $n^{(-\alpha)^+/2}$ is $o(n^{(-\alpha)^+/2-1})$ when $n^3\sum_{\rm tail}b_j^2\to0$, so that step goes through.
+\end{remark}
+
+\subsection{The Laguerre flow and its real-rooting time}\label{subsec:lag-flow}
+
+Unlike the heat flow, the Laguerre flow does not preserve real-rootedness: for $p=(x+1)^2$, $\exp(-\tau D_\alpha)p=x^2+2(1-\tau(\alpha+2))x+1-2\tau(\alpha+1)+\tau^2(\alpha+1)(\alpha+2)$ has discriminant $4\tau(\tau(\alpha+2)-2)<0$ for $0<\tau<2/(\alpha+2)$. It preserves the class of polynomials with all zeros in $[0,\infty)$.
+
+\begin{lemma}\label{lem:lag-preserve}
+Let $\alpha>-1$ and let $p$ be a real polynomial of degree $d\ge1$ with all zeros in $[0,\infty)$. For every $\tau\ge0$, $p_\tau=\exp(-\tau D_\alpha)p$ has degree $d$, the leading coefficient of $p$, and all zeros in $[0,\infty)$; for $\tau>0$ all its zeros lie in $(0,\infty)$.
+\end{lemma}
+
+\begin{proof}
+Since $D_\alpha$ lowers the degree, $p_\tau$ has the degree and the leading coefficient of $p$, and its coefficients are polynomials in $\tau$; and $\partial_\tau p_\tau=-D_\alpha p_\tau$.
+
+\emph{Step 1: the zeros move by a gradient flow.} Suppose first that $p$ has $d$ simple zeros in $(0,\infty)$. Let $\tau_1\in(0,\infty]$ be the supremum of the $T>0$ such that $p_\tau$ has $d$ simple zeros $0<x_1(\tau)<\dots<x_d(\tau)$ for all $\tau\in[0,T)$; by continuity $\tau_1>0$, and by the implicit function theorem the $x_i$ are smooth on $[0,\tau_1)$. Differentiating $p_\tau(x_i(\tau))=0$ gives $\dot x_i=D_\alpha p_\tau(x_i)/p_\tau'(x_i)$, and $p''_\tau(x_i)/p'_\tau(x_i)=2\sum_{j\ne i}(x_i-x_j)^{-1}$, so
+\begin{equation}\label{eq:lag-ode}
+\dot x_i=(\alpha+1)+2\sum_{j\ne i}\frac{x_i}{x_i-x_j}\qquad(1\le i\le d).
+\end{equation}
+With $y_i=\sqrt{x_i}$ and $x_i/(x_i-x_j)=\frac{y_i}2\bigl(\frac1{y_i-y_j}+\frac1{y_i+y_j}\bigr)$, this reads $\dot y_i=\partial W/\partial y_i$, where
+\[
+W(y)=\frac{\alpha+1}2\sum_i\log y_i+\frac12\sum_{i<j}\bigl(\log(y_j-y_i)+\log(y_i+y_j)\bigr)
+\]
+on the chamber $\{0<y_1<\dots<y_d\}$. Hence $\frac d{d\tau}W(y(\tau))=|\nabla W(y(\tau))|^2\ge0$ on $[0,\tau_1)$.
+
+\emph{Step 2: the zeros stay in a compact part of the chamber.} Summing \eqref{eq:lag-ode}, each pair $i\ne j$ contributes $2(x_i-x_j)/(x_i-x_j)=2$ in total, so $\frac d{d\tau}\sum_ix_i=d(\alpha+1)+d(d-1)=d(d+\alpha)$; this also follows from the coefficient of $x^{d-1}$. So on $[0,\min(\tau_1,T))$ every $y_i$ is at most $Y_T=(\sum_ix_i(0)+Td(d+\alpha))^{1/2}$. Since $\alpha+1>0$, every term of $W$ has a positive coefficient, and every term is bounded above by $\log(2Y_T)$. So $W(y(\tau))\ge W(y(0))$ bounds each term from below: there is $\epsilon_T>0$ with $y_1\ge\epsilon_T$ and $y_{i+1}-y_i\ge\epsilon_T$ on $[0,\min(\tau_1,T))$.
+
+\emph{Step 3: $\tau_1=\infty$.} If $\tau_1<\infty$, take $T>\tau_1$ and $\tau^{(m)}\uparrow\tau_1$. By Step~2 a subsequence of $(y(\tau^{(m)}))$ converges to a point $y^*$ with $y^*_1\ge\epsilon_T$ and $y^*_{i+1}-y^*_i\ge\epsilon_T$. As $p_\tau=c\prod_i(x-x_i(\tau))$ with $c$ the leading coefficient, and $p_\tau\to p_{\tau_1}$ coefficientwise, $p_{\tau_1}=c\prod_i(x-(y^*_i)^2)$ has $d$ simple positive zeros. By continuity this persists for $\tau$ near $\tau_1$, contradicting the definition of $\tau_1$.
+
+\emph{Step 4: general $p$.} Let $p=c\prod_i(x-x_i)$ with $0\le x_1\le\dots\le x_d$, and $p^{(m)}=c\prod_i(x-x_i-i/m)$, which has $d$ simple positive zeros. On polynomials of degree at most $d$, $\exp(-\tau D_\alpha)$ is a linear map, so $p^{(m)}_\tau\to p_\tau$ coefficientwise, and all these polynomials have degree $d$ and leading coefficient $c$. Their zeros converge to those of $p_\tau$, which therefore lie in $[0,\infty)$.
+
+\emph{Step 5: positivity for $\tau>0$.} Write $p=\sum_kp_kx^k$; as the zeros are in $[0,\infty)$, $(-1)^{d-k}p_k/c\ge0$. By Proposition~\ref{prop:lag-identity}(a) and $\ell^{(\alpha)}_k(0)=(-1)^k(\alpha+1)(\alpha+2)\cdots(\alpha+k)$, $p_\tau(0)=\sum_kp_k\tau^k\ell_k(0)=(-1)^dc\sum_k\bigl|p_k/c\bigr|\tau^k(\alpha+1)\cdots(\alpha+k)$, whose $k=d$ term is nonzero for $\tau>0$. So $0$ is not a zero of $p_\tau$.
+\end{proof}
+
+\begin{remark}\label{rem:lag-special}
+(i) The condition $\alpha>-1$ is needed: for $\alpha<-1$ and $p=x-1$, $p_\tau=x-1-\tau(\alpha+1)$ has a negative zero for $\tau>1/|\alpha+1|$; and at $\alpha=-1$, $p=x^2$ gives $p_\tau=x(x-2\tau)$, which has the zero $0$ for every $\tau>0$. (ii) For $\alpha=\mp\frac12$, Lemma~\ref{lem:lag-preserve} also follows from Proposition~\ref{prop:lag-identity}(b) and \cite[Lemma~\ref{M-lem:heat}(b)]{Main}, since $p(y^2)$ and $yp(y^2)$ are real-rooted if and only if $p$ has all zeros in $[0,\infty)$; and for an integer $\alpha\ge0$ it follows from \cite[Theorem~2.3]{GM}, applied with $i=j=d$ to $p$ and $\tau^d\ell^{(\alpha)}_d(x/\tau)$. (iii) For an integer $\alpha=m$ at least the degree $d$, the equation \eqref{eq:lag-ode} \cite[Theorem~2.7]{CM}, its gradient form \cite[Proposition~2.8]{CM} and a Lyapunov argument based on $W$, which also shows that the zeros are positive and simple for $\tau>0$ \cite[Theorem~3.4]{CM}, are due to Cuenca and McSwiggen. There the flow is $\exp(-2tD_m)$ in our notation, defined through the rectangular convolution, and the gradient is that of $2W$. They also write the equation of motion with real parameters as a gradient flow \cite[Section~5.1]{CM}, so the gradient form of Step~1 does not need integrality in their work either; what the proof above adds is the flow on polynomials for every real $\alpha>-1$, with the approximation of Step~4 and the constant term of Step~5.
+% The pinpoints in [CM] (Theorem 2.7, Proposition 2.8, Theorem 3.4, Section 5.1) were checked against the arXiv HTML
+% on 21 October 2026.
+\end{remark}
+
+\emph{The Laguerre--Weyl polynomials.} Let $\eta_0,\eta_1,\dots$ be independent with a common law $\mu$ that is not a point mass, has $\int x^2\,d\mu<\infty$ and $\mu(\{0\})=0$, and let $q$, $R_*$ and $\mathcal E$ be as in \eqref{eq:kac}, \eqref{eq:Rstar} and Section~\ref{subsec:used}. In case (L0) or (L$\gamma$) put
+\[
+P_n(x)=\sum_{k=0}^{n}\eta_{n-k}\,\frac{(nx)^k}{\sqrt{k!\,\Gamma(k+\alpha+1)}},\qquad P_{n,t}=\exp\Bigl(-\frac tnD_\alpha\Bigr)P_n\quad(t\ge0),
+\]
+and $\Lambda^L_n=\inf\{t\ge0:\text{all zeros of }P_{n,t}\text{ lie in }[0,\infty)\}$. By Lemma~\ref{lem:lag-preserve} and the semigroup property, the set of such $t$ is an interval $[\Lambda^L_n,\infty)$: it is closed because the degree and the leading coefficient of $P_{n,t}$ do not depend on $t$, and it is nonempty by (a) below, since $t^{-n}P_{n,t}(ty/n)\to\eta_0\lambda_n(y)$ coefficientwise as $t\to\infty$ and $\lambda_n$ has $n$ simple positive zeros. Let $R^L=\min\{|u|:\ q(u)=0,\ u\in\D\setminus[0,1)\}$ and $R_-=\min\{|u|:\ q(u)=0,\ u\in(-1,0)\}$, with $R_-=1$ if $q$ has no zero in $(-1,0)$. Then $R^L=\min(R_*,R_-)\le R_*<1$ almost surely.
+
+\begin{theorem}[The real-rooting time of the Laguerre flow]\label{thm:lag-rooting}
+\begin{enumerate}
+\item[(a)] For $t>0$, exactly,
+\[
+P_{n,t}(x)=t^n\sum_{j=0}^{n}\eta_j\,t^{-j}\,\lambda_{n-j}(nx/t):
+\]
+the symbol is $a(w)=q(w/t)$, with radius of convergence $t$.
+\item[(b)] Case (L0). Let $t>1$ with $t^2\notin\mathcal E$. Almost surely, for every sufficiently small $\eps>0$ and all large $n$: all zeros of $P_{n,t}$ are simple; for each zero $u$ of $q$ with $|u|<1/t$, exactly one zero of $P_{n,t}$ lies within $\eps$ of $2t+t^2u+u^{-1}$, and it is nonreal if $u\notin\R$, negative if $u<0$, and greater than $4t$ if $u>0$; all other zeros lie in $(0,4t+\eps)$.
+\item[(c)] Case (L0). Almost surely $\Lambda^L_n\to1/R^L$.
+\item[(d)] Case (L$\gamma$). Let $t>1$ with $t^2\notin\mathcal E$. Almost surely, for every sufficiently small $\eps>0$ and all large $n$, the zeros of $P_{n,t}$ are simple, exactly one lies within $\eps$ of $(2+\gamma)t+\sqrt{1+\gamma}\,(t^2u+u^{-1})$ for each zero $u$ of $q$ with $|u|<1/t$, it is real if and only if $u$ is real, and negative if and only if $-1/(t\sqrt{1+\gamma})<u<0$; all other zeros lie in $(t(\sqrt{1+\gamma}-1)^2-\eps,t(\sqrt{1+\gamma}+1)^2+\eps)\subset(0,\infty)$. Almost surely
+\[
+\Lambda^L_n\to\max\Bigl(\frac1{R_*},\frac1{\sqrt{1+\gamma}\,R_-}\Bigr).
+\]
+\end{enumerate}
+\end{theorem}
+
+Unlike $T_*$, the limit in (c) also counts the negative real zeros of $q$; in (d) they count only if they are close enough to $0$.
+
+\begin{proof}
+(a) By Proposition~\ref{prop:lag-identity}(a) with $\tau=t/n$,
+\[
+\exp\Bigl(-\frac tnD_\alpha\Bigr)(nx)^k=t^k\ell_k(nx/t)=t^k\sqrt{k!\,\Gamma(k+\alpha+1)}\,\lambda_k(nx/t);
+\]
+put $k=n-j$. So $P_{n,t}(x)=t^nQ_n(x/t)$ with $Q_n$ as in Theorem~\ref{thm:lag-count} for $a_j=\eta_jt^{-j}$.
+
+Work on the almost sure event on which $\rho_q=1$, $\eta_0\ne0$, all zeros of $q$ in $\D\setminus\{0\}$ are simple \cite[Lemma~\ref{M-lem:resample}]{Main} and $q$ has a nonreal zero in $\D$ \cite[Proposition~\ref{M-prop:nonreal}]{Main}; then $R_*<1$, and $R^L$ and $R_-$ are attained when less than $1$, since $q$ has finitely many zeros in each disk $\{|u|\le b\}$, $b<1$. Let $t>1$. Then $a=q(\cdot/t)$ has radius $t>1$, $a(0)=\eta_0\ne0$, and simple zeros $w=tu$ in $\D$, $|u|<1/t$. If moreover $q$ has no zero on $\{|u|=1/t\}$, then $a$ is admissible. This holds for all but countably many $t$, and for a fixed $t$ with $t^2\notin\mathcal E$ it holds almost surely by \cite[Lemma~\ref{M-lem:circle}]{Main}.
+
+(b) and the first part of (d). Apply Theorem~\ref{thm:lag-count} to $a$ with $\eps/t$ in place of $\eps$, and multiply by $t$: the zero of $Q_n$ near $\zeta=c+d(w+w^{-1})$, $w=tu$, gives the zero of $P_{n,t}$ near $t\zeta=ct+d(t^2u+u^{-1})$. In case (L0), $\zeta<0$ if $u<0$ and $\zeta>4$ if $u>0$. In case (L$\gamma$), for $u<0$ and $s=t|u|\in(0,1)$, $\zeta=c-d(s+s^{-1})$ is negative if and only if $s+s^{-1}>c/d=\sqrt{1+\gamma}+1/\sqrt{1+\gamma}$, that is, $s<1/\sqrt{1+\gamma}$; for $u>0$, $\zeta>c+2d$. The other zeros of $P_{n,t}$ lie in $(t(c-2d)-\eps,t(c+2d)+\eps)$; this interval is contained in $(0,\infty)$ in case (L$\gamma$), and in case (L0) these zeros lie in $(0,4t+\eps)$ by Theorem~\ref{thm:lag-count}.
+
+(c) and the limit in (d). Let $L$ denote $1/R^L$ in case (L0) and $\max(1/R_*,1/(\sqrt{1+\gamma}R_-))$ in case (L$\gamma$); in both cases $L\ge1/R_*>1$.
+
+\emph{Upper bound.} Let $t>L$ be such that $q$ has no zero on $\{|u|=1/t\}$ and, in case (L$\gamma$), $t\sqrt{1+\gamma}\,R_-\ne1$; this excludes countably many $t$. The zeros $u$ of $q$ with $|u|<1/t$ are real, since $1/t<R_*$; in case (L0) they are positive, since $1/t<R^L$; in case (L$\gamma$) the negative ones satisfy $t|u|\ge tR_->1/\sqrt{1+\gamma}$. By (b), respectively the first part of (d), applied for this fixed $q$ (the proof above is deterministic once $a$ is admissible), all zeros of $P_{n,t}$ lie in $(0,\infty)$ for large $n$, so $\Lambda^L_n\le t$. Such $t$ are dense in $(L,\infty)$, so $\limsup\Lambda^L_n\le L$.
+
+\emph{Lower bound.} Let $1<t<L$. In case (L0) let $u_*$ be a zero of $q$ with $|u_*|=R^L<1/t$ and $u_*\notin[0,1)$. In case (L$\gamma$) let $u_*$ be a nonreal zero of $q$ with $|u_*|=R_*<1/t$ if $t<1/R_*$, and otherwise a zero $u_*\in(-1,0)$ with $t|u_*|=tR_-<1/\sqrt{1+\gamma}$. Then $w_*=tu_*$ is a simple zero of $a$ in $\D$, and $\zeta_*=c+d(w_*+w_*^{-1})$ is nonreal or negative. Choose a closed disk $B$ about $\zeta_*$, symmetric about $\R$ if $\zeta_*$ is real, contained in $\{\im z\ne0\}$ or in $\{\re z<0\}$, on whose boundary $a\circ r_V$ has no zero, and in which $\zeta_*$ is its only zero. By Lemma~\ref{lem:lag-exterior} and Rouch\'e's theorem, $Q_n$ has exactly one zero in $B$ for large $n$; it is nonreal, or real by symmetry and then negative. So $P_{n,t}$ has a zero outside $[0,\infty)$, and $\Lambda^L_n>t$. Hence $\liminf\Lambda^L_n\ge L$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lag-intro}]
+The first statement holds on the event $\{\eta_0\ne0\}$, by the discussion before Theorem~\ref{thm:lag-rooting}, and the limits are Theorem~\ref{thm:lag-rooting}(c),(d), since $R^L=\min(R_*,R_-)$ almost surely.
+\end{proof}
+
+\begin{remark}[The case $\alpha=-\frac12$]\label{rem:lag-half}
+For $\alpha=-\frac12$, $k!\,\Gamma(k+\frac12)=\sqrt\pi\,(2k)!/4^k$, so $P_n(y^2)=\pi^{-1/4}\sum_k\eta_{n-k}(\sqrt{2n}\,y)^{2k}/\sqrt{(2k)!}$ is the polynomial \eqref{eq:reversed} of degree $N=2n$ for the series $q(u^2)$; and by Proposition~\ref{prop:lag-identity}(b) the flow $\exp(-\frac tnD_{-1/2})$ is $\exp(-\frac t{2N}\partial_y^2)$, at the same $t$. So Theorem~\ref{thm:lag-rooting}(b),(c) at $\alpha=-\frac12$ is \cite[Theorem~\ref{M-thm:fixedq}]{Main} for $q(u^2)$: the nonreal zeros of $q(u^2)$ are the square roots of the zeros of $q$ off $[0,1)$, so its $T_*$ is $1/R^L$, and the outliers $(tu''+1/u'')^2=t^2u+2t+1/u$, $u''^2=u$, are those of (b).
+\end{remark}
+
+\section{Remarks and questions}\label{sec:remarks}
+
+\subsection{The collapse time of tail-dominated profiles}\label{subsec:kac}
+For tail-dominated profiles (defined after Proposition~\ref{prop:profile-decay}; examples in Remark~\ref{rem:profile-examples}) we have convergence of $\Lambda_n$ only in probability, and at $t=t_{\rm Wig}$ the bottom coefficients of $P_n$ are not negligible. Consider the Kac profile $c_{k,n}=1$ at $t=e+s/n$. The term $j=n$ of $Q^{(n,t)}_n$ in \eqref{eq:profile-heat} is the constant $\eta_n(2\pi n)^{-1/4}e^{-s/(2e)}(1+o(1))$. Near $x=0$ the other bottom terms are smaller by a factor of order $n^{-1/2}$, while the head oscillates with amplitude $|q(ie^{-1/2})|(2/(\pi n))^{1/4}e^{x^2/4}$. Heuristically, if the ratio of the two amplitudes exceeds $1$, the sum keeps one sign near $0$, and about $(4/\pi)\sqrt n\,(\log\text{ratio})^{1/2}$ real zeros become nonreal.
+
+\begin{question}\label{q:kac-window}
+Let $\mu$ be as in Corollary~\ref{cor:profile-as}, let $c_{k,n}=1$, and let $\xi'$ have law $\mu$ and be independent of $q$. On the event $\{T_*<e\}$, does
+\[
+n(\Lambda_n-e)\ \Rightarrow\ 2e\log\frac{|\xi'|}{\sqrt2\,|q(ie^{-1/2})|}\,?
+\]
+For tail-dominated profiles, does $\Lambda_n\to\max(t_{\rm Wig},\rho^2T_*)$ almost surely?
+\end{question}
+
+The limit in Question~\ref{q:kac-window} can be negative: when the constant term of $P_n$ is small, $P_{n,t}$ becomes real-rooted slightly before the collapse time. In numerical experiments (Gaussian coefficients, $n\le3200$, $s\in\{-8,-4,-2,0,2,4,8\}$, $300$ samples per point), at $n=3200$ the event that the ratio exceeds $1$ and the event of an excess of nonreal zeros differed in at most $0.4\%$ of the samples, at every $s$, and the predicted and observed numbers of extra nonreal zeros had correlation at least $0.995$; for Littlewood--Offord profiles with $\beta<\frac12$ the same heuristic puts the window at $t_{\rm Wig}+\beta t_{\rm Wig}\log n/n+O(1/n)$. A proof would need Plancherel--Rotach asymptotics with an error $O(1/n)$ near $x=0$, together with an expansion of the head; at $t=t_{\rm Wig}$ condition (N2) fails, by a power of $n$.
+
+\subsection{Head-dominated profiles and the final collision}
+For the Weyl profile and Gaussian coefficients, almost surely $|\Lambda_n-T_*|=O(1/n)$ and the final collision is a real double zero \cite[Corollary~\ref{M-cor:collision-gauss}]{Main}. The analysis there uses the exact Weyl symbol and Mehler's formula. For head-dominated profiles the symbols $a^{(n,t)}_j=\eta_jt^{-j/2}d^{(n)}_j$ of Lemma~\ref{lem:profile-identity} differ from their limits $\eta_jt^{-j/2}\rho^j$ by amounts that depend on $n$, for instance $d^{(n)}_j=f(1-j/n)/f(1)$ in Remark~\ref{rem:profile-examples}(i), and we have not analysed their effect at the scale $1/n$.
+
+\begin{question}\label{q:head-rate}
+For head-dominated profiles and Gaussian coefficients, is $|\Lambda_n-\rho^2T_*|=O(1/n)$ almost surely, and is the final collision a real double zero, as for the Weyl profile?
+\end{question}
+
+\subsection{Other flows and other weights}
+Proposition~\ref{prop:lag-unique} does not cover operators that lower the degree by two, such as $\frac12\partial^2$, which gives the Hermite polynomials (Remark~\ref{rem:lag-brenke}). The scaling $\exp(-\tau A)x^k=\tau^{k/2}\pi_k(x/\sqrt\tau)$, natural for symmetric weights, leads to such operators. On the side of the exact count, the proof of Theorem~\ref{thm:lag-count} uses explicit Laguerre formulas for the top recurrence coefficients and for the Christoffel--Darboux bound near the hard edge.
+
+\begin{question}\label{q:other-flows}
+For which operators $A$ with $Ax^k=c_kx^{k-2}$ are the polynomials $\exp(-A)x^n$ the monic orthogonal polynomials of a positive measure? Are they, up to dilations, only the generalised Hermite families?
+\end{question}
+The counterpart for varying weights $x^\alpha e^{-nV}$ with a hard edge is Question~\ref{q:varying}.
+
+\subsection{Elliptic polynomials with other coefficients}
+The proof of Theorem~\ref{thm:elliptic} uses the Gaussian law only through Lemma~\ref{lem:gaf} and $\eta_0\ne0$. For independent coefficients with a common law $\mu$ that is not a point mass and has finite variance, $F$ is still a random entire function with real coefficients.
+
+\begin{question}\label{q:elliptic-laws}
+For such $\mu$, does $F$ almost surely have a nonreal zero? If moreover $\mu$ has no atoms, are its zeros almost surely simple, and does it almost surely have no zero on a fixed circle?
+\end{question}
+
+
+\subsection{Where the Hermite structure is used}\label{subsec:hermite}
+The proof of Theorem~\ref{thm:A} in \cite{Main} uses four properties of the scaled Hermite polynomials. First, the Christoffel--Darboux bound (\cite[Lemma~\ref{M-lem:cd}]{Main}) controls every lower-degree value by $O(\sqrt n)\,\|(h_n,h_{n-1})\|$ in the bulk; its proof uses the explicit derivative formula in \cite[\eqref{M-eq:recurrence}]{Main}. Second, the top recurrence coefficients satisfy $\sqrt{(n-r)/n}=1+O(r/n)$, so logarithmically many backward steps are close to free (\cite[Lemma~\ref{M-lem:transfer}]{Main}), with an error of order $1/n$ (\cite[Lemma~\ref{M-lem:head-rate}]{Main}). Third, the scaled Jacobi matrices have norm at most $2$ and converge locally, from the top, to the free Jacobi operator (\cite[Proposition~\ref{M-prop:exterior}]{Main}). Fourth, quasi-orthogonality and Gaussian quadrature are used (\cite[Lemma~\ref{M-lem:quasi}]{Main}); this holds for every orthogonal polynomial system.
+
+The applications to the heat flow in \cite{Main,CompB} use the Hermite structure further: through the identity \eqref{eq:heat-hermite}, and through Hermite-specific tools such as Mehler's formula \cite[Lemma~\ref{M-lem:mehler}]{Main} and the Hermite differential equation \cite[Section~\ref{M-sec:firstorder}]{Main}. The identity \eqref{eq:heat-hermite} itself is not specific to the weights $1/\sqrt{k!}$: under the heat flow every real polynomial becomes a combination of the $h_{n-j}$ whose coefficients depend on $n$ through the coefficient profile (Lemma~\ref{lem:profile-identity}), and Theorem~\ref{thm:moving} applies when they converge and decay geometrically, uniformly in $n$.
+
+Theorem~\ref{thm:varying} extends Theorem~\ref{thm:A} to varying weights $e^{-nV}$ with $V$ a one-cut regular polynomial. The explicit Hermite coefficients enter \cite[Sections~{\ref{M-sec:transfer}}--{\ref{M-sec:exterior}}]{Main} only through the first three properties above. Ladder operators replace the derivative formula (Lemma~\ref{lem:ladder}), and Proposition~\ref{prop:RC} replaces $\sqrt{(n-r)/n}=1+O(r/n)$. Both inputs use the one-cut regular structure. For an equilibrium measure with two or more intervals the top recurrence coefficients are asymptotically quasi-periodic, not convergent \cite{DKMVZ}, \cite[(12.9), (12.14)]{Bl}, and the backward recurrence is no longer close to the free one. If $h$ vanishes at a point of $[\alpha,\beta]$, so does the determinant $d\,h(x)|a(e^{i\theta})|^2$ of the head matrix in the proof of Theorem~\ref{thm:varying}, for every symbol $a$.
+
+The Laguerre weights $x^\alpha e^{-nx}$ on $(0,\infty)$ show what a hard edge costs (Section~\ref{sec:laguerre}). The Christoffel--Darboux bound then holds only with $n^3$ in place of $n$, and this is sharp; logarithmically many backward steps still suffice, now with $\ell\log R_0>\frac32$, and a monotonicity argument keeps the bulk zeros off the negative axis. Among the flows $\exp(-\tau A)$ with $Ax^k=c_kx^{k-1}$, the Laguerre operators $x\partial^2+(\alpha+1)\partial$ are the only ones that produce orthogonal polynomials (Proposition~\ref{prop:lag-unique}). So the heat-flow identity \eqref{eq:heat-hermite} has no counterpart of this form for the weights $e^{-nV}$ of Theorem~\ref{thm:varying}.
+
+\begin{question}\label{q:varying}
+Let $V$ be a real polynomial whose equilibrium measure is supported on two or more intervals, or is one-cut but not regular. What replaces the Joukowski picture of Theorem~\ref{thm:varying} for the zeros of $\sum_ja_jp_{n-j,n}$? For a weight $x^\alpha e^{-nV}$ on $(0,\infty)$, with a hard edge at $0$ and $V$ a polynomial, what replaces Proposition~\ref{prop:RC} and Lemma~\ref{lem:ladder} near the hard edge?
+\end{question}
+
+\appendix
+
+\section{Top recurrence coefficients of varying weights}\label{app:rc}
+
+We prove Proposition~\ref{prop:RC}. The steepest descent analysis of the Riemann--Hilbert problem for $e^{-nV}$ at degree $n$ is due to \cite{DKMVZ}; we use its steps as written out in \cite{Bl}, cited by equation number. None of them involves the degree. At degree $n+k$ only the normalisation at infinity changes; it is absorbed by a factor $\varphi^{k\sigma_3}$ in the outer parametrix, the device that \cite{KMVV} use for the whole degree.
+% TODO(author): [DKMVZ] itself was not accessed; the k-independent steps below were checked against [Bl] (arXiv v2) only.
+
+\emph{Notation.} $V$ is one-cut regular, with $\alpha,\beta,c,d,\ell_V,u_V$ as in Section~\ref{sec:varying}; $\sigma_3=\operatorname{diag}(1,-1)$, $a^{\sigma_3}=\operatorname{diag}(a,a^{-1})$, $J_0=\bigl(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr)$, and $\|\cdot\|$ is the Hilbert--Schmidt norm. Let $\varphi=1/r_V$, so $\varphi(z)=(z-c+((z-\alpha)(z-\beta))^{1/2})/(2d)$ maps $\C\setminus[\alpha,\beta]$ conformally onto $\{|w|>1\}$, $\varphi_+\varphi_-=1$ on $(\alpha,\beta)$, $d\varphi(z)/z=1-c/z+O(z^{-2})$ at $\infty$, and $1\le|\varphi(x)|\le|x-c|/d$ for real $x\notin(\alpha,\beta)$. For $0<\delta\le d$ let $U_\alpha,U_\beta$ be the open disks of radius $\delta$ about $\alpha,\beta$ and $\kappa_\delta=\max\{\log|\varphi(z)|:z\in\partial U_\alpha\cup\partial U_\beta\}$. As $\varphi(\beta+u)=1+\frac u{2d}+(u/d)^{1/2}(1+\frac u{4d})^{1/2}$ and $\varphi(2c-z)=-\varphi(z)$, $\kappa_\delta\le\sqrt{\delta/d}+\delta/d$.
+
+\emph{Input.} Let $g(z)=\int\log(z-s)\,d\mu_V(s)$, analytic off $(-\infty,\beta]$, $l=-\ell_V$, and $G=g_+-g_-$ on $\R$. In \cite{Bl} the weight is $e^{-NV}$ and the degree $N$; in every formula below that involves $g$, $G$, $V$, $l$ or the Airy variable, his $N$ is our $n$.
+
+(I1) \cite[(5.5)--(5.15)]{Bl}: $g(z)=\log z-g_1/z+O(z^{-2})$ with $g_1=\int s\,d\mu_V$, and $g_++g_--V-l=-u_V$ on $\R$. So $G\equiv0$ on $(\beta,\infty)$, $G\equiv2\pi i$ on $(-\infty,\alpha)$, and $u_V(x)=V(x)-2\log|x|+O(1)$ as $|x|\to\infty$.
+
+(I2) \cite[(6.2)--(6.3), (7.1)--(7.8)]{Bl}: for the matrix $Y$ below put $T=e^{-nl\sigma_3/2}Ye^{-n(g-l/2)\sigma_3}$, and $S=T$ outside the lens, $S=T\bigl(\begin{smallmatrix}1&0\\\mp e^{\mp nG}&1\end{smallmatrix}\bigr)$ in its part in $\{\pm\im z>0\}$, with lips $\Gamma_\pm$ from $\alpha$ to $\beta$ and $G$ continued analytically from $(\alpha,\beta)$. The jumps $j_S$ of $S$ are $\bigl(\begin{smallmatrix}1&0\\e^{\mp nG}&1\end{smallmatrix}\bigr)$ on $\Gamma_\pm$, $J_0$ on $(\alpha,\beta)$ and $\bigl(\begin{smallmatrix}1&e^{-nu_V}\\0&1\end{smallmatrix}\bigr)$ on $\R\setminus[\alpha,\beta]$, and $|e^{\mp nG}|\le e^{-nc_\Gamma}$ on $\Gamma_\pm$, with $c_\Gamma$ continuous and positive on $\Gamma_\pm\setminus\{\alpha,\beta\}$.
+
+(I3) \cite[(8.4)--(8.8)]{Bl}: the model solution $M$ is analytic off $[\alpha,\beta]$, $\det M=1$, $M_+=M_-J_0$ on $(\alpha,\beta)$, $M=O(|z-\alpha|^{-1/4}+|z-\beta|^{-1/4})$, and $M=I+M_1/z+O(z^{-2})$ with $M_1=\bigl(\begin{smallmatrix}0&id\\-id&0\end{smallmatrix}\bigr)$.
+
+(I4) \cite[(9.4)--(9.37)]{Bl}: for some $\delta_0\in(0,d]$ there is a conformal map $\hat\beta$ on the disk of radius $\delta_0$ about $\beta$ with $\hat\beta(\beta)=0$, $\hat\beta'(\beta)>0$, $\frac23\hat\beta^{3/2}=-g+\frac V2+\frac l2$ (\cite[(9.35)]{Bl}, one cut), and the lips are chosen so that $\hat\beta$ maps them into the rays $\arg\zeta=\pm\frac{2\pi}3$. With the Airy model $\Phi^{\rm Ai}$ of \cite[(9.18)--(9.20)]{Bl}, $\Phi^{\rm Ai}(n^{2/3}\hat\beta)e^{-n(g-V/2-l/2)\sigma_3}$ has the jumps of $S$ there; $L_n=\frac1{2\sqrt\pi}n^{-\sigma_3/6}\hat\beta^{-\sigma_3/4}\bigl(\begin{smallmatrix}1&i\\-1&i\end{smallmatrix}\bigr)$ has $L_{n,+}=L_{n,-}J_0$ on $(\beta-\delta_0,\beta)$; and for $0<\delta\le\delta_0$, $\Phi^{\rm Ai}(n^{2/3}\hat\beta)e^{-n(g-V/2-l/2)\sigma_3}=L_n(I+\Delta_n)$ on $\partial U_\beta$ with $\sup_{\partial U_\beta}\|\Delta_n\|\le C_\delta/n$. The same holds at $\alpha$. (In \cite{Bl} the matching is written out in one sector, and the other sectors and $\alpha$ are called similar; it is the Airy asymptotics \cite[(9.15)]{Bl} in each sector.)
+
+\emph{Step 1: degree $n+k$.} Fix $k\in\Z$ with $N=n+k\ge1$, and let $Y$ solve the Riemann--Hilbert problem \cite[\S3, (3.7)--(3.11)]{Bl} of the monic orthogonal polynomial of degree $N$ for the weight $e^{-nV}$: $Y$ is analytic off $\R$, $Y_+=Y_-\bigl(\begin{smallmatrix}1&e^{-nV}\\0&1\end{smallmatrix}\bigr)$, and $Y(z)z^{-N\sigma_3}=I+Y_1/z+O(z^{-2})$, uniformly as $z\to\infty$ because the weight is entire and decays in every horizontal strip (the remark after \cite[(3.6)]{Bl}). $Y$ is bounded near $\R$, its second column consisting of Cauchy transforms of smooth rapidly decreasing functions. By \cite[(3.17), (3.21)--(3.23)]{Bl}, with $Y^{(N)}$ the matrix at degree $N$,
+\begin{equation}\label{eq:rc-Y1}
+\rho_{N,n}^2=[Y_1]_{12}[Y_1]_{21},\qquad\sigma_{N,n}=[Y_1^{(N)}]_{11}-[Y_1^{(N+1)}]_{11}.
+\end{equation}
+The jumps of $T$ and $S$ do not depend on $k$, since the jump of $Y$ does not involve the degree. The degree enters only at infinity: $g-\log z=\int\log(1-s/z)\,d\mu_V(s)$ is analytic near $\infty$ and vanishes there, and
+\begin{equation}\label{eq:rc-Tinf}
+T(z)z^{-k\sigma_3}=e^{-nl\sigma_3/2}\bigl(Y(z)z^{-N\sigma_3}\bigr)e^{-n(g(z)-\log z)\sigma_3}e^{nl\sigma_3/2}.
+\end{equation}
+
+\emph{Step 2: parametrices.} Put $M^{(k)}=d^{k\sigma_3}M\varphi^{k\sigma_3}$. It is analytic off $[\alpha,\beta]$, $\det M^{(k)}=1$, $M^{(k)}=O(|z-\alpha|^{-1/4}+|z-\beta|^{-1/4})$, $M^{(k)}(z)z^{-k\sigma_3}=d^{k\sigma_3}Md^{-k\sigma_3}(d\varphi/z)^{k\sigma_3}\to I$ at $\infty$, and $M^{(k)}_+=M^{(k)}_-J_0$ on $(\alpha,\beta)$, because $J_0a^{\sigma_3}=a^{-\sigma_3}J_0$ and so $J_0\varphi_+^{k\sigma_3}=\varphi_+^{-k\sigma_3}J_0=\varphi_-^{k\sigma_3}J_0$. For $0<\delta\le\delta_0$ put $P=E\,\Phi^{\rm Ai}(n^{2/3}\hat\beta)\,e^{-n(g-V/2-l/2)\sigma_3}$ in $U_\beta$, with $E=M^{(k)}L_n^{-1}$, and likewise in $U_\alpha$. On $(\beta-\delta,\beta)$ both $M^{(k)}$ and $L_n$ have the jump $J_0$, and $E=O(|z-\beta|^{-1/2})$ at $\beta$, so $E$ is analytic in $U_\beta$, with $\det E=\det L_n^{-1}=-2\pi i$. By (I4), $P$ has the jumps of $S$ in $U_\beta$, and $P=M^{(k)}(I+\Delta_n)$ on $\partial U_\beta$, with the same $\Delta_n$ as for $k=0$.
+
+\emph{Step 3: the small-norm problem.} Let $\Sigma_\delta=\partial U_\alpha\cup\partial U_\beta\cup\bigl((\Gamma_+\cup\Gamma_-)\setminus(U_\alpha\cup U_\beta)\bigr)\cup\bigl(\R\setminus(\alpha-\delta,\beta+\delta)\bigr)$; it depends on $\delta$ only. Put $R=S(M^{(k)})^{-1}$ outside $\overline U_\alpha\cup\overline U_\beta$, $R=SP^{-1}$ inside, and $\widetilde R=d^{-k\sigma_3}Rd^{k\sigma_3}$. In $U_\beta$, $S$ and $P$ have the same jumps, $S$ is bounded (Step 1), and so is $P^{-1}=e^{n(g-V/2-l/2)\sigma_3}(\Phi^{\rm Ai})^{-1}E^{-1}$, as $\det E$ is a nonzero constant and $(\Phi^{\rm Ai})^{\pm1}$ are bounded near $0$ (in each sector their entries are entire); so $\beta$ is a removable singularity of $R$, and likewise $\alpha$. On $(\alpha+\delta,\beta-\delta)$, $S$ and $M^{(k)}$ both have the jump $J_0$. Hence $\widetilde R$ is analytic off $\Sigma_\delta$ and bounded, $\widetilde R=I+O(1/z)$ at $\infty$ uniformly up to $\R$ (by \eqref{eq:rc-Tinf}, (I3) and Step 2), and $\widetilde R_+=\widetilde R_-(I+\widetilde\Delta)$ on $\Sigma_\delta$ with
+\[
+I+\widetilde\Delta=M\varphi^{k\sigma_3}X\varphi^{-k\sigma_3}M^{-1},\qquad X=j_S\ \text{off the circles},\quad X=(I+\Delta_n)^{\pm1}\ \text{on the circles},
+\]
+since $d^{-k\sigma_3}M^{(k)}=M\varphi^{k\sigma_3}$. The conjugation by $d^{-k\sigma_3}$ keeps the factors $d^{\pm2k}$, of size $n^{\pm2C|\log d|}$ on the window, out of $\widetilde\Delta$.
+
+\begin{lemma}\label{lem:rc-jumps}
+Let $0<\delta\le\delta_0$. There are $K,\lambda,c_*>0$ and $n_*$, depending only on $V$ and $\delta$, such that for $n\ge n_*$ and $|k|\le n$, $\|\widetilde\Delta\|\le Kn^{-1}e^{2|k|\kappa_\delta}$ on $\partial U_\alpha\cup\partial U_\beta$ and $\|\widetilde\Delta(s)\|\le Ke^{2|k|\lambda-c_*n}(1+|s|^2)^{-2}$ on the rest of $\Sigma_\delta$.
+\end{lemma}
+
+\begin{proof}
+$\|M^{\pm1}\|$ is bounded on $\Sigma_\delta$, and conjugation by $\varphi^{k\sigma_3}$ multiplies the entries $(1,2)$, $(2,1)$ by $\varphi^{\pm2k}$. On the circles $|\varphi|^{\pm2k}\le e^{2|k|\kappa_\delta}$ and $\|(I+\Delta_n)^{\pm1}-I\|\le2C_\delta/n$ for $n\ge2C_\delta$. On the lips outside the disks, $X-I$ has the single entry $e^{\mp nG}$, at most $e^{-nc'}$ with $c'=\min c_\Gamma>0$ there, multiplied by $\varphi^{-2k}$. On $\R\setminus(\alpha-\delta,\beta+\delta)$ it has the single entry $e^{-nu_V}$, multiplied by $\varphi^{2k}$. Choose $x_*\ge|c|+2d+\delta$ with $u_V(x)\ge2\log(|x-c|/d)+2\log(1+x^2)+1$ for $|x|\ge x_*$; there the entry is at most $e^{-n}(1+x^2)^{-2}$ when $|k|\le n$. Take $\lambda=\max\log|\varphi|$ on $\Gamma_\pm\cup[-x_*,x_*]$, $c''=\min u_V$ on $[-x_*,x_*]\setminus(\alpha-\delta,\beta+\delta)$, and $c_*=\min(c',c'',1)$.
+\end{proof}
+
+\begin{lemma}\label{lem:rc-smallnorm}
+Let $c_\Sigma$ be the norm of the boundary Cauchy operator $C_-$ on $L^2(\Sigma_\delta)$, finite as $\Sigma_\delta$ is a Carleson curve \cite[Theorem~2.1]{Le}. Let $\widetilde R$ be bounded and analytic off $\Sigma_\delta$, $\widetilde R(iy)\to I$ as $y\to\infty$, and $\widetilde R_+=\widetilde R_-(I+\widetilde\Delta)$ a.e.\ on $\Sigma_\delta$, with $\|\widetilde\Delta\|_\infty\le1/(2c_\Sigma)$ and $\widetilde\Delta\in L^1(\Sigma_\delta)$. Then $\widetilde R_1=\lim_{y\to\infty}iy(\widetilde R(iy)-I)$ exists and $\|\widetilde R_1\|\le\frac1{2\pi}(\|\widetilde\Delta\|_{1}+2c_\Sigma\|\widetilde\Delta\|_{2}^2)$, in the norms of $L^p(\Sigma_\delta)$.
+\end{lemma}
+
+\begin{proof}
+Let $f=\widetilde R_-\widetilde\Delta\in L^1\cap L^2$, $Cf(z)=\frac1{2\pi i}\int_{\Sigma_\delta}\frac{f(s)\,ds}{s-z}$ and $F=\widetilde R-I-Cf$. As $C_+f-C_-f=f$, the boundary values of $F$ agree a.e.\ on $\Sigma_\delta$. Let $\Sigma_\delta^*$ be $\Sigma_\delta$ together with $[\alpha-\delta,\beta+\delta]$ and the parts of the lips $\Gamma_\pm$ in $U_\alpha\cup U_\beta$; $F$ is analytic on $\Sigma_\delta^*\setminus\Sigma_\delta$. Near each point of $\Sigma_\delta$ take a small disk $B$ whose boundary crosses $\Sigma_\delta^*$ transversally. Then $\Sigma_\delta^*\cup\partial B\cup\{\infty\}$ is a Carleson jump contour in the sense of \cite[\S3.2]{Le} (four arcs meet at each of $\alpha$, $\beta$ and at every crossing, so its complement splits into the two sets $D_\pm$ required there), and $\Sigma_\delta^*$ cuts $B$ into finitely many Jordan domains with rectifiable boundaries. On each of them $\widetilde R$, being bounded, lies in the Smirnov class $E^2$ \cite[\S2.3]{Le}, and so does $Cf$, by \cite[Theorem~4.1(b)]{Le}: $Cf$ is the Cauchy integral over this contour of the function equal to $\pm f$ on $\Sigma_\delta$ (the sign fixed by the orientation) and to $0$ elsewhere. Adding Cauchy's formulas for these $E^1$ functions \cite[Theorem~2.2(a)]{Le}, the integrals over $\Sigma_\delta^*\cap B$ cancel, so $F$ is analytic in $B$. Thus $F$ is entire. For large $|z|$, $|Cf(z)|\le\|f\|_2(\int_{\Sigma_\delta}|s-z|^{-2}|ds|)^{1/2}\le C(1+|\im z|^{-1/2})$, so $\int_{|z|=r}\|F\|\,|dz|=O(r)$, and $F$ is constant by Cauchy's estimates; as $F(iy)\to0$, $F=0$. Hence $\mu=\widetilde R_--I=C_-f\in L^2$ and $\mu=C_-(\mu\widetilde\Delta)+C_-\widetilde\Delta$, the singular integral equation of \cite[Proposition~5.8]{Le}, so $\|\mu\|_2\le\frac12\|\mu\|_2+c_\Sigma\|\widetilde\Delta\|_2$. Finally $|iy/(s-iy)|\le2$ on $\Sigma_\delta$ for large $y$, so by dominated convergence $iy\,Cf(iy)\to-\frac1{2\pi i}\int_{\Sigma_\delta}(I+\mu)\widetilde\Delta\,ds$; the Cauchy--Schwarz inequality gives the bound.
+\end{proof}
+% TODO(author): the pinpoints in [Le] (Thm 2.1: the Cauchy singular operator is bounded on L^p(Gamma,w) iff Gamma is
+% Carleson and w is A_p, constant weights being A_p on a Carleson curve; Sec. 2.3: Smirnov classes; Thm 2.2(a): Cauchy's
+% formula for E^p functions; Sec. 3.2: Carleson jump contours; Thm 4.1(b): Cauchy integrals of L^p functions on a
+% Carleson jump contour lie in the classes dot-E^p of its complementary components; Prop. 5.8: the singular integral
+% equation) were checked against arXiv:1401.2506v2. The journal data (Monatsh. Math. 186 (2018), no. 1, 111--152) are
+% confirmed; the journal's numbering of these statements was not compared with the arXiv numbering.
+
+\emph{Step 4: proof of Proposition~\ref{prop:RC}.} Fix $\delta\in(0,\delta_0]$, let $K,\lambda,c_*,n_*$ be as in Lemma~\ref{lem:rc-jumps}, and put $\eps_{n,k}=n^{-1}e^{2|k|\kappa_\delta}$. If $|k|\le c_*n/(4\lambda+4)$, then $e^{2|k|\lambda-c_*n}\le e^{-c_*n/2}\le1/n$ for large $n$, so $\|\widetilde\Delta\|_{L^p(\Sigma_\delta)}\le C'\eps_{n,k}$ for $p=1,2,\infty$, with $C'$ depending on $V,\delta$. If also $C'\eps_{n,k}\le1/(2c_\Sigma)$, Lemma~\ref{lem:rc-smallnorm} gives $\|\widetilde R_1^{(k)}\|\le C'\eps_{n,k}/\pi$, where $\widetilde R^{(k)}$ is $\widetilde R$ at degree $n+k$.
+
+For large $|z|$ outside the lens, $T=S=d^{k\sigma_3}\widetilde RM\varphi^{k\sigma_3}$, so with $A=e^{nl\sigma_3/2}d^{k\sigma_3}$
+\[
+Y(z)z^{-N\sigma_3}=A\,\widetilde R(z)M(z)A^{-1}D(z),\qquad D=\Bigl(\frac{d\varphi}z\Bigr)^{k\sigma_3}e^{n(g-\log z)\sigma_3}=I-\frac{kc+ng_1}z\,\sigma_3+O(z^{-2}),
+\]
+and along $z=iy$, $Y_1=A(\widetilde R_1+M_1)A^{-1}-(kc+ng_1)\sigma_3$. In \eqref{eq:rc-Y1} the factors $e^{\pm nl}d^{\pm2k}$ that $A$ puts on the off-diagonal entries cancel, and the terms $-kc-ng_1$ cancel except for $c$:
+\[
+\rho_{n+k,n}^2=\bigl(id+[\widetilde R_1^{(k)}]_{12}\bigr)\bigl(-id+[\widetilde R_1^{(k)}]_{21}\bigr),\qquad
+\sigma_{n+k,n}=c+[\widetilde R_1^{(k)}]_{11}-[\widetilde R_1^{(k+1)}]_{11}.
+\]
+So $|\rho_{n+k,n}-d|\le|\rho_{n+k,n}^2-d^2|/d\le2\|\widetilde R_1^{(k)}\|+\|\widetilde R_1^{(k)}\|^2/d$ and $|\sigma_{n+k,n}-c|\le\|\widetilde R_1^{(k)}\|+\|\widetilde R_1^{(k+1)}\|$; the bound for $\sigma$ needs the two conditions on $k$ above at $k$ and at $k+1$. For fixed $k$ take $\delta=\delta_0$; then $\eps_{n,k},\eps_{n,k+1}=O(1/n)$. Given $C,\eta>0$, take $\delta$ with $2C(\sqrt{\delta/d}+\delta/d)\le\eta$; for $|k|\le C\log n$ and $j\in\{k,k+1\}$, $|j|\le C\log n+1\le c_*n/(4\lambda+4)$ and $\eps_{n,j}\le e^{2\kappa_\delta}n^{-1+\eta}\le1/(2c_\Sigma C')$ for large $n$. \qed
+
+
+\section*{Statement on the use of AI}
+% TODO(author): before submission, this statement must describe a line-by-line verification of every proof by the
+% author. Its wording is that of the main paper and is not yet true of a verified manuscript.
+The proofs, computations and text of this paper were produced with AI systems from Anthropic, OpenAI and Google, directed by the author. The proofs were checked by independent AI referee rounds; no human expert has yet read them.
+
+\begin{thebibliography}{99}
+\bibitem[M]{Main} B. Baggins, \emph{The real-rooting time of heat-evolved random polynomials}, preprint (2026).
+\bibitem[A]{CompA} B. Baggins, \emph{Explicit onsets, rates and the tail of the collision constant for heat-evolved Weyl polynomials}, preprint (2026).
+\bibitem[B]{CompB} B. Baggins, \emph{Nonreal zeros of heat-evolved Weyl polynomials near the collapse time}, preprint (2026).
+\bibitem{AKK} N. Asai, I. Kubo, H.-H. Kuo, \emph{The Brenke type generating functions and explicit forms of MRM-triples by means of $q$-hypergeometric series}, Infin. Dimens. Anal. Quantum Probab. Relat. Top. \textbf{16} (2013), no.~2; doi:10.1142/S0219025713500100.
+% TODO(author): article number (probably 1350010, from the DOI) not checked.
+
+\bibitem{BI} P. Bleher, A. Its, \emph{Asymptotics of the partition function of a random matrix model}, Ann. Inst. Fourier (Grenoble) \textbf{55} (2005), no.~6, 1943--2000; doi:10.5802/aif.2147; arXiv:math-ph/0409082.
+
+\bibitem{Bi2} P. Billingsley, \emph{Convergence of Probability Measures}, 2nd ed., Wiley, New York, 1999.
+
+\bibitem{Bl} P. M. Bleher, \emph{Lectures on random matrix models. The Riemann--Hilbert approach}, preprint (2008), arXiv:0801.1858.
+% TODO(author): published in J. Harnad (ed.), Random Matrices, Random Processes and Integrable Systems, CRM Ser. Math.
+% Phys., Springer, New York, 2011; these data and the page range (251--349?) are unverified. The equation numbers cited
+% are those of arXiv v2, and were checked there.
+
+\bibitem{Br} L. R. Bragg, \emph{The radial heat polynomials and related functions}, Trans. Amer. Math. Soc. \textbf{119} (1965), 270--290; doi:10.1090/S0002-9947-1965-0181769-4.
+
+\bibitem{Ch68} T. S. Chihara, \emph{Orthogonal polynomials with Brenke type generating functions}, Duke Math. J. \textbf{35} (1968), 505--517; doi:10.1215/S0012-7094-68-03551-5.
+% TODO(author): the last page is given as 517 or 518 in different sources.
+
+\bibitem{Ch71} T. S. Chihara, \emph{Orthogonality relations for a class of Brenke polynomials}, Duke Math. J. \textbf{38} (1971), 599--603; doi:10.1215/S0012-7094-71-03875-0.
+
+\bibitem{Chi} T. S. Chihara, \emph{An Introduction to Orthogonal Polynomials}, Mathematics and its Applications \textbf{13}, Gordon and Breach, New York, 1978.
+
+\bibitem{CM} C. Cuenca, C. McSwiggen, \emph{The rectangular finite free heat flow}, preprint (2026), arXiv:2606.06859.
+
+\bibitem{Cu} C. Cuenca, \emph{Cumulants in rectangular finite free probability and beta-deformed singular values}, preprint (2024), arXiv:2409.04305; to appear in Trans. Amer. Math. Soc.
+
+\bibitem{DKMVZ} P. Deift, T. Kriecherbauer, K. T.-R. McLaughlin, S. Venakides, X. Zhou, \emph{Uniform asymptotics for polynomials orthogonal with respect to varying exponential weights and applications to universality questions in random matrix theory}, Comm. Pure Appl. Math. \textbf{52} (1999), 1335--1425.
+
+\bibitem{GM} A. Gribinski, A. W. Marcus, \emph{A rectangular additive convolution for polynomials}, Comb. Theory \textbf{2} (2022), no.~1, Paper No.~16; arXiv:1904.11552.
+% TODO(author): the journal data (paper number 16) come from a web search and were not checked.
+
+\bibitem{Ha} D. T. Haimo, \emph{$L^2$ expansions in terms of generalized heat polynomials and of their Appell transforms}, Pacific J. Math. \textbf{15} (1965), 865--875.
+
+\bibitem{HHJK} B. C. Hall, C.-W. Ho, J. Jalowy, Z. Kabluchko, \emph{Zeros of random polynomials undergoing the heat flow}, Electron. J. Probab. \textbf{30} (2025), paper no.~159, 1--55; doi:10.1214/25-EJP1421; arXiv:2308.11685.
+% TODO(author): the page range 1--55 comes from the arXiv abstract page; the theorem numbers cited are those of arXiv v2.
+
+\bibitem{HHJK2} B. C. Hall, C.-W. Ho, J. Jalowy, Z. Kabluchko, \emph{The heat flow, GAF, and $SL(2;\mathbb R)$}, Indiana Univ. Math. J. \textbf{74} (2025), 1153--1206; doi:10.1512/iumj.2025.74.60451; arXiv:2304.06665.
+
+\bibitem{KMVV} A. B. J. Kuijlaars, K. T.-R. McLaughlin, W. Van Assche, M. Vanlessen, \emph{The Riemann--Hilbert approach to strong asymptotics for orthogonal polynomials on $[-1,1]$}, Adv. Math. \textbf{188} (2004), 337--398; arXiv:math/0111252.
+
+\bibitem{Le} J. Lenells, \emph{Matrix Riemann--Hilbert problems with jumps across Carleson contours}, Monatsh. Math. \textbf{186} (2018), no.~1, 111--152; doi:10.1007/s00605-017-1019-0; arXiv:1401.2506.
+
+\bibitem{LMS} D. S. Lubinsky, H. N. Mhaskar, E. B. Saff, \emph{A proof of Freud's conjecture for exponential weights}, Constr. Approx. \textbf{4} (1988), 65--83.
+
+\bibitem{Ma} A. P. Magnus, \emph{A proof of Freud's conjecture about the orthogonal polynomials related to $|x|^\rho\exp(-x^{2m})$, for integer $m$}, in: Orthogonal Polynomials and Applications (Bar-le-Duc, 1984), Lecture Notes in Math. \textbf{1171}, Springer, Berlin, 1985, 362--372.
+
+\bibitem{RW} P. C. Rosenbloom, D. V. Widder, \emph{Expansions in terms of heat polynomials and associated functions}, Trans. Amer. Math. Soc. \textbf{92} (1959), 220--266; doi:10.1090/S0002-9947-1959-0107118-2.
+
+\bibitem{SaTo} E. B. Saff, V. Totik, \emph{Logarithmic Potentials with External Fields}, Grundlehren Math. Wiss. \textbf{316}, Springer, Berlin, 1997.
+
+\bibitem{Sz} G. Szeg\H{o}, \emph{Orthogonal Polynomials}, 4th ed., Amer. Math. Soc. Colloq. Publ. \textbf{23}, Amer. Math. Soc., Providence, RI, 1975.
+
+\end{thebibliography}
+\end{document}

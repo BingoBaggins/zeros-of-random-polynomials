@@ -1,0 +1,449 @@
+{
+ "script": "part1_symbolic",
+ "passed": 63,
+ "failed": 0,
+ "seconds": 83.4,
+ "checks": [
+  {
+   "label": "lem:heat(a)",
+   "desc": "He_k(x) = exp(-d^2/2) x^k for k<=14",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:heat(a)",
+   "desc": "exp(-t/(2n) d_z^2)(sqrt(n)z)^k/sqrt(k!) = t^(k/2) h_k(sqrt(n/t) z), symbolic n,t,z, k<=14",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "eq:heat-hermite",
+   "desc": "P_{n,t}(z) = t^(n/2) sum_j eta_j t^(-j/2) h_{n-j}(sqrt(n/t) z), symbolic eta,t,z, n<=9",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "eq:reduction",
+   "desc": "P_{n,t}(z) = P~_{n',t}(sqrt(n/n') z) when eta_0..eta_{m0-1}=0 (n,m0)=(5,1),(6,2),(7,3)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:heat(b)",
+   "desc": "Z(exp(-a d^2)p) <= Z(p), degree and leading coefficient kept: 300 random integer polynomials of degree 2..8, random rational a (exact Sturm counts)",
+   "status": "PASS",
+   "method": "exact rational arithmetic",
+   "detail": ""
+  },
+  {
+   "label": "lem:cd",
+   "desc": "sum_{k<n} h_k(x)^2 = n(h_n^2 - z h_n h_{n-1} + h_{n-1}^2), x = sqrt(n) z, n<=12",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:continuant",
+   "desc": "B_(n,j) = Pi_(j-1)(beta_1..beta_(j-2))/d_(n,j), A_(n,j) = -Pi_(j-2)(beta_2..beta_(j-2))/d_(n,j), j<=12, with sqrt(beta_r) free symbols (stronger than the stated identity)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "eq:fixed-j",
+   "desc": "Pi_m(y;1,...,1) = U_m(y/2), m<=12 (limits A_j=-U_{j-2}, B_j=U_{j-1})",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "eq:AB",
+   "desc": "h_{n-j}(sqrt(n)z) = A_{n,j} h_n + B_{n,j} h_{n-1} for all 0<=j<=n, n in {7,18,30}, random complex z (error relative to |A h_n|+|B h_{n-1}|)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max rel. error 5.38e-51"
+  },
+  {
+   "label": "lem:defect",
+   "desc": "matching expansion of Pi_m(y;1-delta_1..1-delta_{m-1}), m<=9, symbolic delta,y",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:secondorder(b)",
+   "desc": "A_(n,j) = A_j + A^(1)_j/n + O(n^-2), same for B, j<=9 (series in 1/n)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:secondorder(d)",
+   "desc": "Y_j = y Y_{j-1} - Y_{j-2} + ((j-1)w^j+(j-2)w^{j-2})/2, Y_0=Y_1=0, j<=12, symbolic w",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:envelope(b)",
+   "desc": "particular solution P(j)=alpha_2 j(j+1)/2+alpha_1 j of the Y-recurrence, and Y_j = w^j(P(j)+k1)+k2 w^-j with Y_0=Y_1=0 (j<=12)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:envelope(b)",
+   "desc": "at w=e^{i theta}: alpha_2 = -(i/2)cot theta, alpha_1+alpha_2 = 1/(4 sin^2 theta), hence F_1^* = gamma(1/(4w^2) - (i/4)cot(theta) rho)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:envelope(b)",
+   "desc": "F_1(T*,y*) = sum_j a_j(A1_j+w*B1_j) equals F_1^* for q=(1+2w)(1+4w/3+20w^2/9)/(1-5w/6)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "|diff| = 1.76e-50"
+  },
+  {
+   "label": "lem:envelope(b)",
+   "desc": "F_0(T*,y*)=0, d_t F_0 = -gamma/(2T*), d_y F_0 = beta (same q)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "errors 1.3e-51, 1.2e-51, 1.9e-51"
+  },
+  {
+   "label": "lem:envelope(c)",
+   "desc": "beta(zeta - i lambda)/omega = beta xi - gamma tau/(2T*) + F_1^* with the window variables (eq:window) and tau_c, W, xi_r of the Notation",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:limit",
+   "desc": "A_j + w B_j = w^j, A_{j+1} = -B_j, B_{j+1} = z B_j + A_j (z=w+1/w), j<=13",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:limit",
+   "desc": "H_a = [[A,B],[-B,A+zB]] and det H_a(z) = a(w)a(1/w) for polynomial a of degree <=8 with symbolic coefficients",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:limit",
+   "desc": "det H_a(w+1/w) = a(w)a(1/w) for the power series (1-2w+2w^2)(1+5w/3)/(1-10w/13), |w|=1 and real w with e^-k0<=|w|<=e^k0",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max error 7.7e-47"
+  },
+  {
+   "label": "lem:colleague",
+   "desc": "det(zI - C) = sqrt(n!)/(a_0 n^(n/2)) Q(sqrt(n) z), n<=5, symbolic a_j",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:colleague",
+   "desc": "same identity for n=12,25 at random complex z, random a_j",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max rel. error 7.44e-51"
+  },
+  {
+   "label": "lem:model(a)",
+   "desc": "Phi_c = R(s)[(zeta,lambda) - gamma(s)] and |(f, d_zeta f)|^2 = (J(s)-c)^2 + (lambda+cos^2 s)^2, s = zeta + c",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:model(b)",
+   "desc": "at (zeta_c,lambda_c)=(sin s_c cos s_c, -cos^2 s_c), c=J(s_c): f=f'=0, f''=-2 sin s_c, f'''=-2cos s_c, det D Phi = 2 sin^2 s_c",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "sec:firstorder",
+   "desc": "J' = 2 sin^2, J odd, J(s+pi)=J(s)+pi, J(pi/2)=pi/2; 1+2 lambda_c = -cos 2s_c; (2c, 2+2 lambda_c) on the cycloid (S - sin S, 1 - cos S), S=2 s_c",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:model",
+   "desc": "e^u f_{lambda+2u,c} solves d_u F = -d_zeta^2 F (model is a backward-heat trajectory)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "eq:kepler",
+   "desc": "Psi(c) = 2|s_{c~}| solves Psi - sin Psi = 2 dist(c, pi Z); cos 2s_c = cos Psi, sin 2s_c = sgn(c~) sin Psi (40 random c)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max error 1.23e-30"
+  },
+  {
+   "label": "lem:model",
+   "desc": "Dini endpoints: lambda_0 = -1, lambda_{pi/2} = 0",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": ""
+  },
+  {
+   "label": "lem:model(c)",
+   "desc": "all zeros of f_{lambda,c} in |zeta+c|<5pi real iff lambda>=lambda_c: 11 zeros there (argument principle), 11 real for lambda=lambda_c+0.05, 9 real for lambda_c-0.05 (12 random c)",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": ""
+  },
+  {
+   "label": "lem:model(d)",
+   "desc": "C_J = sqrt2 (3pi^2/2)^(1/6) < 2.22 and the four constants below 11.7 (zeta) and 7.1 (lambda)",
+   "status": "PASS",
+   "method": "interval arithmetic (Arb)",
+   "detail": "C_J=[2.2161 +/- 4.69e-5], zeta: [3.7660 +/- 4.11e-5], [11.651 +/- 3.75e-4]; lambda: [3.9069 +/- 1.87e-5], [7.0054 +/- 4.38e-6]"
+  },
+  {
+   "label": "thm:firstorder(c)",
+   "desc": "arithmetic of the double-zero bound: 5(2/s^2+1+2/s)+1 <= 26/s^2 for s<=1, 2-26/36>0",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": ""
+  },
+  {
+   "label": "lem:model(d)",
+   "desc": "localisation bounds for |Phi_c| = eps <= 1 (4000 random points near the threshold curve)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio lhs/rhs = 0.7813"
+  },
+  {
+   "label": "prop:threshold",
+   "desc": "|Phi_c| >= 1/2 on the boundary of B_0=[-1,1]x[-3/2,1/2] (2000 random points)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max of 1/(2|Phi|) = 0.9982"
+  },
+  {
+   "label": "lem:localform",
+   "desc": "exp(-a d^2)w^k formula; H^+_k = He_k, H^-_k(v) = i^-k He_k(iv); P_t(x0+sigma v) = sum b_k sigma^k H^eps_k(v) for t = t0 + eps n sigma^2 (k<=14)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "rem:localform",
+   "desc": "d_t P_t = -P_t''/(2n) (degree-6 generic P) and Jacobian determinant -P''^2/(2n) at a double zero",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:pairs",
+   "desc": "varkappa(0)=0, varkappa' = (4/pi) r arctan r/(1-r^2)^2 and the integrated-by-parts form",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:pairs",
+   "desc": "pi varkappa(r) = 4/3 (r^3+r^5) + 152/105 (r^7+r^9) + O(r^11); varkappa = 4/(3pi) r^3(1+r^2+O(r^4))",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": "series: 152*r**9/105 + 152*r**7/105 + 4*r**5/3 + 4*r**3/3"
+  },
+  {
+   "label": "lem:pairs",
+   "desc": "first intensity = case n=1 of the Matsumoto-Shirai Pfaffian: rho_1 = 2 Im z/(pi|1-z^2|(1-|z|^2)^2); |1-rho^2 e^{2i theta}|^2 = (1+rho^2)^2 - 4 rho^2 cos^2 theta",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:pairs",
+   "desc": "angular integral = (2/rho) arctan rho = (1/rho) arcsin(2rho/(1+rho^2)); radial integral = varkappa(r)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max error 2.67e-51"
+  },
+  {
+   "label": "thm:tail",
+   "desc": "area of D_0(c) is 8c^2/3; constant 8/3 f(0)^2 E eta^2 = 4/(3pi) (Gaussian), 2/9 (uniform)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "thm:tail",
+   "desc": "box (eq:box) has area <= 240(|eta_2|+Gamma)^2; r^(j-2)|z|^j <= r 4^-(j-3) (27/8)(3/2)^(j-3) for r<=1/4, |z|<=3/2",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "thm:jointlaw",
+   "desc": "Psi(U), U uniform on [0,pi/2], has density (1-cos Psi)/pi; s=-W cos Psi has density (pi W)^-1 ((W+s)/(W-s))^(1/2), total mass 1, mean W/2",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "thm:jointlaw",
+   "desc": "empirical CDF of -W cos Psi(U), 20000 samples, against the integrated density (KS distance)",
+   "status": "PASS",
+   "method": "Monte Carlo",
+   "detail": "KS = 0.0067"
+  },
+  {
+   "label": "thm:jointlaw(a)",
+   "desc": "for the benchmark (a=2, theta*=1.1) the values tau_c - W cos Psi(c_n^nat), n<=2e5, are distributed with density p_W(tau - tau_c) (KS distance); mean",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": "KS = 0.00003, mean = 0.37048 vs tau_c+W/2 = 0.37048"
+  },
+  {
+   "label": "sec:firstorder",
+   "desc": "tau_c and W in both forms; sqrt(T*) xi_r, sqrt(T*)/(2 omega), y*/(2 sqrt T*) in the heat variable; exact n(z_n - z*) formula; interval length 2W = 1/(Im u*)^2",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "prop:phase",
+   "desc": "g'(m) = phi_m; Szego's phase = 3pi/4 - (n+1/2)J(phi); cos(T)cos(th)-cos(T-th) = -sin T sin th; c_n^nat of the introduction = c_inf - n pi nu = c_n with arg c_n(x*) replaced by its asymptotics",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:carrier(a)",
+   "desc": "h_n = Re c_n, h_{n-1} = Re(w* c_n), omega^2|c_n|^2 = h_n^2 - y* h_n h_{n-1} + h_{n-1}^2; form eigenvalues 1 +- cos theta*",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "lem:carrier(b)",
+   "desc": "u_n''+(n+1/2-x^2/4)u_n=0, u_n'=sqrt(n)u_{n-1}-(x/2)u_n, eq:carrier-Z, and U''+(omega^2+eps(xi))U=0 with the stated eps (n<=8)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "prop:phase",
+   "desc": "arg c_n(x*) - (pi/4 - (n+1/2)theta + (n/2) sin 2theta) and |c_n(x*)|e^{-x*^2/4}/((2/(pi n))^(1/4) sin^(-1/2)) - 1 are O(1/n): n x error bounded for theta in {0.7,1.1,2.3}, n=200..12800",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": "max n*|arg err| = 0.548, max n*|mod err| = 0.466"
+  },
+  {
+   "label": "lem:mehler",
+   "desc": "Mehler's formula at random complex x,y and r in (0.1,0.8), series to k=400",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max rel. error 1.1e-50"
+  },
+  {
+   "label": "rem:benchmark",
+   "desc": "q=1+bw+aw^2: q(u*)=0, q'(u*)=2i sqrt(a) sin theta, rho* = 1-i cot theta, tau_c=-(a/2)cot^2, W=a/(2 sin^2), tau_c+W=a/2, tau_c-W=-(a/2)(1+cos^2)/sin^2",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "rem:benchmark",
+   "desc": "sqrt(n!)Q_n^(t) = (x+b sqrt(n/t))He_{n-1} - chi He_{n-2}, and = det(x - J') (n<=9)",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "rem:benchmark",
+   "desc": "n(a sqrt(n/(n-1)) - a) = a/2 + O(1/n) (a=2); value 1.0036 at n=207",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": "207(2sqrt(207/206)-2) = 1.00364"
+  },
+  {
+   "label": "rem:benchmark",
+   "desc": "a=2, theta*=1.1: nu = 0.2215..., tau_c = -0.2590..., W = 1.2590...",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": "nu=0.221465, tau_c=-0.259049, W=1.259049"
+  },
+  {
+   "label": "lem:ext-quant",
+   "desc": "sum (i+1)^2 x^(i+1) = x(1+x)/(1-x)^3; |J(w)-2| = |w-1|^2/|w|; the onset algebra giving n_ext",
+   "status": "PASS",
+   "method": "symbolic",
+   "detail": ""
+  },
+  {
+   "label": "rem:full",
+   "desc": "n! <= e sqrt(n)(n/e)^n and (n^n/n!)^(1/2) >= e^(n/2)/(e^2 n)^(1/4), n<400",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": ""
+  },
+  {
+   "label": "lem:chebyshev",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 1.0"
+  },
+  {
+   "label": "lem:transfer",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 0.5"
+  },
+  {
+   "label": "lem:head-rate(a)",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 0.005901"
+  },
+  {
+   "label": "lem:head-rate(b)",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 0.003191"
+  },
+  {
+   "label": "lem:secondorder(a)",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 1.0"
+  },
+  {
+   "label": "lem:secondorder(b)",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 0.09135"
+  },
+  {
+   "label": "lem:secondorder(c)",
+   "desc": "explicit bound at random points (ratio lhs/rhs must be <= 1)",
+   "status": "PASS",
+   "method": "high-precision random points",
+   "detail": "max ratio = 0.0002268"
+  }
+ ]
+}

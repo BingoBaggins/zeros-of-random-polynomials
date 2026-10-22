@@ -1,0 +1,16 @@
+[PASS] eq:std-onset: s=3/10: n_s' = 1, n_s = 13707  (interval arithmetic (Arb) + exact)  -- computed n_s'=1, n_s=13707, signs certified: True
+[PASS] eq:std-onset: s=1/2: n_s' = 4, n_s = 25051  (interval arithmetic (Arb) + exact)  -- computed n_s'=4, n_s=25051, signs certified: True
+[PASS] eq:std-onset: s=4/5: n_s' = 25, n_s = 93949  (interval arithmetic (Arb) + exact)  -- computed n_s'=25, n_s=93949, signs certified: True
+[PASS] eq:std-onset: s=19/20: n_s' = 169, n_s = 493795  (interval arithmetic (Arb) + exact)  -- computed n_s'=169, n_s=493795, signs certified: True
+[PASS] eq:std-onset: f_s'' = (1+2c12)/(2(n+1)^2) > 0 (convex); f_s(n)/n -> gamma(3/4 - c12(72(1+s)+1/4)) > gamma/2 for all s in (0,1)  (symbolic)
+[PASS] eq:std-onset: f_s(1) < 0 at the four values of s  (interval arithmetic (Arb))
+[PASS] prop:early: beta_s^2/(1-s^2) = sqrt(s) log(1/sqrt s)/(2(1+sqrt s)(1+s))  (symbolic)
+[PASS] prop:early: gamma_s <= 1/(256 e) on (0,1) (analytic: x log(1/x) <= 1/e; grid of 1999 points)  (interval arithmetic (Arb))  -- max 256 e gamma_s on grid = 0.7099
+[PASS] prop:early: (4e^-3)^(1/2) <= e^-0.8 (chi-squared tail with x=4)  (interval arithmetic (Arb))  -- [0.446260 +/- 3.21e-7] vs [0.449329 +/- 3.60e-8]
+[PASS] prop:early: inf_lambda e^{-lambda m x}(1-2lambda)^{-m/2} = (x e^{1-x})^{m/2} at lambda=(1-1/x)/2  (symbolic)
+[PASS] prop:early: eq:std-Vinf exponent = 2n phi; (sqrt s + s)/(s(1-s)) = 1/(sqrt s (1-sqrt s)); exponent at |z|=beta_s is (n/4)log(1/s); truncation term = s^(1/2) s^(n/4)  (symbolic)
+[PASS] eq:std-gain: 12-point average of phi minus phi(z0) = r2^2/(2(1-s^2)) = y0^2/(32(1-s^2)) = gamma_s; Phi_max bound (3y0/2)^2/(2(1-s)) = 36(1+s)gamma_s  (symbolic)
+[PASS] eq:std-average: c_12 = 2*2^-12/(1-2^-12) = 2 sum_m 2^-12m = 2/4095  (exact rational arithmetic)
+[INFO] prop:early: s=1/2: beta_s^2, gamma_s, c_s = gamma_s/4, C_s = 14 e^{gamma_s n_s/4}  -- beta^2=[0.035888870 +/- 3.64e-10], gamma=[0.00037384240 +/- 3.80e-13], c_s=[9.34606e-5 +/- 1.2e-13], C_s=[145.524 +/- 3.21e-4]
+[PASS] prop:early: RHS of eq:std-early is below 1 only for n > 4 log(13)/gamma_s, about 2.7e4 at s=1/2  (interval arithmetic (Arb))  -- 4 log 13/gamma_(1/2) = [27444.18 +/- 1.82e-3]
+== part2_constants: 14 passed, 0 failed, 0.5 s

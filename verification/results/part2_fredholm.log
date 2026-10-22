@@ -1,0 +1,41 @@
+[PASS] rem:fredholm-num: S_1 = 2 arctan(rho)/rho, S_-k = -S_k, the three-term relation for S_k (k<=21), and the series S_k = sum c_a c_b x^(a+b) 2k/(k^2-4(a-b)^2) used below, at rho in {0.3,0.77,0.95}  (high-precision random points)  -- max error 2.18e-37
+[PASS] eq:Lkernel: sum_{m even} m x^m = 2x^2/(1-x^2)^2, sum (m+1)x^m = (1+x^2)/(1-x^2)^2, sum|A_mn|r^(m+n) = 2r/(1-r^2)^2, eq:traces sum_k e^{-(2k+1)s} = 1/(2 sinh s)  (symbolic)
+[PASS] lem:even-bergman / thm:lower: int_0^{pi/2} (1-sin v)^2/cos^2 v dv = 2-pi/2 (symbolic); int_0^oo -log(1-e^-u) du = pi^2/6 (40-digit quadrature)  (symbolic)
+[PASS] lem:even-bergman: strip substitution w = tanh(zeta/2): |dw/dzeta|, |1-w^2|, 1-|w|^2, tau = sin v, |w|^2 >= tanh^2(u/2)  (numerical (floating point))  -- max error 5.55e-16
+[PASS] lem:log-ineq: log|1-l| <= -Re sum_{j<p} l^j/j + C_p|l|^p, p=2..8, 154000 random l  (numerical (floating point))  -- max(lhs-rhs) = 2.384e-16
+[INFO] prop:fredholm: r=1/2 (t=4.000000): P(T*<=t) = det(I-X(r))  -- [0.92924999391969, 0.92924999391969]  [M=60, N=80, truncation tail [3.31e-17 +/- 3.32e-20], ||(I-X_M)^-1||<=[5.583 +/- 4.74e-4]]
+[PASS] prop:fredholm: tr X(r) = varkappa(r) at r=1/2  (interval arithmetic (Arb))  -- tr X = [0.0711231198010256 +/- 3.21e-17], varkappa = [0.0711231198010256 +/- 3.21e-17]
+[PASS] thm:lower: P(T*<=t) >= prod_k (1-t^(-2k-1/2)) at r=1/2  (interval arithmetic (Arb))  -- [0.92924999 +/- 3.92e-9] > [0.48336601 +/- 9.19e-10]
+[INFO] prop:fredholm: r=7/10 (t=2.040816): P(T*<=t) = det(I-X(r))  -- [0.72580526407046, 0.72580526407052]  [M=110, N=140, truncation tail [5.52e-15 +/- 7.90e-19], ||(I-X_M)^-1||<=[7.539 +/- 6.28e-5]]
+[PASS] prop:fredholm: tr X(r) = varkappa(r) at r=7/10  (interval arithmetic (Arb))  -- tr X = [0.291882936760564 +/- 4.10e-16], varkappa = [0.291882936760564 +/- 4.10e-16]
+[PASS] thm:lower: P(T*<=t) >= prod_k (1-t^(-2k-1/2)) at r=7/10  (interval arithmetic (Arb))  -- [0.72580526 +/- 4.08e-9] > [0.23646134 +/- 4.24e-9]
+[INFO] prop:fredholm: r=4/5 (t=1.562500): P(T*<=t) = det(I-X(r))  -- [0.48224473718654, 0.48224473718774]  [M=170, N=210, truncation tail [1.33e-13 +/- 4.96e-16], ||(I-X_M)^-1||<=[9.391 +/- 3.76e-4]]
+[PASS] prop:fredholm: tr X(r) = varkappa(r) at r=4/5  (interval arithmetic (Arb))  -- tr X = [0.628728093370788 +/- 1.95e-16], varkappa = [0.628728093370788 +/- 1.95e-16]
+[PASS] thm:lower: P(T*<=t) >= prod_k (1-t^(-2k-1/2)) at r=4/5  (interval arithmetic (Arb))  -- [0.48224474 +/- 2.82e-9] > [0.10586674 +/- 4.83e-10]
+[INFO] prop:fredholm: r=9/10 (t=1.234568): P(T*<=t) = det(I-X(r))  -- [0.10868062123685, 0.10868062123699]  [M=400, N=430, truncation tail [4.44e-14 +/- 4.31e-17], ||(I-X_M)^-1||<=[14.48 +/- 4.51e-3]]
+[PASS] prop:fredholm: tr X(r) = varkappa(r) at r=9/10  (interval arithmetic (Arb))  -- tr X = [1.75350823380479 +/- 2.44e-16], varkappa = [1.75350823380479 +/- 2.44e-16]
+[PASS] thm:lower: P(T*<=t) >= prod_k (1-t^(-2k-1/2)) at r=9/10  (interval arithmetic (Arb))  -- [0.10868062 +/- 1.24e-9] > [0.011214795 +/- 3.42e-10]
+[PASS] rem:fredholm-num: P(T* <= 100/81) = 0.10868062 (r=0.9)  (interval arithmetic (Arb))  -- certified enclosure [0.108680621237, 0.108680621237]
+[PASS] rem:lower(b): the bound of thm:lower at t=100/81 is 0.0112  (interval arithmetic (Arb))  -- prod = [0.0112148 +/- 4.67e-9]
+[INFO] rem:fredholm-num: Bornemann/Nystrom, half disk, r=0.5: (n_rho, n_theta, det, |Im det|, det - certified value)  -- (8,16): 0.929249993921, 1.6e-18, +1.7e-12; (12,24): 0.929249993920, 1.2e-20, +7.0e-15; (16,32): 0.929249993920, 4.0e-18, +1.2e-14; (24,48): 0.929249993920, 1.3e-18, +1.3e-13
+[PASS] rem:fredholm-num: Bornemann quadrature reproduces the certified value at r=0.5  (numerical (floating point))  -- difference 1.34e-13 with 24x48 nodes
+[INFO] rem:fredholm-num: Bornemann/Nystrom, half disk, r=0.9: (n_rho, n_theta, det, |Im det|, det - certified value)  -- (16,32): 0.108678189923, 4.1e-18, -2.4e-06; (24,48): 0.108680600581, 2.7e-18, -2.1e-08; (32,64): 0.108680621040, 5.8e-18, -2.0e-10; (40,80): 0.108680621235, 1.0e-19, -1.9e-12; (48,96): 0.108680621237, 3.4e-19, +1.4e-13
+[PASS] rem:fredholm-num: Bornemann quadrature reproduces the certified value at r=0.9  (numerical (floating point))  -- difference 1.39e-13 with 48x96 nodes
+[INFO] rem:fredholm-num: double precision, r=0.9: -log P(T*<=t) for M=140,174; componentwise condition number of det; tr X - varkappa  -- 2.219341778, 2.219341778; kappa=3.0; trace error 0.0e+00
+[PASS] rem:fredholm-num: double-precision matrix method agrees with the certified value at r=0.9  (numerical (floating point))  -- -log P: 2.219341778238 vs certified 2.219341778238
+[INFO] rem:fredholm-num: double precision, r=0.95: -log P(T*<=t) for M=280,350; componentwise condition number of det; tr X - varkappa  -- 5.624299494, 5.624299494; kappa=8.6; trace error -8.9e-16
+[INFO] rem:fredholm-num: double precision, r=0.99: -log P(T*<=t) for M=1400,1750; componentwise condition number of det; tr X - varkappa  -- 36.180954832, 36.180954832; kappa=75.0; trace error -5.7e-14
+[PASS] rem:fredholm-num: -log P(T* <= 10000/9801) = 36.180955 (r=0.99)  (numerical (floating point))  -- 36.18095483 (M=1400), 36.18095483 (M=1750); det condition number 75, so an entrywise relative error e changes -log P by at most ~75 e
+[PASS] rem:lower(b): at r=0.99: log P = -36.181, log det(I-S) = -36.269, sum log(1-r^(4k+1)) = -42.090  (numerical (floating point))  -- -36.1810, -36.2695, -42.0901
+[INFO] q:bernoulli: eigenvalues of X(0.99) (M=1750): max |Im|, min/max Re of those with |l|>1e-12  -- 0.00e+00, 1.022e-12, 0.933107
+[INFO] thm:sharp: (t-1)(-log P(T*<=t)) at r=0.99, against pi^2/12 = 0.822467  -- 0.734620
+[PASS] lem:qform: c^T X(r) c = (r/pi) int |f(re^it)|^2 sigma_r - (1/pi) int_{-r}^r f^2, r=0.9, 20 random c (m<=20); 0 <= sigma_r <= 1  (numerical (floating point))  -- max rel. difference 2.0e-13
+[PASS] thm:lower: S_n <= R_n (Step 1) for the compression of X(0.9) to m<=400  (numerical (floating point))  -- min eigenvalue of R_n - S_n = 6.53e-41
+[PASS] lem:even-bergman: ||L - K||_2 <= 1 + log(1/(1-r)) at r=0.5  (numerical (floating point))  -- ||L-K||_2 = 0.213421 (coarser grid 0.213421), bound 1.6931
+[PASS] lem:even-bergman: ||L - K||_2 <= 1 + log(1/(1-r)) at r=0.8  (numerical (floating point))  -- ||L-K||_2 = 0.589945 (coarser grid 0.589945), bound 2.6094
+[PASS] lem:even-bergman: ||L - K||_2 <= 1 + log(1/(1-r)) at r=0.9  (numerical (floating point))  -- ||L-K||_2 = 0.846034 (coarser grid 0.846034), bound 3.3026
+[PASS] rem:explicit: (t-1)(varkappa(r) - ||L||_2^2/2) = 0.2796 at r=0.8, and P(T*<=t) <= exp(-varkappa + ||L||_2^2/2)  (numerical (floating point))  -- value 0.27961; exp bound 0.608299 vs P = 0.482245
+[PASS] prop:fredholm: Monte Carlo (20000 samples of q, degree 45) at r=0.5: P(k_r=0) and E k_r against det(I-X) and varkappa (within 4 standard errors)  (Monte Carlo)  -- P0: MC 0.9284 +- 0.0018 vs 0.9292; E k: MC 0.0718 +- 0.0018 vs 0.0711; P(k=j), j<5: MC [np.float64(0.9284), np.float64(0.0714), np.float64(0.0002), np.float64(0.0), np.float64(0.0)] vs det [0.9292, 0.0704, 0.0004, 0.0, 0.0]
+[PASS] prop:fredholm: Monte Carlo (12000 samples of q, degree 80) at r=0.7: P(k_r=0) and E k_r against det(I-X) and varkappa (within 4 standard errors)  (Monte Carlo)  -- P0: MC 0.7264 +- 0.0041 vs 0.7258; E k: MC 0.2903 +- 0.0045 vs 0.2919; P(k=j), j<5: MC [np.float64(0.7264), np.float64(0.257), np.float64(0.0164), np.float64(0.0002), np.float64(0.0)] vs det [0.7258, 0.2568, 0.0171, 0.0003, 0.0]
+[PASS] prop:fredholm: Monte Carlo (6000 samples of q, degree 230) at r=0.9: P(k_r=0) and E k_r against det(I-X) and varkappa (within 4 standard errors)  (Monte Carlo)  -- P0: MC 0.1152 +- 0.0041 vs 0.1087; E k: MC 1.7502 +- 0.0140 vs 1.7535; P(k=j), j<5: MC [np.float64(0.1152), np.float64(0.317), np.float64(0.337), np.float64(0.1747), np.float64(0.0468)] vs det [0.1087, 0.3226, 0.3404, 0.1724, 0.0475]
+== part2_fredholm: 29 passed, 0 failed, 164.7 s

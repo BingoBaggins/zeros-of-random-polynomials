@@ -1,0 +1,11 @@
+.DS_Store
+# Python
+.venv/
+__pycache__/
+# LaTeX build by-products (the PDFs are kept)
+*.aux
+*.log
+*.out
+*.xdv
+# verification logs are results, keep them
+!verification/results/*.log

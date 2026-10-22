@@ -1,0 +1,436 @@
+{
+ "script": "part3a_exact_count",
+ "passed": 5,
+ "failed": 0,
+ "seconds": 15.5,
+ "checks": [
+  {
+   "label": "thm:main",
+   "desc": "S3 (Gaussian sample at t=1.44): zeros of a in D from roots agree with the argument principle on |w|=1 and real sign changes on (-1,1)",
+   "status": "PASS",
+   "method": "numerical (floating point)",
+   "detail": "winding number 4, roots in D 4, real 0; min ||w|-1| = 0.072"
+  },
+  {
+   "label": "thm:main",
+   "desc": "S1 = (1-2w+2w^2)(1+5w/3)/(1-10w/13): the certified number of nonreal zeros of Q_n equals the number (2) of nonreal zeros of a in D for all tested n >= n_obs (observed onset reported; the theorem only asserts some n_0)",
+   "status": "PASS",
+   "method": "interval arithmetic (Arb)",
+   "detail": "n_obs = 10; n=10: 8R+2C; n=20: 18R+2C; n=40: 38R+2C; n=80: 78R+2C; n=160: 158R+2C; n=320: 318R+2C; n=400: 398R+2C"
+  },
+  {
+   "label": "thm:main(a),(b)",
+   "desc": "S1 = (1-2w+2w^2)(1+5w/3)/(1-10w/13): n x (distance from zeta_i to the nearest zero) and bulk overshoot, n=400",
+   "status": "INFO",
+   "method": "numerical (floating point)",
+   "detail": "[1.375, 1.375, 1.6]; overshoot 0.0"
+  },
+  {
+   "label": "thm:main",
+   "desc": "S2 = (1-24w/17+20w^2/17)(1+32w/13+20w^2/13)/(1-20w/21): the certified number of nonreal zeros of Q_n equals the number (4) of nonreal zeros of a in D for all tested n >= n_obs (observed onset reported; the theorem only asserts some n_0)",
+   "status": "PASS",
+   "method": "interval arithmetic (Arb)",
+   "detail": "n_obs = 800; n=10: 6R+4C; n=20: 10R+10C; n=40: 24R+16C; n=80: 62R+18C; n=160: 138R+22C; n=320: 312R+8C; n=400: 394R+6C; n=600: 594R+6C; n=800: 796R+4C; n=1200: 1196R+4C"
+  },
+  {
+   "label": "thm:main",
+   "desc": "S2 = (1-24w/17+20w^2/17)(1+32w/13+20w^2/13)/(1-20w/21): extra nonreal zeros (upper half plane, z = x/sqrt n) before the onset",
+   "status": "INFO",
+   "method": "numerical (floating point)",
+   "detail": "n=20: [(1.3846+0.2515j), (1.1299+0.2229j), (0.7846+0.1272j), (0.4415+0.0831j), (0.1109+0.033j)]; n=40: [(1.6044+0.1067j), (1.3554+0.1367j), (1.254+0.1586j), (1.0749+0.0827j), (0.8891+0.0575j), (0.7134+0.0422j), (0.5442+0.0302j), (0.3794+0.0176j)]; n=80: [(1.7573+0.0508j), (1.606+0.0455j), (1.4767+0.0453j), (1.3545+0.0491j), (1.2314+0.0415j), (1.1271+0.0285j), (1.0306+0.0192j), (0.9384+0.0113j)]; n=160: [(1.8504+0.0244j), (1.7572+0.0174j), (1.6788+0.0132j), (1.6084+0.0104j), (1.5432+0.0083j), (1.4814+0.007j), (1.4221+0.0061j), (1.3643+0.0052j), (1.3076+0.0019j)]; n=320: [(1.9075+0.0104j), (1.8494+0.0021j)]; n=400: [(1.9207+0.0073j)]; n=600: [(1.9401+0.0021j)]"
+  },
+  {
+   "label": "thm:main(a),(b)",
+   "desc": "S2 = (1-24w/17+20w^2/17)(1+32w/13+20w^2/13)/(1-20w/21): n x (distance from zeta_i to the nearest zero) and bulk overshoot, n=1200",
+   "status": "INFO",
+   "method": "numerical (floating point)",
+   "detail": "[1.595, 1.595, 4.169, 4.169]; overshoot 0.0"
+  },
+  {
+   "label": "thm:main",
+   "desc": "S3 = q(5w/6), q Gaussian sample (seed 4): the certified number of nonreal zeros of Q_n equals the number (4) of nonreal zeros of a in D for all tested n >= n_obs (observed onset reported; the theorem only asserts some n_0)",
+   "status": "PASS",
+   "method": "interval arithmetic (Arb)",
+   "detail": "n_obs = 80; n=10: 10R+0C; n=20: 18R+2C; n=40: 38R+2C; n=80: 76R+4C; n=160: 156R+4C; n=320: 316R+4C; n=400: 396R+4C; n=600: 596R+4C; n=800: 796R+4C"
+  },
+  {
+   "label": "thm:main(a),(b)",
+   "desc": "S3 = q(5w/6), q Gaussian sample (seed 4): n x (distance from zeta_i to the nearest zero) and bulk overshoot, n=800",
+   "status": "INFO",
+   "method": "numerical (floating point)",
+   "detail": "[2.832, 2.832, 2.071, 2.071]; overshoot 0.0"
+  },
+  {
+   "label": "thm:main",
+   "desc": "cross-check: Arb isolation of all roots of the monomial-basis Q_n (n=10,20,40, S1 and S2) gives the same nonreal counts",
+   "status": "PASS",
+   "method": "interval arithmetic (Arb)",
+   "detail": "S1 n=10: 2; S1 n=20: 2; S1 n=40: 2; S2 n=10: 4; S2 n=20: 10; S2 n=40: 16"
+  }
+ ],
+ "data": {
+  "S1 = (1-2w+2w^2)(1+5w/3)/(1-10w/13)": [
+   {
+    "n": 10,
+    "real": 8,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.174531,
+     0.174531,
+     0.152503
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 20,
+    "real": 18,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.074481,
+     0.074481,
+     0.077623
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 40,
+    "real": 38,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.035492,
+     0.035492,
+     0.03934
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 80,
+    "real": 78,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.017424,
+     0.017424,
+     0.019841
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 160,
+    "real": 158,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.008638,
+     0.008638,
+     0.009971
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 320,
+    "real": 318,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.004301,
+     0.004301,
+     0.004999
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 400,
+    "real": 398,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 2,
+    "dist_to_zeta": [
+     0.003438,
+     0.003438,
+     0.004001
+    ],
+    "bulk_overshoot": 0.0
+   }
+  ],
+  "S2 = (1-24w/17+20w^2/17)(1+32w/13+20w^2/13)/(1-20w/21)": [
+   {
+    "n": 10,
+    "real": 6,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.33591,
+     0.33591,
+     0.074171,
+     0.074171
+    ],
+    "bulk_overshoot": 0.214958
+   },
+   {
+    "n": 20,
+    "real": 10,
+    "nonreal": 10,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.150279,
+     0.150279,
+     0.073368,
+     0.073368
+    ],
+    "bulk_overshoot": 0.222886
+   },
+   {
+    "n": 40,
+    "real": 24,
+    "nonreal": 16,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.051241,
+     0.051241,
+     0.06618,
+     0.06618
+    ],
+    "bulk_overshoot": 0.158648
+   },
+   {
+    "n": 80,
+    "real": 62,
+    "nonreal": 18,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.020378,
+     0.020378,
+     0.057531,
+     0.057531
+    ],
+    "bulk_overshoot": 0.050756
+   },
+   {
+    "n": 160,
+    "real": 138,
+    "nonreal": 22,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.009986,
+     0.009986,
+     0.03933,
+     0.03933
+    ],
+    "bulk_overshoot": 0.024361
+   },
+   {
+    "n": 320,
+    "real": 312,
+    "nonreal": 8,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.004987,
+     0.004987,
+     0.014782,
+     0.014782
+    ],
+    "bulk_overshoot": 0.010416
+   },
+   {
+    "n": 400,
+    "real": 394,
+    "nonreal": 6,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.003988,
+     0.003988,
+     0.011396,
+     0.011396
+    ],
+    "bulk_overshoot": 0.007326
+   },
+   {
+    "n": 600,
+    "real": 594,
+    "nonreal": 6,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.002658,
+     0.002658,
+     0.007256,
+     0.007256
+    ],
+    "bulk_overshoot": 0.002137
+   },
+   {
+    "n": 800,
+    "real": 796,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.001993,
+     0.001993,
+     0.005324,
+     0.005324
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 1200,
+    "real": 1196,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.001329,
+     0.001329,
+     0.003474,
+     0.003474
+    ],
+    "bulk_overshoot": 0.0
+   }
+  ],
+  "S3 = q(5w/6), q Gaussian sample (seed 4)": [
+   {
+    "n": 10,
+    "real": 10,
+    "nonreal": 0,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.122389,
+     0.122389,
+     0.256844,
+     0.256844
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 20,
+    "real": 18,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.078084,
+     0.078084,
+     0.147536,
+     0.147536
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 40,
+    "real": 38,
+    "nonreal": 2,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.073338,
+     0.073338,
+     0.069716,
+     0.069716
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 80,
+    "real": 76,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.032999,
+     0.032999,
+     0.031767,
+     0.031767
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 160,
+    "real": 156,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.013581,
+     0.013581,
+     0.014399,
+     0.014399
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 320,
+    "real": 316,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.00829,
+     0.00829,
+     0.006749,
+     0.006749
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 400,
+    "real": 396,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.006837,
+     0.006837,
+     0.005325,
+     0.005325
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 600,
+    "real": 596,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.00468,
+     0.00468,
+     0.003484,
+     0.003484
+    ],
+    "bulk_overshoot": 0.0
+   },
+   {
+    "n": 800,
+    "real": 796,
+    "nonreal": 4,
+    "certified": true,
+    "predicted_nonreal": 4,
+    "dist_to_zeta": [
+     0.00354,
+     0.00354,
+     0.002589,
+     0.002589
+    ],
+    "bulk_overshoot": 0.0
+   }
+  ]
+ }
+}
