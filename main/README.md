@@ -41,4 +41,5 @@ The paper was assembled from earlier drafts. Four `% MERGE:` comments mark the s
 
 `../hexagon-submission.zip` is the source package for hexagonmath.org: `main.tex` at the top level and the
 verification suite in `anc/` (Python scripts and the JSON and log results of the last run; Hexagon accepts only
-those file types there).
+those file types there). Its `main.tex` has all comments stripped: comment-only lines are dropped and trailing
+comments cut to a bare `%`, which leaves the PDF text identical.
